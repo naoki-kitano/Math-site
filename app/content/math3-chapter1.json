@@ -1,0 +1,4749 @@
+{
+  "lessons": [
+    {
+      "slug": "m3-function-input",
+      "title": "関数に数や式を代入する",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "入れるものを一まとまりにして、式のすべての場所へ代入しよう。",
+      "basicsTitle": "関数に数や式を代入する",
+      "introduction": [
+        "$f(x)=x^2-2x$ は、入れた数を二乗し、その数の二倍を引く関数です。",
+        "$f(3)$ ではすべての $x$ に $3$ を入れます。$f(x+h)$ でも、$x+h$ 全体を一まとまりにして入れます。",
+        "$f(x+h)$ は入力を変え、$f(x)+h$ は出力に足しています。"
+      ],
+      "rule": "置き換える式には括弧を付け、すべての場所へ代入してから整理します。$f(a)$ は掛け算ではなく、入力が $a$ のときの関数の値です。",
+      "examples": [
+        {
+          "title": "数を入れて確かめる",
+          "prompt": "$f(x)=x^2-2x$ のとき $f(-2)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "二つの $x$ に同じ $-2$ を入れます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$f(-2)=(-2)^2-2(-2)=4+4=8$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "点 $(-2,8)$ はこのグラフ上にあります。"
+            }
+          ]
+        },
+        {
+          "title": "式全体を入れる",
+          "prompt": "$f(x)=x^2-2x$ のとき $f(x+h)$ を展開し、$f(x+h)-f(x)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "入力は $x+h$ 全体です。差では元の関数値全体を引きます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$(x+h)^2-2(x+h)=x^2+2xh+h^2-2x-2h$。ここから $(x^2-2x)$ を引きます。整理すると $f(x+h)-f(x)=2xh+h^2-2h$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$h=0$ とすると差は $0$ になり、入力が変わらない場合と合います。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "value",
+          "title": "数を入れて確かめる",
+          "text": "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。",
+          "tex": "f(x)=x^2-2x,\\quad f(-1)=3",
+          "check": "$f(x)=x^2+1$ のとき $f(-2)$ は？",
+          "answer": "$5$。"
+        },
+        {
+          "id": "expression",
+          "title": "式全体を入れる",
+          "text": "入れるものを括弧で囲みます。二乗は和全体に作用します。",
+          "tex": "f(x+h)=(x+h)^2-2(x+h)",
+          "check": "$f(x)=x^2$ のとき $f(x+1)$ を展開しなさい。",
+          "answer": "$x^2+2x+1$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": [
+        {
+          "slug": "points",
+          "label": "点とグラフ上の条件"
+        }
+      ]
+    },
+    {
+      "slug": "m3-domain-range",
+      "title": "定義域と値域を区別する",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "入れられる値と、出てくる値を別々に調べよう。",
+      "basicsTitle": "定義域と値域を区別する",
+      "introduction": [
+        "定義域は入力の範囲、値域は実際に出てくる値の範囲です。",
+        "分母はゼロ以外、平方根の中はゼロ以上、対数の真数は正とします。",
+        "入力範囲が指定されているときは、その範囲と式の条件を両方満たす値を使います。値域は単に両端を代入するだけでは決まらない場合があります。"
+      ],
+      "rule": "特に指定がなければ、式が実数として意味をもつ入力すべてを定義域とします。端の値を実際に取れるかも確認します。",
+      "examples": [
+        {
+          "title": "式が意味をもつ条件",
+          "prompt": "$y=\\sqrt{x-1}$ の定義域と値域を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "実数の平方根は中身が非負で、値も非負です。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$x-1\\ge0$ より $x\\ge1$。任意の $y\\ge0$ に対して $x=y^2+1$ を選べます。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$x=1$ で $y=0$。それより大きい出力もすべて取れます。"
+            }
+          ]
+        },
+        {
+          "title": "実際に出てくる値を調べる",
+          "prompt": "$y=x^2$ の定義域が $-1\\le x\\le2$ のとき、値域を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "両端だけでなく区間内の頂点を調べます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$x=0$ で最小値 $0$、$x=2$ で最大値 $4$。$0\\le x\\le2$ でその間の値もすべて取れます。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$x=-1$ の値 $1$ を最小値としないようにします。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "domain",
+          "title": "式が意味をもつ条件",
+          "text": "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。",
+          "tex": "\\sqrt{x-1}:\\ x-1\\ge0",
+          "check": "$1/\\sqrt{x-2}$ の定義域は？",
+          "answer": "$x>2$。根号内が非負で、分母がゼロ以外となる条件です。"
+        },
+        {
+          "id": "range",
+          "title": "実際に出てくる値を調べる",
+          "text": "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。",
+          "tex": "y=x^2\\ (-1\\le x\\le2):\\ 0\\le y\\le4",
+          "check": "$y=x^2+1$ を実数全体で考えると値域は？",
+          "answer": "$y\\ge1$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": []
+    },
+    {
+      "slug": "m3-rational-functions",
+      "title": "分数関数のグラフを読む",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "基本形へ直し、使えない値と二つの枝の位置を調べよう。",
+      "basicsTitle": "分数関数のグラフを読む",
+      "introduction": [
+        "$y=1/x$ は $x=0$ で定義されず、出力もゼロになりません。入力が正なら出力も正、負なら出力も負です。",
+        "$y=1/(x-2)+1$ は、$y=1/x$ のグラフを右へ $2$、上へ $1$ 移したものです。元の点 $(u,1/u)$ は $(u+2,1/u+1)$ に移ります。",
+        "グラフが近づく直線を漸近線といいます。この形では分母がゼロになる縦の直線と、最後に足した数の高さの横の直線を調べます。"
+      ],
+      "rule": "$y=k/(x-p)+q$（$k\\ne0$）の漸近線は $x=p,y=q$。定義域は $x\\ne p$、値域は $y\\ne q$ です。符号は $y-q$ について判断します。",
+      "examples": [
+        {
+          "title": "基本形へ直す",
+          "prompt": "$y=1/(x-2)+1$ の漸近線と、グラフ上の点を左右に一つずつ求め、概形をかきなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "基本形を右へ $2$、上へ $1$ 移します。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$x=1$ で $y=0$、$x=3$ で $y=2$。$x<2$ で $y<1$、$x>2$ で $y>1$。漸近線は $x=2,y=1$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "二つの枝は縦の漸近線を越えてつながりません。"
+            }
+          ]
+        },
+        {
+          "title": "分子を分母と余りに分ける",
+          "prompt": "$y=(x+1)/(x-1)$ を基本形へ直し、漸近線と軸との交点を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "分子を分母と余りに分けます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$x+1=(x-1)+2$。$y=0$ は分子ゼロより $x=-1$、$x=0$ では $y=-1$。したがって $y=1+2/(x-1)$。漸近線は $x=1,y=1$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "交点の入力は、除いた $x=1$ ではありません。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "shape",
+          "title": "基本形へ直す",
+          "text": "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。",
+          "tex": "\\frac{x+1}{x-1}=1+\\frac2{x-1}",
+          "check": "$x/(x+1)$ を定数と分数の和に直しなさい。",
+          "answer": "$1-1/(x+1)$。"
+        },
+        {
+          "id": "condition",
+          "title": "分母と出力の範囲",
+          "text": "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。",
+          "tex": "\\frac1{x-2}>0\\ \\Longleftrightarrow\\ x>2",
+          "check": "$y=1/(x+1)-2$ の定義域と値域は？",
+          "answer": "$x\\ne-1$、$y\\ne-2$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": [
+        {
+          "slug": "rational",
+          "label": "約分と元の分母の条件"
+        }
+      ]
+    },
+    {
+      "slug": "m3-radical-functions",
+      "title": "無理関数のグラフを読む",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "根号内の条件から端を決め、基本のグラフから移そう。",
+      "basicsTitle": "無理関数のグラフを読む",
+      "introduction": [
+        "$y=\\sqrt{x}$ は $x\\ge0$ で定義され、$y\\ge0$ の値を取ります。$(0,0),(1,1),(4,2)$ が基準になる点です。",
+        "$y=\\sqrt{x+1}-2$ は、基準の各点を左へ $1$、下へ $2$ 移したものです。",
+        "根号の前の負号は出力の符号を変えます。根号内の $-x$ は入力の左右を反転します。"
+      ],
+      "rule": "最初に根号内がゼロ以上となる範囲を求めます。平方根は非負なので、移動や反転の後の出力範囲も確認します。",
+      "examples": [
+        {
+          "title": "端と基準点を移す",
+          "prompt": "$y=\\sqrt{x+1}-2$ の定義域・値域と三つの点を求め、概形をかきなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "基本の平方根のグラフを左へ $1$、下へ $2$ 移します。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "根号内を $0,1,4$ とすると入力は $-1,0,3$、出力は $-2,-1,0$。定義域は $x\\ge-1$、値域は $y\\ge-2$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "端を含み、右へ進むほど出力が増えます。"
+            }
+          ]
+        },
+        {
+          "title": "根号と符号を確かめる",
+          "prompt": "$y=-\\sqrt{2-x}+1$ の定義域・値域と端を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "根号内の条件と、外の負号を別々に読みます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$2-x\\ge0$ より $x\\le2$。$-\\sqrt{2-x}\\le0$ より $y\\le1$。端は $(2,1)$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$x=1,-2$ では $y=0,-1$。端から左下へ延びます。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "shape",
+          "title": "端と基準点を移す",
+          "text": "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。",
+          "tex": "y=\\sqrt{x+1}-2:\\ (-1,-2),(0,-1),(3,0)",
+          "check": "$y=\\sqrt{x-2}+1$ の端は？",
+          "answer": "$(2,1)$。"
+        },
+        {
+          "id": "condition",
+          "title": "根号と符号を確かめる",
+          "text": "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。",
+          "tex": "\\sqrt{x^2}=|x|",
+          "check": "$x=-3$ のとき $\\sqrt{x^2}$ は？",
+          "answer": "$3$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": []
+    },
+    {
+      "slug": "m3-composition",
+      "title": "合成関数の計算順を読む",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "内側の出力を、外側の関数へ入れよう。",
+      "basicsTitle": "合成関数の計算順を読む",
+      "introduction": [
+        "$f(x)=x^2,g(x)=x+1$ とします。$f(g(3))$ は、まず $g(3)=4$ を求め、その $4$ を $f$ に入れて $16$ とします。",
+        "$f(g(x))$ は $g$ の出力を $f$ の入力にします。$g(f(x))$ では順が逆です。",
+        "合成を積と混同しないようにします。$f(x)g(x)$ は、それぞれ計算した出力の掛け算です。"
+      ],
+      "rule": "合成は内側から計算します。外側の式のすべての入力の場所へ、内側の式全体を代入します。順序を交換しても同じとは限りません。",
+      "examples": [
+        {
+          "title": "内側から計算する",
+          "prompt": "$f(x)=x^2,g(x)=x+1$ のとき $f(g(3))$ と $g(f(3))$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "内側の関数が最初の操作です。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$g(3)=4$ より $f(4)=16$。逆順では $f(3)=9$ より $g(9)=10$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "同じ入力でも順序を変えると出力が変わります。"
+            }
+          ]
+        },
+        {
+          "title": "積と合成を見分ける",
+          "prompt": "$f(x)=x^2,g(x)=x+1$ のとき $f(g(x)),g(f(x)),f(x)g(x)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "合成は代入、積は二つの出力の掛け算です。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "外側の $f$ は入力を二乗し、外側の $g$ は入力に $1$ を足します。積では $x^2$ と $x+1$ を掛けます。したがって $f(g(x))=(x+1)^2,g(f(x))=x^2+1,f(x)g(x)=x^2(x+1)$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$x=2$ で順に $9,5,12$ です。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "order",
+          "title": "内側から計算する",
+          "text": "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。",
+          "tex": "f(g(x))=(x+1)^2,\\quad g(f(x))=x^2+1",
+          "check": "$f(x)=2x,g(x)=x-1$ のとき $f(g(3))$ は？",
+          "answer": "$g(3)=2$、$f(2)=4$。"
+        },
+        {
+          "id": "structure",
+          "title": "積と合成を見分ける",
+          "text": "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。",
+          "tex": "f(x)g(x)=x^2(x+1)",
+          "check": "$(x+1)^2$ の最後の操作は？",
+          "answer": "二乗です。$x+1$ が内側です。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": [
+        {
+          "slug": "m3-function-input",
+          "label": "式への代入"
+        }
+      ]
+    },
+    {
+      "slug": "m3-composition-domain",
+      "title": "合成関数の定義域を調べる",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "内側が計算できるか、その結果を外側へ入れられるかを確かめよう。",
+      "basicsTitle": "合成関数の定義域を調べる",
+      "introduction": [
+        "合成関数の入力には二つの条件があります。内側の関数が定義され、その出力が外側の関数の定義域に入ることです。",
+        "例えば $f(u)=\\sqrt{u},g(x)=1-x^2$ なら、内側はすべての実数で計算できますが、外側へ入れるには $1-x^2\\ge0$ が必要です。",
+        "計算後の式が簡単になっても、途中で使えなかった入力は除いたままです。"
+      ],
+      "rule": "$f(g(x))$ では、$x$ が $g$ の定義域に入り、さらに $g(x)$ が $f$ の定義域に入ることを確かめます。",
+      "examples": [
+        {
+          "title": "二つの条件を重ねる",
+          "prompt": "$f(u)=\\sqrt{u},g(x)=1-x^2$ の合成 $f(g(x))$ と定義域を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "外側の平方根へ入れる値が非負である必要があります。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$1-x^2\\ge0$ は $x^2\\le1$、よって $-1\\le x\\le1$。合成の式は $f(g(x))=\\sqrt{1-x^2}$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "両端では根号内がゼロになり、使えます。"
+            }
+          ]
+        },
+        {
+          "title": "途中で除いた値を残す",
+          "prompt": "$f(u)=u^2,g(x)=\\sqrt{x}$ の合成 $f(g(x))$を簡単にし、定義域も求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "内側を計算できる条件を先に残します。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$g(x)$ には $x\\ge0$ が必要です。その範囲で $(\\sqrt{x})^2=x$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "例えば $x=-1$ は、簡単にした式だけなら入れられても合成には入れられません。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "condition",
+          "title": "二つの条件を重ねる",
+          "text": "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。",
+          "tex": "\\sqrt{1-x^2}:\\ 1-x^2\\ge0",
+          "check": "$\\sqrt{x-2}$ を分母に置くと条件は？",
+          "answer": "$x>2$。"
+        },
+        {
+          "id": "retained",
+          "title": "途中で除いた値を残す",
+          "text": "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。",
+          "tex": "(\\sqrt{x})^2=x\\quad(x\\ge0)",
+          "check": "$(\\sqrt{x-1})^2$ の定義域は？",
+          "answer": "$x\\ge1$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": []
+    },
+    {
+      "slug": "m3-inverse-functions",
+      "title": "逆関数を入力と出力から考える",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "出力から元の入力へ戻れる範囲を決めよう。",
+      "basicsTitle": "逆関数を入力と出力から考える",
+      "introduction": [
+        "$y=2x+1$ では入力 $3$ から出力 $7$ が得られます。逆関数は、$7$ から元の $3$ へ戻す関数です。",
+        "逆関数の記号 $f^{-1}$ は逆数 $1/f$ とは異なります。元の出力が逆関数の入力になるので、定義域と値域は入れ替わります。",
+        "$y=x^2$ を実数全体で考えると、出力 $4$ から入力 $2,-2$ のどちらへ戻すか決まりません。入力を $x\\ge0$ に制限すると一つに決まります。"
+      ],
+      "rule": "元の式を入力について解き、元の入力・出力の範囲を交換します。グラフ上の点 $(a,b)$ は逆関数では $(b,a)$ になり、直線 $y=x$ について対称です。",
+      "examples": [
+        {
+          "title": "元の入力について解く",
+          "prompt": "$f(x)=2x+1$ の逆関数を求め、入力 $7$ で元に戻ることを確認しなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "元の式を元の入力について解きます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$y=2x+1$ から $x=(y-1)/2$。入力・出力の記号を交換して $y=(x-1)/2$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$f(3)=7$、$f^{-1}(7)=3$。両関数の定義域・値域は実数全体です。"
+            }
+          ]
+        },
+        {
+          "title": "戻る先を一つに決める",
+          "prompt": "$f(x)=x^2\\ (x\\ge0)$ の逆関数と、その定義域・値域を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "元の入力が非負なので、二乗を解くとき非負の側を選びます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$y=x^2$、$x\\ge0$ から $x=\\sqrt y$。元の値域 $y\\ge0$ が逆関数の定義域になります。よって $f^{-1}(x)=\\sqrt{x}$、定義域は $x\\ge0$、値域は $y\\ge0$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "元の点 $(2,4)$ は逆関数の点 $(4,2)$ になります。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "linear",
+          "title": "元の入力について解く",
+          "text": "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。",
+          "tex": "y=2x+1\\quad\\Longleftrightarrow\\quad x=\\frac{y-1}{2}",
+          "check": "$f(x)=x+3$ の逆関数は？",
+          "answer": "$f^{-1}(x)=x-3$。"
+        },
+        {
+          "id": "branch",
+          "title": "戻る先を一つに決める",
+          "text": "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。",
+          "tex": "y=x^2,\\ x\\ge0\\quad\\Longleftrightarrow\\quad x=\\sqrt y,\\ y\\ge0",
+          "check": "$y=x^2\\ (x\\le0)$ の逆関数は？",
+          "answer": "$y=-\\sqrt{x}\\ (x\\ge0)$。値域は $y\\le0$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": []
+    },
+    {
+      "slug": "m3-graph-equations",
+      "title": "グラフから方程式と不等式を読む",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "交点を求め、定義域の中で上下関係を確かめよう。",
+      "basicsTitle": "グラフから方程式と不等式を読む",
+      "introduction": [
+        "二つのグラフの交点では、同じ横の座標に対する縦の座標が等しくなります。方程式 $f(x)=g(x)$ はその横の座標を求めています。",
+        "不等式 $f(x)>g(x)$ は、同じ横の位置で一方のグラフが上にある範囲を求めています。",
+        "二乗や分母を掛ける操作には条件があります。グラフで見通しを立て、式で範囲を確かめます。"
+      ],
+      "rule": "定義域、交点、区間ごとの大小、端を含むかの順に確かめます。二乗する前には両辺の符号、分母を掛ける前には分母の符号を確認します。",
+      "examples": [
+        {
+          "title": "根号の式は符号から",
+          "prompt": "$\\sqrt{x}=x$ を解き、二つのグラフの交点を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "定義域は $x\\ge0$。この範囲で両辺は非負なので二乗できます。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$x=x^2$ より $x(x-1)=0$。"
+            },
+            {
+              "title": "確かめる",
+              "text": "解は $x=0,1$。元の式で $\\sqrt0=0,\\sqrt1=1$ が成立します。交点は $(0,0),(1,1)$ です。"
+            }
+          ]
+        },
+        {
+          "title": "分母の符号を読む",
+          "prompt": "$1/x>1$ を解きなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "分母の符号が未定なので、いきなり両辺に $x$ を掛けません。"
+            },
+            {
+              "title": "式にして進める",
+              "text": "$x\\ne0$ で $(1-x)/x>0$。$x<0$ では負、$0<x<1$ では正、$x>1$ では負です。よって解は $0<x<1$ です。"
+            },
+            {
+              "title": "確かめる",
+              "text": "$x=0$ は定義されず、$x=1$ は等しいので除きます。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "root",
+          "title": "根号の式は符号から",
+          "text": "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。",
+          "tex": "\\sqrt{x}=x:\\ x\\ge0,\\quad x=x^2",
+          "check": "$\\sqrt{x}=2$ を解きなさい。",
+          "answer": "$x=4$。"
+        },
+        {
+          "id": "fraction",
+          "title": "分母の符号を読む",
+          "text": "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。",
+          "tex": "\\frac1x-1=\\frac{1-x}{x}",
+          "check": "$1/x<0$ の範囲は？",
+          "answer": "$x<0$。"
+        }
+      ],
+      "guidedAfterExamples": true,
+      "prerequisites": [
+        {
+          "slug": "inequality-regions",
+          "label": "不等式とグラフの上下"
+        }
+      ]
+    },
+    {
+      "slug": "m3-functions-check",
+      "title": "第1章を振り返る",
+      "chapter": "関数を読むための基礎",
+      "subject": "数学III",
+      "description": "入力・範囲・計算順を自分で確かめよう。",
+      "basicsTitle": "式を読む順序を確かめる",
+      "introduction": [
+        "最初に、何を求めるのかと、使える入力の範囲を確認します。",
+        "代入は式全体に、合成は内側から、逆関数は入力と出力の交換として考えます。"
+      ],
+      "rule": "式を簡単にした後も元の条件を残します。方程式の候補は元の式に戻し、点の条件は縦の値との一致で確認します。",
+      "examples": [
+        {
+          "title": "式を入れて差を取る",
+          "prompt": "$f(x)=x^2+x$ の $f(x+1)-f(x)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "関数値全体を引きます。"
+            },
+            {
+              "title": "計算する",
+              "text": "$(x+1)^2+(x+1)-(x^2+x)=2x+2$。"
+            },
+            {
+              "title": "答え",
+              "text": "$2x+2$"
+            }
+          ]
+        },
+        {
+          "title": "逆関数の点を読む",
+          "prompt": "$f(x)=x^2\\ (x\\le0)$ に対応する逆関数の点を、元の点 $(-3,9)$ から求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "元の入力の符号も含めて交換します。"
+            },
+            {
+              "title": "計算する",
+              "text": "$f(-3)=9$ なので $f^{-1}(9)=-3$。"
+            },
+            {
+              "title": "答え",
+              "text": "$(9,-3)$"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "input",
+          "title": "代入を確かめる",
+          "text": "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。",
+          "tex": "f(x)=x^2-2x,\\quad f(-1)=3",
+          "check": "$f(x)=x^2+1$ のとき $f(-2)$ は？",
+          "answer": "$5$。"
+        },
+        {
+          "id": "domain",
+          "title": "定義域・値域を確かめる",
+          "text": "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。値域は出力の範囲です。二次関数では、指定区間内の頂点と両端の関数値を比べます。",
+          "tex": "\\sqrt{x-1}:\\ x-1\\ge0",
+          "check": "$1/\\sqrt{x-2}$ の定義域は？また、$y=x^2$、$-1\\le x\\le2$ の値域は？",
+          "answer": "$x>2$。根号内が非負で、分母がゼロ以外となる条件です。後者は $0\\le y\\le4$。区間内の $x=0$ で最小値 $0$、$x=2$ で最大値 $4$ を取り、その間の値も取れます。"
+        },
+        {
+          "id": "rational",
+          "title": "分数関数を確かめる",
+          "text": "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。",
+          "tex": "\\frac{x+1}{x-1}=1+\\frac2{x-1}",
+          "check": "$x/(x+1)$ を定数と分数の和に直しなさい。",
+          "answer": "$1-1/(x+1)$。"
+        },
+        {
+          "id": "radical",
+          "title": "無理関数を確かめる",
+          "text": "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。",
+          "tex": "y=\\sqrt{x+1}-2:\\ (-1,-2),(0,-1),(3,0)",
+          "check": "$y=\\sqrt{x-2}+1$ の端は？",
+          "answer": "$(2,1)$。"
+        },
+        {
+          "id": "composition",
+          "title": "合成を確かめる",
+          "text": "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。次の式は $f(x)=x^2,g(x)=x+1$ の例です。確認問題では別の関数を使います。",
+          "tex": "f(g(x))=(x+1)^2,\\quad g(f(x))=x^2+1",
+          "check": "$f(x)=2x,g(x)=x-1$ のとき $f(g(3))$ は？",
+          "answer": "$g(3)=2$、$f(2)=4$。"
+        },
+        {
+          "id": "composite-domain",
+          "title": "合成の定義域を確かめる",
+          "text": "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。",
+          "tex": "\\sqrt{1-x^2}:\\ 1-x^2\\ge0",
+          "check": "$\\sqrt{x-2}$ を分母に置くと条件は？",
+          "answer": "$x>2$。"
+        },
+        {
+          "id": "inverse",
+          "title": "逆関数を確かめる",
+          "text": "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。",
+          "tex": "y=2x+1\\quad\\Longleftrightarrow\\quad x=\\frac{y-1}{2}",
+          "check": "$f(x)=x+3$ の逆関数は？",
+          "answer": "$f^{-1}(x)=x-3$。"
+        },
+        {
+          "id": "equation",
+          "title": "方程式を確かめる",
+          "text": "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。",
+          "tex": "\\sqrt{x}=x:\\ x\\ge0,\\quad x=x^2",
+          "check": "$\\sqrt{x}=2$ を解きなさい。",
+          "answer": "$x=4$。"
+        }
+      ],
+      "prerequisites": [
+        {
+          "slug": "m3-function-input",
+          "label": "代入"
+        },
+        {
+          "slug": "m3-domain-range",
+          "label": "定義域・値域"
+        },
+        {
+          "slug": "m3-rational-functions",
+          "label": "分数関数"
+        },
+        {
+          "slug": "m3-radical-functions",
+          "label": "無理関数"
+        },
+        {
+          "slug": "m3-composition",
+          "label": "合成"
+        },
+        {
+          "slug": "m3-composition-domain",
+          "label": "合成の定義域"
+        },
+        {
+          "slug": "m3-inverse-functions",
+          "label": "逆関数"
+        },
+        {
+          "slug": "m3-graph-equations",
+          "label": "方程式"
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "family": "value",
+      "prompt": "$f(x)=2x+1$ のとき $f(3)$ を求めなさい。",
+      "answer": "$7$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力は $3$ です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2\\cdot3+1=7$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$7$"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-1-v1",
+      "lesson": "m3-function-input",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$(x+2)^2$ を展開しなさい。",
+      "answer": "$x^2+4x+4$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "和全体の二乗です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x+2)(x+2)=x^2+2x+2x+4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2+4x+4$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-2-v1",
+      "lesson": "m3-function-input",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=x^2+x$ のとき $f(-3)$ を、代入した式も書いて求めなさい。",
+      "answer": "$6$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "負の数を二乗するので括弧を使います。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(-3)^2+(-3)=9-3=6$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$6$"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-3-v1",
+      "lesson": "m3-function-input",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2+1$ のとき $f(x+2)$ を、括弧を使って表してから展開しなさい。",
+      "answer": "$x^2+4x+5$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二乗の中へ $x+2$ を入れます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x+2)^2+1=x^2+4x+5$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2+4x+5$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-4-v1",
+      "lesson": "m3-function-input",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=3x-2$ のとき $f(0)$ を求めなさい。",
+      "answer": "$-2$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数項は残ります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$3\\cdot0-2=-2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$-2$"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-5-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2-x$ のとき $f(2x)$ を求めなさい。",
+      "answer": "$4x^2-2x$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$2x$ 全体を二乗します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(2x)^2-2x=4x^2-2x$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$4x^2-2x$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-6-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=x^2+2$ について点 $(2,6)$ がグラフ上にあるか答えなさい。",
+      "answer": "あります。",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "横の座標を入れた値と縦の座標を比べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(2)=4+2=6$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "あります。"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-7-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2$ のとき $f(x+1)$ と $f(x)+1$ をそれぞれ求めなさい。",
+      "answer": "$x^2+2x+1$ と $x^2+1$。",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力に足すか出力に足すかの違いです。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(x+1)=(x+1)^2$、$f(x)+1=x^2+1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=1$ で $4$ と $2$ になり、同じ式ではありません。"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-8-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=2x-1$ について点 $(3,4)$ がグラフ上にあるか答えなさい。",
+      "answer": "ありません。",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "縦の座標が関数値と等しいか調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(3)=5\\ne4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "ありません。"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-9-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2+3x$ のとき $f(-x)$ を求めなさい。",
+      "answer": "$x^2-3x$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "負号も含めて入れます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(-x)^2+3(-x)=x^2-3x$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2-3x$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-10-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=1/(x-1)$ のとき $f(3)$ は？ また $f(1)$ は定義されますか。",
+      "answer": "$f(3)=1/2$。$f(1)$ は定義されません。",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母がゼロでないか確認します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$3-1=2$、$1-1=0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f(3)=1/2$。$f(1)$ は定義されません。"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-11-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2$ のとき $f(x+h)-f(x)$ を展開しなさい。",
+      "answer": "$2xh+h^2$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二つの関数値をそれぞれ書きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x+h)^2-x^2=2xh+h^2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$2xh+h^2$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-12-v1",
+      "lesson": "m3-function-input",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=x^2-1$ のとき $f(-4)$ を求めなさい。",
+      "answer": "$15$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "負の入力を括弧で囲みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(-4)^2-1=15$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$15$"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-13-v1",
+      "lesson": "m3-function-input",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2+2x$ のとき $f(x+1)$ を展開しなさい。",
+      "answer": "$x^2+4x+3$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二つの $x$ を置き換えます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x+1)^2+2(x+1)=x^2+4x+3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2+4x+3$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-14-v1",
+      "lesson": "m3-function-input",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "value",
+      "prompt": "$f(x)=3x+2$ について点 $(-1,-1)$ はグラフ上にありますか。",
+      "answer": "あります。",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "横の座標を代入します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(-1)=-3+2=-1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "あります。"
+        }
+      ],
+      "repair": "value",
+      "id": "m3-function-input-15-v1",
+      "lesson": "m3-function-input",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "expression",
+      "prompt": "$f(x)=x^2-x$ のとき $f(x+h)-f(x)$ を展開しなさい。",
+      "answer": "$2xh+h^2-h$",
+      "hints": [
+        "入れるものを括弧で囲みます。二乗は和全体に作用します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の式全体を引きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x+h)^2-(x+h)-(x^2-x)=2xh+h^2-h$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$2xh+h^2-h$"
+        }
+      ],
+      "repair": "expression",
+      "id": "m3-function-input-16-v1",
+      "lesson": "m3-function-input",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$\\sqrt{9}$ の値を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号は非負の値を表します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$3^2=9$ で $3\\ge0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$3$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-1-v1",
+      "lesson": "m3-domain-range",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$x\\ge0$ のとき $y=x+2$ の値域は？",
+      "answer": "$y\\ge2$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力の最小値と増える向きを調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=0$ で $y=2$。入力を増やせば出力も増えます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y\\ge2$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-2-v1",
+      "lesson": "m3-domain-range",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=1/(x+2)$ の定義域を求めなさい。",
+      "answer": "$x\\ne-2$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母がゼロになる値を除きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+2\\ne0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ne-2$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-3-v1",
+      "lesson": "m3-domain-range",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=x^2$ を $-2\\le x\\le1$ で考え、頂点と端を比べて値域を求めなさい。",
+      "answer": "$0\\le y\\le4$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "頂点が範囲内です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=0$ で $0$、左端で $4$、右端で $1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0\\le y\\le4$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-4-v1",
+      "lesson": "m3-domain-range",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=\\sqrt{3-x}$ の定義域を求めなさい。",
+      "answer": "$x\\le3$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内を非負にします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$3-x\\ge0$ より $x\\le3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\le3$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-5-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=\\sqrt{x}+2$ の値域を求めなさい。",
+      "answer": "$y\\ge2$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方根はゼロ以上の値をすべて取ります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "任意の $y\\ge2$ に $x=(y-2)^2$ が対応します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y\\ge2$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-6-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=1/\\sqrt{x+1}$ の定義域を求めなさい。",
+      "answer": "$x>-1$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内の条件に加え、分母はゼロ以外です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+1>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x>-1$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-7-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=-x^2+4$ を実数全体で考え、値域を求めなさい。",
+      "answer": "$y\\le4$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$x^2\\ge0$ なので負号を付けるとゼロ以下です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=0$ で $4$。任意の $y\\le4$ に $x=\\sqrt{4-y}$ が対応します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y\\le4$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-8-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=\\log_2(x-2)$ の定義域を求めなさい。",
+      "answer": "$x>2$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "真数は正です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-2>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x>2$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-9-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=x^2$ を $0<x\\le2$ で考えた値域は？",
+      "answer": "$0<y\\le4$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力ゼロは使えません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x>0$ なら $x^2>0$、$x=2$ で $4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0<y\\le4$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-10-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=\\sqrt{x}/(x-1)$ の定義域は？",
+      "answer": "$x\\ge0$ かつ $x\\ne1$。",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二条件を同時に満たします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x\\ge0$、$x-1\\ne0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge0$ かつ $x\\ne1$。"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-11-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=1/(x-1)$ の値域は？",
+      "answer": "$y\\ne0$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子が $1$ なので出力はゼロになりません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "任意の $y\\ne0$ に $x=1+1/y$ が対応します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y\\ne0$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-12-v1",
+      "lesson": "m3-domain-range",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=\\sqrt{2x-4}$ の定義域は？",
+      "answer": "$x\\ge2$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内を非負にします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2x-4\\ge0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge2$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-13-v1",
+      "lesson": "m3-domain-range",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=(x-1)^2$ を $0\\le x\\le3$ で考えた値域は？",
+      "answer": "$0\\le y\\le4$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "頂点 $x=1$ が区間内です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "頂点で $0$、両端で $1,4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0\\le y\\le4$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-14-v1",
+      "lesson": "m3-domain-range",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "domain",
+      "prompt": "$y=1/\\sqrt{4-x}$ の定義域は？",
+      "answer": "$x<4$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号が分母なので中身は正です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$4-x>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x<4$"
+        }
+      ],
+      "repair": "domain",
+      "id": "m3-domain-range-15-v1",
+      "lesson": "m3-domain-range",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "range",
+      "prompt": "$y=\\sqrt{x}-1$ を $0\\le x<9$ で考えた値域は？",
+      "answer": "$-1\\le y<2$",
+      "hints": [
+        "関数の変化や頂点を使い、最小・最大と端の含まれ方を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方根は増加し、右端の入力は含みません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$0\\le\\sqrt{x}<3$ より $-1\\le y<2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$-1\\le y<2$"
+        }
+      ],
+      "repair": "range",
+      "id": "m3-domain-range-16-v1",
+      "lesson": "m3-domain-range",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$1/x$ に $x=0$ を入れられますか。",
+      "answer": "入れられません。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母を確かめます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "ゼロによる割り算は定義されません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "入れられません。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-1-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$x+3$ を $x-1$ と定数の和で表しなさい。",
+      "answer": "$(x-1)+4$",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母と同じ部分を作ります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+3=x-1+4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(x-1)+4$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-2-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=1/(x+1)-2$ の平行移動と漸近線を求めなさい。",
+      "answer": "左へ $1$、下へ $2$。$x=-1,y=-2$。",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$x+1=x-(-1)$ と読みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$p=-1,q=-2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "左へ $1$、下へ $2$。$x=-1,y=-2$。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-3-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=2/(x-3)+1$ の定義域と値域を求めなさい。",
+      "answer": "$x\\ne3$、$y\\ne1$。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分数部分はゼロになりません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-3\\ne0$、$y-1=2/(x-3)\\ne0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ne3$、$y\\ne1$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-4-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=(2x+1)/(x+1)$ を基本形に直しなさい。",
+      "answer": "$y=2-1/(x+1)$",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子を分母の二倍と余りに分けます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2x+1=2(x+1)-1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y=2-1/(x+1)$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-5-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=-1/(x-1)+2$ は $x>1$ で直線 $y=2$ の上側・下側のどちらにありますか。",
+      "answer": "下側です。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "高さの差 $y-2$ の符号を見ます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "分母は正、分子は負なので $y-2<0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "下側です。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-6-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=2/x$ と座標軸に共通点はありますか。",
+      "answer": "どちらの軸とも共通点はありません。",
+      "hints": [
+        "縦軸との交点では $x=0$、横軸との交点では $y=0$ とします。元の分母がゼロにならないことも確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "縦軸では入力ゼロ、横軸では出力ゼロです。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=0$ は定義されず、$2/x=0$ を満たす入力もありません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "どちらの軸とも共通点はありません。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-7-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=(x^2-1)/(x-1)$ を簡単にし、元のグラフに含まれない点を求めなさい。",
+      "answer": "$y=x+1\\ (x\\ne1)$。点 $(1,2)$ は含まれません。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "約分前の条件を残します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x-1)(x+1)/(x-1)=x+1$ ですが、$x=1$ は使えません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y=x+1\\ (x\\ne1)$。点 $(1,2)$ は含まれません。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-8-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=(x-2)/(x+2)$ の漸近線を求めなさい。",
+      "answer": "$x=-2,y=1$",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数と分数に分けます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=1-4/(x+2)$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=-2,y=1$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-9-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=1/(x+2)-1$ と横軸との交点を求めなさい。",
+      "answer": "$(-1,0)$",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$y=0$ と置き、分母の条件を保ちます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$1/(x+2)=1$ より $x=-1$。$x\\ne-2$ を満たします。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(-1,0)$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-10-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=-2/(x+1)$ で $x=0,-2$ の点を求めなさい。",
+      "answer": "$(0,-2),(-2,2)$",
+      "hints": [
+        "指定された入力を関数の式に代入し、出力を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母の符号が左右で変わります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$-2/1=-2$、$-2/(-1)=2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(0,-2),(-2,2)$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-11-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=3/(x-2)+4$ は $x<2$ で直線 $y=4$ の上側・下側のどちらですか。",
+      "answer": "下側です。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$y-4$ の符号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$3/(x-2)<0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "下側です。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-12-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=(x+3)/(x+1)$ の基本形と漸近線を求めなさい。",
+      "answer": "$y=1+2/(x+1)$、$x=-1,y=1$。",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子と分母の差を利用します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+3=(x+1)+2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y=1+2/(x+1)$、$x=-1,y=1$。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-13-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=-2/(x+3)+5$ の定義域と値域は？",
+      "answer": "$x\\ne-3$、$y\\ne5$。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母ゼロと分数部分ゼロを調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+3\\ne0$、$-2/(x+3)\\ne0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ne-3$、$y\\ne5$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-14-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=x/(x-2)$ を基本形に直し、縦軸との交点を求めなさい。",
+      "answer": "$y=1+2/(x-2)$、$(0,0)$。",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$x=(x-2)+2$ と分けます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=0$ を入れると $y=0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y=1+2/(x-2)$、$(0,0)$。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-rational-functions-15-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=(x^2-4)/(x+2)$ を簡単にし、除かれる点を求めなさい。",
+      "answer": "$y=x-2\\ (x\\ne-2)$、$(-2,-4)$。",
+      "hints": [
+        "分母ゼロを除きます。分数部分の符号を、分母がゼロになる位置の左右で調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の分母の条件は残ります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x-2)(x+2)/(x+2)=x-2$。$x=-2$ は使えません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$y=x-2\\ (x\\ne-2)$、$(-2,-4)$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-rational-functions-16-v1",
+      "lesson": "m3-rational-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sqrt{16}$ の値は？",
+      "answer": "$4$",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "非負の平方根を取ります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$4^2=16$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$4$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-1-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{x}$ で $x=0,1,4$ の点を求めなさい。",
+      "answer": "$(0,0),(1,1),(4,2)$",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方数の入力を選ぶと値が分かります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$\\sqrt0=0,\\sqrt1=1,\\sqrt4=2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(0,0),(1,1),(4,2)$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-2-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{x-2}+1$ の端と、根号内が $1,4$ の点を求めなさい。",
+      "answer": "$(2,1),(3,2),(6,3)$",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "中身を先に決めて入力を逆算します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-2=0,1,4$ より $x=2,3,6$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(2,1),(3,2),(6,3)$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-3-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=\\sqrt{4-x}$ の定義域と値域は？",
+      "answer": "$x\\le4,y\\ge0$",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "中身の条件と平方根の符号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$4-x\\ge0$、$\\sqrt{4-x}\\ge0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\le4,y\\ge0$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-4-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{x}-3$ は基本のグラフをどう移したものですか。端も答えなさい。",
+      "answer": "下へ $3$、端 $(0,-3)$。",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力は変えず出力から引きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(0,0)$ が $(0,-3)$ に移ります。"
+        },
+        {
+          "title": "確かめる",
+          "text": "下へ $3$、端 $(0,-3)$。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-5-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=-\\sqrt{x+2}$ の定義域と値域は？",
+      "answer": "$x\\ge-2,y\\le0$",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側の負号が出力の符号を変えます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+2\\ge0$、$-\\sqrt{x+2}\\le0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge-2,y\\le0$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-6-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{x-1}-1$ と横軸との交点を求めなさい。",
+      "answer": "$(2,0)$",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "出力ゼロを式にします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$\\sqrt{x-1}=1$ より $x=2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=2$ を元の式に入れると $0$ です。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-7-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sqrt{x^2}$ を実数 $x$ について表し、$x=-2$ で確かめなさい。",
+      "answer": "$|x|$。$x=-2$ では $2$。",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方根は非負なので、負の入力をそのまま出せません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$|x|^2=x^2$、$|x|\\ge0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$|x|$。$x=-2$ では $2$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-8-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{2x-2}$ の端と、出力が $2$ の点を求めなさい。",
+      "answer": "$(1,0),(3,2)$",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "中身を $0,4$ とします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2x-2=0,4$ より $x=1,3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(1,0),(3,2)$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-9-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=\\sqrt{x+1}$ の定義域を $-1\\le x<3$ としたときの値域は？",
+      "answer": "$0\\le y<2$",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "増加する関数で、右端は含みません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$0\\le x+1<4$ より $0\\le\\sqrt{x+1}<2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0\\le y<2$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-10-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{-x}$ は $y=\\sqrt{x}$ とどのような関係ですか。",
+      "answer": "縦軸について対称です。",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力の符号を変えています。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "基準点 $(1,1),(4,2)$ が $(-1,1),(-4,2)$ に移ります。任意の $u\\ge0$ に対し、元の点 $(u,\\sqrt{u})$ に対応する点は $(-u,\\sqrt{u})$ なので、縦軸について対称です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "縦軸について対称です。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-11-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=\\sqrt{x-1}$ に点 $(2,-1)$ は含まれますか。",
+      "answer": "含まれません。",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方した関係だけでなく出力の符号を確認します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=2$ なら $y=1$。$-1$ は平方根の値ではありません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "含まれません。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-12-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{x+2}-1$ の端と横軸との交点は？",
+      "answer": "端 $(-2,-1)$、交点 $(-1,0)$。",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "端は中身ゼロ、交点は出力ゼロです。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+2=0$ または $\\sqrt{x+2}=1$ を解きます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "端 $(-2,-1)$、交点 $(-1,0)$。"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-13-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=-\\sqrt{3-x}+2$ の定義域と値域は？",
+      "answer": "$x\\le3,y\\le2$",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "中身と外の負号を順に読みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$3-x\\ge0$、$-\\sqrt{3-x}\\le0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\le3,y\\le2$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-14-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "shape",
+      "prompt": "$y=\\sqrt{x-3}$ の端と、出力が $1$ の点は？",
+      "answer": "$(3,0),(4,1)$",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内を $0,1$ とします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-3=0,1$ より $x=3,4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(3,0),(4,1)$"
+        }
+      ],
+      "repair": "shape",
+      "id": "m3-radical-functions-15-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$y=\\sqrt{x^2}$ のグラフに点 $(-3,-3)$ はありますか。",
+      "answer": "ありません。",
+      "hints": [
+        "根号内は非負です。根号の値も非負なので、外側の負号や定数を順に反映します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "値は $|x|$ です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=-3$ で $y=3$ なので、対応する点は $(-3,3)$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "ありません。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-radical-functions-16-v1",
+      "lesson": "m3-radical-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$g(x)=x-2$ のとき $g(5)$ は？",
+      "answer": "$3$",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "先に内側を計算する準備です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$5-2=3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$3$"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-1-v1",
+      "lesson": "m3-composition",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$(2x+1)^2$ で最後に行う操作を答えなさい。",
+      "answer": "二乗。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "括弧の値を作った後の操作です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2x+1$ 全体を二乗します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "二乗。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-2-v1",
+      "lesson": "m3-composition",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=2x,g(x)=x+3$ のとき $f(g(1))$ を内側から求めなさい。",
+      "answer": "$8$",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "先に $g(1)$ を求めます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$g(1)=4$、$f(4)=8$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$8$"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-3-v1",
+      "lesson": "m3-composition",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$f(x)=x^2,g(x)=2x+1$ のとき $f(g(x))$ を求めなさい。",
+      "answer": "$(2x+1)^2$",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側は入力の二乗です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x$ の場所へ $2x+1$ を入れます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(2x+1)^2$"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-4-v1",
+      "lesson": "m3-composition",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=x-1,g(x)=3x$ のとき $g(f(2))$ を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$f$ が内側です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(2)=1$、$g(1)=3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$3$"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-5-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$f(x)=x+2,g(x)=x^2$ のとき $f(g(x))$ と $f(x)g(x)$ を求めなさい。",
+      "answer": "$x^2+2$ と $(x+2)x^2$。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側に入れることと、掛けることを区別します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "合成は $g(x)+2$、積は二つの出力の積です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2+2$ と $(x+2)x^2$。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-6-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=x^2,g(x)=x-2$ のとき $f(g(x))$ と $g(f(x))$ を求めなさい。",
+      "answer": "$(x-2)^2$ と $x^2-2$。",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "引いてから二乗か、二乗してから引くかを読みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(g(x))=(g(x))^2$、$g(f(x))=f(x)-2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(x-2)^2$ と $x^2-2$。"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-7-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$y=\\sqrt{x^2+1}$ の内側の式と外側の操作を答えなさい。",
+      "answer": "内側 $x^2+1$、外側は平方根。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "最後に根号が作用しています。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$u=x^2+1$ とすれば $y=\\sqrt{u}$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "内側 $x^2+1$、外側は平方根。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-8-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=2x+1,g(x)=x-1$ のとき $f(g(x))$ を整理しなさい。",
+      "answer": "$2x-1$",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側の入力すべてに $x-1$ を入れます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2(x-1)+1=2x-1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$2x-1$"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-9-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$y=\\sin(2x)$ の内側の式と外側の操作を答えなさい。",
+      "answer": "内側 $2x$、外側は正弦。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "引数全体を読みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$u=2x$ とすれば $y=\\sin u$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "内側 $2x$、外側は正弦。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-10-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=1/x,g(x)=x+1$ のとき $f(g(1))$ を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "まず分母へ入る値を計算します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$g(1)=2$、$f(2)=1/2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-11-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$(\\sin x)^2$ と $\\sin(x^2)$ の最後の操作をそれぞれ答えなさい。",
+      "answer": "前者は二乗、後者は正弦。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "括弧で囲まれた入力を読みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "前者は $u=\\sin x,y=u^2$。後者は $u=x^2,y=\\sin u$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "前者は二乗、後者は正弦。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-12-v1",
+      "lesson": "m3-composition",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=x+2,g(x)=2x$ のとき $f(g(3))$ と $g(f(3))$ は？",
+      "answer": "$8$ と $10$。",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側から順に計算します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(6)=8$、$g(5)=10$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$8$ と $10$。"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-13-v1",
+      "lesson": "m3-composition",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$y=2^{x^2+1}$ の内側の式と外側の操作は？",
+      "answer": "内側 $x^2+1$、外側は底 $2$ の指数関数。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "指数全体が入力です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$u=x^2+1$ とすれば $y=2^u$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=0$ なら $u=1$、出力は $2$ です。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-14-v1",
+      "lesson": "m3-composition",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "order",
+      "prompt": "$f(x)=x^2+1,g(x)=x-1$ のとき $f(g(x))$ を展開しなさい。",
+      "answer": "$x^2-2x+2$",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側の入力を置き換えます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x-1)^2+1=x^2-2x+2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2-2x+2$"
+        }
+      ],
+      "repair": "order",
+      "id": "m3-composition-15-v1",
+      "lesson": "m3-composition",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "structure",
+      "prompt": "$f(x)=x-1,g(x)=x^2$ のとき $g(f(x))$ と $f(x)g(x)$ は？",
+      "answer": "$(x-1)^2$ と $(x-1)x^2$。",
+      "hints": [
+        "最後に行う操作を読みます。積なら二つの出力を掛け、合成なら一方の出力をもう一方へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "代入と掛け算を区別します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "前者は $x-1$ の二乗、後者は二つの関数値の積です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(x-1)^2$ と $(x-1)x^2$。"
+        }
+      ],
+      "repair": "structure",
+      "id": "m3-composition-16-v1",
+      "lesson": "m3-composition",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sqrt{u}$ が実数となる条件は？",
+      "answer": "$u\\ge0$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方根の中身の条件です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "ゼロは使え、負は使えません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$u\\ge0$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-1-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$1/u$ が定義される条件は？",
+      "answer": "$u\\ne0$",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母ゼロを除きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "ゼロで割ることはできません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$u\\ne0$"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-2-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$f(u)=1/u,g(x)=x-2$ の合成 $f(g(x))$と定義域を求めなさい。",
+      "answer": "$1/(x-2)$、$x\\ne2$。",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側の分母に入る値をゼロ以外にします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$g(x)=x-2\\ne0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$1/(x-2)$、$x\\ne2$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-3-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=u^2,g(x)=\\sqrt{x+1}$ の合成 $f(g(x))$を簡単にし、元の条件を添えなさい。",
+      "answer": "$x+1\\ (x\\ge-1)$。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側の根号の条件を残します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+1\\ge0$ の範囲で $(\\sqrt{x+1})^2=x+1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x+1\\ (x\\ge-1)$。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-4-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sqrt{4-x^2}$ の定義域は？",
+      "answer": "$-2\\le x\\le2$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内を非負にします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x^2\\le4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$-2\\le x\\le2$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-5-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=1/u,g(x)=1/x$ の合成 $f(g(x))$を簡単にし、定義域を求めなさい。",
+      "answer": "$x\\ (x\\ne0)$。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側で入力ゼロが使えません。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x\\ne0$ なら $g(x)=1/x\\ne0$ で、$1/(1/x)=x$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ (x\\ne0)$。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-6-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$1/\\sqrt{x-3}$ の定義域は？",
+      "answer": "$x>3$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内が非負で分母がゼロ以外です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-3>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x>3$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-7-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=\\sqrt{u},g(x)=x^2$ の合成 $f(g(x))$を簡単にし、定義域を求めなさい。",
+      "answer": "$|x|$、定義域はすべての実数。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側の二乗は常に非負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$\\sqrt{x^2}=|x|$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "負の入力では出力は $-x$ です。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-8-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\log_2(x^2-1)$ の定義域は？",
+      "answer": "$x<-1$ または $x>1$。",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "真数は厳密に正です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x^2-1>0$ より $x^2>1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x<-1$ または $x>1$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-9-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=u^2\\ (u\\ge0),g(x)=x-1$ の合成 $f(g(x))$の式と定義域は？",
+      "answer": "$(x-1)^2$、$x\\ge1$。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側には指定された入力制限があります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$g(x)=x-1\\ge0$ が必要です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "式だけではなく、指定された定義域も使います。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-10-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sqrt{1/(x-1)}$ の定義域は？",
+      "answer": "$x>1$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側の分母条件と外側の非負条件を合わせます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x\\ne1$ かつ $1/(x-1)\\ge0$。分子が正なので $x-1>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x>1$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-11-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=u^2,g(x)=\\sqrt{2-x}$ の合成 $f(g(x))$を簡単にし、定義域は？",
+      "answer": "$2-x\\ (x\\le2)$。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側で使える範囲を残します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2-x\\ge0$ の範囲で根号の二乗を外します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$2-x\\ (x\\le2)$。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-12-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$1/\\sqrt{9-x^2}$ の定義域は？",
+      "answer": "$-3<x<3$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号が分母なので中身は正です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$9-x^2>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$-3<x<3$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-13-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=1/u,g(x)=1/(x+2)$ の合成 $f(g(x))$と定義域は？",
+      "answer": "$x+2\\ (x\\ne-2)$。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側の入力条件が残ります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x\\ne-2$ なら内側は非零で、$1/(1/(x+2))=x+2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x+2\\ (x\\ne-2)$。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-14-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sqrt{1-x}/(x+1)$ の定義域は？",
+      "answer": "$x\\le1$ かつ $x\\ne-1$。",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内と分母を同時に調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$1-x\\ge0$、$x+1\\ne0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\le1$ かつ $x\\ne-1$。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-composition-domain-15-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "retained",
+      "prompt": "$f(u)=u^2\\ (u\\ge0),g(x)=2-x$ の合成 $f(g(x))$と定義域は？",
+      "answer": "$(2-x)^2\\ (x\\le2)$。",
+      "hints": [
+        "約分や二乗で式が簡単になっても、元の関数の入力条件を消しません。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "外側の指定された定義域に入れる必要があります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2-x\\ge0$ より $x\\le2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(2-x)^2\\ (x\\le2)$。"
+        }
+      ],
+      "repair": "retained",
+      "id": "m3-composition-domain-16-v1",
+      "lesson": "m3-composition-domain",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$y=3x-2$ を $x$ について解きなさい。",
+      "answer": "$x=(y+2)/3$",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の入力を取り出す準備です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "両辺に $2$ を足し、$3$ で割ります。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=(y+2)/3$"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-1-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$x^2=4$ の実数解をすべて求めなさい。",
+      "answer": "$x=\\pm2$",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二乗では符号の違う入力が同じ出力になります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2^2=(-2)^2=4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=\\pm2$"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-2-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$f(x)=3x-2$ の逆関数を、入力について解く途中式とともに求めなさい。",
+      "answer": "$f^{-1}(x)=(x+2)/3$",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$y=3x-2$ を $x$ について解きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=(y+2)/3$ を得て、記号を交換します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=(x+2)/3$"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-3-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=x^2\\ (x\\le0)$ の逆関数の式と定義域・値域を求めなさい。",
+      "answer": "$f^{-1}(x)=-\\sqrt{x}$、定義域 $x\\ge0$、値域 $y\\le0$。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の入力がゼロ以下なので負の側を選びます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=x^2,x\\le0$ から $x=-\\sqrt y$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=-\\sqrt{x}$、定義域 $x\\ge0$、値域 $y\\le0$。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-4-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$f(x)=x-4$ の逆関数は？",
+      "answer": "$f^{-1}(x)=x+4$",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "引いた数を戻します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=x-4$ から $x=y+4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=x+4$"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-5-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=x^2$ を実数全体で考えたとき、逆関数を定められない理由を説明しなさい。",
+      "answer": "一つの出力に二つの元の入力が対応するため。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "出力 $1$ を考えます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(1)=f(-1)=1$ なので、一つの出力から入力を一つに決められません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "一つの出力に二つの元の入力が対応するため。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-6-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$f(x)=2x+1\\ (0\\le x\\le2)$ の逆関数と定義域・値域は？",
+      "answer": "$f^{-1}(x)=(x-1)/2$、定義域 $1\\le x\\le5$、値域 $0\\le y\\le2$。",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の出力範囲を先に求めます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "元の関数は増加し、出力は $1$ から $5$。範囲を交換します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=(x-1)/2$、定義域 $1\\le x\\le5$、値域 $0\\le y\\le2$。"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-7-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=(x-1)^2\\ (x\\ge1)$ の逆関数と定義域・値域は？",
+      "answer": "$f^{-1}(x)=1+\\sqrt{x}$、定義域 $x\\ge0$、値域 $y\\ge1$。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の $x-1$ は非負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=(x-1)^2$ より $x-1=\\sqrt y$、$x=1+\\sqrt y$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=1+\\sqrt{x}$、定義域 $x\\ge0$、値域 $y\\ge1$。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-8-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$f(x)=2x$ の $f^{-1}(x)$ と $1/f(x)$ をそれぞれ求めなさい。",
+      "answer": "$f^{-1}(x)=x/2$、$1/f(x)=1/(2x)\\ (x\\ne0)$。",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力へ戻す関数と、出力の逆数は違います。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "逆関数は $y=2x$ を解きます。逆数は $2x$ で $1$ を割ります。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=x/2$、$1/f(x)=1/(2x)\\ (x\\ne0)$。"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-9-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=\\sqrt{x-2}$ の逆関数と定義域・値域は？",
+      "answer": "$f^{-1}(x)=x^2+2$、定義域 $x\\ge0$、値域 $y\\ge2$。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の出力は非負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=\\sqrt{x-2}$ から $x=y^2+2$。元の値域の条件を残して交換します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=x^2+2$、定義域 $x\\ge0$、値域 $y\\ge2$。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-10-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "元の関数に点 $(2,5)$ があるとき、逆関数の対応する点は？",
+      "answer": "$(5,2)$",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力と出力を交換します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$f(2)=5$ は $f^{-1}(5)=2$ に対応します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(5,2)$"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-11-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=x^2\\ (-2\\le x\\le0)$ の逆関数と定義域・値域は？",
+      "answer": "$f^{-1}(x)=-\\sqrt{x}$、定義域 $0\\le x\\le4$、値域 $-2\\le y\\le0$。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の入力の符号と範囲を両方使います。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "元の値域は $0\\le y\\le4$。負の平方根で元へ戻します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=-\\sqrt{x}$、定義域 $0\\le x\\le4$、値域 $-2\\le y\\le0$。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-12-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$f(x)=1-2x$ の逆関数は？",
+      "answer": "$f^{-1}(x)=(1-x)/2$",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の入力について解きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2x=1-y$ より $x=(1-y)/2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=(1-x)/2$"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-13-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=(x+1)^2\\ (x\\ge-1)$ の逆関数と定義域は？",
+      "answer": "$f^{-1}(x)=\\sqrt{x}-1\\ (x\\ge0)$。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の $x+1$ は非負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+1=\\sqrt y$ から記号を交換します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=\\sqrt{x}-1\\ (x\\ge0)$。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-14-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "linear",
+      "prompt": "$f(x)=x+2\\ (-1<x\\le2)$ の逆関数と定義域・値域は？",
+      "answer": "$f^{-1}(x)=x-2$、定義域 $1<x\\le4$、値域 $-1<y\\le2$。",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "端を含むかも交換します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "元の出力は $1<y\\le4$ です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=x-2$、定義域 $1<x\\le4$、値域 $-1<y\\le2$。"
+        }
+      ],
+      "repair": "linear",
+      "id": "m3-inverse-functions-15-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "branch",
+      "prompt": "$f(x)=\\sqrt{x+1}$ の逆関数と定義域・値域は？",
+      "answer": "$f^{-1}(x)=x^2-1$、定義域 $x\\ge0$、値域 $y\\ge-1$。",
+      "hints": [
+        "同じ出力になる入力が複数ないか調べます。二乗を解いた符号は元の定義域で選びます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の平方根の出力範囲を残します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y^2=x+1$ から $x=y^2-1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=x^2-1$、定義域 $x\\ge0$、値域 $y\\ge-1$。"
+        }
+      ],
+      "repair": "branch",
+      "id": "m3-inverse-functions-16-v1",
+      "lesson": "m3-inverse-functions",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x}$ の定義域を求めなさい。",
+      "answer": "$x\\ge0$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内を確認します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "負の入力は使えません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge0$"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-1-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$x=-2$ のとき $1/x$ の符号を答えなさい。",
+      "answer": "負。",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子は正、分母は負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$1/(-2)=-1/2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "負。"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-2-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x}=3$ を条件を書いて解きなさい。",
+      "answer": "$x=9$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "両辺が非負なので二乗できます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x\\ge0$、二乗して $x=9$。$\\sqrt9=3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=9$"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-3-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/(x-1)=2$ を、分母の条件を残して解きなさい。",
+      "answer": "$x=3/2$",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$x\\ne1$ の範囲で分母を掛けます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$1=2(x-1)$ より $x=3/2$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "元の式でも $1/(1/2)=2$。"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-4-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x}>x$ を解きなさい。",
+      "answer": "$0<x<1$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$x\\ge0$ で両辺は非負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "二乗して $x>x^2$、すなわち $x(1-x)>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0<x<1$"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-5-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/x<1$ を解きなさい。",
+      "answer": "$x<0$ または $x>1$。",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差 $(1-x)/x$ の符号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x<0$ と $x>1$ で負、$0<x<1$ で正です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x<0$ または $x>1$。"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-6-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x}\\le x$ を解きなさい。",
+      "answer": "$x=0$ または $x\\ge1$。",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定義域 $x\\ge0$ の中で二乗します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x\\le x^2$ より $x(x-1)\\ge0$。定義域と重ねます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=0$ または $x\\ge1$。"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-7-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/(x-2)>0$ を解きなさい。",
+      "answer": "$x>2$",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子が正なので分母も正である必要があります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-2>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x>2$"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-8-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x+2}=x$ を解きなさい。",
+      "answer": "$x=2$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "左辺が非負なので、等しい右辺も $x\\ge0$ が必要です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "二乗して $x+2=x^2$、$(x-2)(x+1)=0$。候補 $2,-1$ のうち $-1$ は除きます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$\\sqrt4=2$。$x=-1$ は元の式で $1\\ne-1$。"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-9-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/x\\ge2$ を解きなさい。",
+      "answer": "$0<x\\le1/2$",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差 $(1-2x)/x$ を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "負の入力では差は負。正の入力では $1-2x\\ge0$ が必要です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0<x\\le1/2$"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-10-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x-1}<2$ を解きなさい。",
+      "answer": "$1\\le x<5$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "まず $x\\ge1$。両辺非負なので二乗します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-1<4$ と定義域を重ねます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$1\\le x<5$"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-11-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/(x+1)\\le0$ を解きなさい。",
+      "answer": "$x<-1$",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分数はゼロにならず、負になる範囲を求めます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+1<0$。$x=-1$ は使えません。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x<-1$"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-12-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x}=x/2$ を解きなさい。",
+      "answer": "$x=0,4$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$x\\ge0$ で両辺非負です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "二乗して $x=x^2/4$、$x(x-4)=0$。両方を元の式で確認します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=0,4$"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-13-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/(x-1)<1$ を解きなさい。",
+      "answer": "$x<1$ または $x>2$。",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差 $(2-x)/(x-1)$ の符号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "区切りは $1,2$。左と右の区間で負、中間で正です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x<1$ または $x>2$。"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-14-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "root",
+      "prompt": "$\\sqrt{x+1}=x-1$ を解きなさい。",
+      "answer": "$x=3$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "右辺の非負条件から $x\\ge1$ です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "二乗して $x+1=(x-1)^2$、$x(x-3)=0$。$0$ は条件を満たさず、$3$ は元の式を満たします。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=3$"
+        }
+      ],
+      "repair": "root",
+      "id": "m3-graph-equations-15-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "fraction",
+      "prompt": "$1/x\\le3$ を解きなさい。",
+      "answer": "$x<0$ または $x\\ge1/3$。",
+      "hints": [
+        "差を一つの分数に直し、分子と分母の符号をそれぞれ調べます。分母ゼロは除きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差 $(1-3x)/x$ の符号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "負の入力では負、正の入力では $1-3x\\le0$ が必要です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x<0$ または $x\\ge1/3$。"
+        }
+      ],
+      "repair": "fraction",
+      "id": "m3-graph-equations-16-v1",
+      "lesson": "m3-graph-equations",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "id": "m3-functions-check-1-v1",
+      "lesson": "m3-functions-check",
+      "family": "input",
+      "stage": "ready",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2+1$ の $f(2)$ を求めなさい。",
+      "answer": "$5$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "repair": "input",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力を二乗し定数を足します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$2^2+1=5$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$5$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-2-v1",
+      "lesson": "m3-functions-check",
+      "family": "domain",
+      "stage": "ready",
+      "kind": "paper",
+      "prompt": "$\\sqrt{x-1}$ が実数となる条件は？",
+      "answer": "$x\\ge1$",
+      "hints": [
+        "分母・根号・真数を調べ、必要な条件をすべて満たす範囲を求めます。"
+      ],
+      "repair": "domain",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内を非負にします。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-1\\ge0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge1$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-3-v1",
+      "lesson": "m3-functions-check",
+      "family": "input",
+      "stage": "guided",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2-1$ の $f(x+2)$ を括弧を使って表し、展開しなさい。",
+      "answer": "$x^2+4x+3$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "repair": "input",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力全体を入れます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x+2)^2-1=x^2+4x+3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2+4x+3$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-4-v1",
+      "lesson": "m3-functions-check",
+      "family": "inverse",
+      "stage": "guided",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2\\ (x\\ge0)$ の逆関数に入力 $9$ を入れた値は？",
+      "answer": "$3$",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "repair": "inverse",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の入力範囲で二乗の解を選びます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$u^2=9,u\\ge0$ より $u=3$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$3$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-5-v1",
+      "lesson": "m3-functions-check",
+      "family": "input",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2-2x$ の $f(2x)$ を求めなさい。",
+      "answer": "$4x^2-4x$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "repair": "input",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "すべての入力位置を置き換えます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(2x)^2-2(2x)=4x^2-4x$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$4x^2-4x$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-6-v1",
+      "lesson": "m3-functions-check",
+      "family": "domain",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$y=(x+1)^2$ を $-2\\le x\\le2$ で考えた値域は？",
+      "answer": "$0\\le y\\le9$",
+      "hints": [
+        "指定区間内の頂点と両端の関数値を比べ、出力の範囲を求めます。"
+      ],
+      "repair": "domain",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "頂点と端を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x=-1$ で $0$、両端で $1,9$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0\\le y\\le9$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-7-v1",
+      "lesson": "m3-functions-check",
+      "family": "rational",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$y=(x+2)/(x-2)$ の漸近線は？",
+      "answer": "$x=2,y=1$",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "repair": "rational",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "基本形へ直します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=1+4/(x-2)$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=2,y=1$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-8-v1",
+      "lesson": "m3-functions-check",
+      "family": "radical",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$y=-\\sqrt{x-1}+2$ の定義域・値域・端は？",
+      "answer": "$x\\ge1,y\\le2$、端 $(1,2)$。",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "repair": "radical",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内と外の負号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x-1\\ge0$、$-\\sqrt{x-1}\\le0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge1,y\\le2$、端 $(1,2)$。"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-9-v1",
+      "lesson": "m3-functions-check",
+      "family": "composition",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2,g(x)=3x-1$ の $f(g(x))$ と $g(f(x))$ は？",
+      "answer": "$(3x-1)^2$ と $3x^2-1$。",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "repair": "composition",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "内側の出力を外側へ入れます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "前者は $3x-1$ 全体の二乗、後者は $x^2$ を三倍して $1$ を引きます。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(3x-1)^2$ と $3x^2-1$。"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-10-v1",
+      "lesson": "m3-functions-check",
+      "family": "composite-domain",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$y=1/\\sqrt{4-x^2}$ の定義域を求めなさい。",
+      "answer": "$-2<x<2$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "repair": "composite-domain",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号内は非負、分母は非零です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$4-x^2>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$-2<x<2$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-11-v1",
+      "lesson": "m3-functions-check",
+      "family": "inverse",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$f(x)=2x-1\\ (1\\le x\\le3)$ の逆関数と定義域は？",
+      "answer": "$f^{-1}(x)=(x+1)/2$、$1\\le x\\le5$。",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "repair": "inverse",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の値域が新しい定義域になります。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=2x-1$ から $x=(y+1)/2$。元の出力は $1$ から $5$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=(x+1)/2$、$1\\le x\\le5$。"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-12-v1",
+      "lesson": "m3-functions-check",
+      "family": "equation",
+      "stage": "practice",
+      "kind": "paper",
+      "prompt": "$\\sqrt{x+6}=x$ を解きなさい。",
+      "answer": "$x=3$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "repair": "equation",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "右辺が非負なので $x\\ge0$ を先に書きます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "二乗して $x^2-x-6=0$、$(x-3)(x+2)=0$。$x=-2$ を除き、$3$ を元の式で確認します。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=3$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-13-v1",
+      "lesson": "m3-functions-check",
+      "family": "input",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2+3$ の $f(x-1)$ を求めなさい。",
+      "answer": "$x^2-2x+4$",
+      "hints": [
+        "元の式のすべての変数に同じ数を入れます。負の数には括弧を付けます。"
+      ],
+      "repair": "input",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "入力全体を入れます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$(x-1)^2+3=x^2-2x+4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x^2-2x+4$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-14-v1",
+      "lesson": "m3-functions-check",
+      "family": "domain",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$y=(x-2)^2$ を $0\\le x\\le3$ で考えた値域は？",
+      "answer": "$0\\le y\\le4$",
+      "hints": [
+        "指定区間内の頂点と両端の関数値を比べ、出力の範囲を求めます。"
+      ],
+      "repair": "domain",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "頂点 $x=2$ を含みます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "頂点で $0$、端で $4,1$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$0\\le y\\le4$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-15-v1",
+      "lesson": "m3-functions-check",
+      "family": "rational",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$y=(x-3)/(x-1)$ の漸近線は？",
+      "answer": "$x=1,y=1$",
+      "hints": [
+        "分子を分母の定数倍と余りに分けると、平行移動が読みやすくなります。"
+      ],
+      "repair": "rational",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子を分母と余りに分けます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=1-2/(x-1)$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=1,y=1$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-16-v1",
+      "lesson": "m3-functions-check",
+      "family": "radical",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$y=-\\sqrt{x+1}+3$ の定義域・値域・端は？",
+      "answer": "$x\\ge-1,y\\le3$、端 $(-1,3)$。",
+      "hints": [
+        "根号内がゼロになる点を端にし、中身が $1,4$ になる入力も選びます。"
+      ],
+      "repair": "radical",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "中身の条件と外の符号を調べます。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$x+1\\ge0$、$-\\sqrt{x+1}\\le0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x\\ge-1,y\\le3$、端 $(-1,3)$。"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-17-v1",
+      "lesson": "m3-functions-check",
+      "family": "composition",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$f(x)=x^2,g(x)=2x-3$ の $f(g(x))$ と $g(f(x))$ は？",
+      "answer": "$(2x-3)^2$ と $2x^2-3$。",
+      "hints": [
+        "括弧の内側の関数を先に計算し、その出力を次の関数へ入れます。"
+      ],
+      "repair": "composition",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "順番を区別します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "前者は二乗が最後、後者は二倍して $3$ を引く操作が最後です。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$(2x-3)^2$ と $2x^2-3$。"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-18-v1",
+      "lesson": "m3-functions-check",
+      "family": "composite-domain",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$1/\\sqrt{1-x^2}$ の定義域は？",
+      "answer": "$-1<x<1$",
+      "hints": [
+        "内側の定義域を先に書き、外側の分母・根号・真数が要求する条件を加えます。"
+      ],
+      "repair": "composite-domain",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号が分母なので中身は正です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$1-x^2>0$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$-1<x<1$"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-19-v1",
+      "lesson": "m3-functions-check",
+      "family": "inverse",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$f(x)=3x+1\\ (0\\le x\\le1)$ の逆関数と定義域は？",
+      "answer": "$f^{-1}(x)=(x-1)/3$、$1\\le x\\le4$。",
+      "hints": [
+        "まず元の式を入力について解きます。その後に記号を交換し、元の値域を新しい定義域にします。"
+      ],
+      "repair": "inverse",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "元の値域を交換します。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "$y=3x+1$ を $x$ について解き、出力範囲 $1\\le y\\le4$ を使います。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$f^{-1}(x)=(x-1)/3$、$1\\le x\\le4$。"
+        }
+      ]
+    },
+    {
+      "id": "m3-functions-check-20-v1",
+      "lesson": "m3-functions-check",
+      "family": "equation",
+      "stage": "review",
+      "kind": "paper",
+      "prompt": "$\\sqrt{x+12}=x$ を解きなさい。",
+      "answer": "$x=4$",
+      "hints": [
+        "根号内の条件を書きます。二乗で同値に変形するには、両辺が非負であることを確かめます。"
+      ],
+      "repair": "equation",
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "右辺も非負なので $x\\ge0$ です。"
+        },
+        {
+          "title": "式にして進める",
+          "text": "二乗して $(x-4)(x+3)=0$。$4$ だけが条件を満たし、元の式でも $\\sqrt{16}=4$。"
+        },
+        {
+          "title": "確かめる",
+          "text": "$x=4$"
+        }
+      ]
+    }
+  ]
+}

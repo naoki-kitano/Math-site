@@ -1,0 +1,5357 @@
+{
+  "lessons": [
+    {
+      "slug": "trig-radians",
+      "title": "一般角と弧度法",
+      "chapter": "三角関数",
+      "description": "回転の向きと大きさを、度とラジアンで表そう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "角は正の横軸からの回転で考え、反時計回りを正、時計回りを負とします。一周を超えた角も使います。$390^\\circ$ と $30^\\circ$ は同じ向きですが、回転量は異なります。",
+        "半径と同じ長さの弧に対する中心角が $1\\,\\mathrm{rad}$ です。半径 $r$、弧の長さ $l$ なら角は $l/r$ ラジアン。一周では $l=2\\pi r$ なので $360^\\circ=2\\pi\\,\\mathrm{rad}$ です。",
+        "ラジアンでは単位記号を省くことがあります。この章では度には必ず $^\\circ$ を付け、それ以外の角はラジアンです。扇形の弧長と面積では中心角をラジアンに直します。"
+      ],
+      "rule": "度からラジアンへは $\\pi/180$ 倍、ラジアンから度へは $180/\\pi$ 倍。扇形では $r>0$、$0<\\theta\\le2\\pi$ として $l=r\\theta$、$S=\\frac12r^2\\theta$。面積式は円全体に対する割合 $\\theta/(2\\pi)$ から得られます。",
+      "examples": [
+        {
+          "title": "度からラジアンへ直す",
+          "prompt": "$150^\\circ$ をラジアンで表しなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "半周 $180^\\circ$ が $\\pi$ ラジアンなので、度数に $\\pi/180$ を掛けます。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$150\\cdot\\frac\\pi{180}=\\frac{5\\pi}6$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\frac{5\\pi}6\\,\\mathrm{rad}$。 半周より小さい値になっています。"
+            }
+          ]
+        },
+        {
+          "title": "弧と面積を求める",
+          "prompt": "半径 $3\\,\\mathrm{cm}$、中心角 $120^\\circ$ の扇形の弧の長さと面積を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "弧長・面積の公式に入れる前に中心角をラジアンに直します。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$120^\\circ=\\frac{2\\pi}3\\,\\mathrm{rad}$。$l=3\\cdot\\frac{2\\pi}3=2\\pi$、$S=\\frac12\\cdot9\\cdot\\frac{2\\pi}3=3\\pi$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "弧長 $2\\pi\\,\\mathrm{cm}$、面積 $3\\pi\\,\\mathrm{cm}^2$。 円周・円の面積のそれぞれ三分の一です。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "conversion",
+          "title": "一周と単位を確かめる",
+          "text": "同じ向きの角は一周の整数倍だけ違います。例えば $-60^\\circ+360^\\circ=300^\\circ$。角そのものが等しいという意味ではありません。",
+          "tex": "180^\\circ=\\pi\\,\\mathrm{rad}",
+          "check": "$90^\\circ$ をラジアンで表しなさい。",
+          "answer": "$\\pi/2\\,\\mathrm{rad}$。"
+        },
+        {
+          "id": "sector",
+          "title": "弧長と面積を区別する",
+          "text": "弧長は長さ、面積は広さです。半径 $2$、中心角 $1$ ラジアンなら弧長は $2$、面積も数値は $2$ ですが単位は異なります。",
+          "tex": "l=r\\theta,\\qquad S=\\frac12r^2\\theta",
+          "check": "半径 $4\\,\\mathrm{cm}$、中心角 $1/2$ ラジアンの弧長は？",
+          "answer": "$4\\cdot\\frac12=2\\,\\mathrm{cm}$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-unit-circle",
+      "title": "単位円と三角関数",
+      "chapter": "三角関数",
+      "description": "横・縦の座標から三角関数の値と符号を読もう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "原点中心、半径 $1$ の円を単位円といいます。角 $\\theta$ の終辺と単位円の交点を $P(x,y)$ とすると、$\\cos\\theta=x$、$\\sin\\theta=y$ です。",
+        "$\\tan\\theta=y/x$ は横の変化に対する縦の変化の比です。$x=0$、すなわち $\\theta=\\pi/2+k\\pi$（$k$ は整数）では定義されません。",
+        "第一象限では正弦・余弦とも正、第二象限では正弦だけ正、第三象限ではどちらも負、第四象限では余弦だけ正です。正接の符号は縦と横の商から決まります。",
+        "直角二等辺三角形の辺の比 $1:1:\\sqrt2$ と、正三角形を半分にした辺の比 $1:\\sqrt3:2$ から、$\\pi/6,\\pi/4,\\pi/3$ の値を求められます。"
+      ],
+      "rule": "$P(\\cos\\theta,\\sin\\theta)$ と座標の順を保ち、$\\tan\\theta=\\sin\\theta/\\cos\\theta$ は $\\cos\\theta\\ne0$ のときだけ計算します。",
+      "examples": [
+        {
+          "title": "座標を三つの値に直す",
+          "prompt": "角 $\\theta$ の単位円上の点が $(-3/5,4/5)$ のとき、正弦・余弦・正接を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "横が余弦、縦が正弦です。正接は縦を横で割ります。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\cos\\theta=-3/5$、$\\sin\\theta=4/5$、$\\tan\\theta=(4/5)/(-3/5)=-4/3$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\sin\\theta=4/5,\\ \\cos\\theta=-3/5,\\ \\tan\\theta=-4/3$。 横はゼロではなく、第二象限の符号にも合います。"
+            }
+          ]
+        },
+        {
+          "title": "軸上の値を確かめる",
+          "prompt": "$\\theta=\\pi/2$ の正弦・余弦・正接を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "反時計回りに四分の一周すると点は縦軸上です。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$P=(0,1)$。$\\sin(\\pi/2)=1$、$\\cos(\\pi/2)=0$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "正弦は $1$、余弦は $0$、正接は定義されません。 $1/0$ は計算できないためです。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "coordinate",
+          "title": "横と縦を読む",
+          "text": "点 $(3/5,-4/5)$ なら横は正、縦は負なので第四象限です。余弦を先、正弦を後に書く順を守ります。",
+          "tex": "(x,y)=(\\cos\\theta,\\sin\\theta)",
+          "check": "点 $(0,-1)$ に対応する正弦は？",
+          "answer": "$-1$。"
+        },
+        {
+          "id": "special",
+          "title": "特別な角と分母",
+          "text": "$\\pi/6$ では正弦が $1/2$、余弦が $\\sqrt3/2$。$\\pi/4$ では両方 $\\sqrt2/2$。正接は分母の余弦を調べてから求めます。",
+          "tex": "\\sin\\frac\\pi3=\\frac{\\sqrt3}2,\\quad\\cos\\frac\\pi3=\\frac12",
+          "check": "$\\tan(\\pi/3)$ を求めなさい。",
+          "answer": "$(\\sqrt3/2)/(1/2)=\\sqrt3$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-angle-change",
+      "title": "角を変えた三角関数の値",
+      "chapter": "三角関数",
+      "description": "単位円の対称性で、知っている角の値に戻そう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "角の数字だけを暗記せず、終辺がどの象限にあるかを先に見ます。基準になる鋭角で大きさを決め、座標で符号を決めます。",
+        "角を $-\\theta$ にすると横軸について反転するので横は同じ、縦だけ反対です。$\\pi-\\theta$ では縦軸について反転し、横だけ反対になります。",
+        "$\\pi+\\theta$ は原点の反対側で両座標が反対です。$\\pi/2-\\theta$ では直線 $y=x$ に関して対称になるため、横と縦が入れ替わります。一周 $2\\pi$ を足しても座標は同じです。",
+        "さらに $\\pi/2$ だけ回すと、点 $(x,y)$ は $(-y,x)$ に移ります。このため $\\pi/2+\\theta$ でも横と縦が入れ替わり、余弦には負号が付きます。"
+      ],
+      "rule": "$\\sin(-\\theta)=-\\sin\\theta$、$\\cos(-\\theta)=\\cos\\theta$。$\\sin(\\pi-\\theta)=\\sin\\theta$、$\\cos(\\pi-\\theta)=-\\cos\\theta$。$\\sin(\\pi+\\theta)=-\\sin\\theta$、$\\cos(\\pi+\\theta)=-\\cos\\theta$。$\\sin(\\pi/2-\\theta)=\\cos\\theta$、$\\cos(\\pi/2-\\theta)=\\sin\\theta$。正接は余弦がゼロでないことを確かめて商を取ります。 $\\sin(\\pi/2+\\theta)=\\cos\\theta$、$\\cos(\\pi/2+\\theta)=-\\sin\\theta$。",
+      "examples": [
+        {
+          "title": "第二象限で符号を決める",
+          "prompt": "$\\sin(5\\pi/6)$ と $\\cos(5\\pi/6)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "$5\\pi/6=\\pi-\\pi/6$ なので、第一象限の点を縦軸で反転します。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin(5\\pi/6)=\\sin(\\pi/6)=1/2$、$\\cos(5\\pi/6)=-\\cos(\\pi/6)=-\\sqrt3/2$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "正弦 $1/2$、余弦 $-\\sqrt3/2$。 第二象限では縦は正、横は負です。"
+            }
+          ]
+        },
+        {
+          "title": "余角で横と縦を交換する",
+          "prompt": "$0<\\theta<\\pi/2$、$\\cos\\theta=3/5$ のとき、$\\sin(\\pi/2-\\theta)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "余角の正弦は元の角の余弦です。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin(\\pi/2-\\theta)=\\cos\\theta=3/5$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$3/5$。 余角も第一象限にあり正です。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "reflection",
+          "title": "符号は象限で決める",
+          "text": "$4\\pi/3=\\pi+\\pi/3$ は第三象限です。基準角は $\\pi/3$、横も縦も負です。",
+          "tex": "\\cos\\frac{4\\pi}3=-\\cos\\frac\\pi3=-\\frac12",
+          "check": "$\\sin(7\\pi/6)$ の符号と値は？",
+          "answer": "負で、$-1/2$。"
+        },
+        {
+          "id": "complement",
+          "title": "余角は関数名が入れ替わる",
+          "text": "直角三角形の二つの鋭角では、一方の向かいの辺が他方の隣の辺になります。例えば $\\sin(\\pi/6)=\\cos(\\pi/3)$。",
+          "tex": "\\cos\\left(\\frac\\pi2-\\theta\\right)=\\sin\\theta",
+          "check": "$0<\\theta<\\pi/2$、$\\sin\\theta=4/5$ のとき $\\cos(\\pi/2-\\theta)$ は？",
+          "answer": "$4/5$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-identities",
+      "title": "三角関数の相互関係",
+      "chapter": "三角関数",
+      "description": "一つの値から残りの値を、符号を確かめて求めよう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "単位円上では $x^2+y^2=1$。横が余弦、縦が正弦なので $\\sin^2\\theta+\\cos^2\\theta=1$ になります。",
+        "平方から値を求めるときは正負の候補があります。角の範囲から象限を決めて符号を選びます。$\\cos^2\\theta=9/25$ だけでは $\\cos\\theta=3/5$ と決められません。",
+        "$\\cos\\theta\\ne0$ のとき相互関係の両辺を $\\cos^2\\theta$ で割ると $1+\\tan^2\\theta=1/\\cos^2\\theta$。正接から余弦を求めるときにも使えます。"
+      ],
+      "rule": "平方の関係で大きさを求める → 象限で符号を決める → 必要なら $\\tan\\theta=\\sin\\theta/\\cos\\theta$。恒等式の証明は条件のもとで式を変形して示します。",
+      "examples": [
+        {
+          "title": "平方根の符号を選ぶ",
+          "prompt": "$\\pi/2<\\theta<\\pi$、$\\sin\\theta=3/5$ のとき、余弦と正接を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "第二象限なので余弦は負です。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\cos^2\\theta=1-9/25=16/25$、$\\cos\\theta=-4/5$、$\\tan\\theta=(3/5)/(-4/5)=-3/4$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\cos\\theta=-4/5,\\ \\tan\\theta=-3/4$。 平方和は $9/25+16/25=1$、商は負です。"
+            }
+          ]
+        },
+        {
+          "title": "条件を付けて式を変形する",
+          "prompt": "$\\sin\\theta\\ne0$ のとき、$(1-\\cos^2\\theta)/\\sin\\theta=\\sin\\theta$ を証明しなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "分子を相互関係で正弦の平方にします。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\frac{1-\\cos^2\\theta}{\\sin\\theta}=\\frac{\\sin^2\\theta}{\\sin\\theta}=\\sin\\theta$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "条件 $\\sin\\theta\\ne0$ のもとで、左辺を右辺に変形できました。 分母がゼロの場合まで広げることはできません。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "recover",
+          "title": "平方根には符号の判断が必要",
+          "text": "$u^2=4/9$ の解は $u=\\pm2/3$。三角関数では象限の情報でどちらかを選びます。",
+          "tex": "\\cos^2\\theta=1-\\sin^2\\theta",
+          "check": "第二象限で $\\cos^2\\theta=1/4$ のとき余弦は？",
+          "answer": "$-1/2$。"
+        },
+        {
+          "id": "identity",
+          "title": "相互関係で同じ式へ直す",
+          "text": "$1-\\sin^2\\theta$ は $\\cos^2\\theta$ に置き換えられます。割るときは割る量がゼロでない条件が必要です。",
+          "tex": "1-\\sin^2\\theta=\\cos^2\\theta",
+          "check": "$\\cos\\theta\\ne0$ のとき $(1-\\sin^2\\theta)/\\cos\\theta$ を簡単にしなさい。",
+          "answer": "$\\cos\\theta$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-graphs",
+      "title": "三角関数のグラフと周期",
+      "chapter": "三角関数",
+      "description": "基準点と繰り返しからグラフの形をつかもう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "横軸にラジアンの角 $x$、縦軸に三角関数の値を取ります。$y=\\sin x$ は $x=0,\\pi/2,\\pi,3\\pi/2,2\\pi$ で順に $0,1,0,-1,0$。$y=\\cos x$ は同じ角で $1,0,-1,0,1$ です。点をなめらかにつなぎます。",
+        "グラフ全体が重なる横方向の移動量のうち最小の正の値を、ここでは周期と呼びます。正弦・余弦の周期は $2\\pi$、正接の周期は $\\pi$ です。",
+        "$y=\\tan x$ は $-\\pi/2<x<\\pi/2$ で原点を通り右上がりです。$x=\\pi/2+k\\pi$（$k$ は整数）は定義されず、そこに縦の漸近線があります。漸近線を横切って線をつなぎません。",
+        "$y=a\\sin(bx)+d$ では縦の中心が $d$、中心からの振れ幅が $|a|$。$a,b\\ne0$ なら周期は $2\\pi/|b|$。$y=\\sin(x-c)$ は右へ $c$ 移動します。正接の周期は $\\pi/|b|$ です。"
+      ],
+      "rule": "中の角が一周分変化する横の幅を求めます。正弦・余弦は $|b|T=2\\pi$、正接は $|b|T=\\pi$。平行移動は周期を変えず、縦の拡大も横の周期を変えません。",
+      "examples": [
+        {
+          "title": "縦と横の変化を分ける",
+          "prompt": "$y=2\\sin x+1$ の周期、最大値、最小値を求め、$0\\le x\\le2\\pi$ のグラフの基準点を書きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "横の角は変わらず、正弦の値を二倍してから $1$ を足します。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$-1\\le\\sin x\\le1$ より $-1\\le2\\sin x+1\\le3$。基準点は $(0,1),(\\pi/2,3),(\\pi,1),(3\\pi/2,-1),(2\\pi,1)$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "周期 $2\\pi$、最大値 $3$、最小値 $-1$。 基準点をなめらかにつなぎ、中心線 $y=1$ に対する振れ幅が $2$ と確かめます。"
+            }
+          ]
+        },
+        {
+          "title": "正接の途切れを残す",
+          "prompt": "$y=\\tan(2x)$ の周期と、$-\\pi/2<x<\\pi/2$ にある縦の漸近線を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "正接の中の角は $\\pi$ ごとに繰り返し、余弦がゼロになる場所では定義されません。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$2T=\\pi$ より $T=\\pi/2$。$2x=\\pi/2+k\\pi$ より $x=\\pi/4+k\\pi/2$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "周期 $\\pi/2$、指定範囲の漸近線は $x=-\\pi/4,\\pi/4$。 漸近線上には点を打たず、枝をつなぎません。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "wave",
+          "title": "中の角を基準角に合わせる",
+          "text": "$y=\\sin(2x)$ の山は $2x=\\pi/2$ のときなので $x=\\pi/4$。横幅は半分になります。",
+          "tex": "2x=0,\\frac\\pi2,\\pi,\\frac{3\\pi}2,2\\pi",
+          "check": "$y=\\cos(2x)$ の周期は？",
+          "answer": "$\\pi$。"
+        },
+        {
+          "id": "tangent-graph",
+          "title": "正接の分母がゼロになる場所",
+          "text": "$\\tan x=\\sin x/\\cos x$ なので $x=\\pi/2+k\\pi$ ではグラフがありません。例えば $x=\\pi/2$ は漸近線です。",
+          "tex": "\\cos x=0\\iff x=\\frac\\pi2+k\\pi\\quad(k\\in\\mathbb Z)",
+          "check": "$y=\\tan x$ の周期と $x=\\pi/2$ での値は？",
+          "answer": "周期は $\\pi$、その点の値は定義されません。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-equations",
+      "title": "三角方程式",
+      "chapter": "三角関数",
+      "description": "単位円の交点を拾い、指定範囲の解をすべて書こう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "三角方程式は、三角関数の値が指定された値になる角を探す問題です。$\\sin\\theta=1/2$ なら単位円を横線 $y=1/2$ で切り、二つの交点の角を読みます。",
+        "正弦は縦、余弦は横、正接は傾きに注目します。答えは一つとは限りません。最初に角の範囲を書き、端点を含むかも確認します。",
+        "角が $2\\theta$ のときは $u=2\\theta$ と置き、範囲も二倍にします。$0\\le\\theta<2\\pi$ なら $0\\le u<4\\pi$ なので二周分を調べます。",
+        "範囲指定がなくすべての実数の解を求めるときは周期を使います。例えば $\\sin\\theta=0$ は $\\theta=k\\pi$（$k$ は整数）です。"
+      ],
+      "rule": "三角関数だけの形にする → 単位円またはグラフで範囲内の全交点を読む → 元の角へ戻し端点と定義域を確認する。因数で割ると解が消えるので、積がゼロなら各因数をゼロとします。",
+      "examples": [
+        {
+          "title": "同じ高さの二点を探す",
+          "prompt": "$0\\le\\theta<2\\pi$ で $2\\sin\\theta=\\sqrt3$ を解きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "まず正弦だけを残し、縦が正の二つの象限を見ます。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin\\theta=\\sqrt3/2$。基準角は $\\pi/3$、第二象限は $\\pi-\\pi/3=2\\pi/3$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\theta=\\pi/3,2\\pi/3$。 どちらも範囲内で、横線と円の交点はこの二つです。"
+            }
+          ]
+        },
+        {
+          "title": "中の角の範囲も変える",
+          "prompt": "$0\\le\\theta<2\\pi$ で $\\sin(2\\theta)=0$ を解きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "$u=2\\theta$ と置くと二周分になります。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$0\\le u<4\\pi$、$\\sin u=0$ より $u=0,\\pi,2\\pi,3\\pi$。各値を二で割ります。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\theta=0,\\pi/2,\\pi,3\\pi/2$。 $u=4\\pi$ と $\\theta=2\\pi$ は含みません。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "basic-equation",
+          "title": "値から象限を絞る",
+          "text": "$\\cos\\theta=-1/2$ なら横が負なので第二・第三象限です。基準角は $\\pi/3$ です。",
+          "tex": "\\theta=\\frac{2\\pi}3,\\frac{4\\pi}3\\quad(0\\le\\theta<2\\pi)",
+          "check": "$0\\le\\theta<2\\pi$ で $\\sin\\theta=-1$ の解は？",
+          "answer": "$\\theta=3\\pi/2$。"
+        },
+        {
+          "id": "transformed-equation",
+          "title": "角の範囲とゼロ積",
+          "text": "$u=2\\theta$ なら範囲も二倍にします。また $ab=0$ は $a=0$ または $b=0$ です。片方の因数で割るとその因数がゼロになる解を失います。",
+          "tex": "\\sin\\theta(2\\cos\\theta-1)=0",
+          "check": "この積がゼロになる条件を二つ書きなさい。",
+          "answer": "$\\sin\\theta=0$ または $\\cos\\theta=1/2$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-inequalities",
+      "title": "三角不等式",
+      "chapter": "三角関数",
+      "description": "境界の角を求め、円の弧やグラフの区間を選ぼう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "三角不等式の解は角の区間です。$\\sin\\theta>1/2$ なら、単位円の縦座標が $1/2$ より上にある弧に注目します。境界の二点だけを答えるのではありません。",
+        "まず等号にした方程式で境界を求め、その間のどちら側が条件を満たすかを座標やグラフで判断します。不等号に等号がある場合だけ、定義される境界点を含めます。",
+        "正接は漸近線で枝が分かれます。正弦と余弦の比として扱っても、符号の変わる余弦をそのまま両辺に掛けてはいけません。未定義点を除き、各枝の右上がりを使います。"
+      ],
+      "rule": "指定範囲を書く → 等号で境界を求める → 条件を満たす弧・枝を選ぶ → 境界の包含と未定義点を確認する。$\\sin\\theta,\\cos\\theta$ の値は必ず $-1$ 以上 $1$ 以下です。",
+      "examples": [
+        {
+          "title": "境界より上の弧を選ぶ",
+          "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta\\ge1/2$ を解きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "縦が $1/2$ 以上の上側の弧を探します。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "境界は $\\theta=\\pi/6,5\\pi/6$。その間では円の点が横線以上にあります。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\pi/6\\le\\theta\\le5\\pi/6$。 等号があるので両境界を含めます。"
+            }
+          ]
+        },
+        {
+          "title": "正接の枝ごとに選ぶ",
+          "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta>1$ を解きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "未定義点 $\\pi/2,3\\pi/2$ で区切り、各枝が右上がりであることを使います。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "等号は $\\pi/4,5\\pi/4$。そこから右へ進み、次の漸近線までが $1$ より大きい部分です。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\pi/4<\\theta<\\pi/2$ または $5\\pi/4<\\theta<3\\pi/2$。 等号の点も未定義点も含みません。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "sine-cosine-region",
+          "title": "点の集合を角の区間にする",
+          "text": "$\\cos\\theta<0$ は単位円の左半分です。$0\\le\\theta<2\\pi$ では上端から下端までですが、横がゼロの端は含みません。",
+          "tex": "\\frac\\pi2<\\theta<\\frac{3\\pi}2",
+          "check": "$0\\le\\theta<2\\pi$ で $\\sin\\theta\\ge0$ の解は？",
+          "answer": "$0\\le\\theta\\le\\pi$。$2\\pi$ は指定範囲に含みません。"
+        },
+        {
+          "id": "tangent-region",
+          "title": "漸近線は等号でも含めない",
+          "text": "$\\tan\\theta\\ge0$ でも、$\\theta=\\pi/2$ は値自体がないため含みません。ゼロとなる角は含めます。",
+          "tex": "\\tan0=0,\\qquad \\cos\\frac\\pi2=0",
+          "check": "$0\\le\\theta<\\pi$ で $\\tan\\theta\\ge0$ の解は？",
+          "answer": "$0\\le\\theta<\\pi/2$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-addition",
+      "title": "加法定理",
+      "chapter": "三角関数",
+      "description": "角を二つに分け、知っている値から計算しよう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "$\\sin(\\alpha+\\beta)$ は $\\sin\\alpha+\\sin\\beta$ ではありません。例えば $\\alpha=\\beta=\\pi/6$ なら、左辺は $\\sqrt3/2$、その和は $1$ で異なります。",
+        "角を足すことは、単位円上の点をさらに回すことです。横向きに長さ $1$ の線分を $\\beta$ だけ回すと、その横・縦の差は $\\cos\\beta,\\sin\\beta$。縦向きの線分では $-\\sin\\beta,\\cos\\beta$ になります。点 $(\\cos\\alpha,\\sin\\alpha)$ までの横と縦の移動をそれぞれ回し、横の差同士、縦の差同士を足すと、加法定理が得られます。",
+        "求めたい角を特別な角の和や差にします。例えば $\\pi/12=\\pi/4-\\pi/6$。式を先に書き、値を代入してから分数を計算します。度を使う問題では最後まで度でそろえます。"
+      ],
+      "rule": "$\\sin(\\alpha\\pm\\beta)=\\sin\\alpha\\cos\\beta\\pm\\cos\\alpha\\sin\\beta$。$\\cos(\\alpha\\pm\\beta)=\\cos\\alpha\\cos\\beta\\mp\\sin\\alpha\\sin\\beta$。$\\tan(\\alpha\\pm\\beta)=\\dfrac{\\tan\\alpha\\pm\\tan\\beta}{1\\mp\\tan\\alpha\\tan\\beta}$ は両方の正接が定義され、右辺の分母がゼロでないときに使えます。",
+      "examples": [
+        {
+          "title": "和に分けて正弦を計算する",
+          "prompt": "$\\sin(5\\pi/12)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "$5\\pi/12=\\pi/4+\\pi/6$ として、正弦の加法定理を使います。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin(\\pi/4+\\pi/6)=\\frac{\\sqrt2}2\\frac{\\sqrt3}2+\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6+\\sqrt2}4$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\dfrac{\\sqrt6+\\sqrt2}4$。 第一象限なので正。積どうしの和で計算しています。"
+            }
+          ]
+        },
+        {
+          "title": "正接の分母を確認する",
+          "prompt": "$\\tan(\\pi/12)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "$\\pi/12=\\pi/4-\\pi/6$。差の公式の分母は足し算です。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\frac{1-1/\\sqrt3}{1+1/\\sqrt3}=\\frac{\\sqrt3-1}{\\sqrt3+1}=\\frac{(\\sqrt3-1)^2}{2}=2-\\sqrt3$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$2-\\sqrt3$。 元の二つの正接は定義され、分母 $1+1/\\sqrt3$ は正です。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "sin-cos-addition",
+          "title": "余弦の和では引き算",
+          "text": "余弦の和の公式には負号があります。差なら後ろが正になります。例えば $\\cos(\\pi/4-\\pi/6)$ は二つの積の和です。",
+          "tex": "\\cos(\\alpha-\\beta)=\\cos\\alpha\\cos\\beta+\\sin\\alpha\\sin\\beta",
+          "check": "$\\cos(\\alpha+\\beta)$ の第二項の符号は？",
+          "answer": "負号。第二項は $-\\sin\\alpha\\sin\\beta$。"
+        },
+        {
+          "id": "tan-addition",
+          "title": "正接は三つの定義条件を調べる",
+          "text": "例えば $\\tan(\\pi/4+\\pi/4)$ は分母 $1-1=0$ なので計算できず、実際に $\\tan(\\pi/2)$ は未定義です。",
+          "tex": "1-\\tan\\alpha\\tan\\beta\\ne0",
+          "check": "$\\tan(\\pi/4-\\pi/4)$ は？",
+          "answer": "分母は $2$、分子は $0$ なので $0$。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-double-half",
+      "title": "二倍角と半角",
+      "chapter": "三角関数",
+      "description": "角を倍・半分にする公式を、必要な値と符号に合わせて使おう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "加法定理で二つの角を同じにすると二倍角の公式になります。$\\sin(\\theta+\\theta)=\\sin\\theta\\cos\\theta+\\cos\\theta\\sin\\theta$ なので $\\sin2\\theta=2\\sin\\theta\\cos\\theta$ です。",
+        "余弦の二倍角は $\\cos2\\theta=\\cos^2\\theta-\\sin^2\\theta$。平方和が $1$ になる関係を使うと、余弦だけ、または正弦だけの式にも直せます。与えられた値に合う形を選びましょう。",
+        "二倍角の公式の角を半分にして移項すると、$\\sin^2(\\theta/2)=(1-\\cos\\theta)/2$、$\\cos^2(\\theta/2)=(1+\\cos\\theta)/2$。これは平方の値です。平方根を取った後の符号は $\\theta/2$ の範囲で決めます。",
+        "半角の正接が必要なら、求めた正弦を余弦で割ります。$\\tan(\\theta/2)=\\sin(\\theta/2)/\\cos(\\theta/2)$ は $\\cos(\\theta/2)\\ne0$ のときだけ使えます。",
+        "例えば $\\pi<\\theta<2\\pi$ なら $\\pi/2<\\theta/2<\\pi$。半角の正弦は正、余弦は負です。元の角の象限で半角の符号を決めないようにします。"
+      ],
+      "rule": "$\\sin2\\theta=2\\sin\\theta\\cos\\theta$、$\\cos2\\theta=2\\cos^2\\theta-1=1-2\\sin^2\\theta$。$\\tan2\\theta=2\\tan\\theta/(1-\\tan^2\\theta)$ は $\\tan\\theta$ が定義され、$1-\\tan^2\\theta\\ne0$ のときに使えます。半角は平方を求めてから半角自身の範囲で符号を選びます。",
+      "examples": [
+        {
+          "title": "分かっている値に公式を合わせる",
+          "prompt": "$0<\\theta<\\pi/2$、$\\sin\\theta=3/5$ のとき、$\\sin2\\theta$ と $\\cos2\\theta$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "正弦の二倍角には余弦も必要です。余弦の二倍角には正弦だけの形を使えます。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\cos\\theta=\\sqrt{1-9/25}=4/5$。$\\sin2\\theta=2\\cdot\\frac35\\cdot\\frac45=24/25$、$\\cos2\\theta=1-2\\cdot\\frac9{25}=7/25$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\sin2\\theta=24/25,\\ \\cos2\\theta=7/25$。 平方和は $(576+49)/625=1$。式変形で求めた値の計算を確認できます。"
+            }
+          ]
+        },
+        {
+          "title": "半分にした角で符号を選ぶ",
+          "prompt": "$\\pi<\\theta<2\\pi$、$\\cos\\theta=-3/5$ のとき、$\\sin(\\theta/2)$ と $\\cos(\\theta/2)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "範囲を半分にすると第二象限なので、半角の正弦は正、余弦は負です。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin^2(\\theta/2)=(1+3/5)/2=4/5$、$\\cos^2(\\theta/2)=(1-3/5)/2=1/5$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\sin(\\theta/2)=2\\sqrt5/5,\\ \\cos(\\theta/2)=-\\sqrt5/5$。 符号は $\\pi/2<\\theta/2<\\pi$ から決めています。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "double-angle",
+          "title": "二倍角を展開して見分ける",
+          "text": "$\\sin2\\theta$ は $2\\sin\\theta$ ではありません。加法定理から、もう一つの因数 $\\cos\\theta$ が必要です。",
+          "tex": "\\cos2\\theta=1-2\\sin^2\\theta",
+          "check": "$\\sin\\theta=1/2$ のとき $\\cos2\\theta$ は？",
+          "answer": "$1-2(1/2)^2=1/2$。"
+        },
+        {
+          "id": "half-angle",
+          "title": "平方の値と平方根を分ける",
+          "text": "$\\cos^2(\\theta/2)=1/4$ だけでは符号は未定です。半角が第二象限なら $\\cos(\\theta/2)=-1/2$ です。",
+          "tex": "\\pi<\\theta<2\\pi\\ \\Longrightarrow\\ \\frac\\pi2<\\frac\\theta2<\\pi",
+          "check": "$0<\\theta<\\pi$ のとき半角の正弦と余弦の符号は？",
+          "answer": "半角は第一象限なので、どちらも正。"
+        }
+      ]
+    },
+    {
+      "slug": "trig-synthesis",
+      "title": "三角関数の合成",
+      "chapter": "三角関数",
+      "description": "和を一つの波に直し、この章の基本を自力で確かめよう。",
+      "basicsTitle": "角・値・条件を結び付ける",
+      "introduction": [
+        "$a\\sin\\theta+b\\cos\\theta$ を一つの正弦にまとめることを合成といいます。加法定理を逆向きに使い、係数を比べます。",
+        "$R\\sin(\\theta+\\varphi)=R\\cos\\varphi\\sin\\theta+R\\sin\\varphi\\cos\\theta$ なので、$R\\cos\\varphi=a$、$R\\sin\\varphi=b$ とすればよいのです。両式を平方して足すと $R^2=a^2+b^2$。ここでは $a,b$ が同時にゼロでないとし、$R>0$ を選びます。",
+        "例えば $\\sin\\theta+\\cos\\theta=\\sqrt2\\sin(\\theta+\\pi/4)$。すべての実数の角を動かせるなら最大値は $\\sqrt2$、最小値は $-\\sqrt2$。角の範囲が狭ければ、移動した角の範囲内でその値を取れるか調べます。",
+        "合成して方程式を解く場合も、$u=\\theta+\\varphi$ と置いたら範囲を移し、最後に $\\varphi$ を引いて元の角へ戻します。"
+      ],
+      "rule": "$R=\\sqrt{a^2+b^2}$、$\\cos\\varphi=a/R$、$\\sin\\varphi=b/R$ として $a\\sin\\theta+b\\cos\\theta=R\\sin(\\theta+\\varphi)$。合成後に展開して元の係数と一致するか確認します。最大・最小や方程式では移した角の範囲を必ず残します。",
+      "examples": [
+        {
+          "title": "係数から合成する",
+          "prompt": "$\\sqrt3\\sin\\theta+\\cos\\theta$ を $R\\sin(\\theta+\\varphi)$ の形にしなさい。ただし $R>0$、$-\\pi<\\varphi\\le\\pi$ とします。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "展開後の正弦・余弦の係数を一致させます。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$R=\\sqrt{3+1}=2$、$\\cos\\varphi=\\sqrt3/2$、$\\sin\\varphi=1/2$ より $\\varphi=\\pi/6$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$2\\sin(\\theta+\\pi/6)$。 展開すると $\\sqrt3\\sin\\theta+\\cos\\theta$ に戻ります。"
+            }
+          ]
+        },
+        {
+          "title": "指定範囲で最大と最小を調べる",
+          "prompt": "$0\\le\\theta\\le\\pi/2$ における $\\sin\\theta+\\cos\\theta$ の最大値・最小値と、そのときの角を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "合成して角の範囲を移します。全周期の最小値をそのまま使いません。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin\\theta+\\cos\\theta=\\sqrt2\\sin u$、$u=\\theta+\\pi/4$ より $\\pi/4\\le u\\le3\\pi/4$。この範囲では $\\sqrt2/2\\le\\sin u\\le1$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "最大値 $\\sqrt2$（$\\theta=\\pi/4$）、最小値 $1$（$\\theta=0,\\pi/2$）。 最大は弧の上端、最小は指定範囲の両端で取ります。"
+            }
+          ]
+        },
+        {
+          "title": "合成した角から元の角へ戻す",
+          "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta+\\cos\\theta=1$ を解きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "合成した角を新しい文字に置き換え、その範囲内の全解を拾います。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\sin u=\\sqrt2/2$、$\\pi/4\\le u<9\\pi/4$。$u=\\pi/4,3\\pi/4$ なので $\\theta=u-\\pi/4$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\theta=0,\\pi/2$。 上端の $u=9\\pi/4$ は含まず、元の式でも両角の値は $1$ です。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "synthesis-expression",
+          "title": "係数を置く順を確かめる",
+          "text": "$R\\sin(\\theta+\\varphi)$ では正弦の係数が $R\\cos\\varphi$、余弦の係数が $R\\sin\\varphi$ です。例えば $\\sin\\theta-\\cos\\theta$ なら位相角の正弦が負です。",
+          "tex": "\\sin\\theta-\\cos\\theta=\\sqrt2\\sin(\\theta-\\pi/4)",
+          "check": "$\\sin\\theta+\\sqrt3\\cos\\theta$ の合成で $R$ と $\\varphi$ は？（$R>0,-\\pi<\\varphi\\le\\pi$）",
+          "answer": "$R=2,\\ \\varphi=\\pi/3$。"
+        },
+        {
+          "id": "synthesis-range",
+          "title": "移した角の範囲を見る",
+          "text": "$u=\\theta+\\pi/4$ なら不等式の各辺に $\\pi/4$ を足します。例えば $0\\le\\theta\\le\\pi/4$ は $\\pi/4\\le u\\le\\pi/2$。方程式の解も、最後に元の角へ戻します。",
+          "tex": "\\theta=u-\\pi/4",
+          "check": "$u=3\\pi/4$ のとき $\\theta=u-\\pi/4$ は？",
+          "answer": "$\\theta=\\pi/2$。"
+        }
+      ]
+    },
+    {
+      "slug": "chapter-four-check",
+      "title": "第4章のまとめ",
+      "chapter": "三角関数",
+      "description": "単位円、角の範囲、式の変形を使って確かめる。",
+      "basicsTitle": "座標と角の範囲に戻る",
+      "introduction": [
+        "正弦は縦の座標、余弦は横の座標です。三角関数の値から角を求めるときは、指定された範囲内の点をすべて探します。",
+        "角を置き換えるときは範囲も一緒に変えます。半角の符号は半分にした角の象限で決め、正接が定義されない角は答えに含めません。"
+      ],
+      "rule": "値を求めるのか、角を求めるのか、角の区間を求めるのかを区別します。計算後は元の条件と範囲を確かめます。",
+      "examples": [
+        {
+          "title": "境界と端点を確かめる",
+          "prompt": "$0\\le\\theta<2\\pi$ で $2\\cos\\theta\\ge1$ を解きなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "正の数二で割り、横座標が $1/2$ 以上の弧を選びます。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\cos\\theta\\ge1/2$、境界は $\\pi/3,5\\pi/3$。右側の弧は範囲の両端に分かれます。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$0\\le\\theta\\le\\pi/3$ または $5\\pi/3\\le\\theta<2\\pi$。 不等式の境界は含みますが、指定範囲の上端は含みません。"
+            }
+          ]
+        },
+        {
+          "title": "半角の符号を選ぶ",
+          "prompt": "$\\pi<\\theta<2\\pi$、$\\cos\\theta=-7/9$ のとき $\\cos(\\theta/2)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "注目するものを決める",
+              "text": "半角は第二象限なので余弦は負です。"
+            },
+            {
+              "title": "途中式を書く",
+              "text": "$\\cos^2(\\theta/2)=(1-7/9)/2=1/9$。"
+            },
+            {
+              "title": "答えと条件を確かめる",
+              "text": "$\\cos(\\theta/2)=-1/3$。 元の角の符号ではなく、$\\pi/2<\\theta/2<\\pi$ を根拠に選びました。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "chapter-conditions",
+          "title": "条件を答えまで残す",
+          "text": "三角方程式は範囲内のすべての角、不等式は区間で答えます。正接は余弦がゼロなら未定義です。例えば $\\tan\\theta\\ge0$ でも漸近線上の角は入りません。",
+          "tex": "\\sin^2\\theta+\\cos^2\\theta=1,\\qquad \\cos\\theta\\ne0\\ \\text{なら}\\ \\tan\\theta=\\frac{\\sin\\theta}{\\cos\\theta}",
+          "check": "$0\\le\\theta<2\\pi$ で正接が定義されない角をすべて答えなさい。",
+          "answer": "$\\theta=\\pi/2,3\\pi/2$。"
+        },
+        {
+          "id": "check-conversion",
+          "title": "一周と単位を確かめる",
+          "text": "同じ向きの角は一周の整数倍だけ違います。例えば $-60^\\circ+360^\\circ=300^\\circ$。角そのものが等しいという意味ではありません。",
+          "tex": "180^\\circ=\\pi\\,\\mathrm{rad}",
+          "check": "$90^\\circ$ をラジアンで表しなさい。",
+          "answer": "$\\pi/2\\,\\mathrm{rad}$。"
+        },
+        {
+          "id": "check-recover",
+          "title": "平方根には符号の判断が必要",
+          "text": "$u^2=4/9$ の解は $u=\\pm2/3$。三角関数では象限の情報でどちらかを選びます。",
+          "tex": "\\cos^2\\theta=1-\\sin^2\\theta",
+          "check": "第二象限で $\\cos^2\\theta=1/4$ のとき余弦は？",
+          "answer": "$-1/2$。"
+        },
+        {
+          "id": "check-basic-equation",
+          "title": "値から象限を絞る",
+          "text": "$\\cos\\theta=-1/2$ なら横が負なので第二・第三象限です。基準角は $\\pi/3$ です。",
+          "tex": "\\theta=\\frac{2\\pi}3,\\frac{4\\pi}3\\quad(0\\le\\theta<2\\pi)",
+          "check": "$0\\le\\theta<2\\pi$ で $\\sin\\theta=-1$ の解は？",
+          "answer": "$\\theta=3\\pi/2$。"
+        },
+        {
+          "id": "check-half-angle",
+          "title": "平方の値と平方根を分ける",
+          "text": "$\\cos^2(\\theta/2)=1/4$ だけでは符号は未定です。半角が第二象限なら $\\cos(\\theta/2)=-1/2$ です。",
+          "tex": "\\pi<\\theta<2\\pi\\ \\Longrightarrow\\ \\frac\\pi2<\\frac\\theta2<\\pi",
+          "check": "$0<\\theta<\\pi$ のとき半角の正弦と余弦の符号は？",
+          "answer": "半角は第一象限なので、どちらも正。"
+        },
+        {
+          "id": "check-sector",
+          "title": "弧長と面積を区別する",
+          "text": "弧長は長さ、面積は広さです。半径 $2$、中心角 $1$ ラジアンなら弧長は $2$、面積も数値は $2$ ですが単位は異なります。",
+          "tex": "l=r\\theta,\\qquad S=\\frac12r^2\\theta",
+          "check": "半径 $4\\,\\mathrm{cm}$、中心角 $1/2$ ラジアンの弧長は？",
+          "answer": "$4\\cdot\\frac12=2\\,\\mathrm{cm}$。"
+        },
+        {
+          "id": "check-coordinate",
+          "title": "横と縦を読む",
+          "text": "点 $(3/5,-4/5)$ なら横は正、縦は負なので第四象限です。余弦を先、正弦を後に書く順を守ります。",
+          "tex": "(x,y)=(\\cos\\theta,\\sin\\theta)",
+          "check": "点 $(0,-1)$ に対応する正弦は？",
+          "answer": "$-1$。"
+        },
+        {
+          "id": "check-reflection",
+          "title": "符号は象限で決める",
+          "text": "$4\\pi/3=\\pi+\\pi/3$ は第三象限です。基準角は $\\pi/3$、横も縦も負です。",
+          "tex": "\\cos\\frac{4\\pi}3=-\\cos\\frac\\pi3=-\\frac12",
+          "check": "$\\sin(7\\pi/6)$ の符号と値は？",
+          "answer": "負で、$-1/2$。"
+        },
+        {
+          "id": "check-identity",
+          "title": "相互関係で同じ式へ直す",
+          "text": "$1-\\sin^2\\theta$ は $\\cos^2\\theta$ に置き換えられます。割るときは割る量がゼロでない条件が必要です。",
+          "tex": "1-\\sin^2\\theta=\\cos^2\\theta",
+          "check": "$\\cos\\theta\\ne0$ のとき $(1-\\sin^2\\theta)/\\cos\\theta$ を簡単にしなさい。",
+          "answer": "$\\cos\\theta$。"
+        },
+        {
+          "id": "check-wave",
+          "title": "中の角を基準角に合わせる",
+          "text": "$y=\\sin(2x)$ の山は $2x=\\pi/2$ のときなので $x=\\pi/4$。横幅は半分になります。",
+          "tex": "2x=0,\\frac\\pi2,\\pi,\\frac{3\\pi}2,2\\pi",
+          "check": "$y=\\cos(2x)$ の周期は？",
+          "answer": "$\\pi$。"
+        },
+        {
+          "id": "check-tangent-graph",
+          "title": "正接の分母がゼロになる場所",
+          "text": "$\\tan x=\\sin x/\\cos x$ なので $x=\\pi/2+k\\pi$ ではグラフがありません。例えば $x=\\pi/2$ は漸近線です。",
+          "tex": "\\cos x=0\\iff x=\\frac\\pi2+k\\pi\\quad(k\\in\\mathbb Z)",
+          "check": "$y=\\tan x$ の周期と $x=\\pi/2$ での値は？",
+          "answer": "周期は $\\pi$、その点の値は定義されません。"
+        },
+        {
+          "id": "check-transformed-equation",
+          "title": "角の範囲とゼロ積",
+          "text": "$u=2\\theta$ なら範囲も二倍にします。また $ab=0$ は $a=0$ または $b=0$ です。片方の因数で割るとその因数がゼロになる解を失います。",
+          "tex": "\\sin\\theta(2\\cos\\theta-1)=0",
+          "check": "この積がゼロになる条件を二つ書きなさい。",
+          "answer": "$\\sin\\theta=0$ または $\\cos\\theta=1/2$。"
+        },
+        {
+          "id": "check-sine-cosine-region",
+          "title": "点の集合を角の区間にする",
+          "text": "$\\cos\\theta<0$ は単位円の左半分です。$0\\le\\theta<2\\pi$ では上端から下端までですが、横がゼロの端は含みません。",
+          "tex": "\\frac\\pi2<\\theta<\\frac{3\\pi}2",
+          "check": "$0\\le\\theta<2\\pi$ で $\\sin\\theta\\ge0$ の解は？",
+          "answer": "$0\\le\\theta\\le\\pi$。$2\\pi$ は指定範囲に含みません。"
+        },
+        {
+          "id": "check-tangent-region",
+          "title": "漸近線は等号でも含めない",
+          "text": "$\\tan\\theta\\ge0$ でも、$\\theta=\\pi/2$ は値自体がないため含みません。ゼロとなる角は含めます。",
+          "tex": "\\tan0=0,\\qquad \\cos\\frac\\pi2=0",
+          "check": "$0\\le\\theta<\\pi$ で $\\tan\\theta\\ge0$ の解は？",
+          "answer": "$0\\le\\theta<\\pi/2$。"
+        },
+        {
+          "id": "check-sin-cos-addition",
+          "title": "余弦の和では引き算",
+          "text": "余弦の和の公式には負号があります。差なら後ろが正になります。例えば $\\cos(\\pi/4-\\pi/6)$ は二つの積の和です。",
+          "tex": "\\cos(\\alpha-\\beta)=\\cos\\alpha\\cos\\beta+\\sin\\alpha\\sin\\beta",
+          "check": "$\\cos(\\alpha+\\beta)$ の第二項の符号は？",
+          "answer": "負号。第二項は $-\\sin\\alpha\\sin\\beta$。"
+        },
+        {
+          "id": "check-tan-addition",
+          "title": "正接は三つの定義条件を調べる",
+          "text": "例えば $\\tan(\\pi/4+\\pi/4)$ は分母 $1-1=0$ なので計算できず、実際に $\\tan(\\pi/2)$ は未定義です。",
+          "tex": "1-\\tan\\alpha\\tan\\beta\\ne0",
+          "check": "$\\tan(\\pi/4-\\pi/4)$ は？",
+          "answer": "分母は $2$、分子は $0$ なので $0$。"
+        },
+        {
+          "id": "check-double-angle",
+          "title": "二倍角を展開して見分ける",
+          "text": "$\\sin2\\theta$ は $2\\sin\\theta$ ではありません。加法定理から、もう一つの因数 $\\cos\\theta$ が必要です。",
+          "tex": "\\cos2\\theta=1-2\\sin^2\\theta",
+          "check": "$\\sin\\theta=1/2$ のとき $\\cos2\\theta$ は？",
+          "answer": "$1-2(1/2)^2=1/2$。"
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "family": "conversion",
+      "prompt": "$180^\\circ$ をラジアンで表しなさい。",
+      "answer": "$\\pi\\,\\mathrm{rad}$。",
+      "hints": [
+        "一周の半分です。",
+        "$2\\pi\\div2=\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "一周の半分です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2\\pi\\div2=\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi\\,\\mathrm{rad}$。"
+        }
+      ],
+      "id": "trig-radians-ready-half-turn-v1",
+      "lesson": "trig-radians",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $2\\,\\mathrm{cm}$、中心角 $1$ ラジアンの扇形の弧長を求めなさい。",
+      "answer": "$2\\,\\mathrm{cm}$。",
+      "hints": [
+        "弧長は半径とラジアン角の積です。",
+        "$l=2\\cdot1=2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "弧長は半径とラジアン角の積です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$l=2\\cdot1=2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2\\,\\mathrm{cm}$。"
+        }
+      ],
+      "id": "trig-radians-ready-arc-v1",
+      "lesson": "trig-radians",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "sector"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$60^\\circ$ をラジアンに直しなさい。$180^\\circ$ の何倍か考えましょう。",
+      "answer": "$\\pi/3\\,\\mathrm{rad}$。",
+      "hints": [
+        "$60/180$ 倍です。",
+        "$60\\cdot\\pi/180=\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$60/180$ 倍です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$60\\cdot\\pi/180=\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/3\\,\\mathrm{rad}$。"
+        }
+      ],
+      "id": "trig-radians-guided-degree-v1",
+      "lesson": "trig-radians",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $2\\,\\mathrm{cm}$、中心角 $\\pi/2$ の扇形の面積を求めなさい。円の何分の一かも確かめましょう。",
+      "answer": "$\\pi\\,\\mathrm{cm}^2$。",
+      "hints": [
+        "中心角は一周の四分の一です。",
+        "$S=\\frac12\\cdot2^2\\cdot\\frac\\pi2=\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中心角は一周の四分の一です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$S=\\frac12\\cdot2^2\\cdot\\frac\\pi2=\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi\\,\\mathrm{cm}^2$。"
+        }
+      ],
+      "id": "trig-radians-guided-area-v1",
+      "lesson": "trig-radians",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "sector"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$225^\\circ$ をラジアンで表しなさい。",
+      "answer": "$5\\pi/4\\,\\mathrm{rad}$。",
+      "hints": [
+        "度数に $\\pi/180$ を掛けます。",
+        "$225\\pi/180=5\\pi/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "度数に $\\pi/180$ を掛けます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$225\\pi/180=5\\pi/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$5\\pi/4\\,\\mathrm{rad}$。"
+        }
+      ],
+      "id": "trig-radians-practice-to-radian-v1",
+      "lesson": "trig-radians",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$7\\pi/6$ ラジアンを度で表しなさい。",
+      "answer": "$210^\\circ$。",
+      "hints": [
+        "ラジアン角に $180/\\pi$ を掛けます。",
+        "$\\frac{7\\pi}6\\cdot\\frac{180}\\pi=210$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "ラジアン角に $180/\\pi$ を掛けます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{7\\pi}6\\cdot\\frac{180}\\pi=210$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$210^\\circ$。"
+        }
+      ],
+      "id": "trig-radians-practice-to-degree-v1",
+      "lesson": "trig-radians",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$-\\pi/3$ と同じ向きで、$0\\le\\theta<2\\pi$ にある角を求めなさい。",
+      "answer": "$\\theta=5\\pi/3$。",
+      "hints": [
+        "負の角に一周を加えて範囲に入れます。",
+        "$-\\pi/3+2\\pi=5\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "負の角に一周を加えて範囲に入れます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-\\pi/3+2\\pi=5\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=5\\pi/3$。"
+        }
+      ],
+      "id": "trig-radians-practice-negative-v1",
+      "lesson": "trig-radians",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$13\\pi/6$ と同じ向きで、$0\\le\\theta<2\\pi$ にある角を求めなさい。",
+      "answer": "$\\theta=\\pi/6$。",
+      "hints": [
+        "一周を引いて範囲に入れます。",
+        "$13\\pi/6-2\\pi=\\pi/6$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "一周を引いて範囲に入れます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$13\\pi/6-2\\pi=\\pi/6$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/6$。"
+        }
+      ],
+      "id": "trig-radians-practice-overturn-v1",
+      "lesson": "trig-radians",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $4\\,\\mathrm{cm}$、中心角 $\\pi/3$ の扇形の弧長を求めなさい。",
+      "answer": "$4\\pi/3\\,\\mathrm{cm}$。",
+      "hints": [
+        "中心角はすでにラジアンです。",
+        "$l=4\\cdot\\pi/3=4\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中心角はすでにラジアンです。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$l=4\\cdot\\pi/3=4\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$4\\pi/3\\,\\mathrm{cm}$。"
+        }
+      ],
+      "id": "trig-radians-practice-arc-v1",
+      "lesson": "trig-radians",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sector"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $2\\,\\mathrm{cm}$、中心角 $90^\\circ$ の扇形の面積を求めなさい。",
+      "answer": "$\\pi\\,\\mathrm{cm}^2$。",
+      "hints": [
+        "まず $90^\\circ$ をラジアンに直します。",
+        "$90^\\circ=\\pi/2\\,\\mathrm{rad}$、$S=\\frac12\\cdot4\\cdot\\pi/2=\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "まず $90^\\circ$ をラジアンに直します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$90^\\circ=\\pi/2\\,\\mathrm{rad}$、$S=\\frac12\\cdot4\\cdot\\pi/2=\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi\\,\\mathrm{cm}^2$。"
+        }
+      ],
+      "id": "trig-radians-practice-area-v1",
+      "lesson": "trig-radians",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sector"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$-3\\pi/2$ を度で表し、同じ向きで $0^\\circ\\le\\alpha<360^\\circ$ にある角も求めなさい。",
+      "answer": "$-270^\\circ$、指定範囲では $90^\\circ$。",
+      "hints": [
+        "まず単位を直し、その後で一周を加えます。",
+        "$(-3\\pi/2)\\cdot180/\\pi=-270$、$-270^\\circ+360^\\circ=90^\\circ$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "まず単位を直し、その後で一周を加えます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$(-3\\pi/2)\\cdot180/\\pi=-270$、$-270^\\circ+360^\\circ=90^\\circ$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-270^\\circ$、指定範囲では $90^\\circ$。"
+        }
+      ],
+      "id": "trig-radians-review-negative-v1",
+      "lesson": "trig-radians",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "conversion"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $3\\,\\mathrm{cm}$、弧長 $\\pi\\,\\mathrm{cm}$ の扇形の中心角と面積を求めなさい。",
+      "answer": "中心角 $\\pi/3$ ラジアン、面積 $3\\pi/2\\,\\mathrm{cm}^2$。",
+      "hints": [
+        "$l=r\\theta$ から角を出します。",
+        "$\\theta=\\pi/3$、$S=\\frac12\\cdot9\\cdot\\pi/3=3\\pi/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$l=r\\theta$ から角を出します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\theta=\\pi/3$、$S=\\frac12\\cdot9\\cdot\\pi/3=3\\pi/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "中心角 $\\pi/3$ ラジアン、面積 $3\\pi/2\\,\\mathrm{cm}^2$。"
+        }
+      ],
+      "id": "trig-radians-review-sector-v1",
+      "lesson": "trig-radians",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "sector"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "単位円上の点が $(3/5,4/5)$ のとき、対応する角の余弦を求めなさい。",
+      "answer": "$3/5$。",
+      "hints": [
+        "余弦は横の座標です。",
+        "$x=3/5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦は横の座標です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$x=3/5$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$3/5$。"
+        }
+      ],
+      "id": "trig-unit-circle-ready-horizontal-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "coordinate"
+    },
+    {
+      "family": "special",
+      "prompt": "$\\sin(\\pi/2)$ を求めなさい。",
+      "answer": "$1$。",
+      "hints": [
+        "単位円の最上点を見ます。",
+        "$P=(0,1)$ なので縦は $1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "単位円の最上点を見ます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$P=(0,1)$ なので縦は $1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$1$。"
+        }
+      ],
+      "id": "trig-unit-circle-ready-top-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "単位円上の点が $(4/5,-3/5)$ のとき、正接を縦と横の商で求めなさい。",
+      "answer": "$-3/4$。",
+      "hints": [
+        "縦を横で割ります。横はゼロではありません。",
+        "$(-3/5)/(4/5)=-3/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦を横で割ります。横はゼロではありません。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$(-3/5)/(4/5)=-3/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-3/4$。"
+        }
+      ],
+      "id": "trig-unit-circle-guided-ratio-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "coordinate"
+    },
+    {
+      "family": "special",
+      "prompt": "$\\sin(\\pi/6)$ と $\\cos(\\pi/6)$ を求めなさい。斜辺を $1$ と考えましょう。",
+      "answer": "$\\sin(\\pi/6)=1/2,\\ \\cos(\\pi/6)=\\sqrt3/2$。",
+      "hints": [
+        "辺の比 $1:\\sqrt3:2$ を半分にします。",
+        "短辺 $1/2$、長辺 $\\sqrt3/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "辺の比 $1:\\sqrt3:2$ を半分にします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "短辺 $1/2$、長辺 $\\sqrt3/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin(\\pi/6)=1/2,\\ \\cos(\\pi/6)=\\sqrt3/2$。"
+        }
+      ],
+      "id": "trig-unit-circle-guided-triangle-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "角 $\\theta$ の単位円上の点が $(-4/5,-3/5)$。三つの三角関数の値を求めなさい。",
+      "answer": "$\\sin\\theta=-3/5,\\ \\cos\\theta=-4/5,\\ \\tan\\theta=3/4$。",
+      "hints": [
+        "横と縦を読み、最後に商を求めます。",
+        "$\\cos\\theta=-4/5,\\ \\sin\\theta=-3/5$、$(-3/5)/(-4/5)=3/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横と縦を読み、最後に商を求めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos\\theta=-4/5,\\ \\sin\\theta=-3/5$、$(-3/5)/(-4/5)=3/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin\\theta=-3/5,\\ \\cos\\theta=-4/5,\\ \\tan\\theta=3/4$。"
+        }
+      ],
+      "id": "trig-unit-circle-practice-coordinates-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "coordinate"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "$\\pi<\\theta<3\\pi/2$ のとき、正弦・余弦・正接の符号を答えなさい。",
+      "answer": "正弦は負、余弦は負、正接は正。",
+      "hints": [
+        "第三象限では横・縦とも負です。",
+        "$\\sin\\theta<0,\\ \\cos\\theta<0$。負を負で割ると正です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第三象限では横・縦とも負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin\\theta<0,\\ \\cos\\theta<0$。負を負で割ると正です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦は負、余弦は負、正接は正。"
+        }
+      ],
+      "id": "trig-unit-circle-practice-quadrant-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "coordinate"
+    },
+    {
+      "family": "special",
+      "prompt": "$\\pi/4$ の正弦・余弦・正接を求めなさい。",
+      "answer": "正弦・余弦は $\\sqrt2/2$、正接は $1$。",
+      "hints": [
+        "直角二等辺三角形の斜辺を $1$ にします。",
+        "両脚は $1/\\sqrt2=\\sqrt2/2$、その商は $1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "直角二等辺三角形の斜辺を $1$ にします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "両脚は $1/\\sqrt2=\\sqrt2/2$、その商は $1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦・余弦は $\\sqrt2/2$、正接は $1$。"
+        }
+      ],
+      "id": "trig-unit-circle-practice-quarter-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "special",
+      "prompt": "$\\cos(\\pi/3)$ と $\\tan(\\pi/3)$ を求めなさい。",
+      "answer": "余弦 $1/2$、正接 $\\sqrt3$。",
+      "hints": [
+        "正弦は $\\sqrt3/2$、横は短辺です。",
+        "$\\cos(\\pi/3)=1/2$、$(\\sqrt3/2)/(1/2)=\\sqrt3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦は $\\sqrt3/2$、横は短辺です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(\\pi/3)=1/2$、$(\\sqrt3/2)/(1/2)=\\sqrt3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $1/2$、正接 $\\sqrt3$。"
+        }
+      ],
+      "id": "trig-unit-circle-practice-third-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "special",
+      "prompt": "$3\\pi/2$ の正弦・余弦・正接を求めなさい。",
+      "answer": "正弦 $-1$、余弦 $0$、正接は定義されません。",
+      "hints": [
+        "単位円の最下点は $(0,-1)$ です。",
+        "縦は $-1$、横は $0$。正接にはゼロによる割り算が必要になります。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "単位円の最下点は $(0,-1)$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "縦は $-1$、横は $0$。正接にはゼロによる割り算が必要になります。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $-1$、余弦 $0$、正接は定義されません。"
+        }
+      ],
+      "id": "trig-unit-circle-practice-bottom-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "special",
+      "prompt": "$\\pi$ の正弦・余弦・正接を求めなさい。",
+      "answer": "正弦 $0$、余弦 $-1$、正接 $0$。",
+      "hints": [
+        "単位円の左端を見ます。",
+        "$P=(-1,0)$、$0/(-1)=0$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "単位円の左端を見ます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$P=(-1,0)$、$0/(-1)=0$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $0$、余弦 $-1$、正接 $0$。"
+        }
+      ],
+      "id": "trig-unit-circle-practice-left-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "単位円上の点が $(5/13,-12/13)$ のとき、対応する角の正弦・余弦・正接を求めなさい。",
+      "answer": "正弦 $-12/13$、余弦 $5/13$、正接 $-12/5$。",
+      "hints": [
+        "縦が正弦、横が余弦、その商が正接です。",
+        "$\\tan\\theta=(-12/13)/(5/13)=-12/5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦が正弦、横が余弦、その商が正接です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\tan\\theta=(-12/13)/(5/13)=-12/5$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $-12/13$、余弦 $5/13$、正接 $-12/5$。"
+        }
+      ],
+      "id": "trig-unit-circle-review-coordinate-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "coordinate"
+    },
+    {
+      "family": "special",
+      "prompt": "$0\\le\\theta<2\\pi$ で、$\\tan\\theta$ が定義されない角をすべて求めなさい。",
+      "answer": "$\\theta=\\pi/2,3\\pi/2$。",
+      "hints": [
+        "単位円で横がゼロになる二点です。",
+        "$\\cos\\theta=0$ は上端と下端です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "単位円で横がゼロになる二点です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos\\theta=0$ は上端と下端です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/2,3\\pi/2$。"
+        }
+      ],
+      "id": "trig-unit-circle-review-axis-v1",
+      "lesson": "trig-unit-circle",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "special"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$2\\pi/3$ はどの象限の角ですか。また余弦の符号を答えなさい。",
+      "answer": "第二象限、余弦は負。",
+      "hints": [
+        "$\\pi/2$ と $\\pi$ の間にあります。",
+        "$\\pi/2<2\\pi/3<\\pi$。横の座標は負です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\pi/2$ と $\\pi$ の間にあります。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi/2<2\\pi/3<\\pi$。横の座標は負です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "第二象限、余弦は負。"
+        }
+      ],
+      "id": "trig-angle-change-ready-quadrant-v1",
+      "lesson": "trig-angle-change",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "complement",
+      "prompt": "$\\pi/6$ の余角をラジアンで求めなさい。",
+      "answer": "$\\pi/3$。",
+      "hints": [
+        "和が直角 $\\pi/2$ になる角です。",
+        "$\\pi/2-\\pi/6=\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "和が直角 $\\pi/2$ になる角です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi/2-\\pi/6=\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/3$。"
+        }
+      ],
+      "id": "trig-angle-change-ready-complement-v1",
+      "lesson": "trig-angle-change",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "complement"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\sin(-\\pi/6)$ を、横軸の反転を使って求めなさい。",
+      "answer": "$-1/2$。",
+      "hints": [
+        "反転で縦の符号が変わります。",
+        "$\\sin(-\\pi/6)=-\\sin(\\pi/6)=-1/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "反転で縦の符号が変わります。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin(-\\pi/6)=-\\sin(\\pi/6)=-1/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-1/2$。"
+        }
+      ],
+      "id": "trig-angle-change-guided-negative-v1",
+      "lesson": "trig-angle-change",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "complement",
+      "prompt": "$0<\\theta<\\pi/2$、$\\sin\\theta=3/5$ のとき、$\\cos(\\pi/2-\\theta)$ を求めなさい。",
+      "answer": "$3/5$。",
+      "hints": [
+        "余角の余弦は元の正弦です。",
+        "$\\cos(\\pi/2-\\theta)=\\sin\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余角の余弦は元の正弦です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(\\pi/2-\\theta)=\\sin\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$3/5$。"
+        }
+      ],
+      "id": "trig-angle-change-guided-swap-v1",
+      "lesson": "trig-angle-change",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "complement"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\sin(2\\pi/3)$ を求めなさい。",
+      "answer": "$\\sqrt3/2$。",
+      "hints": [
+        "$2\\pi/3=\\pi-\\pi/3$、縦は正です。",
+        "$\\sin(2\\pi/3)=\\sin(\\pi/3)=\\sqrt3/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$2\\pi/3=\\pi-\\pi/3$、縦は正です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin(2\\pi/3)=\\sin(\\pi/3)=\\sqrt3/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sqrt3/2$。"
+        }
+      ],
+      "id": "trig-angle-change-practice-sine-v1",
+      "lesson": "trig-angle-change",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\cos(7\\pi/6)$ を求めなさい。",
+      "answer": "$-\\sqrt3/2$。",
+      "hints": [
+        "第三象限で横は負、基準角は $\\pi/6$ です。",
+        "$\\cos(7\\pi/6)=-\\cos(\\pi/6)$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第三象限で横は負、基準角は $\\pi/6$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(7\\pi/6)=-\\cos(\\pi/6)$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-\\sqrt3/2$。"
+        }
+      ],
+      "id": "trig-angle-change-practice-cosine-v1",
+      "lesson": "trig-angle-change",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\tan(3\\pi/4)$ を求めなさい。",
+      "answer": "$-1$。",
+      "hints": [
+        "第二象限なので商は負です。余弦はゼロではありません。",
+        "$\\tan(3\\pi/4)=(\\sqrt2/2)/(-\\sqrt2/2)$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第二象限なので商は負です。余弦はゼロではありません。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\tan(3\\pi/4)=(\\sqrt2/2)/(-\\sqrt2/2)$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-1$。"
+        }
+      ],
+      "id": "trig-angle-change-practice-tangent-v1",
+      "lesson": "trig-angle-change",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\cos(13\\pi/6)$ を求めなさい。",
+      "answer": "$\\sqrt3/2$。",
+      "hints": [
+        "一周を引いても座標は同じです。",
+        "$13\\pi/6-2\\pi=\\pi/6$、$\\cos(13\\pi/6)=\\cos(\\pi/6)$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "一周を引いても座標は同じです。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$13\\pi/6-2\\pi=\\pi/6$、$\\cos(13\\pi/6)=\\cos(\\pi/6)$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sqrt3/2$。"
+        }
+      ],
+      "id": "trig-angle-change-practice-turn-v1",
+      "lesson": "trig-angle-change",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "complement",
+      "prompt": "$0<\\theta<\\pi/2$、$\\cos\\theta=4/5$ のとき、$\\sin(\\pi/2-\\theta)$ を求めなさい。",
+      "answer": "$4/5$。",
+      "hints": [
+        "余角の正弦を余弦に直します。",
+        "$\\sin(\\pi/2-\\theta)=\\cos\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余角の正弦を余弦に直します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin(\\pi/2-\\theta)=\\cos\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$4/5$。"
+        }
+      ],
+      "id": "trig-angle-change-practice-complement-sine-v1",
+      "lesson": "trig-angle-change",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "complement"
+    },
+    {
+      "family": "complement",
+      "prompt": "$0<\\theta<\\pi/2$、$\\sin\\theta=5/13$ のとき、$\\cos(\\pi/2+\\theta)$ を求めなさい。",
+      "answer": "$-5/13$。",
+      "hints": [
+        "四分の一周の回転で点 $(x,y)$ は $(-y,x)$ に移ります。",
+        "$\\cos(\\pi/2+\\theta)=-\\sin\\theta$ を使います。"
+      ],
+      "steps": [
+        {
+          "title": "回転後の横を見る",
+          "text": "四分の一周の回転で点 $(x,y)$ は $(-y,x)$ に移ります。"
+        },
+        {
+          "title": "対応する式に直す",
+          "text": "$\\cos(\\pi/2+\\theta)=-\\sin\\theta=-5/13$。"
+        },
+        {
+          "title": "符号を確認する",
+          "text": "回転後の角は第二象限なので、余弦は負の $-5/13$ です。"
+        }
+      ],
+      "id": "trig-angle-change-practice-complement-cosine-v1",
+      "lesson": "trig-angle-change",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "complement"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\cos(-2\\pi/3)$ と $\\tan(-2\\pi/3)$ を求めなさい。",
+      "answer": "余弦 $-1/2$、正接 $\\sqrt3$。",
+      "hints": [
+        "余弦は負角でも同じです。正弦は符号が反対です。",
+        "$\\cos(-2\\pi/3)=-1/2$、$\\sin(-2\\pi/3)=-\\sqrt3/2$、その商は $\\sqrt3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦は負角でも同じです。正弦は符号が反対です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(-2\\pi/3)=-1/2$、$\\sin(-2\\pi/3)=-\\sqrt3/2$、その商は $\\sqrt3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $-1/2$、正接 $\\sqrt3$。"
+        }
+      ],
+      "id": "trig-angle-change-review-negative-cosine-v1",
+      "lesson": "trig-angle-change",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "reflection"
+    },
+    {
+      "family": "complement",
+      "prompt": "$0<\\theta<\\pi/2$、$\\cos\\theta=5/13$ のとき、$\\sin(\\pi/2-\\theta)$ を求めなさい。",
+      "answer": "$5/13$。",
+      "hints": [
+        "正弦を余弦に交換して与えられた値を使います。",
+        "$\\sin(\\pi/2-\\theta)=\\cos\\theta=5/13$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦を余弦に交換して与えられた値を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin(\\pi/2-\\theta)=\\cos\\theta=5/13$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$5/13$。"
+        }
+      ],
+      "id": "trig-angle-change-review-complement-v1",
+      "lesson": "trig-angle-change",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "complement"
+    },
+    {
+      "family": "recover",
+      "prompt": "$\\sin\\theta=1/2$ のとき $\\cos^2\\theta$ を求めなさい。",
+      "answer": "$3/4$。",
+      "hints": [
+        "余弦そのものではなく平方を求めます。",
+        "$\\cos^2\\theta=1-(1/2)^2=3/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦そのものではなく平方を求めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2\\theta=1-(1/2)^2=3/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$3/4$。"
+        }
+      ],
+      "id": "trig-identities-ready-square-v1",
+      "lesson": "trig-identities",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "identity",
+      "prompt": "$1-\\cos^2\\theta$ を正弦だけで表しなさい。",
+      "answer": "$\\sin^2\\theta$。",
+      "hints": [
+        "平方和が $1$ になる関係を移項します。",
+        "$\\sin^2\\theta+\\cos^2\\theta=1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "平方和が $1$ になる関係を移項します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2\\theta+\\cos^2\\theta=1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin^2\\theta$。"
+        }
+      ],
+      "id": "trig-identities-ready-rewrite-v1",
+      "lesson": "trig-identities",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "identity"
+    },
+    {
+      "family": "recover",
+      "prompt": "$\\pi<\\theta<3\\pi/2$、$\\cos\\theta=-3/5$ のとき正弦を求めなさい。符号も説明しなさい。",
+      "answer": "$\\sin\\theta=-4/5$。",
+      "hints": [
+        "第三象限では正弦が負です。",
+        "$\\sin^2\\theta=1-9/25=16/25$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第三象限では正弦が負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2\\theta=1-9/25=16/25$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin\\theta=-4/5$。"
+        }
+      ],
+      "id": "trig-identities-guided-sign-v1",
+      "lesson": "trig-identities",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "identity",
+      "prompt": "$\\cos\\theta\\ne0$ のとき、$(1-\\sin^2\\theta)/\\cos\\theta$ を簡単にしなさい。",
+      "answer": "$\\cos\\theta$（$\\cos\\theta\\ne0$）。",
+      "hints": [
+        "分子を余弦の平方にします。",
+        "$\\cos^2\\theta/\\cos\\theta=\\cos\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分子を余弦の平方にします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2\\theta/\\cos\\theta=\\cos\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\cos\\theta$（$\\cos\\theta\\ne0$）。"
+        }
+      ],
+      "id": "trig-identities-guided-cancel-v1",
+      "lesson": "trig-identities",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "identity"
+    },
+    {
+      "family": "recover",
+      "prompt": "$0<\\theta<\\pi/2$、$\\sin\\theta=4/5$ のとき余弦と正接を求めなさい。",
+      "answer": "余弦 $3/5$、正接 $4/3$。",
+      "hints": [
+        "第一象限では両方正です。",
+        "$\\cos^2\\theta=9/25$、$\\cos\\theta=3/5$、$\\tan\\theta=(4/5)/(3/5)=4/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第一象限では両方正です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2\\theta=9/25$、$\\cos\\theta=3/5$、$\\tan\\theta=(4/5)/(3/5)=4/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $3/5$、正接 $4/3$。"
+        }
+      ],
+      "id": "trig-identities-practice-sine-given-v1",
+      "lesson": "trig-identities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "recover",
+      "prompt": "$3\\pi/2<\\theta<2\\pi$、$\\cos\\theta=3/5$ のとき正弦と正接を求めなさい。",
+      "answer": "正弦 $-4/5$、正接 $-4/3$。",
+      "hints": [
+        "第四象限では正弦が負です。",
+        "$\\sin^2\\theta=16/25$、$\\sin\\theta=-4/5$、$\\tan\\theta=-4/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第四象限では正弦が負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2\\theta=16/25$、$\\sin\\theta=-4/5$、$\\tan\\theta=-4/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $-4/5$、正接 $-4/3$。"
+        }
+      ],
+      "id": "trig-identities-practice-cosine-given-v1",
+      "lesson": "trig-identities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "recover",
+      "prompt": "$0<\\theta<\\pi/2$、$\\tan\\theta=2$ のとき正弦と余弦を求めなさい。",
+      "answer": "正弦 $2\\sqrt5/5$、余弦 $\\sqrt5/5$。",
+      "hints": [
+        "正接から $1/\\cos^2\\theta$ を求めます。",
+        "$1/\\cos^2\\theta=1+4=5$、$\\cos\\theta=1/\\sqrt5$、$\\sin\\theta=2/\\sqrt5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正接から $1/\\cos^2\\theta$ を求めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1/\\cos^2\\theta=1+4=5$、$\\cos\\theta=1/\\sqrt5$、$\\sin\\theta=2/\\sqrt5$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $2\\sqrt5/5$、余弦 $\\sqrt5/5$。"
+        }
+      ],
+      "id": "trig-identities-practice-tangent-given-v1",
+      "lesson": "trig-identities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "recover",
+      "prompt": "$\\pi/2<\\theta<\\pi$、$\\tan\\theta=-3/4$ のとき正弦と余弦を求めなさい。",
+      "answer": "正弦 $3/5$、余弦 $-4/5$。",
+      "hints": [
+        "余弦は負、正弦は正です。",
+        "$1/\\cos^2\\theta=1+9/16=25/16$、$\\cos\\theta=-4/5$、$\\sin\\theta=(-3/4)(-4/5)=3/5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦は負、正弦は正です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1/\\cos^2\\theta=1+9/16=25/16$、$\\cos\\theta=-4/5$、$\\sin\\theta=(-3/4)(-4/5)=3/5$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $3/5$、余弦 $-4/5$。"
+        }
+      ],
+      "id": "trig-identities-practice-tangent-negative-v1",
+      "lesson": "trig-identities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "identity",
+      "prompt": "$(1-\\sin\\theta)(1+\\sin\\theta)=\\cos^2\\theta$ を証明しなさい。",
+      "answer": "すべての実数 $\\theta$ で成立します。",
+      "hints": [
+        "左辺は和と差の積です。",
+        "$(1-\\sin\\theta)(1+\\sin\\theta)=1-\\sin^2\\theta=\\cos^2\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "左辺は和と差の積です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$(1-\\sin\\theta)(1+\\sin\\theta)=1-\\sin^2\\theta=\\cos^2\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "すべての実数 $\\theta$ で成立します。"
+        }
+      ],
+      "id": "trig-identities-practice-product-identity-v1",
+      "lesson": "trig-identities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "identity"
+    },
+    {
+      "family": "identity",
+      "prompt": "$\\cos\\theta\\ne0$ のとき、$1+\\tan^2\\theta=1/\\cos^2\\theta$ を証明しなさい。",
+      "answer": "条件 $\\cos\\theta\\ne0$ のもとで成立します。",
+      "hints": [
+        "正接を正弦と余弦の商に直して通分します。",
+        "$1+\\frac{\\sin^2\\theta}{\\cos^2\\theta}=\\frac{\\cos^2\\theta+\\sin^2\\theta}{\\cos^2\\theta}=\\frac1{\\cos^2\\theta}$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正接を正弦と余弦の商に直して通分します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1+\\frac{\\sin^2\\theta}{\\cos^2\\theta}=\\frac{\\cos^2\\theta+\\sin^2\\theta}{\\cos^2\\theta}=\\frac1{\\cos^2\\theta}$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "条件 $\\cos\\theta\\ne0$ のもとで成立します。"
+        }
+      ],
+      "id": "trig-identities-practice-ratio-identity-v1",
+      "lesson": "trig-identities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "identity"
+    },
+    {
+      "family": "recover",
+      "prompt": "$\\pi<\\theta<3\\pi/2$、$\\sin\\theta=-5/13$ のとき余弦と正接を求めなさい。",
+      "answer": "余弦 $-12/13$、正接 $5/12$。",
+      "hints": [
+        "第三象限なので余弦も負です。",
+        "$\\cos^2\\theta=1-25/169=144/169$、$\\cos\\theta=-12/13$、$\\tan\\theta=5/12$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第三象限なので余弦も負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2\\theta=1-25/169=144/169$、$\\cos\\theta=-12/13$、$\\tan\\theta=5/12$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $-12/13$、正接 $5/12$。"
+        }
+      ],
+      "id": "trig-identities-review-recover-v1",
+      "lesson": "trig-identities",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "recover"
+    },
+    {
+      "family": "identity",
+      "prompt": "$\\cos\\theta\\ne-1$ のとき、$\\sin^2\\theta/(1+\\cos\\theta)=1-\\cos\\theta$ を証明しなさい。",
+      "answer": "$\\cos\\theta\\ne-1$ のもとで成立します。",
+      "hints": [
+        "分子を平方の差にして因数分解します。",
+        "$\\frac{1-\\cos^2\\theta}{1+\\cos\\theta}=\\frac{(1-\\cos\\theta)(1+\\cos\\theta)}{1+\\cos\\theta}=1-\\cos\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分子を平方の差にして因数分解します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{1-\\cos^2\\theta}{1+\\cos\\theta}=\\frac{(1-\\cos\\theta)(1+\\cos\\theta)}{1+\\cos\\theta}=1-\\cos\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\cos\\theta\\ne-1$ のもとで成立します。"
+        }
+      ],
+      "id": "trig-identities-review-identity-v1",
+      "lesson": "trig-identities",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "identity"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=\\sin x$ の $x=0,\\pi/2,\\pi$ での値を順に書きなさい。",
+      "answer": "$0,1,0$。",
+      "hints": [
+        "単位円の縦を読みます。",
+        "右端・上端・左端の縦は順に $0,1,0$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "単位円の縦を読みます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "右端・上端・左端の縦は順に $0,1,0$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0,1,0$。"
+        }
+      ],
+      "id": "trig-graphs-ready-wave-v1",
+      "lesson": "trig-graphs",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan x$ の周期を答えなさい。",
+      "answer": "$\\pi$。",
+      "hints": [
+        "半周後は横・縦が両方反転し、商は同じです。",
+        "$\\tan(x+\\pi)=\\tan x$（定義される角）。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半周後は横・縦が両方反転し、商は同じです。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\tan(x+\\pi)=\\tan x$（定義される角）。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi$。"
+        }
+      ],
+      "id": "trig-graphs-ready-tangent-period-v1",
+      "lesson": "trig-graphs",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "tangent-graph"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=\\sin(2x)$ の周期を、中の角が $2\\pi$ 増える条件から求めなさい。",
+      "answer": "$\\pi$。",
+      "hints": [
+        "横の増分を $T$ とすると角の増分は $2T$ です。",
+        "$2T=2\\pi$ より $T=\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横の増分を $T$ とすると角の増分は $2T$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2T=2\\pi$ より $T=\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi$。"
+        }
+      ],
+      "id": "trig-graphs-guided-period-v1",
+      "lesson": "trig-graphs",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan x$ について、$0\\le x<2\\pi$ の縦の漸近線をすべて書きなさい。",
+      "answer": "$x=\\pi/2,3\\pi/2$。",
+      "hints": [
+        "分母の余弦がゼロになる場所です。",
+        "$\\cos x=0$ は $x=\\pi/2,3\\pi/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分母の余弦がゼロになる場所です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos x=0$ は $x=\\pi/2,3\\pi/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$x=\\pi/2,3\\pi/2$。"
+        }
+      ],
+      "id": "trig-graphs-guided-asymptote-v1",
+      "lesson": "trig-graphs",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "tangent-graph"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=3\\cos x$ の周期、最大値、最小値を求めなさい。",
+      "answer": "周期 $2\\pi$、最大値 $3$、最小値 $-3$。",
+      "hints": [
+        "縦だけ三倍なので周期は変わりません。",
+        "$-1\\le\\cos x\\le1$ より $-3\\le3\\cos x\\le3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦だけ三倍なので周期は変わりません。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-1\\le\\cos x\\le1$ より $-3\\le3\\cos x\\le3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $2\\pi$、最大値 $3$、最小値 $-3$。"
+        }
+      ],
+      "id": "trig-graphs-practice-amplitude-v1",
+      "lesson": "trig-graphs",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=-\\sin x$ の $0\\le x\\le2\\pi$ のグラフを、五つの基準点とともにかきなさい。",
+      "answer": "挙げた五点をなめらかにつなぐ曲線。周期 $2\\pi$。",
+      "hints": [
+        "正弦のグラフを横軸について反転します。",
+        "基準点は $(0,0),(\\pi/2,-1),(\\pi,0),(3\\pi/2,1),(2\\pi,0)$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦のグラフを横軸について反転します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "基準点は $(0,0),(\\pi/2,-1),(\\pi,0),(3\\pi/2,1),(2\\pi,0)$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "挙げた五点をなめらかにつなぐ曲線。周期 $2\\pi$。"
+        }
+      ],
+      "id": "trig-graphs-practice-negative-v1",
+      "lesson": "trig-graphs",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=\\cos(2x)$ の周期と $0\\le x\\le\\pi$ の五つの基準点を書いてグラフをかきなさい。",
+      "answer": "周期 $\\pi$。$(0,1),(\\pi/4,0),(\\pi/2,-1),(3\\pi/4,0),(\\pi,1)$ をなめらかにつなぎます。",
+      "hints": [
+        "中の角を四分の一周ずつ増やします。",
+        "$x=0,\\pi/4,\\pi/2,3\\pi/4,\\pi$ で値は $1,0,-1,0,1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中の角を四分の一周ずつ増やします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$x=0,\\pi/4,\\pi/2,3\\pi/4,\\pi$ で値は $1,0,-1,0,1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $\\pi$。$(0,1),(\\pi/4,0),(\\pi/2,-1),(3\\pi/4,0),(\\pi,1)$ をなめらかにつなぎます。"
+        }
+      ],
+      "id": "trig-graphs-practice-frequency-v1",
+      "lesson": "trig-graphs",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=\\sin(x-\\pi/2)$ は $y=\\sin x$ をどちらへどれだけ移動したグラフですか。周期と $x=0$ での値も求めなさい。",
+      "answer": "右へ $\\pi/2$。周期 $2\\pi$、$x=0$ で $-1$。",
+      "hints": [
+        "中がゼロになる位置は $x=\\pi/2$ です。",
+        "$x-\\pi/2=0$ より右へ移動。$\\sin(-\\pi/2)=-1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中がゼロになる位置は $x=\\pi/2$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$x-\\pi/2=0$ より右へ移動。$\\sin(-\\pi/2)=-1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "右へ $\\pi/2$。周期 $2\\pi$、$x=0$ で $-1$。"
+        }
+      ],
+      "id": "trig-graphs-practice-shift-v1",
+      "lesson": "trig-graphs",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan(3x)$ の周期と、$0\\le x<\\pi$ の縦の漸近線をすべて求めなさい。",
+      "answer": "周期 $\\pi/3$、漸近線 $x=\\pi/6,\\pi/2,5\\pi/6$。",
+      "hints": [
+        "$3T=\\pi$、未定義は $3x=\\pi/2+k\\pi$ です。",
+        "$T=\\pi/3$、$x=\\pi/6+k\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$3T=\\pi$、未定義は $3x=\\pi/2+k\\pi$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$T=\\pi/3$、$x=\\pi/6+k\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $\\pi/3$、漸近線 $x=\\pi/6,\\pi/2,5\\pi/6$。"
+        }
+      ],
+      "id": "trig-graphs-practice-tangent-scale-v1",
+      "lesson": "trig-graphs",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "tangent-graph"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan x$ の $-\\pi/2<x<\\pi/2$ のグラフを、三点と漸近線を示してかきなさい。",
+      "answer": "三点 $(-\\pi/4,-1),(0,0),(\\pi/4,1)$ を通る右上がりの曲線。漸近線は $x=\\pm\\pi/2$。",
+      "hints": [
+        "原点と左右の特別角を使い、端では線を途切れさせます。",
+        "$\\tan(-\\pi/4)=-1,\\ \\tan0=0,\\ \\tan(\\pi/4)=1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "原点と左右の特別角を使い、端では線を途切れさせます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\tan(-\\pi/4)=-1,\\ \\tan0=0,\\ \\tan(\\pi/4)=1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "三点 $(-\\pi/4,-1),(0,0),(\\pi/4,1)$ を通る右上がりの曲線。漸近線は $x=\\pm\\pi/2$。 左端に近づくと値は限りなく小さく、右端に近づくと限りなく大きくなります。"
+        }
+      ],
+      "id": "trig-graphs-practice-tangent-branch-v1",
+      "lesson": "trig-graphs",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "tangent-graph"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=2\\cos(x/2)-1$ の周期、最大値、最小値を求めなさい。",
+      "answer": "周期 $4\\pi$、最大値 $1$、最小値 $-3$。",
+      "hints": [
+        "角が一周する横幅と、縦の値域を別々に求めます。",
+        "$T/2=2\\pi$、$-2\\le2\\cos(x/2)\\le2$ から $-3\\le y\\le1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "角が一周する横幅と、縦の値域を別々に求めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$T/2=2\\pi$、$-2\\le2\\cos(x/2)\\le2$ から $-3\\le y\\le1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $4\\pi$、最大値 $1$、最小値 $-3$。"
+        }
+      ],
+      "id": "trig-graphs-review-wave-v1",
+      "lesson": "trig-graphs",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "wave"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan(x/2)$ の周期と、$0\\le x<4\\pi$ の縦の漸近線を求めなさい。",
+      "answer": "周期 $2\\pi$、漸近線 $x=\\pi,3\\pi$。",
+      "hints": [
+        "中の角が $\\pi$ 増える横幅を求めます。",
+        "$T/2=\\pi$、$x/2=\\pi/2+k\\pi$ より $x=\\pi+2k\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中の角が $\\pi$ 増える横幅を求めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$T/2=\\pi$、$x/2=\\pi/2+k\\pi$ より $x=\\pi+2k\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $2\\pi$、漸近線 $x=\\pi,3\\pi$。"
+        }
+      ],
+      "id": "trig-graphs-review-tangent-v1",
+      "lesson": "trig-graphs",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "tangent-graph"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta=0$ を解きなさい。",
+      "answer": "$\\theta=0,\\pi$。",
+      "hints": [
+        "縦座標がゼロの点を探します。",
+        "右端と左端に対応する角は $0,\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦座標がゼロの点を探します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "右端と左端に対応する角は $0,\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=0,\\pi$。 $2\\pi$ は範囲外です。"
+        }
+      ],
+      "id": "trig-equations-ready-sine-zero-v1",
+      "lesson": "trig-equations",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<\\pi$、$u=2\\theta$ のとき、$u$ の範囲を求めなさい。",
+      "answer": "$0\\le u<2\\pi$。",
+      "hints": [
+        "正の数二をすべての辺に掛けます。",
+        "$0\\le2\\theta<2\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正の数二をすべての辺に掛けます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$0\\le2\\theta<2\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0\\le u<2\\pi$。"
+        }
+      ],
+      "id": "trig-equations-ready-double-range-v1",
+      "lesson": "trig-equations",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "transformed-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $2\\cos\\theta=1$ を解きなさい。横が正の二点を探しましょう。",
+      "answer": "$\\theta=\\pi/3,5\\pi/3$。",
+      "hints": [
+        "$\\cos\\theta=1/2$、基準角は $\\pi/3$。",
+        "第一象限は $\\pi/3$、第四象限は $2\\pi-\\pi/3=5\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\cos\\theta=1/2$、基準角は $\\pi/3$。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "第一象限は $\\pi/3$、第四象限は $2\\pi-\\pi/3=5\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/3,5\\pi/3$。"
+        }
+      ],
+      "id": "trig-equations-guided-cosine-v1",
+      "lesson": "trig-equations",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<\\pi$ で $\\cos(2\\theta)=0$ を解きなさい。$u=2\\theta$ と置きましょう。",
+      "answer": "$\\theta=\\pi/4,3\\pi/4$。",
+      "hints": [
+        "$0\\le u<2\\pi$ で余弦がゼロになる角を求めます。",
+        "$u=\\pi/2,3\\pi/2$、二で割ります。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$0\\le u<2\\pi$ で余弦がゼロになる角を求めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$u=\\pi/2,3\\pi/2$、二で割ります。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/4,3\\pi/4$。"
+        }
+      ],
+      "id": "trig-equations-guided-double-v1",
+      "lesson": "trig-equations",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "transformed-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta=-1/2$ を解きなさい。",
+      "answer": "$\\theta=7\\pi/6,11\\pi/6$。",
+      "hints": [
+        "第三・第四象限、基準角は $\\pi/6$。",
+        "$\\pi+\\pi/6=7\\pi/6$、$2\\pi-\\pi/6=11\\pi/6$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第三・第四象限、基準角は $\\pi/6$。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi+\\pi/6=7\\pi/6$、$2\\pi-\\pi/6=11\\pi/6$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=7\\pi/6,11\\pi/6$。"
+        }
+      ],
+      "id": "trig-equations-practice-sine-negative-v1",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta=-\\sqrt2/2$ を解きなさい。",
+      "answer": "$\\theta=3\\pi/4,5\\pi/4$。",
+      "hints": [
+        "横が負で、基準角は $\\pi/4$ です。",
+        "$\\pi-\\pi/4=3\\pi/4$、$\\pi+\\pi/4=5\\pi/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横が負で、基準角は $\\pi/4$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi-\\pi/4=3\\pi/4$、$\\pi+\\pi/4=5\\pi/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=3\\pi/4,5\\pi/4$。"
+        }
+      ],
+      "id": "trig-equations-practice-cosine-negative-v1",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta=1$ を解きなさい。",
+      "answer": "$\\theta=\\pi/4,5\\pi/4$。",
+      "hints": [
+        "第一・第三象限で縦と横が等しくなります。",
+        "基準角 $\\pi/4$ に周期 $\\pi$ を加えます。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第一・第三象限で縦と横が等しくなります。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "基準角 $\\pi/4$ に周期 $\\pi$ を加えます。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/4,5\\pi/4$。 いずれも余弦はゼロではありません。"
+        }
+      ],
+      "id": "trig-equations-practice-tangent-v1",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "すべての実数 $\\theta$ について $\\cos\\theta=0$ を解きなさい。",
+      "answer": "$\\theta=\\pi/2+k\\pi$（$k\\in\\mathbb Z$）。",
+      "hints": [
+        "縦軸の向きは半周ごとに現れます。",
+        "$\\pi/2$ に $\\pi$ の整数倍を足します。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦軸の向きは半周ごとに現れます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi/2$ に $\\pi$ の整数倍を足します。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/2+k\\pi$（$k\\in\\mathbb Z$）。"
+        }
+      ],
+      "id": "trig-equations-practice-general-v1",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos(2\\theta)=1/2$ を解きなさい。",
+      "answer": "$\\theta=\\pi/6,5\\pi/6,7\\pi/6,11\\pi/6$。",
+      "hints": [
+        "$u=2\\theta$ の範囲は $0\\le u<4\\pi$ です。",
+        "$u=\\pi/3,5\\pi/3,7\\pi/3,11\\pi/3$。二で割ります。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$u=2\\theta$ の範囲は $0\\le u<4\\pi$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$u=\\pi/3,5\\pi/3,7\\pi/3,11\\pi/3$。二で割ります。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/6,5\\pi/6,7\\pi/6,11\\pi/6$。"
+        }
+      ],
+      "id": "trig-equations-practice-double-v1",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "transformed-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta(2\\cos\\theta-1)=0$ を解きなさい。",
+      "answer": "$\\theta=0,\\pi/3,\\pi,5\\pi/3$。",
+      "hints": [
+        "正弦で割らず、二つの因数をそれぞれゼロにします。",
+        "$\\sin\\theta=0$ から $0,\\pi$。$\\cos\\theta=1/2$ から $\\pi/3,5\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦で割らず、二つの因数をそれぞれゼロにします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin\\theta=0$ から $0,\\pi$。$\\cos\\theta=1/2$ から $\\pi/3,5\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=0,\\pi/3,\\pi,5\\pi/3$。"
+        }
+      ],
+      "id": "trig-equations-practice-product-v1",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "transformed-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta=-\\sqrt3$ を解きなさい。",
+      "answer": "$\\theta=2\\pi/3,5\\pi/3$。",
+      "hints": [
+        "第二・第四象限で基準角は $\\pi/3$ です。",
+        "$\\pi-\\pi/3=2\\pi/3$、$2\\pi-\\pi/3=5\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第二・第四象限で基準角は $\\pi/3$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi-\\pi/3=2\\pi/3$、$2\\pi-\\pi/3=5\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=2\\pi/3,5\\pi/3$。 余弦がゼロになる角は解ではありません。"
+        }
+      ],
+      "id": "trig-equations-review-basic-v1",
+      "lesson": "trig-equations",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "basic-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta(2\\sin\\theta+1)=0$ を解きなさい。",
+      "answer": "$\\theta=\\pi/2,7\\pi/6,3\\pi/2,11\\pi/6$。",
+      "hints": [
+        "各因数をゼロにして解を合わせます。",
+        "$\\cos\\theta=0$ から $\\pi/2,3\\pi/2$、$\\sin\\theta=-1/2$ から $7\\pi/6,11\\pi/6$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "各因数をゼロにして解を合わせます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos\\theta=0$ から $\\pi/2,3\\pi/2$、$\\sin\\theta=-1/2$ から $7\\pi/6,11\\pi/6$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/2,7\\pi/6,3\\pi/2,11\\pi/6$。"
+        }
+      ],
+      "id": "trig-equations-review-product-v1",
+      "lesson": "trig-equations",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "transformed-equation"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta>0$ を解きなさい。",
+      "answer": "$0<\\theta<\\pi$。",
+      "hints": [
+        "円の上半分のうち横軸上を除きます。",
+        "上半分は $0$ から $\\pi$、端では正弦がゼロです。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "円の上半分のうち横軸上を除きます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "上半分は $0$ から $\\pi$、端では正弦がゼロです。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0<\\theta<\\pi$。"
+        }
+      ],
+      "id": "trig-inequalities-ready-sine-sign-v1",
+      "lesson": "trig-inequalities",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<\\pi$ で $\\tan\\theta<0$ を解きなさい。",
+      "answer": "$\\pi/2<\\theta<\\pi$。",
+      "hints": [
+        "第二象限では縦が正、横が負です。",
+        "$\\pi/2$ は未定義、$\\theta=0$ ではゼロです。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第二象限では縦が正、横が負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi/2$ は未定義、$\\theta=0$ ではゼロです。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/2<\\theta<\\pi$。"
+        }
+      ],
+      "id": "trig-inequalities-ready-tangent-sign-v1",
+      "lesson": "trig-inequalities",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "tangent-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta\\le-1/2$ を解きなさい。まず境界を求めましょう。",
+      "answer": "$2\\pi/3\\le\\theta\\le4\\pi/3$。",
+      "hints": [
+        "横が $-1/2$ 以下の左側の弧です。",
+        "等号は $2\\pi/3,4\\pi/3$。その間の左側の弧を選びます。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横が $-1/2$ 以下の左側の弧です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "等号は $2\\pi/3,4\\pi/3$。その間の左側の弧を選びます。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2\\pi/3\\le\\theta\\le4\\pi/3$。"
+        }
+      ],
+      "id": "trig-inequalities-guided-cosine-v1",
+      "lesson": "trig-inequalities",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<\\pi$ で $\\tan\\theta\\ge1$ を解きなさい。漸近線で区切りましょう。",
+      "answer": "$\\pi/4\\le\\theta<\\pi/2$。",
+      "hints": [
+        "等号は $\\pi/4$、次の漸近線は $\\pi/2$ です。",
+        "第一象限の枝で $\\pi/4$ 以後を選びます。第二象限では負です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "等号は $\\pi/4$、次の漸近線は $\\pi/2$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "第一象限の枝で $\\pi/4$ 以後を選びます。第二象限では負です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/4\\le\\theta<\\pi/2$。"
+        }
+      ],
+      "id": "trig-inequalities-guided-tangent-v1",
+      "lesson": "trig-inequalities",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "tangent-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta<-1/2$ を解きなさい。",
+      "answer": "$7\\pi/6<\\theta<11\\pi/6$。",
+      "hints": [
+        "縦が $-1/2$ より下の弧です。",
+        "境界 $7\\pi/6,11\\pi/6$ の間で、等号の点を除きます。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦が $-1/2$ より下の弧です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "境界 $7\\pi/6,11\\pi/6$ の間で、等号の点を除きます。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$7\\pi/6<\\theta<11\\pi/6$。"
+        }
+      ],
+      "id": "trig-inequalities-practice-sine-negative-v1",
+      "lesson": "trig-inequalities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta>1/2$ を解きなさい。",
+      "answer": "$0\\le\\theta<\\pi/3$ または $5\\pi/3<\\theta<2\\pi$。",
+      "hints": [
+        "右側の弧は指定範囲の始めと終わりに分かれます。",
+        "境界は $\\pi/3,5\\pi/3$。$\\theta=0$ で値は $1$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "右側の弧は指定範囲の始めと終わりに分かれます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "境界は $\\pi/3,5\\pi/3$。$\\theta=0$ で値は $1$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0\\le\\theta<\\pi/3$ または $5\\pi/3<\\theta<2\\pi$。"
+        }
+      ],
+      "id": "trig-inequalities-practice-cosine-positive-v1",
+      "lesson": "trig-inequalities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta\\le\\sqrt2/2$ を解きなさい。",
+      "answer": "$0\\le\\theta\\le\\pi/4$ または $3\\pi/4\\le\\theta<2\\pi$。",
+      "hints": [
+        "上の山のうち境界より高い部分を除きます。",
+        "等号は $\\pi/4,3\\pi/4$。その間だけが $\\sqrt2/2$ より大きくなります。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "上の山のうち境界より高い部分を除きます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "等号は $\\pi/4,3\\pi/4$。その間だけが $\\sqrt2/2$ より大きくなります。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0\\le\\theta\\le\\pi/4$ または $3\\pi/4\\le\\theta<2\\pi$。"
+        }
+      ],
+      "id": "trig-inequalities-practice-sine-low-v1",
+      "lesson": "trig-inequalities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta>1$ を解きなさい。",
+      "answer": "解なし。",
+      "hints": [
+        "余弦の最大値を確かめます。",
+        "$-1\\le\\cos\\theta\\le1$ なので $1$ を超えません。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦の最大値を確かめます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-1\\le\\cos\\theta\\le1$ なので $1$ を超えません。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "解なし。"
+        }
+      ],
+      "id": "trig-inequalities-practice-value-range-v1",
+      "lesson": "trig-inequalities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta\\ge0$ を解きなさい。",
+      "answer": "$0\\le\\theta<\\pi/2$ または $\\pi\\le\\theta<3\\pi/2$。",
+      "hints": [
+        "正接が正の第一・第三象限に、ゼロの点を加えます。",
+        "ゼロは $0,\\pi$。$\\pi/2,3\\pi/2$ は未定義です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正接が正の第一・第三象限に、ゼロの点を加えます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "ゼロは $0,\\pi$。$\\pi/2,3\\pi/2$ は未定義です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0\\le\\theta<\\pi/2$ または $\\pi\\le\\theta<3\\pi/2$。"
+        }
+      ],
+      "id": "trig-inequalities-practice-tangent-nonnegative-v1",
+      "lesson": "trig-inequalities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "tangent-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta<-1$ を解きなさい。",
+      "answer": "$\\pi/2<\\theta<3\\pi/4$ または $3\\pi/2<\\theta<7\\pi/4$。",
+      "hints": [
+        "各負の枝で、等号の角より左側を選びます。",
+        "境界は $3\\pi/4,7\\pi/4$。それぞれ前の漸近線から境界までです。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "各負の枝で、等号の角より左側を選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "境界は $3\\pi/4,7\\pi/4$。それぞれ前の漸近線から境界までです。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/2<\\theta<3\\pi/4$ または $3\\pi/2<\\theta<7\\pi/4$。"
+        }
+      ],
+      "id": "trig-inequalities-practice-tangent-negative-v1",
+      "lesson": "trig-inequalities",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "tangent-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta\\ge\\sqrt2/2$ を解きなさい。",
+      "answer": "$0\\le\\theta\\le\\pi/4$ または $7\\pi/4\\le\\theta<2\\pi$。",
+      "hints": [
+        "横が $\\sqrt2/2$ 以上の右側の弧です。",
+        "等号は $\\pi/4,7\\pi/4$、始点 $0$ は含め、終点 $2\\pi$ は除きます。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横が $\\sqrt2/2$ 以上の右側の弧です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "等号は $\\pi/4,7\\pi/4$、始点 $0$ は含め、終点 $2\\pi$ は除きます。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$0\\le\\theta\\le\\pi/4$ または $7\\pi/4\\le\\theta<2\\pi$。"
+        }
+      ],
+      "id": "trig-inequalities-review-cosine-v1",
+      "lesson": "trig-inequalities",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "sine-cosine-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta\\le-\\sqrt3$ を解きなさい。",
+      "answer": "$\\pi/2<\\theta\\le2\\pi/3$ または $3\\pi/2<\\theta\\le5\\pi/3$。",
+      "hints": [
+        "負の枝で等号までを選び、漸近線を除きます。",
+        "等号は $2\\pi/3,5\\pi/3$。各枝の左端は $\\pi/2,3\\pi/2$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "負の枝で等号までを選び、漸近線を除きます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "等号は $2\\pi/3,5\\pi/3$。各枝の左端は $\\pi/2,3\\pi/2$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/2<\\theta\\le2\\pi/3$ または $3\\pi/2<\\theta\\le5\\pi/3$。"
+        }
+      ],
+      "id": "trig-inequalities-review-tangent-v1",
+      "lesson": "trig-inequalities",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "tangent-region"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\pi/4+\\pi/6$ を計算しなさい。",
+      "answer": "$5\\pi/12$。",
+      "hints": [
+        "分母を十二にそろえます。",
+        "$3\\pi/12+2\\pi/12=5\\pi/12$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分母を十二にそろえます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$3\\pi/12+2\\pi/12=5\\pi/12$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$5\\pi/12$。"
+        }
+      ],
+      "id": "trig-addition-ready-angle-split-v1",
+      "lesson": "trig-addition",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "$\\alpha=\\beta=\\pi/4$ のとき、正接の和の公式の分母 $1-\\tan\\alpha\\tan\\beta$ を求め、公式で値が求められるか答えなさい。",
+      "answer": "分母は $0$。値は求められず、$\\tan(\\pi/2)$ は未定義です。",
+      "hints": [
+        "$\\tan(\\pi/4)=1$ を入れます。",
+        "$1-1\\cdot1=0$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\tan(\\pi/4)=1$ を入れます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1-1\\cdot1=0$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "分母は $0$。値は求められず、$\\tan(\\pi/2)$ は未定義です。"
+        }
+      ],
+      "id": "trig-addition-ready-tan-denominator-v1",
+      "lesson": "trig-addition",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "tan-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\cos(\\pi/12)$ を $\\pi/4-\\pi/6$ の差の公式で求めなさい。",
+      "answer": "$\\dfrac{\\sqrt6+\\sqrt2}4$。",
+      "hints": [
+        "余弦の差では二つの積を足します。",
+        "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2+\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6+\\sqrt2}4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦の差では二つの積を足します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2+\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6+\\sqrt2}4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt6+\\sqrt2}4$。"
+        }
+      ],
+      "id": "trig-addition-guided-cosine-difference-v1",
+      "lesson": "trig-addition",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "$\\tan(5\\pi/12)$ を $\\pi/4+\\pi/6$ の公式で求めなさい。",
+      "answer": "$2+\\sqrt3$。",
+      "hints": [
+        "分母は $1-1/\\sqrt3$ でゼロではありません。",
+        "$\\frac{1+1/\\sqrt3}{1-1/\\sqrt3}=\\frac{\\sqrt3+1}{\\sqrt3-1}=2+\\sqrt3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分母は $1-1/\\sqrt3$ でゼロではありません。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{1+1/\\sqrt3}{1-1/\\sqrt3}=\\frac{\\sqrt3+1}{\\sqrt3-1}=2+\\sqrt3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2+\\sqrt3$。"
+        }
+      ],
+      "id": "trig-addition-guided-tan-sum-v1",
+      "lesson": "trig-addition",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "tan-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\sin(\\pi/12)$ を求めなさい。",
+      "answer": "$\\dfrac{\\sqrt6-\\sqrt2}4$。",
+      "hints": [
+        "$\\pi/4-\\pi/6$ の正弦を展開します。",
+        "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\pi/4-\\pi/6$ の正弦を展開します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt6-\\sqrt2}4$。"
+        }
+      ],
+      "id": "trig-addition-practice-sine-difference-v1",
+      "lesson": "trig-addition",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\cos(5\\pi/12)$ を求めなさい。",
+      "answer": "$\\dfrac{\\sqrt6-\\sqrt2}4$。",
+      "hints": [
+        "$\\pi/4+\\pi/6$ の余弦では後ろを引きます。",
+        "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\pi/4+\\pi/6$ の余弦では後ろを引きます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt6-\\sqrt2}4$。"
+        }
+      ],
+      "id": "trig-addition-practice-cosine-sum-v1",
+      "lesson": "trig-addition",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\sin105^\\circ$ を求めなさい。",
+      "answer": "$\\dfrac{\\sqrt6+\\sqrt2}4$。",
+      "hints": [
+        "$105^\\circ=60^\\circ+45^\\circ$ と分け、度のまま公式を使います。",
+        "$\\sin105^\\circ=\\frac{\\sqrt3}2\\frac{\\sqrt2}2+\\frac12\\frac{\\sqrt2}2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$105^\\circ=60^\\circ+45^\\circ$ と分け、度のまま公式を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin105^\\circ=\\frac{\\sqrt3}2\\frac{\\sqrt2}2+\\frac12\\frac{\\sqrt2}2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt6+\\sqrt2}4$。"
+        }
+      ],
+      "id": "trig-addition-practice-degree-v1",
+      "lesson": "trig-addition",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$0<\\alpha,\\beta<\\pi/2$、$\\sin\\alpha=3/5$、$\\cos\\beta=12/13$ のとき、$\\sin(\\alpha+\\beta)$ を求めなさい。",
+      "answer": "$56/65$。",
+      "hints": [
+        "まず第一象限の符号で残りの値を出します。",
+        "$\\cos\\alpha=4/5$、$\\sin\\beta=5/13$。$\\sin(\\alpha+\\beta)=\\frac35\\frac{12}{13}+\\frac45\\frac5{13}=56/65$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "まず第一象限の符号で残りの値を出します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos\\alpha=4/5$、$\\sin\\beta=5/13$。$\\sin(\\alpha+\\beta)=\\frac35\\frac{12}{13}+\\frac45\\frac5{13}=56/65$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$56/65$。 平方和から得た値を公式に代入しました。"
+        }
+      ],
+      "id": "trig-addition-practice-given-values-v1",
+      "lesson": "trig-addition",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "$\\alpha,\\beta$ は鋭角、$\\tan\\alpha=1/2$、$\\tan\\beta=1/3$ のとき、$\\tan(\\alpha+\\beta)$ を求めなさい。",
+      "answer": "$1$。",
+      "hints": [
+        "分母を調べてから和の公式を使います。",
+        "$1-(1/2)(1/3)=5/6\\ne0$、$\\frac{1/2+1/3}{1-1/6}=1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分母を調べてから和の公式を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1-(1/2)(1/3)=5/6\\ne0$、$\\frac{1/2+1/3}{1-1/6}=1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$1$。"
+        }
+      ],
+      "id": "trig-addition-practice-tan-known-v1",
+      "lesson": "trig-addition",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "tan-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "$\\alpha,\\beta$ は鋭角、$\\tan\\alpha=2$、$\\tan\\beta=1$ のとき、$\\tan(\\alpha-\\beta)$ を求めなさい。",
+      "answer": "$1/3$。",
+      "hints": [
+        "差の分母は積を足します。",
+        "$1+2\\cdot1=3\\ne0$、$(2-1)/3=1/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "差の分母は積を足します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1+2\\cdot1=3\\ne0$、$(2-1)/3=1/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$1/3$。"
+        }
+      ],
+      "id": "trig-addition-practice-tan-difference-v1",
+      "lesson": "trig-addition",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "tan-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\cos105^\\circ$ を求めなさい。",
+      "answer": "$\\dfrac{\\sqrt2-\\sqrt6}4$。",
+      "hints": [
+        "$60^\\circ+45^\\circ$ に分けます。第二象限なので答えは負です。",
+        "$\\cos105^\\circ=\\frac12\\frac{\\sqrt2}2-\\frac{\\sqrt3}2\\frac{\\sqrt2}2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$60^\\circ+45^\\circ$ に分けます。第二象限なので答えは負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos105^\\circ=\\frac12\\frac{\\sqrt2}2-\\frac{\\sqrt3}2\\frac{\\sqrt2}2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt2-\\sqrt6}4$。"
+        }
+      ],
+      "id": "trig-addition-review-cosine-degree-v1",
+      "lesson": "trig-addition",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "sin-cos-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "$\\alpha,\\beta$ は鋭角、$\\tan\\alpha=1/3$、$\\tan\\beta=1/4$ のとき、$\\tan(\\alpha+\\beta)$ を求めなさい。",
+      "answer": "$7/11$。",
+      "hints": [
+        "分母 $1-1/12$ を確認します。",
+        "$\\frac{1/3+1/4}{1-1/12}=\\frac{7/12}{11/12}=7/11$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分母 $1-1/12$ を確認します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{1/3+1/4}{1-1/12}=\\frac{7/12}{11/12}=7/11$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$7/11$。"
+        }
+      ],
+      "id": "trig-addition-review-tan-known-v1",
+      "lesson": "trig-addition",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "tan-addition"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\sin\\theta=1/3$ のとき $\\cos2\\theta$ を求めなさい。",
+      "answer": "$7/9$。",
+      "hints": [
+        "正弦だけを使う形を選びます。",
+        "$\\cos2\\theta=1-2(1/3)^2=1-2/9$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦だけを使う形を選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos2\\theta=1-2(1/3)^2=1-2/9$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$7/9$。"
+        }
+      ],
+      "id": "trig-double-half-ready-double-form-v1",
+      "lesson": "trig-double-half",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "double-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$\\pi<\\theta<2\\pi$ のとき、$\\theta/2$ の範囲と余弦の符号を答えなさい。",
+      "answer": "$\\pi/2<\\theta/2<\\pi$、$\\cos(\\theta/2)<0$。",
+      "hints": [
+        "不等式の各辺を二で割ります。",
+        "$\\pi/2<\\theta/2<\\pi$ は第二象限です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "不等式の各辺を二で割ります。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi/2<\\theta/2<\\pi$ は第二象限です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/2<\\theta/2<\\pi$、$\\cos(\\theta/2)<0$。"
+        }
+      ],
+      "id": "trig-double-half-ready-half-range-v1",
+      "lesson": "trig-double-half",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "half-angle"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\cos\\theta=2/3$ のとき $\\cos2\\theta$ を求めなさい。余弦だけの公式を選びましょう。",
+      "answer": "$-1/9$。",
+      "hints": [
+        "$2\\cos^2\\theta-1$ を使います。",
+        "$2(2/3)^2-1=8/9-1$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$2\\cos^2\\theta-1$ を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2(2/3)^2-1=8/9-1$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-1/9$。"
+        }
+      ],
+      "id": "trig-double-half-guided-double-cosine-v1",
+      "lesson": "trig-double-half",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "double-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$0<\\theta<\\pi$、$\\cos\\theta=1/2$ のとき、$\\sin(\\theta/2)$ を求めなさい。",
+      "answer": "$1/2$。",
+      "hints": [
+        "半角は第一象限なので正の平方根を選びます。",
+        "$\\sin^2(\\theta/2)=(1-1/2)/2=1/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角は第一象限なので正の平方根を選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2(\\theta/2)=(1-1/2)/2=1/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$1/2$。"
+        }
+      ],
+      "id": "trig-double-half-guided-half-positive-v1",
+      "lesson": "trig-double-half",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "half-angle"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\pi/2<\\theta<\\pi$、$\\sin\\theta=4/5$ のとき、$\\sin2\\theta$ と $\\cos2\\theta$ を求めなさい。",
+      "answer": "$\\sin2\\theta=-24/25,\\ \\cos2\\theta=-7/25$。",
+      "hints": [
+        "第二象限なので $\\cos\\theta=-3/5$ です。",
+        "$\\sin2\\theta=2\\cdot\\frac45\\cdot(-\\frac35)=-24/25$、$\\cos2\\theta=1-2\\cdot16/25=-7/25$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第二象限なので $\\cos\\theta=-3/5$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin2\\theta=2\\cdot\\frac45\\cdot(-\\frac35)=-24/25$、$\\cos2\\theta=1-2\\cdot16/25=-7/25$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin2\\theta=-24/25,\\ \\cos2\\theta=-7/25$。"
+        }
+      ],
+      "id": "trig-double-half-practice-double-sine-v1",
+      "lesson": "trig-double-half",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "double-angle"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\tan\\theta=1/2$ のとき $\\tan2\\theta$ を求めなさい。",
+      "answer": "$4/3$。",
+      "hints": [
+        "正接の二倍角の分母がゼロでないか見ます。",
+        "$1-(1/2)^2=3/4\\ne0$、$\\tan2\\theta=2(1/2)/(3/4)=4/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正接の二倍角の分母がゼロでないか見ます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1-(1/2)^2=3/4\\ne0$、$\\tan2\\theta=2(1/2)/(3/4)=4/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$4/3$。"
+        }
+      ],
+      "id": "trig-double-half-practice-double-tangent-v1",
+      "lesson": "trig-double-half",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "double-angle"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\theta=\\pi/4$ のとき、$\\tan2\\theta$ は定義されますか。理由を答えなさい。",
+      "answer": "定義されません。$\\cos2\\theta=0$ になるためです。",
+      "hints": [
+        "倍にした角と公式の分母を確かめます。",
+        "$2\\theta=\\pi/2$、$1-\\tan^2\\theta=1-1=0$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "倍にした角と公式の分母を確かめます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2\\theta=\\pi/2$、$1-\\tan^2\\theta=1-1=0$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "定義されません。$\\cos2\\theta=0$ になるためです。"
+        }
+      ],
+      "id": "trig-double-half-practice-double-undefined-v1",
+      "lesson": "trig-double-half",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "double-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$0<\\theta<\\pi$、$\\cos\\theta=-1/2$ のとき、$\\sin(\\theta/2)$ を求めなさい。",
+      "answer": "$\\sqrt3/2$。",
+      "hints": [
+        "半角は第一象限です。",
+        "$\\sin^2(\\theta/2)=(1+1/2)/2=3/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角は第一象限です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2(\\theta/2)=(1+1/2)/2=3/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sqrt3/2$。"
+        }
+      ],
+      "id": "trig-double-half-practice-half-sine-v1",
+      "lesson": "trig-double-half",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "half-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$\\pi<\\theta<2\\pi$、$\\cos\\theta=1/2$ のとき、$\\cos(\\theta/2)$ を求めなさい。",
+      "answer": "$-\\sqrt3/2$。",
+      "hints": [
+        "半角は第二象限なので余弦は負です。",
+        "$\\cos^2(\\theta/2)=(1+1/2)/2=3/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角は第二象限なので余弦は負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2(\\theta/2)=(1+1/2)/2=3/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-\\sqrt3/2$。"
+        }
+      ],
+      "id": "trig-double-half-practice-half-negative-v1",
+      "lesson": "trig-double-half",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "half-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$0<\\theta<\\pi$、$\\cos\\theta=3/5$ のとき、$\\sin(\\theta/2)$、$\\cos(\\theta/2)$、$\\tan(\\theta/2)$ を求めなさい。",
+      "answer": "正弦 $\\sqrt5/5$、余弦 $2\\sqrt5/5$、正接 $1/2$。",
+      "hints": [
+        "半角は第一象限なのでどちらも正です。",
+        "$\\sin^2(\\theta/2)=1/5$、$\\cos^2(\\theta/2)=4/5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角は第一象限なのでどちらも正です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2(\\theta/2)=1/5$、$\\cos^2(\\theta/2)=4/5$。 $\\tan(\\theta/2)=(\\sqrt5/5)/(2\\sqrt5/5)=1/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $\\sqrt5/5$、余弦 $2\\sqrt5/5$、正接 $1/2$。 半角の余弦は正で、ゼロではありません。"
+        }
+      ],
+      "id": "trig-double-half-practice-half-both-v1",
+      "lesson": "trig-double-half",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "half-angle"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$3\\pi/2<\\theta<2\\pi$、$\\cos\\theta=4/5$ のとき、$\\sin2\\theta$ と $\\cos2\\theta$ を求めなさい。",
+      "answer": "$\\sin2\\theta=-24/25,\\ \\cos2\\theta=7/25$。",
+      "hints": [
+        "第四象限では $\\sin\\theta=-3/5$ です。",
+        "$\\sin2\\theta=2(-3/5)(4/5)=-24/25$、$\\cos2\\theta=2(4/5)^2-1=7/25$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第四象限では $\\sin\\theta=-3/5$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin2\\theta=2(-3/5)(4/5)=-24/25$、$\\cos2\\theta=2(4/5)^2-1=7/25$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin2\\theta=-24/25,\\ \\cos2\\theta=7/25$。"
+        }
+      ],
+      "id": "trig-double-half-review-double-v1",
+      "lesson": "trig-double-half",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "double-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$\\pi<\\theta<2\\pi$、$\\cos\\theta=-1/2$ のとき、半角の正弦・余弦・正接を求めなさい。",
+      "answer": "正弦 $\\sqrt3/2$、余弦 $-1/2$、正接 $-\\sqrt3$。",
+      "hints": [
+        "半角の第二象限では正弦は正、余弦は負です。",
+        "$\\sin^2(\\theta/2)=3/4$、$\\cos^2(\\theta/2)=1/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角の第二象限では正弦は正、余弦は負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2(\\theta/2)=3/4$、$\\cos^2(\\theta/2)=1/4$。 $\\tan(\\theta/2)=(\\sqrt3/2)/(-1/2)=-\\sqrt3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $\\sqrt3/2$、余弦 $-1/2$、正接 $-\\sqrt3$。 分母の余弦はゼロではありません。"
+        }
+      ],
+      "id": "trig-double-half-review-half-v1",
+      "lesson": "trig-double-half",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "half-angle"
+    },
+    {
+      "family": "synthesis-expression",
+      "prompt": "$R\\sin(\\theta+\\varphi)$ を展開し、$\\sin\\theta$ の係数と $\\cos\\theta$ の係数を答えなさい。",
+      "answer": "正弦の係数は $R\\cos\\varphi$、余弦の係数は $R\\sin\\varphi$。",
+      "hints": [
+        "正弦の加法定理を使います。",
+        "$R\\sin\\theta\\cos\\varphi+R\\cos\\theta\\sin\\varphi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦の加法定理を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$R\\sin\\theta\\cos\\varphi+R\\cos\\theta\\sin\\varphi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦の係数は $R\\cos\\varphi$、余弦の係数は $R\\sin\\varphi$。"
+        }
+      ],
+      "id": "trig-synthesis-check-ready-coefficients-v1",
+      "lesson": "trig-synthesis",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-range",
+      "prompt": "$0\\le\\theta\\le\\pi$、$u=\\theta+\\pi/6$ のとき、$u$ の範囲を求めなさい。",
+      "answer": "$\\pi/6\\le u\\le7\\pi/6$。",
+      "hints": [
+        "両端に同じ角を足します。",
+        "$0+\\pi/6\\le u\\le\\pi+\\pi/6$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "両端に同じ角を足します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$0+\\pi/6\\le u\\le\\pi+\\pi/6$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/6\\le u\\le7\\pi/6$。"
+        }
+      ],
+      "id": "trig-synthesis-check-ready-range-shift-v1",
+      "lesson": "trig-synthesis",
+      "stage": "ready",
+      "kind": "paper",
+      "repair": "synthesis-range"
+    },
+    {
+      "family": "synthesis-expression",
+      "prompt": "$\\sin\\theta-\\sqrt3\\cos\\theta$ を $R\\sin(\\theta+\\varphi)$ に合成しなさい。（$R>0,-\\pi<\\varphi\\le\\pi$）まず係数を $R$ で割りましょう。",
+      "answer": "$2\\sin(\\theta-\\pi/3)$。",
+      "hints": [
+        "$R=\\sqrt{1+3}=2$ です。",
+        "$\\cos\\varphi=1/2$、$\\sin\\varphi=-\\sqrt3/2$ より $\\varphi=-\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$R=\\sqrt{1+3}=2$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos\\varphi=1/2$、$\\sin\\varphi=-\\sqrt3/2$ より $\\varphi=-\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2\\sin(\\theta-\\pi/3)$。"
+        }
+      ],
+      "id": "trig-synthesis-check-guided-synthesis-v1",
+      "lesson": "trig-synthesis",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-range",
+      "prompt": "すべての実数 $\\theta$ における $\\sqrt3\\sin\\theta+\\cos\\theta$ の最大値と最小値を求めなさい。合成して考えましょう。",
+      "answer": "最大値 $2$、最小値 $-2$。",
+      "hints": [
+        "$2\\sin(\\theta+\\pi/6)$ に直せます。",
+        "$-1\\le\\sin(\\theta+\\pi/6)\\le1$ より $-2\\le y\\le2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$2\\sin(\\theta+\\pi/6)$ に直せます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-1\\le\\sin(\\theta+\\pi/6)\\le1$ より $-2\\le y\\le2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "最大値 $2$、最小値 $-2$。 中の角もすべての実数を動くので、両端の値を取れます。"
+        }
+      ],
+      "id": "trig-synthesis-check-guided-maximum-v1",
+      "lesson": "trig-synthesis",
+      "stage": "guided",
+      "kind": "paper",
+      "repair": "synthesis-range"
+    },
+    {
+      "family": "synthesis-expression",
+      "prompt": "$\\sin\\theta+\\sqrt3\\cos\\theta$ を $R\\sin(\\theta+\\varphi)$ に合成しなさい。（$R>0,-\\pi<\\varphi\\le\\pi$）",
+      "answer": "$2\\sin(\\theta+\\pi/3)$。",
+      "hints": [
+        "係数の平方和の平方根が $R$ です。",
+        "$R=2$、$\\cos\\varphi=1/2$、$\\sin\\varphi=\\sqrt3/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "係数の平方和の平方根が $R$ です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$R=2$、$\\cos\\varphi=1/2$、$\\sin\\varphi=\\sqrt3/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2\\sin(\\theta+\\pi/3)$。 展開すると元の係数に戻ります。"
+        }
+      ],
+      "id": "trig-synthesis-check-practice-synthesis-plus-v1",
+      "lesson": "trig-synthesis",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-expression",
+      "prompt": "$\\sqrt3\\sin\\theta-\\cos\\theta$ を $R\\sin(\\theta+\\varphi)$ に合成しなさい。（$R>0,-\\pi<\\varphi\\le\\pi$）",
+      "answer": "$2\\sin(\\theta-\\pi/6)$。",
+      "hints": [
+        "余弦の係数が負なので、位相角の正弦は負です。",
+        "$R=2$、$\\cos\\varphi=\\sqrt3/2$、$\\sin\\varphi=-1/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦の係数が負なので、位相角の正弦は負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$R=2$、$\\cos\\varphi=\\sqrt3/2$、$\\sin\\varphi=-1/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2\\sin(\\theta-\\pi/6)$。"
+        }
+      ],
+      "id": "trig-synthesis-check-practice-synthesis-minus-v1",
+      "lesson": "trig-synthesis",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-range",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta-\\cos\\theta$ の最大値・最小値と、そのときの角を求めなさい。",
+      "answer": "最大値 $\\sqrt2$（$\\theta=3\\pi/4$）、最小値 $-\\sqrt2$（$\\theta=7\\pi/4$）。",
+      "hints": [
+        "$\\sqrt2\\sin(\\theta-\\pi/4)$ にして角の範囲を移します。",
+        "$-\\pi/4\\le u<7\\pi/4$。$\\sin u=1$ は $u=\\pi/2$、$-1$ は $u=3\\pi/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\sqrt2\\sin(\\theta-\\pi/4)$ にして角の範囲を移します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-\\pi/4\\le u<7\\pi/4$。$\\sin u=1$ は $u=\\pi/2$、$-1$ は $u=3\\pi/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "最大値 $\\sqrt2$（$\\theta=3\\pi/4$）、最小値 $-\\sqrt2$（$\\theta=7\\pi/4$）。"
+        }
+      ],
+      "id": "trig-synthesis-check-practice-synthesis-extrema-v1",
+      "lesson": "trig-synthesis",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "synthesis-range"
+    },
+    {
+      "family": "synthesis-range",
+      "prompt": "$0\\le\\theta\\le\\pi/4$ で $\\sin\\theta+\\cos\\theta$ の最大値・最小値と、そのときの角を求めなさい。",
+      "answer": "最大値 $\\sqrt2$（$\\theta=\\pi/4$）、最小値 $1$（$\\theta=0$）。",
+      "hints": [
+        "合成後の角は第一象限の途中から上端までです。",
+        "$y=\\sqrt2\\sin u$、$\\pi/4\\le u\\le\\pi/2$。正弦はこの区間で増加します。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "合成後の角は第一象限の途中から上端までです。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$y=\\sqrt2\\sin u$、$\\pi/4\\le u\\le\\pi/2$。正弦はこの区間で増加します。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "最大値 $\\sqrt2$（$\\theta=\\pi/4$）、最小値 $1$（$\\theta=0$）。"
+        }
+      ],
+      "id": "trig-synthesis-check-practice-synthesis-restricted-v1",
+      "lesson": "trig-synthesis",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "synthesis-range"
+    },
+    {
+      "family": "synthesis-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta+\\cos\\theta=0$ を解きなさい。",
+      "answer": "$\\theta=3\\pi/4,7\\pi/4$。",
+      "hints": [
+        "合成して正弦のゼロを探します。",
+        "$\\sin u=0$、$\\pi/4\\le u<9\\pi/4$ より $u=\\pi,2\\pi$。$\\theta=u-\\pi/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "合成して正弦のゼロを探します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin u=0$、$\\pi/4\\le u<9\\pi/4$ より $u=\\pi,2\\pi$。$\\theta=u-\\pi/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=3\\pi/4,7\\pi/4$。"
+        }
+      ],
+      "id": "trig-synthesis-check-practice-synthesis-equation-zero-v1",
+      "lesson": "trig-synthesis",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sqrt3\\sin\\theta+\\cos\\theta=\\sqrt3$ を解きなさい。",
+      "answer": "$\\theta=\\pi/6,\\pi/2$。",
+      "hints": [
+        "$2\\sin(\\theta+\\pi/6)$ に直して範囲を移します。",
+        "$\\sin u=\\sqrt3/2$、$\\pi/6\\le u<13\\pi/6$ より $u=\\pi/3,2\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$2\\sin(\\theta+\\pi/6)$ に直して範囲を移します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin u=\\sqrt3/2$、$\\pi/6\\le u<13\\pi/6$ より $u=\\pi/3,2\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/6,\\pi/2$。"
+        }
+      ],
+      "id": "trig-synthesis-check-practice-synthesis-equation-value-v1",
+      "lesson": "trig-synthesis",
+      "stage": "practice",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-expression",
+      "prompt": "$-\\sin\\theta+\\cos\\theta$ を $R\\sin(\\theta+\\varphi)$ に合成しなさい。（$R>0,-\\pi<\\varphi\\le\\pi$）",
+      "answer": "$\\sqrt2\\sin(\\theta+3\\pi/4)$。",
+      "hints": [
+        "位相角の余弦が負、正弦が正なので第二象限です。",
+        "$R=\\sqrt2$、$\\cos\\varphi=-\\sqrt2/2$、$\\sin\\varphi=\\sqrt2/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "位相角の余弦が負、正弦が正なので第二象限です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$R=\\sqrt2$、$\\cos\\varphi=-\\sqrt2/2$、$\\sin\\varphi=\\sqrt2/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sqrt2\\sin(\\theta+3\\pi/4)$。"
+        }
+      ],
+      "id": "trig-synthesis-check-review-synthesis-expression-v1",
+      "lesson": "trig-synthesis",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "synthesis-range",
+      "prompt": "$0\\le\\theta\\le\\pi/3$ で $\\sqrt3\\sin\\theta+\\cos\\theta$ の最大値・最小値と、そのときの角を求めなさい。",
+      "answer": "最大値 $2$（$\\theta=\\pi/3$）、最小値 $1$（$\\theta=0$）。",
+      "hints": [
+        "$2\\sin(\\theta+\\pi/6)$ の角の範囲を調べます。",
+        "$\\pi/6\\le u\\le\\pi/2$。この区間で正弦は $1/2$ から $1$ まで増加します。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$2\\sin(\\theta+\\pi/6)$ の角の範囲を調べます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\pi/6\\le u\\le\\pi/2$。この区間で正弦は $1/2$ から $1$ まで増加します。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "最大値 $2$（$\\theta=\\pi/3$）、最小値 $1$（$\\theta=0$）。"
+        }
+      ],
+      "id": "trig-synthesis-check-review-synthesis-range-v1",
+      "lesson": "trig-synthesis",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "synthesis-range"
+    },
+    {
+      "family": "synthesis-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta-\\cos\\theta=1$ を解きなさい。",
+      "answer": "$\\theta=\\pi/2,\\pi$。",
+      "hints": [
+        "$\\sqrt2\\sin(\\theta-\\pi/4)$ に直します。",
+        "$\\sin u=\\sqrt2/2$、$-\\pi/4\\le u<7\\pi/4$ より $u=\\pi/4,3\\pi/4$。$\\theta=u+\\pi/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\sqrt2\\sin(\\theta-\\pi/4)$ に直します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin u=\\sqrt2/2$、$-\\pi/4\\le u<7\\pi/4$ より $u=\\pi/4,3\\pi/4$。$\\theta=u+\\pi/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/2,\\pi$。"
+        }
+      ],
+      "id": "trig-synthesis-check-review-synthesis-equation-v1",
+      "lesson": "trig-synthesis",
+      "stage": "review",
+      "kind": "paper",
+      "repair": "synthesis-expression"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$\\pi/2$ ラジアンを度で表しなさい。",
+      "answer": "$90^\\circ$。",
+      "hints": [
+        "半周 $\\pi$ ラジアンを基準にします。",
+        "$(\\pi/2)\\cdot180/\\pi=90$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半周 $\\pi$ ラジアンを基準にします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$(\\pi/2)\\cdot180/\\pi=90$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$90^\\circ$。"
+        }
+      ],
+      "stage": "ready",
+      "id": "trig-synthesis-check-check-ready-unit-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-conversion"
+    },
+    {
+      "family": "recover",
+      "prompt": "$\\cos\\theta=1/3$ のとき $\\sin^2\\theta$ を求めなさい。",
+      "answer": "$8/9$。",
+      "hints": [
+        "平方和が $1$ になる関係を使います。",
+        "$\\sin^2\\theta=1-(1/3)^2=8/9$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "平方和が $1$ になる関係を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2\\theta=1-(1/3)^2=8/9$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$8/9$。"
+        }
+      ],
+      "stage": "ready",
+      "id": "trig-synthesis-check-check-ready-square-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-recover"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $2\\sin\\theta=1$ を解きなさい。まず正弦だけを残し、上半円の二点を探しましょう。",
+      "answer": "$\\theta=\\pi/6,5\\pi/6$。",
+      "hints": [
+        "$\\sin\\theta=1/2$ に直します。",
+        "基準角は $\\pi/6$、第二象限は $\\pi-\\pi/6=5\\pi/6$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\sin\\theta=1/2$ に直します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "基準角は $\\pi/6$、第二象限は $\\pi-\\pi/6=5\\pi/6$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/6,5\\pi/6$。"
+        }
+      ],
+      "stage": "guided",
+      "id": "trig-synthesis-check-check-guided-boundary-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-basic-equation"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$\\pi<\\theta<2\\pi$、$\\cos\\theta=7/9$ のとき、$\\cos(\\theta/2)$ を求めなさい。先に半角の範囲を書きましょう。",
+      "answer": "$-2\\sqrt2/3$。",
+      "hints": [
+        "$\\pi/2<\\theta/2<\\pi$ なので余弦は負です。",
+        "$\\cos^2(\\theta/2)=(1+7/9)/2=8/9$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\pi/2<\\theta/2<\\pi$ なので余弦は負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2(\\theta/2)=(1+7/9)/2=8/9$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-2\\sqrt2/3$。"
+        }
+      ],
+      "stage": "guided",
+      "id": "trig-synthesis-check-check-guided-half-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-half-angle"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$-120^\\circ$ をラジアンで表し、同じ向きで $0\\le\\theta<2\\pi$ にある角も求めなさい。",
+      "answer": "$-2\\pi/3$ ラジアン、指定範囲の角は $4\\pi/3$。",
+      "hints": [
+        "度数を換算した後、一周を加えて指定範囲へ移します。",
+        "$-120\\pi/180=-2\\pi/3$、$-2\\pi/3+2\\pi=4\\pi/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "度数を換算した後、一周を加えて指定範囲へ移します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-120\\pi/180=-2\\pi/3$、$-2\\pi/3+2\\pi=4\\pi/3$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-2\\pi/3$ ラジアン、指定範囲の角は $4\\pi/3$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-conversion-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-conversion"
+    },
+    {
+      "family": "conversion",
+      "prompt": "$-135^\\circ$ をラジアンで表し、同じ向きで $0\\le\\theta<2\\pi$ にある角も求めなさい。",
+      "answer": "$-3\\pi/4$ ラジアン、指定範囲の角は $5\\pi/4$。",
+      "hints": [
+        "度からラジアンに直し、負の角に一周を加えます。",
+        "$-135\\pi/180=-3\\pi/4$、$-3\\pi/4+2\\pi=5\\pi/4$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "度からラジアンに直し、負の角に一周を加えます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$-135\\pi/180=-3\\pi/4$、$-3\\pi/4+2\\pi=5\\pi/4$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$-3\\pi/4$ ラジアン、指定範囲の角は $5\\pi/4$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-conversion-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-conversion"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $6\\,\\mathrm{cm}$、中心角 $60^\\circ$ の扇形の弧長と面積を求めなさい。",
+      "answer": "弧長 $2\\pi\\,\\mathrm{cm}$、面積 $6\\pi\\,\\mathrm{cm}^2$。",
+      "hints": [
+        "中心角をラジアンに直します。",
+        "$60^\\circ=\\pi/3\\,\\mathrm{rad}$。$l=6\\pi/3=2\\pi$、$S=\\frac12\\cdot36\\cdot\\pi/3=6\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中心角をラジアンに直します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$60^\\circ=\\pi/3\\,\\mathrm{rad}$。$l=6\\pi/3=2\\pi$、$S=\\frac12\\cdot36\\cdot\\pi/3=6\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "弧長 $2\\pi\\,\\mathrm{cm}$、面積 $6\\pi\\,\\mathrm{cm}^2$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-sector-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-sector"
+    },
+    {
+      "family": "sector",
+      "prompt": "半径 $4\\,\\mathrm{cm}$、中心角 $135^\\circ$ の扇形の弧長と面積を求めなさい。",
+      "answer": "弧長 $3\\pi\\,\\mathrm{cm}$、面積 $6\\pi\\,\\mathrm{cm}^2$。",
+      "hints": [
+        "$135^\\circ$ は $3\\pi/4$ ラジアンです。",
+        "$l=4\\cdot3\\pi/4=3\\pi$、$S=\\frac12\\cdot16\\cdot3\\pi/4=6\\pi$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$135^\\circ$ は $3\\pi/4$ ラジアンです。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$l=4\\cdot3\\pi/4=3\\pi$、$S=\\frac12\\cdot16\\cdot3\\pi/4=6\\pi$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "弧長 $3\\pi\\,\\mathrm{cm}$、面積 $6\\pi\\,\\mathrm{cm}^2$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-sector-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-sector"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "角 $\\theta$ の単位円上の点は $(-12/13,5/13)$ です。正弦・余弦・正接を求めなさい。",
+      "answer": "正弦 $5/13$、余弦 $-12/13$、正接 $-5/12$。",
+      "hints": [
+        "縦・横・縦と横の商の順に読みます。",
+        "$\\sin\\theta=5/13$、$\\cos\\theta=-12/13$、$\\tan\\theta=(5/13)/(-12/13)=-5/12$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦・横・縦と横の商の順に読みます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin\\theta=5/13$、$\\cos\\theta=-12/13$、$\\tan\\theta=(5/13)/(-12/13)=-5/12$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $5/13$、余弦 $-12/13$、正接 $-5/12$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-circle-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-coordinate"
+    },
+    {
+      "family": "coordinate",
+      "prompt": "角 $\\theta$ の単位円上の点は $(12/13,-5/13)$ です。正弦・余弦・正接を求めなさい。",
+      "answer": "正弦 $-5/13$、余弦 $12/13$、正接 $-5/12$。",
+      "hints": [
+        "横は余弦、縦は正弦です。",
+        "$\\sin\\theta=-5/13$、$\\cos\\theta=12/13$、$\\tan\\theta=(-5/13)/(12/13)=-5/12$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横は余弦、縦は正弦です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin\\theta=-5/13$、$\\cos\\theta=12/13$、$\\tan\\theta=(-5/13)/(12/13)=-5/12$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $-5/13$、余弦 $12/13$、正接 $-5/12$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-circle-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-coordinate"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\cos(11\\pi/6)$ と $\\sin(-\\pi/3)$ を求めなさい。",
+      "answer": "余弦 $\\sqrt3/2$、正弦 $-\\sqrt3/2$。",
+      "hints": [
+        "前者は一周から $\\pi/6$ 戻った角、後者は横軸反転です。",
+        "$\\cos(11\\pi/6)=\\cos(\\pi/6)$、$\\sin(-\\pi/3)=-\\sin(\\pi/3)$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "前者は一周から $\\pi/6$ 戻った角、後者は横軸反転です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(11\\pi/6)=\\cos(\\pi/6)$、$\\sin(-\\pi/3)=-\\sin(\\pi/3)$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $\\sqrt3/2$、正弦 $-\\sqrt3/2$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-angle-change-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-reflection"
+    },
+    {
+      "family": "reflection",
+      "prompt": "$\\cos(5\\pi/3)$ と $\\sin(-\\pi/4)$ を求めなさい。",
+      "answer": "余弦 $1/2$、正弦 $-\\sqrt2/2$。",
+      "hints": [
+        "第四象限の横は正、負角の正弦は元の正弦と反対です。",
+        "$\\cos(5\\pi/3)=\\cos(\\pi/3)=1/2$、$\\sin(-\\pi/4)=-\\sin(\\pi/4)$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第四象限の横は正、負角の正弦は元の正弦と反対です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(5\\pi/3)=\\cos(\\pi/3)=1/2$、$\\sin(-\\pi/4)=-\\sin(\\pi/4)$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $1/2$、正弦 $-\\sqrt2/2$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-angle-change-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-reflection"
+    },
+    {
+      "family": "recover",
+      "prompt": "$\\pi/2<\\theta<\\pi$、$\\cos\\theta=-5/13$ のとき正弦と正接を求めなさい。",
+      "answer": "正弦 $12/13$、正接 $-12/5$。",
+      "hints": [
+        "第二象限なので正弦は正、正接は負です。",
+        "$\\sin^2\\theta=1-25/169=144/169$、$\\sin\\theta=12/13$、$\\tan\\theta=-12/5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第二象限なので正弦は正、正接は負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2\\theta=1-25/169=144/169$、$\\sin\\theta=12/13$、$\\tan\\theta=-12/5$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $12/13$、正接 $-12/5$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-recover-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-recover"
+    },
+    {
+      "family": "recover",
+      "prompt": "$3\\pi/2<\\theta<2\\pi$、$\\sin\\theta=-12/13$ のとき余弦と正接を求めなさい。",
+      "answer": "余弦 $5/13$、正接 $-12/5$。",
+      "hints": [
+        "第四象限なので余弦は正です。",
+        "$\\cos^2\\theta=1-144/169=25/169$、$\\cos\\theta=5/13$、$\\tan\\theta=-12/5$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第四象限なので余弦は正です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos^2\\theta=1-144/169=25/169$、$\\cos\\theta=5/13$、$\\tan\\theta=-12/5$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "余弦 $5/13$、正接 $-12/5$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-recover-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-recover"
+    },
+    {
+      "family": "identity",
+      "prompt": "$\\sin\\theta\\ne0$ のとき $(1-\\cos\\theta)(1+\\cos\\theta)/\\sin\\theta=\\sin\\theta$ を証明しなさい。",
+      "answer": "$\\sin\\theta\\ne0$ のもとで成立します。",
+      "hints": [
+        "分子の和と差の積を平方の差に直します。",
+        "$\\frac{(1-\\cos\\theta)(1+\\cos\\theta)}{\\sin\\theta}=\\frac{1-\\cos^2\\theta}{\\sin\\theta}=\\frac{\\sin^2\\theta}{\\sin\\theta}=\\sin\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分子の和と差の積を平方の差に直します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{(1-\\cos\\theta)(1+\\cos\\theta)}{\\sin\\theta}=\\frac{1-\\cos^2\\theta}{\\sin\\theta}=\\frac{\\sin^2\\theta}{\\sin\\theta}=\\sin\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin\\theta\\ne0$ のもとで成立します。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-identity-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-identity"
+    },
+    {
+      "family": "identity",
+      "prompt": "$\\cos\\theta\\ne0$ のとき $(1-\\sin\\theta)(1+\\sin\\theta)/\\cos\\theta=\\cos\\theta$ を証明しなさい。",
+      "answer": "$\\cos\\theta\\ne0$ のもとで成立します。",
+      "hints": [
+        "分子を $1-\\sin^2\\theta$ にします。",
+        "$\\frac{(1-\\sin\\theta)(1+\\sin\\theta)}{\\cos\\theta}=\\frac{\\cos^2\\theta}{\\cos\\theta}=\\cos\\theta$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分子を $1-\\sin^2\\theta$ にします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\frac{(1-\\sin\\theta)(1+\\sin\\theta)}{\\cos\\theta}=\\frac{\\cos^2\\theta}{\\cos\\theta}=\\cos\\theta$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\cos\\theta\\ne0$ のもとで成立します。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-identity-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-identity"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=2\\sin(2x)$ の周期、最大値、最小値を求め、$0\\le x\\le\\pi$ のグラフを五つの基準点とともにかきなさい。",
+      "answer": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,0),(\\pi/4,2),(\\pi/2,0),(3\\pi/4,-2),(\\pi,0)$ をなめらかにつなぎます。",
+      "hints": [
+        "中の角を四分の一周ずつ増やし、縦は二倍にします。",
+        "$2T=2\\pi$。$x=0,\\pi/4,\\pi/2,3\\pi/4,\\pi$ で値は $0,2,0,-2,0$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中の角を四分の一周ずつ増やし、縦は二倍にします。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2T=2\\pi$。$x=0,\\pi/4,\\pi/2,3\\pi/4,\\pi$ で値は $0,2,0,-2,0$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,0),(\\pi/4,2),(\\pi/2,0),(3\\pi/4,-2),(\\pi,0)$ をなめらかにつなぎます。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-wave-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-wave"
+    },
+    {
+      "family": "wave",
+      "prompt": "$y=2\\cos(2x)$ の周期、最大値、最小値を求め、$0\\le x\\le\\pi$ のグラフを五つの基準点とともにかきなさい。",
+      "answer": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,2),(\\pi/4,0),(\\pi/2,-2),(3\\pi/4,0),(\\pi,2)$ をなめらかにつなぎます。",
+      "hints": [
+        "余弦は最初に最大値を取り、二倍角で横幅が半分になります。",
+        "$2T=2\\pi$。$x=0,\\pi/4,\\pi/2,3\\pi/4,\\pi$ で値は $2,0,-2,0,2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦は最初に最大値を取り、二倍角で横幅が半分になります。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2T=2\\pi$。$x=0,\\pi/4,\\pi/2,3\\pi/4,\\pi$ で値は $2,0,-2,0,2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,2),(\\pi/4,0),(\\pi/2,-2),(3\\pi/4,0),(\\pi,2)$ をなめらかにつなぎます。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-wave-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-wave"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan(2x)$ の周期と、$0\\le x<2\\pi$ にある未定義の位置をすべて求めなさい。",
+      "answer": "周期 $\\pi/2$。未定義は $x=\\pi/4,3\\pi/4,5\\pi/4,7\\pi/4$。",
+      "hints": [
+        "正接の周期は中の角で $\\pi$。未定義は中の角の余弦がゼロのときです。",
+        "$2T=\\pi$、$2x=\\pi/2+k\\pi$ より $x=\\pi/4+k\\pi/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正接の周期は中の角で $\\pi$。未定義は中の角の余弦がゼロのときです。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$2T=\\pi$、$2x=\\pi/2+k\\pi$ より $x=\\pi/4+k\\pi/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $\\pi/2$。未定義は $x=\\pi/4,3\\pi/4,5\\pi/4,7\\pi/4$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-tangent-graph-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-tangent-graph"
+    },
+    {
+      "family": "tangent-graph",
+      "prompt": "$y=\\tan(3x)$ の周期と、$-\\pi/2<x<\\pi/2$ にある未定義の位置をすべて求めなさい。",
+      "answer": "周期 $\\pi/3$。未定義は $x=-\\pi/6,\\pi/6$。",
+      "hints": [
+        "$3x$ の余弦がゼロとなる場所を調べます。",
+        "$T=\\pi/3$、$x=\\pi/6+k\\pi/3$。指定範囲にあるのは $-\\pi/6,\\pi/6$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$3x$ の余弦がゼロとなる場所を調べます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$T=\\pi/3$、$x=\\pi/6+k\\pi/3$。指定範囲にあるのは $-\\pi/6,\\pi/6$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "周期 $\\pi/3$。未定義は $x=-\\pi/6,\\pi/6$。 範囲の両端 $\\pm\\pi/2$ は指定範囲外です。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-tangent-graph-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-tangent-graph"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $2\\cos\\theta+1=0$ を解きなさい。",
+      "answer": "$\\theta=2\\pi/3,4\\pi/3$。",
+      "hints": [
+        "余弦だけの形にして横が負の二点を探します。",
+        "$\\cos\\theta=-1/2$。基準角は $\\pi/3$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "余弦だけの形にして横が負の二点を探します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos\\theta=-1/2$。基準角は $\\pi/3$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=2\\pi/3,4\\pi/3$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-equation-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-basic-equation"
+    },
+    {
+      "family": "basic-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $2\\sin\\theta+\\sqrt3=0$ を解きなさい。",
+      "answer": "$\\theta=4\\pi/3,5\\pi/3$。",
+      "hints": [
+        "正弦だけを残し、下半円の二点を探します。",
+        "$\\sin\\theta=-\\sqrt3/2$。基準角は $\\pi/3$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正弦だけを残し、下半円の二点を探します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin\\theta=-\\sqrt3/2$。基準角は $\\pi/3$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=4\\pi/3,5\\pi/3$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-equation-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-basic-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin(2\\theta)=1/2$ を解きなさい。",
+      "answer": "$\\theta=\\pi/12,5\\pi/12,13\\pi/12,17\\pi/12$。",
+      "hints": [
+        "中の角 $u=2\\theta$ は二周分です。",
+        "$0\\le u<4\\pi$、$u=\\pi/6,5\\pi/6,13\\pi/6,17\\pi/6$。二で割ります。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "中の角 $u=2\\theta$ は二周分です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$0\\le u<4\\pi$、$u=\\pi/6,5\\pi/6,13\\pi/6,17\\pi/6$。二で割ります。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=\\pi/12,5\\pi/12,13\\pi/12,17\\pi/12$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-double-equation-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-transformed-equation"
+    },
+    {
+      "family": "transformed-equation",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\sin(2\\theta)=-1/2$ を解きなさい。",
+      "answer": "$\\theta=7\\pi/12,11\\pi/12,19\\pi/12,23\\pi/12$。",
+      "hints": [
+        "二倍にした範囲で正弦が負の交点を探します。",
+        "$0\\le u<4\\pi$、$u=7\\pi/6,11\\pi/6,19\\pi/6,23\\pi/6$。$\\theta=u/2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "二倍にした範囲で正弦が負の交点を探します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$0\\le u<4\\pi$、$u=7\\pi/6,11\\pi/6,19\\pi/6,23\\pi/6$。$\\theta=u/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\theta=7\\pi/12,11\\pi/12,19\\pi/12,23\\pi/12$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-double-equation-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-transformed-equation"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $2\\sin\\theta\\ge\\sqrt3$ を解きなさい。",
+      "answer": "$\\pi/3\\le\\theta\\le2\\pi/3$。",
+      "hints": [
+        "縦が $\\sqrt3/2$ 以上の弧を選びます。",
+        "境界は $\\pi/3,2\\pi/3$。その間が横線以上です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "縦が $\\sqrt3/2$ 以上の弧を選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "境界は $\\pi/3,2\\pi/3$。その間が横線以上です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/3\\le\\theta\\le2\\pi/3$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-inequality-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-sine-cosine-region"
+    },
+    {
+      "family": "sine-cosine-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $2\\cos\\theta<-\\sqrt3$ を解きなさい。",
+      "answer": "$5\\pi/6<\\theta<7\\pi/6$。",
+      "hints": [
+        "横が $-\\sqrt3/2$ より左の弧を選びます。",
+        "境界は $5\\pi/6,7\\pi/6$。等号がないので境界を除きます。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "横が $-\\sqrt3/2$ より左の弧を選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "境界は $5\\pi/6,7\\pi/6$。等号がないので境界を除きます。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$5\\pi/6<\\theta<7\\pi/6$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-inequality-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-sine-cosine-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta\\ge\\sqrt3$ を解きなさい。",
+      "answer": "$\\pi/3\\le\\theta<\\pi/2$ または $4\\pi/3\\le\\theta<3\\pi/2$。",
+      "hints": [
+        "正の枝で、等号の角から次の漸近線までを選びます。",
+        "等号は $\\pi/3,4\\pi/3$。次の未定義点は $\\pi/2,3\\pi/2$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "正の枝で、等号の角から次の漸近線までを選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "等号は $\\pi/3,4\\pi/3$。次の未定義点は $\\pi/2,3\\pi/2$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/3\\le\\theta<\\pi/2$ または $4\\pi/3\\le\\theta<3\\pi/2$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-tangent-inequality-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-tangent-region"
+    },
+    {
+      "family": "tangent-region",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\tan\\theta\\le-1$ を解きなさい。",
+      "answer": "$\\pi/2<\\theta\\le3\\pi/4$ または $3\\pi/2<\\theta\\le7\\pi/4$。",
+      "hints": [
+        "負の枝で、前の漸近線の直後から等号の角までを選びます。",
+        "等号は $3\\pi/4,7\\pi/4$、前の未定義点は $\\pi/2,3\\pi/2$ です。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "負の枝で、前の漸近線の直後から等号の角までを選びます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "等号は $3\\pi/4,7\\pi/4$、前の未定義点は $\\pi/2,3\\pi/2$ です。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\pi/2<\\theta\\le3\\pi/4$ または $3\\pi/2<\\theta\\le7\\pi/4$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-tangent-inequality-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-tangent-region"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\cos(7\\pi/12)$ を加法定理で求めなさい。",
+      "answer": "$\\dfrac{\\sqrt2-\\sqrt6}4$。",
+      "hints": [
+        "$7\\pi/12=\\pi/3+\\pi/4$。余弦の和は二つの積の差です。",
+        "$\\cos(7\\pi/12)=\\frac12\\frac{\\sqrt2}2-\\frac{\\sqrt3}2\\frac{\\sqrt2}2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$7\\pi/12=\\pi/3+\\pi/4$。余弦の和は二つの積の差です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\cos(7\\pi/12)=\\frac12\\frac{\\sqrt2}2-\\frac{\\sqrt3}2\\frac{\\sqrt2}2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt2-\\sqrt6}4$。 第二象限なので負になります。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-addition-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-sin-cos-addition"
+    },
+    {
+      "family": "sin-cos-addition",
+      "prompt": "$\\sin(7\\pi/12)$ を加法定理で求めなさい。",
+      "answer": "$\\dfrac{\\sqrt6+\\sqrt2}4$。",
+      "hints": [
+        "$\\pi/3+\\pi/4$ の正弦を展開します。",
+        "$\\sin(7\\pi/12)=\\frac{\\sqrt3}2\\frac{\\sqrt2}2+\\frac12\\frac{\\sqrt2}2$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "$\\pi/3+\\pi/4$ の正弦を展開します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin(7\\pi/12)=\\frac{\\sqrt3}2\\frac{\\sqrt2}2+\\frac12\\frac{\\sqrt2}2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\dfrac{\\sqrt6+\\sqrt2}4$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-addition-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-sin-cos-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "鋭角 $\\alpha,\\beta$ について $\\tan\\alpha=1/2,\\ \\tan\\beta=1/4$ のとき、$\\tan(\\alpha+\\beta)$ を求めなさい。",
+      "answer": "$6/7$。",
+      "hints": [
+        "分母の積を引く公式を使います。",
+        "$1-1/8=7/8\\ne0$、$\\frac{1/2+1/4}{1-1/8}=\\frac{3/4}{7/8}=6/7$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "分母の積を引く公式を使います。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1-1/8=7/8\\ne0$、$\\frac{1/2+1/4}{1-1/8}=\\frac{3/4}{7/8}=6/7$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$6/7$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-tan-addition-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-tan-addition"
+    },
+    {
+      "family": "tan-addition",
+      "prompt": "鋭角 $\\alpha,\\beta$ について $\\tan\\alpha=1/2,\\ \\tan\\beta=1/4$ のとき、$\\tan(\\alpha-\\beta)$ を求めなさい。",
+      "answer": "$2/9$。",
+      "hints": [
+        "差の分母は積を足します。",
+        "$1+1/8=9/8\\ne0$、$\\frac{1/2-1/4}{1+1/8}=\\frac{1/4}{9/8}=2/9$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "差の分母は積を足します。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$1+1/8=9/8\\ne0$、$\\frac{1/2-1/4}{1+1/8}=\\frac{1/4}{9/8}=2/9$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$2/9$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-tan-addition-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-tan-addition"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\pi/2<\\theta<\\pi$、$\\cos\\theta=-4/5$ のとき、$\\sin2\\theta$ と $\\cos2\\theta$ を求めなさい。",
+      "answer": "$\\sin2\\theta=-24/25,\\ \\cos2\\theta=7/25$。",
+      "hints": [
+        "第二象限から $\\sin\\theta=3/5$ と決めます。",
+        "$\\sin2\\theta=2(3/5)(-4/5)=-24/25$、$\\cos2\\theta=2(16/25)-1=7/25$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第二象限から $\\sin\\theta=3/5$ と決めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin2\\theta=2(3/5)(-4/5)=-24/25$、$\\cos2\\theta=2(16/25)-1=7/25$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin2\\theta=-24/25,\\ \\cos2\\theta=7/25$。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-double-angle-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-double-angle"
+    },
+    {
+      "family": "double-angle",
+      "prompt": "$\\pi<\\theta<3\\pi/2$、$\\sin\\theta=-4/5$ のとき、$\\sin2\\theta$ と $\\cos2\\theta$ を求めなさい。",
+      "answer": "$\\sin2\\theta=24/25,\\ \\cos2\\theta=-7/25$。",
+      "hints": [
+        "第三象限から $\\cos\\theta=-3/5$ と決めます。",
+        "$\\sin2\\theta=2(-4/5)(-3/5)=24/25$、$\\cos2\\theta=1-2(16/25)=-7/25$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "第三象限から $\\cos\\theta=-3/5$ と決めます。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin2\\theta=2(-4/5)(-3/5)=24/25$、$\\cos2\\theta=1-2(16/25)=-7/25$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "$\\sin2\\theta=24/25,\\ \\cos2\\theta=-7/25$。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-double-angle-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-double-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$\\pi<\\theta<2\\pi$、$\\cos\\theta=1/3$ のとき、$\\sin(\\theta/2)$ と $\\cos(\\theta/2)$ および半角の正接を求めなさい。",
+      "answer": "正弦 $\\sqrt3/3$、余弦 $-\\sqrt6/3$、正接 $-\\sqrt2/2$。",
+      "hints": [
+        "半角は第二象限なので正弦は正、余弦は負です。",
+        "$\\sin^2(\\theta/2)=(1-1/3)/2=1/3$、$\\cos^2(\\theta/2)=(1+1/3)/2=2/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角は第二象限なので正弦は正、余弦は負です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2(\\theta/2)=(1-1/3)/2=1/3$、$\\cos^2(\\theta/2)=(1+1/3)/2=2/3$。 $\\tan(\\theta/2)=(\\sqrt3/3)/(-\\sqrt6/3)=-\\sqrt2/2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $\\sqrt3/3$、余弦 $-\\sqrt6/3$、正接 $-\\sqrt2/2$。 半角の余弦はゼロではありません。"
+        }
+      ],
+      "stage": "practice",
+      "id": "trig-synthesis-check-check-half-angle-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-half-angle"
+    },
+    {
+      "family": "half-angle",
+      "prompt": "$0<\\theta<\\pi$、$\\cos\\theta=-1/3$ のとき、$\\sin(\\theta/2)$ と $\\cos(\\theta/2)$ および半角の正接を求めなさい。",
+      "answer": "正弦 $\\sqrt6/3$、余弦 $\\sqrt3/3$、正接 $\\sqrt2$。",
+      "hints": [
+        "半角は第一象限なのでどちらも正です。",
+        "$\\sin^2(\\theta/2)=(1+1/3)/2=2/3$、$\\cos^2(\\theta/2)=(1-1/3)/2=1/3$。"
+      ],
+      "steps": [
+        {
+          "title": "注目するものを決める",
+          "text": "半角は第一象限なのでどちらも正です。"
+        },
+        {
+          "title": "途中式を書く",
+          "text": "$\\sin^2(\\theta/2)=(1+1/3)/2=2/3$、$\\cos^2(\\theta/2)=(1-1/3)/2=1/3$。 $\\tan(\\theta/2)=(\\sqrt6/3)/(\\sqrt3/3)=\\sqrt2$。"
+        },
+        {
+          "title": "答えと条件を確かめる",
+          "text": "正弦 $\\sqrt6/3$、余弦 $\\sqrt3/3$、正接 $\\sqrt2$。 半角の余弦はゼロではありません。"
+        }
+      ],
+      "stage": "review",
+      "id": "trig-synthesis-check-check-review-half-angle-v1",
+      "lesson": "chapter-four-check",
+      "kind": "paper",
+      "repair": "check-half-angle"
+    }
+  ],
+  "diagramNeeds": [
+    {
+      "slug": "trig-radians",
+      "purpose": "回転量と弧度法を結び付ける",
+      "description": "正負の矢印で一般角を表示し、一周を超えた角と終辺を区別する。別図で半径と弧長が等しい中心角を示す。扇形では半径、中心角、弧の色を区別し、度表示とラジアン表示を併記する。"
+    },
+    {
+      "slug": "trig-unit-circle",
+      "purpose": "座標と関数の意味・符号を見せる",
+      "description": "単位円に横の射影を余弦、縦の射影を正弦として色分けする。四象限の座標符号、軸上の四点、特別角の直角三角形を併設。正接は傾きとして示し、縦軸上では未定義と表示する。"
+    },
+    {
+      "slug": "trig-angle-change",
+      "purpose": "角の変換を反転として理解する",
+      "description": "同じ基準角から、横軸反転・縦軸反転・原点対称の点を単位円に描く。余角は直線に関する対称と座標交換を別図で示す。各点に符号付きの横・縦の射影を付ける。"
+    },
+    {
+      "slug": "trig-identities",
+      "purpose": "平方の関係と符号選択を分ける",
+      "description": "単位円に第二象限の点と横・縦の直角三角形を描く。長さは正である一方、横座標は負であることを区別し、同じ縦座標を持つ左右の二候補から範囲で選ぶ様子を示す。"
+    },
+    {
+      "slug": "trig-graphs",
+      "purpose": "周期・振れ幅・移動と正接の不連続を可視化する",
+      "description": "正弦と余弦を五基準点・ラジアン目盛付きで描き、縦拡大、横圧縮、平行移動を重ねて比較する。正接は別枠に三基準点と破線の漸近線を描き、枝の間を絶対につながない。練習のグラフ解答も基準点と漸近線を示す。"
+    },
+    {
+      "slug": "trig-equations",
+      "purpose": "方程式の全解を交点として拾う",
+      "description": "正弦は水平線、余弦は垂直線、正接は原点を通る直線で単位円と交わる全点を示す。二倍角では中の角の二周分のグラフと元の角の目盛を上下に対応させ、上端を含まないことを白丸で示す。"
+    },
+    {
+      "slug": "trig-inequalities",
+      "purpose": "解を点ではなく弧と区間で示す",
+      "description": "単位円の条件を満たす弧を太くし、その下に角の数直線を並べる。等号を含む点は黒丸、含まない点は白丸。正接の不等式は漸近線で分けたグラフと水平線を描き、対応する複数の解区間を色分けする。"
+    },
+    {
+      "slug": "trig-addition",
+      "purpose": "加法定理を回転の成分として示す",
+      "description": "単位円上の点と、それを回転した点を描く。横方向・縦方向の単位ベクトルが回転して持つ成分を色分けし、余弦の和の式で負号になる横成分を示す。角の和を三角関数の値の和と混同しないようにする。"
+    },
+    {
+      "slug": "trig-double-half",
+      "purpose": "元の角と半角の象限を区別する",
+      "description": "同じ単位円上で元の角と半角を異なる色で描く。元の角が下半円にあっても半角は上半円にあり、余弦が負になる場合を示す。平方の公式による長さの候補と、座標符号による選択を分けて表示する。"
+    },
+    {
+      "slug": "trig-synthesis-check",
+      "purpose": "合成後の波と指定範囲の対応を示す",
+      "description": "正弦と余弦の和のグラフを、合成した正弦のグラフと重ね、振れ幅と横の移動を示す。最大・最小の図は全周期と制限区間を分け、制限区間の両端と区間内の山に印を付ける。合成方程式では元の角と移動後の角の目盛を対応させる。"
+    }
+  ]
+}

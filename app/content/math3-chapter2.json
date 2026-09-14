@@ -1,0 +1,4779 @@
+{
+  "lessons": [
+    {
+      "slug": "m3-sequence-basics",
+      "title": "一般項と部分和を区別する",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "一つの項と、そこまでの和を読み分けよう。",
+      "basicsTitle": "一般項と部分和を区別する",
+      "introduction": [
+        "$a_n$ は第 $n$ 項、$S_n=a_1+\\cdots+a_n$ は初項から第 $n$ 項までの和です。ここでは $n$ は正の整数です。",
+        "$a_n=2n-1$ なら項は $1,3,5,\\ldots$、部分和は $1,4,9,\\ldots$。同じ添字でも表す量が違います。",
+        "$\\sum_{k=1}^n a_k$ の $k$ は足す項を指定する文字です。初項 $a$、公比 $r$ の等比数列は $a_n=ar^{n-1}$。有限和は $r\\ne1$ なら $a(1-r^n)/(1-r)$、$r=1$ なら $na$ です。"
+      ],
+      "rule": "$n\\ge2$ では $a_n=S_n-S_{n-1}$。初項は別に $a_1=S_1$ と確かめます。",
+      "examples": [
+        {
+          "title": "添字を代入する",
+          "prompt": "$a_n=2n-1$ の最初の3項を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "添字が位置を表します。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$n=1,2,3$ を順に入れます。"
+            },
+            {
+              "title": "答え",
+              "text": "$1,3,5$"
+            }
+          ]
+        },
+        {
+          "title": "和と項を行き来する",
+          "prompt": "$a_n=2n-1$ の $S_3$ と $a_3$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "和と最後の項を分けます。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$S_3=1+3+5=9$。$a_3=2\\cdot3-1=5$。"
+            },
+            {
+              "title": "答え",
+              "text": "$S_3=9,a_3=5$"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "term",
+          "title": "添字を代入する",
+          "text": "第1項から順に代入します。等比数列は初項に公比を掛ける回数が添字より一つ少なくなります。",
+          "tex": "a_n=ar^{n-1}",
+          "check": "初項 $3$、公比 $2$ の第3項は？",
+          "answer": "$3\\cdot2^2=12$。"
+        },
+        {
+          "id": "sum",
+          "title": "和と項を行き来する",
+          "text": "部分和の差では、前までに足した項が消えて最後の一項が残ります。",
+          "tex": "S_n-S_{n-1}=a_n\\quad(n\\ge2)",
+          "check": "$S_2=5,S_3=9$ のとき $a_3$ は？",
+          "answer": "$9-5=4$。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-sequence-convergence",
+      "title": "収束と発散を読み分ける",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "項を先へ進めたとき、どのように振る舞うかを調べよう。",
+      "basicsTitle": "収束と発散を読み分ける",
+      "introduction": [
+        "数列がある実数 $L$ に収束するとは、十分先ではすべての項が $L$ にいくらでも近くなることです。",
+        "$1/n$ は $0$ に収束します。$n$ はどんな大きな正の数もやがて越え、正の無限大へ発散します。",
+        "$(-1)^n$ は $-1$ と $1$ を行き来して収束しません。ただし、符号が交互でも $(-1)^n/n$ のように振れ幅が縮めば収束します。"
+      ],
+      "rule": "収束しない数列を発散するといいます。無限大への発散だけでなく、振動して収束しない場合も含みます。$\\infty$ は通常の数ではありません。",
+      "examples": [
+        {
+          "title": "近づく実数を読む",
+          "prompt": "$a_n=1/n$ の極限を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "分母は限りなく大きくなります。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "どんな小さな正の幅でも、十分大きい $n$ では $0<1/n$ がその幅より小さくなります。"
+            },
+            {
+              "title": "答え",
+              "text": "$0$"
+            }
+          ]
+        },
+        {
+          "title": "大きさと符号を分ける",
+          "prompt": "$a_n=(-1)^n$ は収束しますか。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "奇数番目と偶数番目を見ます。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "奇数番目は常に $-1$、偶数番目は常に $1$ で、一つの値へ近づきません。"
+            },
+            {
+              "title": "答え",
+              "text": "収束せず、振動して発散します。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "limit",
+          "title": "近づく実数を読む",
+          "text": "項が極限値と等しくなる必要はありません。差がいくらでも小さくなるかを考えます。",
+          "tex": "(2+1/n)-2=1/n\\longrightarrow0",
+          "check": "$3-1/n$ はどこへ近づく？",
+          "answer": "$3$。"
+        },
+        {
+          "id": "behavior",
+          "title": "大きさと符号を分ける",
+          "text": "振れ幅が残れば一つの値に近づきません。正負の項があっても振れ幅が消えるなら収束する場合があります。",
+          "tex": "(-1)^n=-1,1,-1,1,\\ldots",
+          "check": "$-n$ の振る舞いは？",
+          "answer": "負の無限大へ発散します。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-sequence-rational-limit",
+      "title": "分数の数列を読みやすく直す",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "分母・分子を同じ量で割り、極限を読める形にしよう。",
+      "basicsTitle": "分数の数列を読みやすく直す",
+      "introduction": [
+        "有限の極限どうしは和・積の極限を取れます。商は分母の極限がゼロでないときに使えます。",
+        "分母・分子の最高次数を見ます。例えば $(2n+1)/(n+3)=(2+1/n)/(1+3/n)$。分母が $1$ に近づくので、商の極限は $2$ です。",
+        "分母がゼロへ近づく形を残して公式を使うのではなく、全体の大きさと符号が読める形へ整理します。"
+      ],
+      "rule": "分母・分子を同じ非零の量で割ります。$\\infty/\\infty$ を数の割り算として扱いません。",
+      "examples": [
+        {
+          "title": "同じ次数で割る",
+          "prompt": "$\\lim_{n\\to\\infty}(2n+1)/(n+3)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "分母の次数は1です。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "分母・分子を $n$ で割ると $(2+1/n)/(1+3/n)\\to2/1$。"
+            },
+            {
+              "title": "答え",
+              "text": "$2$"
+            }
+          ]
+        },
+        {
+          "title": "全体の大きさも読む",
+          "prompt": "$n^2/(n+1)$ の極限を調べなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "分子の次数が一つ高い形です。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$n/(1+1/n)$ と直すと、正の分母は $1$ に近づき分子は限りなく増えます。"
+            },
+            {
+              "title": "答え",
+              "text": "正の無限大へ発散します。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "finite",
+          "title": "同じ次数で割る",
+          "text": "定数として残る項とゼロへ近づく項を分けます。",
+          "tex": "\\frac{2n+1}{n+3}=\\frac{2+1/n}{1+3/n}",
+          "check": "$(3n+1)/(n+2)$ の極限は？",
+          "answer": "$3$。"
+        },
+        {
+          "id": "growth",
+          "title": "全体の大きさも読む",
+          "text": "商の極限の公式が使えないときは、符号と大きさを直接読みます。",
+          "tex": "\\frac{n^2}{n+1}=\\frac{n}{1+1/n}",
+          "check": "$n^2/(n+1)$ の振る舞いは？",
+          "answer": "正の無限大へ発散します。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-sequence-radical-limit",
+      "title": "根号の差を有理化する",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "大きな量どうしの差は、消える部分を式で確かめよう。",
+      "basicsTitle": "根号の差を有理化する",
+      "introduction": [
+        "$\\sqrt{n^2+n}-n$ は、両方が大きくなるだけでは差が分かりません。",
+        "和 $\\sqrt{n^2+n}+n$ を掛けて割ると、分子が $(n^2+n)-n^2=n$ になり、差の大きさを読めます。",
+        "ここでは $n>0$ なので $\\sqrt{n^2}=n$。根号から $n$ を出すときは、この符号を使っています。"
+      ],
+      "rule": "有理化では分子だけでなく分母にも同じ式を掛けます。無限大どうしの差をゼロと決めません。",
+      "examples": [
+        {
+          "title": "和を掛けて差を消す",
+          "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{n^2+n}-n)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "差を有理化します。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$n/(\\sqrt{n^2+n}+n)=1/(\\sqrt{1+1/n}+1)\\to1/2$。"
+            },
+            {
+              "title": "答え",
+              "text": "$1/2$"
+            }
+          ]
+        },
+        {
+          "title": "根号の中の次数をそろえる",
+          "prompt": "$\\lim_{n\\to\\infty}\\sqrt{4n^2+n}/n$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "根号から正の $n$ を出します。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$\\sqrt{4+1/n}\\to2$。"
+            },
+            {
+              "title": "答え",
+              "text": "$2$"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "difference",
+          "title": "和を掛けて差を消す",
+          "text": "根号の差は有理化すると、相殺される項がはっきりします。",
+          "tex": "\\sqrt{n^2+n}-n=\\frac{n}{\\sqrt{n^2+n}+n}",
+          "check": "$\\sqrt{n^2+2n}-n$ の極限は？",
+          "answer": "$2/(1+1)=1$。"
+        },
+        {
+          "id": "scale",
+          "title": "根号の中の次数をそろえる",
+          "text": "根号の外の $n$ と中の $n^2$ を対応させます。",
+          "tex": "\\frac{\\sqrt{n^2+n}}n=\\sqrt{1+1/n}",
+          "check": "$\\sqrt{4n^2+1}/n$ の極限は？",
+          "answer": "$2$。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-geometric-sequence-limit",
+      "title": "等比数列の大きさと符号を見る",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "公比の絶対値と符号から、項の振る舞いを判断しよう。",
+      "basicsTitle": "等比数列の大きさと符号を見る",
+      "introduction": [
+        "$r^n$ で $|r|<1$ なら大きさが縮み、極限は $0$ です。負の公比でも同じです。",
+        "$r=1$ なら常に $1$。$r>1$ なら正の無限大へ発散します。$r=-1$ では二つの値を行き来し、$r<-1$ では符号を変えながら大きさが増えます。",
+        "初項がゼロでない等比数列 $ar^{n-1}$ は、$|r|<1$ または $r=1$ で収束します。初項 $a=0$ なら、公比によらずすべての項がゼロです。"
+      ],
+      "rule": "数列の項が収束する条件と、その無限級数が収束する条件は別です。",
+      "examples": [
+        {
+          "title": "振れ幅が縮む場合",
+          "prompt": "$(1/2)^n$ と $(-1/2)^n$ の極限を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "符号ではなく大きさが縮むかを先に見ます。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "どちらの絶対値も $(1/2)^n$ で、繰り返し半分になり任意に小さくなります。"
+            },
+            {
+              "title": "答え",
+              "text": "どちらも $0$。"
+            }
+          ]
+        },
+        {
+          "title": "境界と増える場合",
+          "prompt": "$2^n$ と $(-1)^n$ の振る舞いを答えなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "公比の大きさと符号を分けます。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$2^n$ は増え続け、$(-1)^n$ は $-1,1$ を行き来します。"
+            },
+            {
+              "title": "答え",
+              "text": "前者は正の無限大へ発散。後者は振動して発散。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "shrink",
+          "title": "振れ幅が縮む場合",
+          "text": "負の公比でも絶対値が小さくなればゼロに近づきます。",
+          "tex": "|(-1/2)^n|=(1/2)^n\\longrightarrow0",
+          "check": "$3(-1/3)^{n-1}$ の極限は？",
+          "answer": "$0$。"
+        },
+        {
+          "id": "other",
+          "title": "境界と増える場合",
+          "text": "公比1では定数になります。公比が負なら符号も変わります。",
+          "tex": "1^n=1,\\quad(-1)^n=-1,1,-1,1,\\ldots",
+          "check": "$2(-1)^{n-1}$ は収束する？",
+          "answer": "収束しません。$2,-2$ を行き来します。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-sequence-squeeze",
+      "title": "値の範囲ではさむ",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "振動する部分を計算しきらず、大きさの上限を使おう。",
+      "basicsTitle": "値の範囲ではさむ",
+      "introduction": [
+        "$b_n\\le a_n\\le c_n$ が十分先のすべての項で成り立ち、両端が同じ $L$ に収束すれば、$a_n$ も $L$ に収束します。",
+        "$-1\\le\\sin n\\le1$ を正の $n$ で割ると、$-1/n\\le(\\sin n)/n\\le1/n$。両端が $0$ に近づくので真ん中も $0$ へ近づきます。角は弧度法です。",
+        "大切なのは、はさむ二つの量の極限が同じことです。幅が縮まらない不等式だけでは、一つの極限値を決められません。"
+      ],
+      "rule": "絶対値で $|a_n-L|\\le b_n$、$b_n\\to0$ と示す形も使えます。",
+      "examples": [
+        {
+          "title": "振動を上限で押さえる",
+          "prompt": "$\\lim_{n\\to\\infty}(\\sin n)/n$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "三角関数の値は $-1$ から $1$ です。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$-1/n\\le(\\sin n)/n\\le1/n$。両端が $0$ なので、はさみうちで $0$。"
+            },
+            {
+              "title": "答え",
+              "text": "$0$"
+            }
+          ]
+        },
+        {
+          "title": "同じ極限にはさむ",
+          "prompt": "$3-1/n\\le a_n\\le3+2/n$ のとき極限を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "両端の極限を比べます。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "下側も上側も $3$ に近づくので、はさみうちで $a_n\\to3$。"
+            },
+            {
+              "title": "答え",
+              "text": "$3$"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "zero",
+          "title": "振動を上限で押さえる",
+          "text": "正確な各項の値を出さなくても、ゼロからの距離が小さくなることを示せます。",
+          "tex": "\\left|\\frac{\\sin n}{n}\\right|\\le\\frac1n",
+          "check": "$(\\cos n)/n^2$ の極限は？",
+          "answer": "$0$。絶対値は $1/n^2$ 以下です。"
+        },
+        {
+          "id": "shift",
+          "title": "同じ極限にはさむ",
+          "text": "真ん中の式が分からなくても、両端が同じ値へ近づけば極限が決まります。",
+          "tex": "L-b_n\\le a_n\\le L+b_n,\\quad b_n\\to0",
+          "check": "$2-1/n\\le a_n\\le2+1/n$ なら？",
+          "answer": "$a_n\\to2$。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-infinite-series-meaning",
+      "title": "無限級数を部分和で考える",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "無限個の和は、まず有限個を足してから考えよう。",
+      "basicsTitle": "無限級数を部分和で考える",
+      "introduction": [
+        "$\\sum_{n=1}^{\\infty}a_n$ は、部分和 $S_N=\\sum_{n=1}^N a_n$ の極限として考えます。$S_N$ が実数 $S$ に収束するとき、その級数は収束し、和は $S$ です。",
+        "級数が収束すれば $a_N=S_N-S_{N-1}\\to0$。しかし、項がゼロへ近づくだけでは級数の収束は決まりません。",
+        "例えば調和級数 $1+1/2+1/3+\\cdots$ は、$1/3+1/4\\ge1/2$、$1/5+\\cdots+1/8\\ge1/2$。一般に $1/(2^{m-1}+1)+\\cdots+1/2^m\\ge1/2$ です。このまとまりが無限に増え、部分和は上限なく増えます。項 $1/n$ はゼロでも級数は発散します。"
+      ],
+      "rule": "「項がゼロに近づく」は収束の必要条件であり、十分条件ではありません。",
+      "examples": [
+        {
+          "title": "有限和の極限を取る",
+          "prompt": "$1+1/2+1/4+\\cdots$ の部分和を作り、和を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "有限等比和を先に作ります。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "初項1、公比1/2より $S_N=(1-(1/2)^N)/(1-1/2)$。$2^{-N}\\to0$ なので和は2。"
+            },
+            {
+              "title": "答え",
+              "text": "$S_N=2(1-2^{-N})$、和は $2$。"
+            }
+          ]
+        },
+        {
+          "title": "項の極限だけで決めない",
+          "prompt": "$1+1/2+1/3+\\cdots$ は、項がゼロへ近づくので収束するといえますか。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "小さい項も多数足すことに注意します。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$2^{m-1}$ 個の項を $1/(2^{m-1}+1)$ から $1/2^m$ までまとめると和は $1/2$ 以上。$S_{2^m}\\ge1+m/2$ で上限なく増えます。"
+            },
+            {
+              "title": "答え",
+              "text": "いえません。この級数は発散します。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "partial",
+          "title": "有限和の極限を取る",
+          "text": "和を求める対象は各項の極限ではなく部分和の極限です。",
+          "tex": "\\sum_{n=1}^{\\infty}a_n=\\lim_{N\\to\\infty}S_N",
+          "check": "$S_N=3-2^{-N}$ の級数の和は？",
+          "answer": "$3$。"
+        },
+        {
+          "id": "necessary",
+          "title": "項の極限だけで決めない",
+          "text": "級数が収束するなら隣り合う部分和の差はゼロへ近づきます。逆は一般には成り立ちません。",
+          "tex": "a_N=S_N-S_{N-1}\\longrightarrow S-S=0",
+          "check": "$a_n\\to1$ なら級数は収束する？",
+          "answer": "収束しません。項がゼロへ近づかないからです。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-geometric-series",
+      "title": "無限等比級数の条件を確かめる",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "公比を確かめてから、和の公式へ進もう。",
+      "basicsTitle": "無限等比級数の条件を確かめる",
+      "introduction": [
+        "初項 $a$、公比 $r$ の有限和は、$r\\ne1$ なら $S_N=a(1-r^N)/(1-r)$。$S_N-rS_N=a-ar^N$ と差を取ると導けます。",
+        "$a\\ne0$ の無限等比級数は $|r|<1$ のときに限り収束し、和は $a/(1-r)$ です。$a=0$ なら全項がゼロで和もゼロです。",
+        "公比 $1$ の数列は収束しても、初項がゼロでなければ級数の部分和は $Na$ で収束しません。"
+      ],
+      "rule": "初項の取り違えと、負の公比での引き算に注意します。公式の分母がゼロでないだけでは使えません。",
+      "examples": [
+        {
+          "title": "初項と公比を読む",
+          "prompt": "$3+1+1/3+\\cdots$ の和を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "初項3、公比1/3です。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$|r|<1$ より収束し、$3/(1-1/3)=9/2$。"
+            },
+            {
+              "title": "答え",
+              "text": "$9/2$"
+            }
+          ]
+        },
+        {
+          "title": "収束条件を先に書く",
+          "prompt": "$1+2+4+\\cdots$ に $1/(1-2)$ を使ってよいですか。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "公比2は条件の外です。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "部分和は $S_N=2^N-1\\to+\\infty$ です。"
+            },
+            {
+              "title": "答え",
+              "text": "使えません。正の無限大へ発散します。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "sum",
+          "title": "初項と公比を読む",
+          "text": "和の式に入れる前に、公比の絶対値が1より小さいことを確認します。",
+          "tex": "S=\\frac{a}{1-r}\\quad(|r|<1)",
+          "check": "$3+1+1/3+\\cdots$ の和は？",
+          "answer": "$3/(1-1/3)=9/2$。"
+        },
+        {
+          "id": "condition",
+          "title": "収束条件を先に書く",
+          "text": "形式的に公式へ入れても、条件の外では級数の和を表しません。",
+          "tex": "|r|<1\\quad\\Longleftrightarrow\\quad-1<r<1",
+          "check": "$1+2+4+\\cdots$ の和は $-1$？",
+          "answer": "違います。公比2で発散し、和の公式は使えません。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-telescoping-series",
+      "title": "部分和で消える項を見つける",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "項の差へ直し、最初と最後に何が残るかを見よう。",
+      "basicsTitle": "部分和で消える項を見つける",
+      "introduction": [
+        "$1/(k(k+1))=1/k-1/(k+1)$ と分けるのは、隣の項と打ち消し合う形を作るためです。",
+        "初項から第 $N$ 項まで書くと $(1-1/2)+(1/2-1/3)+\\cdots+(1/N-1/(N+1))=1-1/(N+1)$。",
+        "消える項を確認して有限和を完成させてから、$N\\to\\infty$ の極限を取ります。最後の項を最初から消したことにはしません。"
+      ],
+      "rule": "部分分数は通分して元の項へ戻るかを確認し、残る端の項を漏らさないようにします。",
+      "examples": [
+        {
+          "title": "差に分けて確かめる",
+          "prompt": "$1/(k(k+1))$ を二つの分数の差に直しなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "分母の二つの因子を使います。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "通分すると $((k+1)-k)/(k(k+1))=1/(k(k+1))$。$k\\ge1$ で分母は非零です。"
+            },
+            {
+              "title": "答え",
+              "text": "$1/k-1/(k+1)$"
+            }
+          ]
+        },
+        {
+          "title": "有限和の両端を残す",
+          "prompt": "$\\sum_{k=1}^{\\infty}1/(k(k+1))$ の和を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "まず第 $N$ 項までの和を作ります。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$S_N=(1-1/2)+\\cdots+(1/N-1/(N+1))=1-1/(N+1)\\to1$。"
+            },
+            {
+              "title": "答え",
+              "text": "$1$"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "split",
+          "title": "差に分けて確かめる",
+          "text": "分母の間隔が2なら、差の分子も2になります。必要な係数を補います。",
+          "tex": "\\frac1{k(k+2)}=\\frac12\\left(\\frac1k-\\frac1{k+2}\\right)",
+          "check": "$1/(k(k+1))$ を差へ直しなさい。",
+          "answer": "$1/k-1/(k+1)$。"
+        },
+        {
+          "id": "ends",
+          "title": "有限和の両端を残す",
+          "text": "一つ先との差なら端が一項ずつ、二つ先との差なら二項ずつ残ります。",
+          "tex": "\\sum_{k=1}^N\\left(\\frac1k-\\frac1{k+1}\\right)=1-\\frac1{N+1}",
+          "check": "$\\sum_{k=2}^N(1/k-1/(k+1))$ は？",
+          "answer": "$1/2-1/(N+1)$（$N\\ge2$）。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-recurrence-limit",
+      "title": "漸化式から収束を確かめる",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "極限の候補だけで止めず、項がそこへ近づくことを示そう。",
+      "basicsTitle": "漸化式から収束を確かめる",
+      "introduction": [
+        "$a_{n+1}=(a_n+2)/2$ では、変わらない値は $L=(L+2)/2$ を満たす $L=2$ です。ただし、この式は収束の証明ではありません。",
+        "候補との差を取ると $a_{n+1}-2=(a_n-2)/2$。差が等比数列になり、一般項を求められます。",
+        "$a_1=0$ なら $a_n-2=-2(1/2)^{n-1}$。これがゼロへ近づくため、実際に $a_n\\to2$ と分かります。"
+      ],
+      "rule": "「収束するとすれば」と「実際に収束する」を区別します。初項と公比を使って差の振る舞いを確かめます。",
+      "examples": [
+        {
+          "title": "一定の値との差を取る",
+          "prompt": "$a_1=0,a_{n+1}=(a_n+2)/2$ の一般項と極限を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "変わらない値2との差を取ります。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$a_{n+1}-2=(a_n-2)/2$。差の初項は $-2$ なので等比一般項を作れます。その差はゼロへ収束します。"
+            },
+            {
+              "title": "答え",
+              "text": "$a_n=2-2(1/2)^{n-1}$、極限 $2$。"
+            }
+          ]
+        },
+        {
+          "title": "候補と収束を区別する",
+          "prompt": "$a_1=1,a_{n+1}=2a_n$ で $L=2L$ から極限を0としてよいですか。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "方程式は収束した場合の候補しか出しません。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$a_n=2^{n-1}\\to+\\infty$。候補0へは近づきません。"
+            },
+            {
+              "title": "答え",
+              "text": "いけません。正の無限大へ発散します。"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "formula",
+          "title": "一定の値との差を取る",
+          "text": "差が等比数列になれば初項から一般項を作れます。",
+          "tex": "a_{n+1}-L=r(a_n-L)",
+          "check": "$a_{n+1}=(a_n+2)/2$ で差を取る値は？",
+          "answer": "$L=2$。"
+        },
+        {
+          "id": "verify",
+          "title": "候補と収束を区別する",
+          "text": "候補の方程式に解があっても、そこへ近づくとは限りません。",
+          "tex": "a_n=L+(a_1-L)r^{n-1}",
+          "check": "$a_1=1,a_{n+1}=2a_n$ は0へ近づく？",
+          "answer": "いいえ。$a_n=2^{n-1}$ は正の無限大へ発散します。"
+        }
+      ],
+      "guidedAfterExamples": true
+    },
+    {
+      "slug": "m3-sequences-check",
+      "title": "数列と級数を自分で確かめる",
+      "chapter": "数列の極限と無限級数",
+      "subject": "数学III",
+      "description": "式と条件を見て、極限や和を求めよう。",
+      "basicsTitle": "極限を取る対象を確かめる",
+      "introduction": [
+        "$a_n$ の極限を求めるのか、部分和 $S_N$ の極限を求めるのかを最初に確かめます。",
+        "分数の次数、根号の差、公比、打ち消せる項など、式のどこを見て変形するかを選びます。"
+      ],
+      "rule": "級数の条件と、漸化式の収束確認を省かないようにします。",
+      "examples": [
+        {
+          "title": "項と和を区別する",
+          "prompt": "$a_n=3n-2$ の $a_2$ と $S_2$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "項と和を区別します。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$a_1=1,a_2=4$ より $S_2=1+4=5$。"
+            },
+            {
+              "title": "答え",
+              "text": "$a_2=4,S_2=5$"
+            }
+          ]
+        },
+        {
+          "title": "差の極限を求める",
+          "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{n^2+6n}-n)$ を求めなさい。",
+          "steps": [
+            {
+              "title": "着目する",
+              "text": "差を有理化します。"
+            },
+            {
+              "title": "計算して確かめる",
+              "text": "$6/(\\sqrt{1+6/n}+1)\\to3$。"
+            },
+            {
+              "title": "答え",
+              "text": "$3$"
+            }
+          ]
+        }
+      ],
+      "supplements": [
+        {
+          "id": "term",
+          "title": "和と項を行き来する",
+          "text": "一般項へ添字を代入すると一つの項が求まります。部分和は必要な項を初項から足します。逆に、部分和の差では前までの項が消えて最後の一項が残ります。初項は $a_1=S_1$ です。",
+          "tex": "S_n-S_{n-1}=a_n\\quad(n\\ge2)",
+          "check": "$S_2=5,S_3=9$ のとき $a_3$ は？",
+          "answer": "$9-5=4$。"
+        },
+        {
+          "id": "convergence",
+          "title": "近づく実数を読む",
+          "text": "項が極限値と等しくなる必要はありません。差がいくらでも小さくなるかを考えます。",
+          "tex": "(2+1/n)-2=1/n\\longrightarrow0",
+          "check": "$3-1/n$ はどこへ近づく？",
+          "answer": "$3$。"
+        },
+        {
+          "id": "rational",
+          "title": "同じ次数で割る",
+          "text": "定数として残る項とゼロへ近づく項を分けます。",
+          "tex": "\\frac{2n+1}{n+3}=\\frac{2+1/n}{1+3/n}",
+          "check": "$(3n+1)/(n+2)$ の極限は？",
+          "answer": "$3$。"
+        },
+        {
+          "id": "radical",
+          "title": "和を掛けて差を消す",
+          "text": "根号の差は有理化すると、相殺される項がはっきりします。",
+          "tex": "\\sqrt{n^2+n}-n=\\frac{n}{\\sqrt{n^2+n}+n}",
+          "check": "$\\sqrt{n^2+2n}-n$ の極限は？",
+          "answer": "$2/(1+1)=1$。"
+        },
+        {
+          "id": "geometric",
+          "title": "振れ幅が縮む場合",
+          "text": "負の公比でも絶対値が小さくなればゼロに近づきます。",
+          "tex": "|(-1/2)^n|=(1/2)^n\\longrightarrow0",
+          "check": "$3(-1/3)^{n-1}$ の極限は？",
+          "answer": "$0$。"
+        },
+        {
+          "id": "squeeze",
+          "title": "振動を上限で押さえる",
+          "text": "ゼロへの距離だけでなく、求めたい極限 $L$ との差を押さえます。$|a_n-L|\\le b_n$、$b_n\\to0$ なら $a_n\\to L$。三角関数の正確な値を出さず、絶対値の上限を使えます。",
+          "tex": "\\left|\\frac{\\sin n}{n}\\right|\\le\\frac1n",
+          "check": "$(\\cos n)/n^2$ の極限は？",
+          "answer": "$0$。絶対値は $1/n^2$ 以下です。"
+        },
+        {
+          "id": "meaning",
+          "title": "有限和の極限を取る",
+          "text": "級数の和は部分和の極限です。級数が収束するなら $a_N=S_N-S_{N-1}\\to0$。項がゼロへ近づくことは必要ですが、それだけで級数が収束するとは限りません。",
+          "tex": "\\sum_{n=1}^{\\infty}a_n=\\lim_{N\\to\\infty}S_N",
+          "check": "$S_N=3-2^{-N}$ の級数の和は？",
+          "answer": "$3$。"
+        },
+        {
+          "id": "series",
+          "title": "初項と公比を読む",
+          "text": "和の式に入れる前に、公比の絶対値が1より小さいことを確認します。",
+          "tex": "S=\\frac{a}{1-r}\\quad(|r|<1)",
+          "check": "$3+1+1/3+\\cdots$ の和は？",
+          "answer": "$3/(1-1/3)=9/2$。"
+        },
+        {
+          "id": "telescope",
+          "title": "差に分けて確かめる",
+          "text": "$1/(k(k+1))=1/k-1/(k+1)$ と分けると隣の項が消えます。開始位置を確認し、有限和の最初と最後に残る項を書いてから極限を取ります。分母の間隔が $2$ の場合は次のように係数も補います。",
+          "tex": "\\frac1{k(k+2)}=\\frac12\\left(\\frac1k-\\frac1{k+2}\\right)",
+          "check": "$1/(k(k+1))$ を差へ直しなさい。",
+          "answer": "$1/k-1/(k+1)$。"
+        },
+        {
+          "id": "recurrence",
+          "title": "一定の値との差を取る",
+          "text": "差が等比数列になれば初項から一般項を作れます。",
+          "tex": "a_{n+1}-L=r(a_n-L)",
+          "check": "$a_{n+1}=(a_n+2)/2$ で差を取る値は？",
+          "answer": "$L=2$。"
+        }
+      ],
+      "prerequisites": [
+        {
+          "slug": "m3-sequence-basics",
+          "label": "一般項と部分和を区別する"
+        },
+        {
+          "slug": "m3-sequence-convergence",
+          "label": "収束と発散を読み分ける"
+        },
+        {
+          "slug": "m3-sequence-rational-limit",
+          "label": "分数の数列を読みやすく直す"
+        },
+        {
+          "slug": "m3-sequence-radical-limit",
+          "label": "根号の差を有理化する"
+        },
+        {
+          "slug": "m3-geometric-sequence-limit",
+          "label": "等比数列の大きさと符号を見る"
+        },
+        {
+          "slug": "m3-sequence-squeeze",
+          "label": "値の範囲ではさむ"
+        },
+        {
+          "slug": "m3-infinite-series-meaning",
+          "label": "無限級数を部分和で考える"
+        },
+        {
+          "slug": "m3-geometric-series",
+          "label": "無限等比級数の条件を確かめる"
+        },
+        {
+          "slug": "m3-telescoping-series",
+          "label": "部分和で消える項を見つける"
+        },
+        {
+          "slug": "m3-recurrence-limit",
+          "label": "漸化式から収束を確かめる"
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "family": "term",
+      "prompt": "$a_n=n+2$ の $a_1,a_4$ を求めなさい。",
+      "answer": "$3,6$",
+      "hints": [
+        "第何項かを表す数を、添字の場所へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "位置を代入します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1+2=3,4+2=6$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3,6$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequence-basics-1-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "項が $2,4,6$ と続く数列の $S_2$ を求めなさい。",
+      "answer": "$6$",
+      "hints": [
+        "部分和なら初項から足し、項へ戻すなら隣り合う部分和の差を取ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "第2項まで足します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$2+4=6$。第3項はまだ足しません。"
+        },
+        {
+          "title": "答え",
+          "text": "$6$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-sequence-basics-2-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "初項 $3$、公比 $2$ の等比数列の一般項を求めなさい。",
+      "answer": "$a_n=3\\cdot2^{n-1}$",
+      "hints": [
+        "第何項かを表す数を、添字の場所へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比を掛けた回数を数えます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "第1項では掛ける回数が $0$。$n=1$ を入れると $3$ に戻ります。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=3\\cdot2^{n-1}$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequence-basics-3-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$S_n=n^2$ のとき一般項を求めなさい。",
+      "answer": "$a_n=2n-1$",
+      "hints": [
+        "部分和なら初項から足し、項へ戻すなら隣り合う部分和の差を取ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項と第2項以降を分けて確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n\\ge2$ では $n^2-(n-1)^2=2n-1$。$a_1=S_1=1$ も一致します。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=2n-1$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-sequence-basics-4-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "$a_n=(-1)^n/n$ の最初の3項を求めなさい。",
+      "answer": "$-1,1/2,-1/3$",
+      "hints": [
+        "第何項かを表す数を、添字の場所へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "符号と分母を同じ添字で計算します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(-1)^1=-1,(-1)^2=1,(-1)^3=-1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$-1,1/2,-1/3$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequence-basics-5-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$\\sum_{k=1}^3(k+1)$ を求めなさい。",
+      "answer": "$9$",
+      "hints": [
+        "部分和なら初項から足し、項へ戻すなら隣り合う部分和の差を取ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "和の記号を有限個の足し算へ戻します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$2+3+4=9$。"
+        },
+        {
+          "title": "答え",
+          "text": "$9$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-sequence-basics-6-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "初項 $4$、公比 $1/2$ の第4項を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "第何項かを表す数を、添字の場所へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項から3回半分にします。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$4(1/2)^3=1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequence-basics-7-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$S_n=n(n+1)$ のとき一般項を求めなさい。",
+      "answer": "$a_n=2n$",
+      "hints": [
+        "部分和なら初項から足し、項へ戻すなら隣り合う部分和の差を取ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差で最後の一項を取り出します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n\\ge2$ では $n(n+1)-(n-1)n=2n$。初項 $S_1=2$ も一致します。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=2n$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-sequence-basics-8-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "初項 $2$、公比 $-3$ の第3項を求めなさい。",
+      "answer": "$18$",
+      "hints": [
+        "第何項かを表す数を、添字の場所へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "指数は添字より一つ小さい値です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$2(-3)^2=18$。"
+        },
+        {
+          "title": "答え",
+          "text": "$18$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequence-basics-9-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$\\sum_{k=1}^3 2^{k-1}$ を求めなさい。",
+      "answer": "$7$",
+      "hints": [
+        "部分和なら初項から足し、項へ戻すなら隣り合う部分和の差を取ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項は指数ゼロの項です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1+2+4=7$。"
+        },
+        {
+          "title": "答え",
+          "text": "$7$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-sequence-basics-10-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "$a_n=3(-1/2)^{n-1}$ の $a_1,a_3$ を求めなさい。",
+      "answer": "$3,3/4$",
+      "hints": [
+        "第何項かを表す数を、添字の場所へ入れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項で指数ゼロを確認します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3(-1/2)^0=3,3(-1/2)^2=3/4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3,3/4$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequence-basics-11-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$S_n=2n^2$ のとき一般項を求めなさい。",
+      "answer": "$a_n=4n-2$",
+      "hints": [
+        "部分和なら初項から足し、項へ戻すなら隣り合う部分和の差を取ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "部分和の差と初項を確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n\\ge2$ では $2n^2-2(n-1)^2=4n-2$。初項も $2$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=4n-2$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-sequence-basics-12-v1",
+      "lesson": "m3-sequence-basics",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "limit",
+      "prompt": "$a_n=5$ の極限を求めなさい。",
+      "answer": "$5$",
+      "hints": [
+        "一定の部分と、ゼロに近づく部分を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数の数列です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "すべての項が $5$ なので差は常に $0$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "$5$"
+        }
+      ],
+      "repair": "limit",
+      "id": "m3-sequence-convergence-1-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "behavior",
+      "prompt": "$a_n=n$ の振る舞いを答えなさい。",
+      "answer": "正の無限大へ発散します。",
+      "hints": [
+        "大きさが増すか縮むかを見てから、符号も確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "上限なく増えます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "どんな実数よりも大きい項だけが、十分先には続きます。"
+        },
+        {
+          "title": "答え",
+          "text": "正の無限大へ発散します。"
+        }
+      ],
+      "repair": "behavior",
+      "id": "m3-sequence-convergence-2-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "limit",
+      "prompt": "$a_n=2+1/n$ の極限を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "一定の部分と、ゼロに近づく部分を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "一定の項と小さくなる項を分けます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/n\\to0$ より $2+1/n\\to2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "limit",
+      "id": "m3-sequence-convergence-3-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "behavior",
+      "prompt": "$a_n=(-1)^n/n$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "大きさが増すか縮むかを見てから、符号も確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "符号より先に振れ幅を見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "絶対値が $1/n\\to0$ なので、どちら側からでも $0$ に近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "behavior",
+      "id": "m3-sequence-convergence-4-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "limit",
+      "prompt": "$a_n=4-2/n$ の極限を求めなさい。",
+      "answer": "$4$",
+      "hints": [
+        "一定の部分と、ゼロに近づく部分を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "極限との差を読みます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|a_n-4|=2/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4$"
+        }
+      ],
+      "repair": "limit",
+      "id": "m3-sequence-convergence-5-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "behavior",
+      "prompt": "$a_n=-2n$ の振る舞いを答えなさい。",
+      "answer": "負の無限大へ発散します。",
+      "hints": [
+        "大きさが増すか縮むかを見てから、符号も確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "絶対値が増え、符号は負です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "十分先ではどんな負の実数よりも小さくなります。"
+        },
+        {
+          "title": "答え",
+          "text": "負の無限大へ発散します。"
+        }
+      ],
+      "repair": "behavior",
+      "id": "m3-sequence-convergence-6-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "limit",
+      "prompt": "$a_n=1/n^2$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "一定の部分と、ゼロに近づく部分を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "正の分母が限りなく大きくなります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n^2$ を大きくすれば逆数は任意に小さくなります。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "limit",
+      "id": "m3-sequence-convergence-7-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "behavior",
+      "prompt": "$a_n=2+(-1)^n$ は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "大きさが増すか縮むかを見てから、符号も確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "奇数番目と偶数番目を分けます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "それぞれ $1$ と $3$ に固定され、同じ値へ近づきません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "behavior",
+      "id": "m3-sequence-convergence-8-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "limit",
+      "prompt": "数列 $1/n$ はどの項も正です。その極限が $0$ になるのは矛盾ですか。",
+      "answer": "矛盾しません。",
+      "hints": [
+        "一定の部分と、ゼロに近づく部分を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "値を取ることと近づくことは別です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "すべての項は $0$ と異なりますが、その差 $1/n$ は任意に小さくなります。"
+        },
+        {
+          "title": "答え",
+          "text": "矛盾しません。"
+        }
+      ],
+      "repair": "limit",
+      "id": "m3-sequence-convergence-9-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "behavior",
+      "prompt": "$a_n=(-2)^n$ は正の無限大へ発散しますか。",
+      "answer": "いいえ。振動して発散します。",
+      "hints": [
+        "大きさが増すか縮むかを見てから、符号も確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "偶数番目だけで判定しません。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "偶数番目は正に大きく、奇数番目は負に大きくなるため、正の無限大へは向かいません。"
+        },
+        {
+          "title": "答え",
+          "text": "いいえ。振動して発散します。"
+        }
+      ],
+      "repair": "behavior",
+      "id": "m3-sequence-convergence-10-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "limit",
+      "prompt": "$a_n=-1+3/n$ の極限を求めなさい。",
+      "answer": "$-1$",
+      "hints": [
+        "一定の部分と、ゼロに近づく部分を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "一定部分を残します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3/n\\to0$ より $-1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$-1$"
+        }
+      ],
+      "repair": "limit",
+      "id": "m3-sequence-convergence-11-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "behavior",
+      "prompt": "$a_n=(-1)^n/n^2$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "大きさが増すか縮むかを見てから、符号も確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "振れ幅を調べます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|a_n|=1/n^2\\to0$。符号が交互でも収束します。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "behavior",
+      "id": "m3-sequence-convergence-12-v1",
+      "lesson": "m3-sequence-convergence",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "finite",
+      "prompt": "$1/n$ と $1/n^2$ の極限を求めなさい。",
+      "answer": "どちらも $0$。",
+      "hints": [
+        "分母の最高次数の累乗で、分子も分母もすべての項を割ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母が正に大きくなります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "逆数はどんな小さな正の数よりも小さくできます。"
+        },
+        {
+          "title": "答え",
+          "text": "どちらも $0$。"
+        }
+      ],
+      "repair": "finite",
+      "id": "m3-sequence-rational-limit-1-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "growth",
+      "prompt": "$3n$ の振る舞いを答えなさい。",
+      "answer": "正の無限大へ発散します。",
+      "hints": [
+        "最高次数の差を見て、増える因子が外に残るかを調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "正の定数倍です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n$ とともに上限なく増えます。"
+        },
+        {
+          "title": "答え",
+          "text": "正の無限大へ発散します。"
+        }
+      ],
+      "repair": "growth",
+      "id": "m3-sequence-rational-limit-2-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "finite",
+      "prompt": "$\\lim_{n\\to\\infty}(3n^2-n)/(2n^2+1)$ を求めなさい。",
+      "answer": "$3/2$",
+      "hints": [
+        "分母の最高次数の累乗で、分子も分母もすべての項を割ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "最高次数は2です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n^2$ で割ると $(3-1/n)/(2+1/n^2)\\to3/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3/2$"
+        }
+      ],
+      "repair": "finite",
+      "id": "m3-sequence-rational-limit-3-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "growth",
+      "prompt": "$(-n^2+1)/(n+2)$ の極限を調べなさい。",
+      "answer": "負の無限大へ発散します。",
+      "hints": [
+        "最高次数の差を見て、増える因子が外に残るかを調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "増える因子の符号を残します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n(-1+1/n^2)/(1+2/n)$。後ろの比は $-1$ に近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "負の無限大へ発散します。"
+        }
+      ],
+      "repair": "growth",
+      "id": "m3-sequence-rational-limit-4-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "finite",
+      "prompt": "$\\lim_{n\\to\\infty}(2n+1)/(n^2+1)$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "分母の最高次数の累乗で、分子も分母もすべての項を割ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母の次数で両方を割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(2/n+1/n^2)/(1+1/n^2)\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "finite",
+      "id": "m3-sequence-rational-limit-5-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "growth",
+      "prompt": "$n^3/(n^2+2)$ の極限を調べなさい。",
+      "answer": "正の無限大へ発散します。",
+      "hints": [
+        "最高次数の差を見て、増える因子が外に残るかを調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子に増える因子が残ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n/(1+2/n^2)$。分母は正で $1$ に近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "正の無限大へ発散します。"
+        }
+      ],
+      "repair": "growth",
+      "id": "m3-sequence-rational-limit-6-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "finite",
+      "prompt": "$\\lim_{n\\to\\infty}(1-4n)/(2n+3)$ を求めなさい。",
+      "answer": "$-2$",
+      "hints": [
+        "分母の最高次数の累乗で、分子も分母もすべての項を割ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "最高次の係数には負号も含めます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(1/n-4)/(2+3/n)\\to-4/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$-2$"
+        }
+      ],
+      "repair": "finite",
+      "id": "m3-sequence-rational-limit-7-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "growth",
+      "prompt": "$n/(n^2+3n)$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "最高次数の差を見て、増える因子が外に残るかを調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "共通因子を先に約分できます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n\\ge1$ なので $1/(n+3)\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "growth",
+      "id": "m3-sequence-rational-limit-8-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "finite",
+      "prompt": "$\\lim_{n\\to\\infty}(n+1)^2/(2n^2+1)$ を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "分母の最高次数の累乗で、分子も分母もすべての項を割ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "括弧を展開して次数をそろえます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(1+2/n+1/n^2)/(2+1/n^2)\\to1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "finite",
+      "id": "m3-sequence-rational-limit-9-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "growth",
+      "prompt": "$n^2/(2n^2+n)$ の極限は無限大ですか。",
+      "answer": "いいえ、$1/2$ です。",
+      "hints": [
+        "最高次数の差を見て、増える因子が外に残るかを調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "項それぞれが増えても比は別です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/(2+1/n)\\to1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "いいえ、$1/2$ です。"
+        }
+      ],
+      "repair": "growth",
+      "id": "m3-sequence-rational-limit-10-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "finite",
+      "prompt": "$\\lim_{n\\to\\infty}(5n^2+2)/(n^2-3n+4)$ を求めなさい。",
+      "answer": "$5$",
+      "hints": [
+        "分母の最高次数の累乗で、分子も分母もすべての項を割ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母・分子を $n^2$ で割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(5+2/n^2)/(1-3/n+4/n^2)\\to5$。"
+        },
+        {
+          "title": "答え",
+          "text": "$5$"
+        }
+      ],
+      "repair": "finite",
+      "id": "m3-sequence-rational-limit-11-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "growth",
+      "prompt": "$-n^2/(2n+1)$ の極限を調べなさい。",
+      "answer": "負の無限大へ発散します。",
+      "hints": [
+        "最高次数の差を見て、増える因子が外に残るかを調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "負号と増える因子を分けます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$-n/(2+1/n)$。正の分母は $2$ に近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "負の無限大へ発散します。"
+        }
+      ],
+      "repair": "growth",
+      "id": "m3-sequence-rational-limit-12-v1",
+      "lesson": "m3-sequence-rational-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "difference",
+      "prompt": "$(\\sqrt5-2)(\\sqrt5+2)$ を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "共役な和を掛けて割り、二乗の差を作ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二乗の差です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$5-4=1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "difference",
+      "id": "m3-sequence-radical-limit-1-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "scale",
+      "prompt": "正の整数 $n$ について $\\sqrt{n^2}$ を簡単にしなさい。",
+      "answer": "$n$",
+      "hints": [
+        "根号内を $n^2$ で割った形へ直します。$n$ は正です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "平方根は非負です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$\\sqrt{n^2}=|n|=n$。"
+        },
+        {
+          "title": "答え",
+          "text": "$n$"
+        }
+      ],
+      "repair": "scale",
+      "id": "m3-sequence-radical-limit-2-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "difference",
+      "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{n^2+4n}-n)$ を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "共役な和を掛けて割り、二乗の差を作ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "共役な和で有理化します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$4n/(\\sqrt{n^2+4n}+n)=4/(\\sqrt{1+4/n}+1)\\to2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "difference",
+      "id": "m3-sequence-radical-limit-3-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "scale",
+      "prompt": "$\\lim_{n\\to\\infty}\\sqrt{n^2+3n}/(2n)$ を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "根号内を $n^2$ で割った形へ直します。$n$ は正です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母の係数を残します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$\\sqrt{1+3/n}/2\\to1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "scale",
+      "id": "m3-sequence-radical-limit-4-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "difference",
+      "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{n^2+1}-n)$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "共役な和を掛けて割り、二乗の差を作ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "有理化後の分子は定数です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/(\\sqrt{n^2+1}+n)\\to0$。分母は正に限りなく増えます。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "difference",
+      "id": "m3-sequence-radical-limit-5-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "scale",
+      "prompt": "$\\lim_{n\\to\\infty}\\sqrt{9n^2+2}/n$ を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "根号内を $n^2$ で割った形へ直します。$n$ は正です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号の中を $n^2$ でそろえます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$\\sqrt{9+2/n^2}\\to3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3$"
+        }
+      ],
+      "repair": "scale",
+      "id": "m3-sequence-radical-limit-6-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "difference",
+      "prompt": "$\\lim_{n\\to\\infty}(n-\\sqrt{n^2+2n})$ を求めなさい。",
+      "answer": "$-1$",
+      "hints": [
+        "共役な和を掛けて割り、二乗の差を作ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "引く順序の負号を保ちます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$-2/(1+\\sqrt{1+2/n})\\to-1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$-1$"
+        }
+      ],
+      "repair": "difference",
+      "id": "m3-sequence-radical-limit-7-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "scale",
+      "prompt": "$\\lim_{n\\to\\infty}\\sqrt{n^2+1}/(n+1)$ を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "根号内を $n^2$ で割った形へ直します。$n$ は正です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母全体も $n$ で割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$\\sqrt{1+1/n^2}/(1+1/n)\\to1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "scale",
+      "id": "m3-sequence-radical-limit-8-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "difference",
+      "prompt": "$\\lim_{n\\to\\infty}n(\\sqrt{n^2+1}-n)$ を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "共役な和を掛けて割り、二乗の差を作ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "小さい差に掛かる $n$ を捨てません。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n/(\\sqrt{n^2+1}+n)=1/(\\sqrt{1+1/n^2}+1)\\to1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "difference",
+      "id": "m3-sequence-radical-limit-9-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "scale",
+      "prompt": "$\\sqrt{n^2+n}/n$ を $\\sqrt{n+1}$ と直すのは正しいですか。",
+      "answer": "正しくありません。正しくは $\\sqrt{1+1/n}$。",
+      "hints": [
+        "根号内を $n^2$ で割った形へ直します。$n$ は正です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "根号の外で割る $n$ は中では $n^2$ です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$\\sqrt{n^2+n}/\\sqrt{n^2}=\\sqrt{(n^2+n)/n^2}$。"
+        },
+        {
+          "title": "答え",
+          "text": "正しくありません。正しくは $\\sqrt{1+1/n}$。"
+        }
+      ],
+      "repair": "scale",
+      "id": "m3-sequence-radical-limit-10-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "difference",
+      "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{4n^2+4n}-2n)$ を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "共役な和を掛けて割り、二乗の差を作ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "和を掛けて分子の二乗を消します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$4/(\\sqrt{4+4/n}+2)\\to1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "difference",
+      "id": "m3-sequence-radical-limit-11-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "scale",
+      "prompt": "$\\lim_{n\\to\\infty}\\sqrt{4n^2+3n}/(n+2)$ を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "根号内を $n^2$ で割った形へ直します。$n$ は正です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "正の $n$ でそろえます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$\\sqrt{4+3/n}/(1+2/n)\\to2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "scale",
+      "id": "m3-sequence-radical-limit-12-v1",
+      "lesson": "m3-sequence-radical-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "shrink",
+      "prompt": "$|-1/3|$ は $1$ より小さいですか。",
+      "answer": "はい、$1/3<1$。",
+      "hints": [
+        "公比の絶対値が $1$ より小さいか確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "符号を外して比較します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "負の数だから縮むのではなく、絶対値で判断します。"
+        },
+        {
+          "title": "答え",
+          "text": "はい、$1/3<1$。"
+        }
+      ],
+      "repair": "shrink",
+      "id": "m3-geometric-sequence-limit-1-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "other",
+      "prompt": "$1^n$ の極限を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "公比が $1,-1$ の場合を、絶対値が $1$ より大きい場合と区別します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数列です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "すべての項が $1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "other",
+      "id": "m3-geometric-sequence-limit-2-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "shrink",
+      "prompt": "$5(-1/3)^{n-1}$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "公比の絶対値が $1$ より小さいか確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項の定数倍より公比を見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|r|=1/3<1$ なので、絶対値 $5(1/3)^{n-1}\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "shrink",
+      "id": "m3-geometric-sequence-limit-3-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "other",
+      "prompt": "$(-2)^n$ の振る舞いを答えなさい。",
+      "answer": "振動して発散します。",
+      "hints": [
+        "公比が $1,-1$ の場合を、絶対値が $1$ より大きい場合と区別します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比が $-1$ より小さい形です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "偶数番目は正、奇数番目は負で、絶対値は $2^n$ と増えます。"
+        },
+        {
+          "title": "答え",
+          "text": "振動して発散します。"
+        }
+      ],
+      "repair": "other",
+      "id": "m3-geometric-sequence-limit-4-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "shrink",
+      "prompt": "$-4(2/3)^n$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "公比の絶対値が $1$ より小さいか確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "負の初項と負の公比を混同しません。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "項は負のままですが、絶対値 $4(2/3)^n$ がゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "shrink",
+      "id": "m3-geometric-sequence-limit-5-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "other",
+      "prompt": "初項 $3$、公比 $1$ の数列の極限を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "公比が $1,-1$ の場合を、絶対値が $1$ より大きい場合と区別します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比1は同じ値の繰り返しです。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_n=3\\cdot1^{n-1}=3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3$"
+        }
+      ],
+      "repair": "other",
+      "id": "m3-geometric-sequence-limit-6-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shrink",
+      "prompt": "$2+(1/4)^n$ の極限を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "公比の絶対値が $1$ より小さいか確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "等比の部分だけがゼロになります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(1/4)^n\\to0$ なので $2$ が残ります。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "shrink",
+      "id": "m3-geometric-sequence-limit-7-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "other",
+      "prompt": "$-2\\cdot3^n$ の振る舞いを答えなさい。",
+      "answer": "負の無限大へ発散します。",
+      "hints": [
+        "公比が $1,-1$ の場合を、絶対値が $1$ より大きい場合と区別します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項側の負号を残します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3^n$ は正に大きくなり、$-2$ 倍で負に限りなく小さくなります。"
+        },
+        {
+          "title": "答え",
+          "text": "負の無限大へ発散します。"
+        }
+      ],
+      "repair": "other",
+      "id": "m3-geometric-sequence-limit-8-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shrink",
+      "prompt": "$((-2)^n)/(3^n)$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "公比の絶対値が $1$ より小さいか確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "同じ指数の比をまとめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(-2/3)^n$ で、公比の絶対値は $2/3<1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "shrink",
+      "id": "m3-geometric-sequence-limit-9-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "other",
+      "prompt": "初項 $0$、公比 $2$ の数列は発散しますか。",
+      "answer": "いいえ、$0$ に収束します。",
+      "hints": [
+        "公比が $1,-1$ の場合を、絶対値が $1$ より大きい場合と区別します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項ゼロを確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "どの項も $0\\cdot2^{n-1}=0$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "いいえ、$0$ に収束します。"
+        }
+      ],
+      "repair": "other",
+      "id": "m3-geometric-sequence-limit-10-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shrink",
+      "prompt": "$1-3(-1/2)^n$ の極限を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "公比の絶対値が $1$ より小さいか確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "振動する部分の大きさが消えるか見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3|(-1/2)^n|\\to0$ なので $1$ に収束します。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "shrink",
+      "id": "m3-geometric-sequence-limit-11-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "other",
+      "prompt": "$r^n$ が収束する実数 $r$ の範囲を答えなさい。",
+      "answer": "$-1<r\\le1$",
+      "hints": [
+        "公比が $1,-1$ の場合を、絶対値が $1$ より大きい場合と区別します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "境界の二つを別に確認します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|r|<1$ ではゼロ、$r=1$ では1。$r=-1$ やその外側では収束しません。"
+        },
+        {
+          "title": "答え",
+          "text": "$-1<r\\le1$"
+        }
+      ],
+      "repair": "other",
+      "id": "m3-geometric-sequence-limit-12-v1",
+      "lesson": "m3-geometric-sequence-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "zero",
+      "prompt": "$|\\cos n|$ の上限として使える定数を一つ答えなさい。",
+      "answer": "$1$",
+      "hints": [
+        "三角関数や符号の部分を絶対値で $1$ 以下に押さえます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "余弦の値域を使います。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$-1\\le\\cos n\\le1$ より $|\\cos n|\\le1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "zero",
+      "id": "m3-sequence-squeeze-1-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "shift",
+      "prompt": "$2-1/n$ と $2+1/n$ の極限を求めなさい。",
+      "answer": "どちらも $2$。",
+      "hints": [
+        "上下の式の極限をそれぞれ求め、一致するか確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "ゼロに近づく項を除いて読みます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "どちらも $2$。"
+        }
+      ],
+      "repair": "shift",
+      "id": "m3-sequence-squeeze-2-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "zero",
+      "prompt": "$\\lim_{n\\to\\infty}(\\cos n)/n^2$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "三角関数や符号の部分を絶対値で $1$ 以下に押さえます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "絶対値の上限を作ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|\\cos n/n^2|\\le1/n^2\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "zero",
+      "id": "m3-sequence-squeeze-3-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "shift",
+      "prompt": "$1\\le a_n\\le1+3/n$ のとき極限を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "上下の式の極限をそれぞれ求め、一致するか確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "下側が定数でも使えます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "両端の極限はともに $1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "shift",
+      "id": "m3-sequence-squeeze-4-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "zero",
+      "prompt": "$\\lim_{n\\to\\infty}\\sin^2 n/n$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "三角関数や符号の部分を絶対値で $1$ 以下に押さえます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二乗なので非負です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$0\\le\\sin^2 n/n\\le1/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "zero",
+      "id": "m3-sequence-squeeze-5-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shift",
+      "prompt": "$a_n=4+\\sin n/n$ の極限を求めなさい。",
+      "answer": "$4$",
+      "hints": [
+        "上下の式の極限をそれぞれ求め、一致するか確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数との差を押さえます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|a_n-4|\\le1/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4$"
+        }
+      ],
+      "repair": "shift",
+      "id": "m3-sequence-squeeze-6-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "zero",
+      "prompt": "$\\lim_{n\\to\\infty}(-1)^n/(n+1)$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "三角関数や符号の部分を絶対値で $1$ 以下に押さえます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "符号を外して大きさを見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "絶対値が $1/(n+1)\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "zero",
+      "id": "m3-sequence-squeeze-7-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shift",
+      "prompt": "$0\\le a_n\\le1$ だけから収束するといえますか。",
+      "answer": "いえません。",
+      "hints": [
+        "上下の式の極限をそれぞれ求め、一致するか確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "両端の極限が異なります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "例えば $a_n=(1+(-1)^n)/2$ は $0,1$ を行き来し、収束しません。"
+        },
+        {
+          "title": "答え",
+          "text": "いえません。"
+        }
+      ],
+      "repair": "shift",
+      "id": "m3-sequence-squeeze-8-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "zero",
+      "prompt": "$\\lim_{n\\to\\infty}(2+\\sin n)/n$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "三角関数や符号の部分を絶対値で $1$ 以下に押さえます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子の範囲を求めます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1\\le2+\\sin n\\le3$ より $1/n\\le a_n\\le3/n$。両端は $0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "zero",
+      "id": "m3-sequence-squeeze-9-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "shift",
+      "prompt": "$|a_n+2|\\le1/n^2$ のとき極限を求めなさい。",
+      "answer": "$-2$",
+      "hints": [
+        "上下の式の極限をそれぞれ求め、一致するか確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "絶対値は $-2$ からの距離です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$-2-1/n^2\\le a_n\\le-2+1/n^2$ より $-2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$-2$"
+        }
+      ],
+      "repair": "shift",
+      "id": "m3-sequence-squeeze-10-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "zero",
+      "prompt": "$\\lim_{n\\to\\infty}(\\sin n\\cos n)/n$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "三角関数や符号の部分を絶対値で $1$ 以下に押さえます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二つの絶対値がそれぞれ1以下です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|\\sin n\\cos n/n|\\le1/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "zero",
+      "id": "m3-sequence-squeeze-11-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "shift",
+      "prompt": "$5-2/n\\le a_n\\le5+1/n^2$ のとき極限を求めなさい。",
+      "answer": "$5$",
+      "hints": [
+        "上下の式の極限をそれぞれ求め、一致するか確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "両端を同時に見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "どちらも $5$ に近づくので、はさみうちで $5$。"
+        },
+        {
+          "title": "答え",
+          "text": "$5$"
+        }
+      ],
+      "repair": "shift",
+      "id": "m3-sequence-squeeze-12-v1",
+      "lesson": "m3-sequence-squeeze",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "partial",
+      "prompt": "項が $1,1/2,1/4$ と続く級数の $S_3$ を求めなさい。",
+      "answer": "$7/4$",
+      "hints": [
+        "まず部分和を作り、その数列の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "今は有限個だけ足します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1+1/2+1/4=7/4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$7/4$"
+        }
+      ],
+      "repair": "partial",
+      "id": "m3-infinite-series-meaning-1-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "necessary",
+      "prompt": "$a_n=2$ の極限を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "すべての項が $2$ の定数列です。今は級数の和ではなく、項の極限を求めます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数列です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "項はゼロへ近づいていません。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "necessary",
+      "id": "m3-infinite-series-meaning-2-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "partial",
+      "prompt": "級数の部分和が $S_N=1-1/(N+1)$ なら、和を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "まず部分和を作り、その数列の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "部分和の極限です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/(N+1)\\to0$ より $S_N\\to1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "partial",
+      "id": "m3-infinite-series-meaning-3-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "necessary",
+      "prompt": "級数の項が $a_n=n/(n+1)$ です。この級数は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "ゼロでない項の極限なら発散。ゼロの場合は部分和の検討が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$a_n$ の極限を先に調べます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_n=1-1/(n+1)\\to1\\ne0$ なので必要条件を満たしません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "necessary",
+      "id": "m3-infinite-series-meaning-4-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "partial",
+      "prompt": "部分和が $S_N=2N$ の級数は収束しますか。",
+      "answer": "正の無限大へ発散します。",
+      "hints": [
+        "まず部分和を作り、その数列の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "部分和そのものの振る舞いを見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$2N\\to+\\infty$ で有限の和をもちません。"
+        },
+        {
+          "title": "答え",
+          "text": "正の無限大へ発散します。"
+        }
+      ],
+      "repair": "partial",
+      "id": "m3-infinite-series-meaning-5-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "necessary",
+      "prompt": "$a_n\\to0$ という情報だけで級数の和を $0$ としてよいですか。",
+      "answer": "いいえ。",
+      "hints": [
+        "ゼロでない項の極限なら発散。ゼロの場合は部分和の検討が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "項と部分和は別の数列です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "例えば $a_n=(1/2)^{n-1}\\to0$ でも級数の和は $2$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "いいえ。"
+        }
+      ],
+      "repair": "necessary",
+      "id": "m3-infinite-series-meaning-6-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "partial",
+      "prompt": "$1-1+1-1+\\cdots$ の部分和を調べ、収束するか答えなさい。",
+      "answer": "収束しません。",
+      "hints": [
+        "まず部分和を作り、その数列の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "奇数個と偶数個の和を分けます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_{2m-1}=1,S_{2m}=0$。部分和が一つの値へ近づきません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "partial",
+      "id": "m3-infinite-series-meaning-7-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "necessary",
+      "prompt": "級数が収束するなら項の極限がゼロとなる理由を説明しなさい。",
+      "answer": "$a_N=S_N-S_{N-1}\\to S-S=0$ だから。",
+      "hints": [
+        "$a_N=S_N-S_{N-1}$ と表し、二つの部分和の極限を比べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "項を部分和の差で表します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "収束する部分和 $S_N$ と、一つ前の $S_{N-1}$ は同じ $S$ に近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_N=S_N-S_{N-1}\\to S-S=0$ だから。"
+        }
+      ],
+      "repair": "necessary",
+      "id": "m3-infinite-series-meaning-8-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "partial",
+      "prompt": "部分和が $S_N=4+(-1/2)^N$ の級数の和を求めなさい。",
+      "answer": "$4$",
+      "hints": [
+        "まず部分和を作り、その数列の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "部分和が振動しても幅が縮むかを見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(-1/2)^N\\to0$ より和は $4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4$"
+        }
+      ],
+      "repair": "partial",
+      "id": "m3-infinite-series-meaning-9-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "necessary",
+      "prompt": "調和級数で $1/5+1/6+1/7+1/8\\ge1/2$ となる理由を書きなさい。",
+      "answer": "各項が $1/8$ 以上で、4項あるから。",
+      "hints": [
+        "各項を最小の項 $1/8$ で下から押さえ、項数を掛けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母が最大の項で下から押さえます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/5+1/6+1/7+1/8\\ge4/8=1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "各項が $1/8$ 以上で、4項あるから。"
+        }
+      ],
+      "repair": "necessary",
+      "id": "m3-infinite-series-meaning-10-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "partial",
+      "prompt": "部分和が $S_N=5-3/(N+1)$ の級数の和を求めなさい。",
+      "answer": "$5$",
+      "hints": [
+        "まず部分和を作り、その数列の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "有限和の極限を取ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3/(N+1)\\to0$ なので $S_N\\to5$。"
+        },
+        {
+          "title": "答え",
+          "text": "$5$"
+        }
+      ],
+      "repair": "partial",
+      "id": "m3-infinite-series-meaning-11-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "necessary",
+      "prompt": "級数の項が $a_n=(2n+1)/n$ です。この級数は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "ゼロでない項の極限なら発散。ゼロの場合は部分和の検討が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "項の極限が必要条件を満たすか見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_n=2+1/n\\to2\\ne0$。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "necessary",
+      "id": "m3-infinite-series-meaning-12-v1",
+      "lesson": "m3-infinite-series-meaning",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$4+2+1+\\cdots$ の初項と公比を答えなさい。",
+      "answer": "初項 $4$、公比 $1/2$。",
+      "hints": [
+        "最初の項と、隣り合う項の比を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "隣り合う項を割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$2/4=1/2,1/2=1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "初項 $4$、公比 $1/2$。"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-geometric-series-1-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "公比 $-1/2$ は収束条件を満たしますか。",
+      "answer": "はい。",
+      "hints": [
+        "初項ゼロでない場合は $|r|<1$ が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "$|r|$ で調べます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|-1/2|=1/2<1$。"
+        },
+        {
+          "title": "答え",
+          "text": "はい。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-geometric-series-2-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$2-1+1/2-\\cdots$ の和を求めなさい。",
+      "answer": "$4/3$",
+      "hints": [
+        "最初の項と、隣り合う項の比を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比は負です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$r=-1/2$ で $|r|<1$。$2/(1-(-1/2))=4/3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4/3$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-geometric-series-3-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$3+3+3+\\cdots$ は収束しますか。",
+      "answer": "収束せず、正の無限大へ発散します。",
+      "hints": [
+        "初項ゼロでない場合は $|r|<1$ が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "項の数列と和を区別します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_N=3N\\to+\\infty$。公比1は級数の収束条件に含みません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束せず、正の無限大へ発散します。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-geometric-series-4-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$\\sum_{n=1}^{\\infty}(1/3)^n$ の和を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "最初の項と、隣り合う項の比を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項は $1/3$ です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$r=1/3$ より $(1/3)/(1-1/3)=1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-geometric-series-5-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$1-1+1-1+\\cdots$ は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "初項ゼロでない場合は $|r|<1$ が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比が $-1$ です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "部分和は1と0を行き来し、収束しません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-geometric-series-6-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$\\sum_{n=1}^{\\infty}5(1/4)^{n-1}$ の和を求めなさい。",
+      "answer": "$20/3$",
+      "hints": [
+        "最初の項と、隣り合う項の比を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項は指数ゼロの $5$ です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|1/4|<1$ より $5/(1-1/4)=20/3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$20/3$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-geometric-series-7-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sum_{n=1}^{\\infty}0\\cdot2^{n-1}$ の和を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "初項ゼロでない場合は $|r|<1$ が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項がゼロです。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "公比2でも各項がゼロなので、どの部分和もゼロです。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-geometric-series-8-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$1/2-1/4+1/8-\\cdots$ の和を求めなさい。",
+      "answer": "$1/3$",
+      "hints": [
+        "最初の項と、隣り合う項の比を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項も公比も確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "初項1/2、公比-1/2より $(1/2)/(1+1/2)=1/3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/3$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-geometric-series-9-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "初項 $1$ の無限等比級数が収束する公比 $r$ の範囲を答えなさい。",
+      "answer": "$-1<r<1$",
+      "hints": [
+        "初項ゼロでない場合は $|r|<1$ が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "両端は含みません。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$r=1$ では和が増え続け、$r=-1$ では部分和が振動します。"
+        },
+        {
+          "title": "答え",
+          "text": "$-1<r<1$"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-geometric-series-10-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "sum",
+      "prompt": "$4-2+1-\\cdots$ の和を求めなさい。",
+      "answer": "$8/3$",
+      "hints": [
+        "最初の項と、隣り合う項の比を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "負の公比をそのまま式に入れます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$r=-1/2$ より $4/(1+1/2)=8/3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$8/3$"
+        }
+      ],
+      "repair": "sum",
+      "id": "m3-geometric-series-11-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "condition",
+      "prompt": "$\\sum_{n=1}^{\\infty}(-2)^{n-1}$ は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "初項ゼロでない場合は $|r|<1$ が必要です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比の絶対値を見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|r|=2>1$。項さえゼロへ近づかないので級数は収束しません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "condition",
+      "id": "m3-geometric-series-12-v1",
+      "lesson": "m3-geometric-series",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "split",
+      "prompt": "$1/k-1/(k+1)$ を通分しなさい。",
+      "answer": "$1/(k(k+1))$",
+      "hints": [
+        "分母の二つの因子に分けて差を取り、係数を通分で確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子も同じ分母に合わせます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$((k+1)-k)/(k(k+1))=1/(k(k+1))$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/(k(k+1))$"
+        }
+      ],
+      "repair": "split",
+      "id": "m3-telescoping-series-1-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "ends",
+      "prompt": "$(1-1/2)+(1/2-1/3)+(1/3-1/4)$ を求めなさい。",
+      "answer": "$3/4$",
+      "hints": [
+        "最初の数項と最後の数項を書き、消えない項を数えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "途中の項が打ち消し合います。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1-1/4=3/4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3/4$"
+        }
+      ],
+      "repair": "ends",
+      "id": "m3-telescoping-series-2-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "split",
+      "prompt": "$2/(k(k+2))$ を二つの分数の差に直しなさい。",
+      "answer": "$1/k-1/(k+2)$",
+      "hints": [
+        "分母の二つの因子に分けて差を取り、係数を通分で確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母の間隔を分子と照合します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "差を通分すると $((k+2)-k)/(k(k+2))=2/(k(k+2))$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/k-1/(k+2)$"
+        }
+      ],
+      "repair": "split",
+      "id": "m3-telescoping-series-3-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "ends",
+      "prompt": "$\\sum_{k=1}^{\\infty}1/(k(k+2))$ の和を求めなさい。",
+      "answer": "$3/4$",
+      "hints": [
+        "最初の数項と最後の数項を書き、消えない項を数えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二つ先との差なので二項ずつ残ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_N=\\frac12(1+1/2-1/(N+1)-1/(N+2))\\to3/4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3/4$"
+        }
+      ],
+      "repair": "ends",
+      "id": "m3-telescoping-series-4-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "split",
+      "prompt": "$1/((k+1)(k+2))$ を差へ直しなさい。",
+      "answer": "$1/(k+1)-1/(k+2)$",
+      "hints": [
+        "分母の二つの因子に分けて差を取り、係数を通分で確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "開始位置が一つずれています。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "通分した分子は $(k+2)-(k+1)=1$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/(k+1)-1/(k+2)$"
+        }
+      ],
+      "repair": "split",
+      "id": "m3-telescoping-series-5-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "ends",
+      "prompt": "$\\sum_{k=1}^{\\infty}1/((k+1)(k+2))$ の和を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "最初の数項と最後の数項を書き、消えない項を数えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "最初に残る項を確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_N=1/2-1/(N+2)\\to1/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "ends",
+      "id": "m3-telescoping-series-6-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "split",
+      "prompt": "$1/(k(k+2))=1/k-1/(k+2)$ は正しいですか。",
+      "answer": "正しくありません。右辺の $1/2$ 倍が左辺です。",
+      "hints": [
+        "分母の二つの因子に分けて差を取り、係数を通分で確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "通分して分子を見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "右辺は $2/(k(k+2))$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "正しくありません。右辺の $1/2$ 倍が左辺です。"
+        }
+      ],
+      "repair": "split",
+      "id": "m3-telescoping-series-7-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "ends",
+      "prompt": "$\\sum_{k=2}^{\\infty}1/(k(k+1))$ の和を求めなさい。",
+      "answer": "$1/2$",
+      "hints": [
+        "最初の数項と最後の数項を書き、消えない項を数えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "添字が2から始まります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$k=2$ から $k=N$ までの和は $1/2-1/(N+1)$（$N\\ge2$）。その極限は $1/2$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/2$"
+        }
+      ],
+      "repair": "ends",
+      "id": "m3-telescoping-series-8-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "split",
+      "prompt": "$3/(k(k+1))$ を差へ直しなさい。",
+      "answer": "$3/k-3/(k+1)$",
+      "hints": [
+        "分母の二つの因子に分けて差を取り、係数を通分で確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "定数倍を両方の項へ掛けます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "通分すると $3((k+1)-k)/(k(k+1))$ です。"
+        },
+        {
+          "title": "答え",
+          "text": "$3/k-3/(k+1)$"
+        }
+      ],
+      "repair": "split",
+      "id": "m3-telescoping-series-9-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "ends",
+      "prompt": "$\\sum_{k=1}^{\\infty}(1/k-1/(k+1))$ で、有限和の最後の負の項は何ですか。",
+      "answer": "$-1/(N+1)$",
+      "hints": [
+        "最初の数項と最後の数項を書き、消えない項を数えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "第 $N$ 項の二つ目を残します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_N=1-1/(N+1)$。この負の項は極限を取って初めてゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$-1/(N+1)$"
+        }
+      ],
+      "repair": "ends",
+      "id": "m3-telescoping-series-10-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "split",
+      "prompt": "$1/((k+2)(k+3))$ を差へ直しなさい。",
+      "answer": "$1/(k+2)-1/(k+3)$",
+      "hints": [
+        "分母の二つの因子に分けて差を取り、係数を通分で確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母の差は1です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "通分の分子が $(k+3)-(k+2)=1$ になることを確認します。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/(k+2)-1/(k+3)$"
+        }
+      ],
+      "repair": "split",
+      "id": "m3-telescoping-series-11-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "ends",
+      "prompt": "$\\sum_{k=1}^{\\infty}2/(k(k+2))$ の和を求めなさい。",
+      "answer": "$3/2$",
+      "hints": [
+        "最初の数項と最後の数項を書き、消えない項を数えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二つ先との差です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_N=1+1/2-1/(N+1)-1/(N+2)\\to3/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3/2$"
+        }
+      ],
+      "repair": "ends",
+      "id": "m3-telescoping-series-12-v1",
+      "lesson": "m3-telescoping-series",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "formula",
+      "prompt": "$a_1=0,a_{n+1}=(a_n+2)/2$ の $a_2,a_3$ を求めなさい。",
+      "answer": "$1,3/2$",
+      "hints": [
+        "変わらない値を探し、両辺からその値を引きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "前の項を次の式に入れます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_2=(0+2)/2=1,a_3=(1+2)/2=3/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1,3/2$"
+        }
+      ],
+      "repair": "formula",
+      "id": "m3-recurrence-limit-1-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "verify",
+      "prompt": "初項 $3$、公比 $1/2$ の等比数列の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "差の一般項を求め、公比の絶対値と初項を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差の数列でも同じ規則を使います。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3(1/2)^{n-1}\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "verify",
+      "id": "m3-recurrence-limit-2-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "formula",
+      "prompt": "$a_1=1,a_{n+1}=(a_n+3)/2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=3-2(1/2)^{n-1}$、極限 $3$。",
+      "hints": [
+        "変わらない値を探し、両辺からその値を引きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "固定される値は3です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-3=(a_n-3)/2$。初めの差は $-2$ で、等比の差はゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=3-2(1/2)^{n-1}$、極限 $3$。"
+        }
+      ],
+      "repair": "formula",
+      "id": "m3-recurrence-limit-3-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "verify",
+      "prompt": "$a_1=0,a_{n+1}=1-a_n$ は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "差の一般項を求め、公比の絶対値と初項を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "候補 $1/2$ だけで判断しません。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "項は $0,1,0,1,\\ldots$。また $a_n-1/2=-(1/2)(-1)^{n-1}$ で差が消えません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "verify",
+      "id": "m3-recurrence-limit-4-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "formula",
+      "prompt": "$a_1=4,a_{n+1}=(a_n+2)/2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=2+2(1/2)^{n-1}$、極限 $2$。",
+      "hints": [
+        "変わらない値を探し、両辺からその値を引きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "候補より上から近づく例です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-2=(a_n-2)/2$、初めの差は $2$。差はゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=2+2(1/2)^{n-1}$、極限 $2$。"
+        }
+      ],
+      "repair": "formula",
+      "id": "m3-recurrence-limit-5-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "verify",
+      "prompt": "$a_1=2,a_{n+1}=2a_n-2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=2$、極限 $2$。",
+      "hints": [
+        "差の一般項を求め、公比の絶対値と初項を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初めから差がゼロかを調べます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-2=2(a_n-2)$ で初めの差はゼロ。以後もゼロです。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=2$、極限 $2$。"
+        }
+      ],
+      "repair": "verify",
+      "id": "m3-recurrence-limit-6-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "formula",
+      "prompt": "$a_1=0,a_{n+1}=a_n/3+2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=3-3(1/3)^{n-1}$、極限 $3$。",
+      "hints": [
+        "変わらない値を探し、両辺からその値を引きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "候補は $L=L/3+2$ を満たす3です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-3=(a_n-3)/3$。初めの差 $-3$ から一般項を作り、差がゼロへ近づくことを確かめます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=3-3(1/3)^{n-1}$、極限 $3$。"
+        }
+      ],
+      "repair": "formula",
+      "id": "m3-recurrence-limit-7-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "verify",
+      "prompt": "$a_1=3,a_{n+1}=2a_n-2$ の極限を調べなさい。",
+      "answer": "正の無限大へ発散します。",
+      "hints": [
+        "差の一般項を求め、公比の絶対値と初項を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "固定される値2からの差が増えます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_n-2=2^{n-1}$ より $a_n=2+2^{n-1}\\to+\\infty$。"
+        },
+        {
+          "title": "答え",
+          "text": "正の無限大へ発散します。"
+        }
+      ],
+      "repair": "verify",
+      "id": "m3-recurrence-limit-8-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "formula",
+      "prompt": "$a_1=0,a_{n+1}=3-a_n/2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=2-2(-1/2)^{n-1}$、極限 $2$。",
+      "hints": [
+        "変わらない値を探し、両辺からその値を引きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差の公比は負です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-2=-(a_n-2)/2$。初めの差は $-2$ で、振れ幅が縮むため収束します。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=2-2(-1/2)^{n-1}$、極限 $2$。"
+        }
+      ],
+      "repair": "formula",
+      "id": "m3-recurrence-limit-9-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "verify",
+      "prompt": "漸化式から $L=2$ を得た後、収束のために何を確かめる必要がありますか。",
+      "answer": "実際の項が $2$ に近づくこと。",
+      "hints": [
+        "差の一般項を求め、公比の絶対値と初項を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "候補を求めただけでは終えません。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "例えば一般項を求め、$a_n-2\\to0$ を示します。"
+        },
+        {
+          "title": "答え",
+          "text": "実際の項が $2$ に近づくこと。"
+        }
+      ],
+      "repair": "verify",
+      "id": "m3-recurrence-limit-10-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "formula",
+      "prompt": "$a_1=1,a_{n+1}=a_n/2+2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=4-3(1/2)^{n-1}$、極限 $4$。",
+      "hints": [
+        "変わらない値を探し、両辺からその値を引きます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "一定の値4との差を取ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-4=(a_n-4)/2$。初めの差 $-3$ から一般項を作ると差はゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=4-3(1/2)^{n-1}$、極限 $4$。"
+        }
+      ],
+      "repair": "formula",
+      "id": "m3-recurrence-limit-11-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "verify",
+      "prompt": "$a_1=1,a_{n+1}=2-a_n$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=1$、極限 $1$。",
+      "hints": [
+        "差の一般項を求め、公比の絶対値と初項を確かめます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初めから固定される値と一致しています。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-1=-(a_n-1)$。初めの差がゼロなので、全項が1です。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=1$、極限 $1$。"
+        }
+      ],
+      "repair": "verify",
+      "id": "m3-recurrence-limit-12-v1",
+      "lesson": "m3-recurrence-limit",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "$a_n=n+1$ の $a_3$ を求めなさい。",
+      "answer": "$4$",
+      "hints": [
+        "一般項の添字に、求める項の番号を代入します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "添字を入れます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$3+1=4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequences-check-1-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "convergence",
+      "prompt": "$1/n$ の極限を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "項が極限値と等しくなる必要はありません。差がいくらでも小さくなるかを考えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母は正に大きくなります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "逆数は任意に小さくなります。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "convergence",
+      "id": "m3-sequences-check-2-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "ready",
+      "kind": "paper"
+    },
+    {
+      "family": "rational",
+      "prompt": "$\\lim_{n\\to\\infty}(n+2)/(n+1)$ を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "定数として残る項とゼロへ近づく項を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "同じ次数で割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(1+2/n)/(1+1/n)\\to1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "rational",
+      "id": "m3-sequences-check-3-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "series",
+      "prompt": "$1+1/3+1/9+\\cdots$ の和を求めなさい。",
+      "answer": "$3/2$",
+      "hints": [
+        "和の式に入れる前に、公比の絶対値が1より小さいことを確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項と公比を読みます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "公比1/3は絶対値1未満。$1/(1-1/3)=3/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3/2$"
+        }
+      ],
+      "repair": "series",
+      "id": "m3-sequences-check-4-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "guided",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "$a_n=3n-2$ の $a_2$ と $S_2$ を求めなさい。",
+      "answer": "$a_2=4,S_2=5$",
+      "hints": [
+        "添字を代入して項を求め、和は必要な項を初項から足します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "項と和を区別します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_1=1,a_2=4$ より $S_2=1+4=5$。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_2=4,S_2=5$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequences-check-5-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "convergence",
+      "prompt": "$3+(-1)^n/n$ の極限を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "項が極限値と等しくなる必要はありません。差がいくらでも小さくなるかを考えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "振れ幅を見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|a_n-3|=1/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3$"
+        }
+      ],
+      "repair": "convergence",
+      "id": "m3-sequences-check-6-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "rational",
+      "prompt": "$\\lim_{n\\to\\infty}(4n^2+n)/(3n^2+2)$ を求めなさい。",
+      "answer": "$4/3$",
+      "hints": [
+        "定数として残る項とゼロへ近づく項を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "最高次数で割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(4+1/n)/(3+2/n^2)\\to4/3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4/3$"
+        }
+      ],
+      "repair": "rational",
+      "id": "m3-sequences-check-7-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "radical",
+      "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{n^2+6n}-n)$ を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "根号の差は有理化すると、相殺される項がはっきりします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "差を有理化します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$6/(\\sqrt{1+6/n}+1)\\to3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3$"
+        }
+      ],
+      "repair": "radical",
+      "id": "m3-sequences-check-8-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "geometric",
+      "prompt": "$2-(-3/4)^n$ の極限を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "負の公比でも絶対値が小さくなればゼロに近づきます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "公比の絶対値が1より小さい部分を読みます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(-3/4)^n\\to0$ より $2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "geometric",
+      "id": "m3-sequences-check-9-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "squeeze",
+      "prompt": "$\\lim_{n\\to\\infty}(1+\\cos n)/n$ を求めなさい。",
+      "answer": "$0$",
+      "hints": [
+        "正確な各項の値を出さなくても、ゼロからの距離が小さくなることを示せます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分子の範囲を押さえます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$0\\le(1+\\cos n)/n\\le2/n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$0$"
+        }
+      ],
+      "repair": "squeeze",
+      "id": "m3-sequences-check-10-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "meaning",
+      "prompt": "級数の部分和が $S_N=2-1/(N+2)$ のとき和を求めなさい。",
+      "answer": "$2$",
+      "hints": [
+        "和を求める対象は各項の極限ではなく部分和の極限です。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "部分和の極限を求めます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$1/(N+2)\\to0$ なので $S_N\\to2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$2$"
+        }
+      ],
+      "repair": "meaning",
+      "id": "m3-sequences-check-11-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "series",
+      "prompt": "$6-3+3/2-\\cdots$ の和を求めなさい。",
+      "answer": "$4$",
+      "hints": [
+        "和の式に入れる前に、公比の絶対値が1より小さいことを確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項6、公比-1/2を読みます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|r|<1$ を確認し $6/(1+1/2)=4$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4$"
+        }
+      ],
+      "repair": "series",
+      "id": "m3-sequences-check-12-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "telescope",
+      "prompt": "$\\sum_{k=1}^{\\infty}3/(k(k+1))$ の和を求めなさい。",
+      "answer": "$3$",
+      "hints": [
+        "$3/(k(k+1))=3(1/k-1/(k+1))$ と分け、有限和の最初と最後に残る項を確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "有限和で端を残します。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$S_N=3(1-1/(N+1))\\to3$。"
+        },
+        {
+          "title": "答え",
+          "text": "$3$"
+        }
+      ],
+      "repair": "telescope",
+      "id": "m3-sequences-check-13-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "recurrence",
+      "prompt": "$a_1=0,a_{n+1}=(a_n+4)/2$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=4-4(1/2)^{n-1}$、極限 $4$。",
+      "hints": [
+        "差が等比数列になれば初項から一般項を作れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "候補4との差の一般項を作ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-4=(a_n-4)/2$。初めの差 $-4$ に公比1/2を掛けるので、その差はゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=4-4(1/2)^{n-1}$、極限 $4$。"
+        }
+      ],
+      "repair": "recurrence",
+      "id": "m3-sequences-check-14-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "practice",
+      "kind": "paper"
+    },
+    {
+      "family": "term",
+      "prompt": "$S_n=3n^2$ のとき一般項を求めなさい。",
+      "answer": "$a_n=6n-3$",
+      "hints": [
+        "部分和の差では、前までに足した項が消えて最後の一項が残ります。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "部分和の差と初項を確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$n\\ge2$ では $3n^2-3(n-1)^2=6n-3$。$a_1=3$ も一致します。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=6n-3$"
+        }
+      ],
+      "repair": "term",
+      "id": "m3-sequences-check-15-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "convergence",
+      "prompt": "$a_n=1+(-1)^n$ は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "項が極限値と等しくなる必要はありません。差がいくらでも小さくなるかを考えます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "奇数番目と偶数番目を比べます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "0と2を行き来して一つの値へ近づきません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "convergence",
+      "id": "m3-sequences-check-16-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "rational",
+      "prompt": "$\\lim_{n\\to\\infty}(2n+3)/(5n+1)$ を求めなさい。",
+      "answer": "$2/5$",
+      "hints": [
+        "定数として残る項とゼロへ近づく項を分けます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "分母・分子を $n$ で割ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$(2+3/n)/(5+1/n)\\to2/5$。"
+        },
+        {
+          "title": "答え",
+          "text": "$2/5$"
+        }
+      ],
+      "repair": "rational",
+      "id": "m3-sequences-check-17-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "radical",
+      "prompt": "$\\lim_{n\\to\\infty}(\\sqrt{9n^2+6n}-3n)$ を求めなさい。",
+      "answer": "$1$",
+      "hints": [
+        "根号の差は有理化すると、相殺される項がはっきりします。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "二乗の差を作ります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$6n/(\\sqrt{9n^2+6n}+3n)=6/(\\sqrt{9+6/n}+3)\\to1$。"
+        },
+        {
+          "title": "答え",
+          "text": "$1$"
+        }
+      ],
+      "repair": "radical",
+      "id": "m3-sequences-check-18-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "geometric",
+      "prompt": "$4+2(-2/5)^n$ の極限を求めなさい。",
+      "answer": "$4$",
+      "hints": [
+        "負の公比でも絶対値が小さくなればゼロに近づきます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "絶対値2/5の累乗はゼロに近づきます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|2(-2/5)^n|=2(2/5)^n\\to0$。"
+        },
+        {
+          "title": "答え",
+          "text": "$4$"
+        }
+      ],
+      "repair": "geometric",
+      "id": "m3-sequences-check-19-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "squeeze",
+      "prompt": "$|a_n-6|\\le2/n$ のとき極限を求めなさい。",
+      "answer": "$6$",
+      "hints": [
+        "$6$ からの距離 $|a_n-6|$ がゼロへ近づくことを使います。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "6との差が小さくなります。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$6-2/n\\le a_n\\le6+2/n$、両端は6。"
+        },
+        {
+          "title": "答え",
+          "text": "$6$"
+        }
+      ],
+      "repair": "squeeze",
+      "id": "m3-sequences-check-20-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "meaning",
+      "prompt": "項が $a_n=1+1/n$ の級数は収束しますか。",
+      "answer": "収束しません。",
+      "hints": [
+        "項がゼロへ近づくことは級数収束の必要条件です。まず項の極限を調べます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "必要条件を確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_n\\to1\\ne0$ なので級数は収束しません。"
+        },
+        {
+          "title": "答え",
+          "text": "収束しません。"
+        }
+      ],
+      "repair": "meaning",
+      "id": "m3-sequences-check-21-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "series",
+      "prompt": "$\\sum_{n=1}^{\\infty}2(1/5)^{n-1}$ の和を求めなさい。",
+      "answer": "$5/2$",
+      "hints": [
+        "和の式に入れる前に、公比の絶対値が1より小さいことを確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "初項2、公比1/5です。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$|r|<1$ より $2/(1-1/5)=5/2$。"
+        },
+        {
+          "title": "答え",
+          "text": "$5/2$"
+        }
+      ],
+      "repair": "series",
+      "id": "m3-sequences-check-22-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "telescope",
+      "prompt": "$\\sum_{k=3}^{\\infty}1/(k(k+1))$ の和を求めなさい。",
+      "answer": "$1/3$",
+      "hints": [
+        "$1/(k(k+1))=1/k-1/(k+1)$ と分け、開始位置と最後に残る項を確認します。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "開始位置を確かめます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$T_N=\\sum_{k=3}^{N}1/(k(k+1))=1/3-1/(N+1)\\to1/3$（$N\\ge3$）。"
+        },
+        {
+          "title": "答え",
+          "text": "$1/3$"
+        }
+      ],
+      "repair": "telescope",
+      "id": "m3-sequences-check-23-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    },
+    {
+      "family": "recurrence",
+      "prompt": "$a_1=0,a_{n+1}=a_n/3+4$ の一般項と極限を求めなさい。",
+      "answer": "$a_n=6-6(1/3)^{n-1}$、極限 $6$。",
+      "hints": [
+        "差が等比数列になれば初項から一般項を作れます。"
+      ],
+      "steps": [
+        {
+          "title": "着目する",
+          "text": "候補6との差を見ます。"
+        },
+        {
+          "title": "計算して確かめる",
+          "text": "$a_{n+1}-6=(a_n-6)/3$。差の初項は-6、その等比数列はゼロへ近づきます。"
+        },
+        {
+          "title": "答え",
+          "text": "$a_n=6-6(1/3)^{n-1}$、極限 $6$。"
+        }
+      ],
+      "repair": "recurrence",
+      "id": "m3-sequences-check-24-v1",
+      "lesson": "m3-sequences-check",
+      "stage": "review",
+      "kind": "paper"
+    }
+  ]
+}
