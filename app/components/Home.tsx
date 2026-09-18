@@ -23,7 +23,7 @@ export default function Home() {
  return <main id="main"><section className="hero"><p className="eyebrow">MathCanvas</p><h1>科目を選ぶ</h1></section><div className="wrap">
   <div className="home-grid">
    <article className="lesson-tile"><h2>数学II</h2><p>式と証明から、図形・三角関数・指数と対数、微分・積分へ。</p><Link className="button" href="/math-two">数学IIの教材を見る →</Link></article>
-   <article className="lesson-tile"><h2>数学III</h2><p>関数の基礎、数列と関数の極限、連続性を学ぶ。</p><Link className="button" href="/math-three">数学IIIの教材を見る →</Link></article>
+   <article className="lesson-tile"><h2>数学III</h2><p>関数の基礎と極限から、微分・積分へ。</p><Link className="button" href="/math-three">数学IIIの教材を見る →</Link></article>
   </div>
   {ready&&lesson&&<section className="home-review"><div><h2>前回の続き</h2><p>{lesson.title}</p></div><Link className="button secondary" href={"/learn/"+lesson.slug}>続きを開く</Link></section>}
   <section className="home-review"><div><h2>今日の復習</h2><p>{!ready?"記録を読み込んでいます。":due.length?due.length+"問をもう一度確かめられます。":"今日の復習はありません。"}</p></div><Link href="/review" className="button secondary">復習を開く</Link></section>

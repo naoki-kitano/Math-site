@@ -11,9 +11,10 @@ export type CoordinateDiagramProps = {
  title:string;description:string;xRange:[number,number];yRange:[number,number];
  curves?:Curve[];points?:Dot[];segments?:Segment[];circles?:Circle[];areas?:Area[];arcs?:Arc[];tick?:number;
  xTicks?:{value:number;label:string}[];
+ axisDescription?:string;
 };
 // Equal scale on both axes preserves distances, angles, and circles.
-export default function CoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks}:CoordinateDiagramProps){
+export default function CoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
  const clip=useId().replace(/:/g,"");
  const width=640,height=440,padding=36;
  const scale=Math.min((width-2*padding)/(xRange[1]-xRange[0]),(height-2*padding)/(yRange[1]-yRange[0]));
@@ -58,7 +59,7 @@ export default function CoordinateDiagram({title,description,xRange,yRange,curve
    {xTicks?xTicks.map(t=><foreignObject key={t.value} x={px(t.value)-28} y={Math.min(top+plotHeight+2,Math.max(top,py(0)+5))} width="56" height="32"><div style={{fontSize:13,textAlign:"center",color:"#43566b"}}><MathText text={t.label}/></div></foreignObject>):ticks(xRange).filter(x=>x!==0).map(x=><text key={x} x={px(x)} y={Math.min(top+plotHeight+18,Math.max(top+16,py(0)+19))} textAnchor="middle" fontSize="14" fill="#43566b">{Number(x.toFixed(2))}</text>)}
    {ticks(yRange).filter(y=>y!==0).map(y=><text key={y} x={Math.min(left+plotWidth-5,Math.max(left-6,px(0)-8))} y={py(y)+5} textAnchor="end" fontSize="14" fill="#43566b">{Number(y.toFixed(2))}</text>)}
   </svg>
-  <figcaption><p className="meta"><MathText text="横軸は $x$、縦軸は $y$。"/></p>
+  <figcaption><p className="meta"><MathText text={axisDescription}/></p>
    {curves.map((c,i)=><p key={"curve"+i}><span className="figure-key" style={{background:c.color??"#087c70"}}/><MathText text={c.label}/></p>)}
    {circles.map((c,i)=><p key={"circle"+i}><MathText text={c.label}/></p>)}
    {arcs.map((a,i)=><p key={"arc"+i}><MathText text={a.label}/></p>)}

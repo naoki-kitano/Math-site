@@ -7,11 +7,12 @@ const root = path.resolve("dist/client");
 await cp(path.join(root, "Math-site/_next"), path.join(root, "_next"), { recursive: true });
 const files = await readdir(root, { recursive: true });
 const html = files.filter(f => f.endsWith(".html"));
-assert.equal(html.filter(f => f.replaceAll("\\", "/").startsWith("learn/")).length, 113);
+assert.equal(html.filter(f => f.replaceAll("\\", "/").startsWith("learn/")).length, 187);
 let checked = 0;
 for (const file of html) {
   const source = await readFile(path.join(root, file), "utf8");
   assert(!source.includes('class="katex-error"'), file);
+  assert(!source.includes('class="math-error"'), file);
   for (const [, url] of source.matchAll(/(?:href|src)="(\/[^"#?]*)[^"]*"/g)) {
     if (url.startsWith("//")) continue;
     assert(url.startsWith("/Math-site/"), `${file}: ${url}`);

@@ -46,4 +46,4 @@ node scripts/check-pages.mjs
 - GitHub Pages向けリンクには `.html` を付け、直接アクセスでも表示できるようにする。
 - `/Math-site/` をHTML生成時とブラウザ動作時で統一し、数式フォント・CSS・JavaScriptも同じ場所を参照する。
 - vinextのassetPrefixによる出力先を、Pagesの配置に合わせて公開前検査で整える。
-- `scripts/check-pages.mjs` は全HTMLのリンクと読み込み先の実在を確認する。現時点の教材数は113。
+- `scripts/check-pages.mjs` は全HTMLのリンクと読み込み先の実在を確認する。今回の統合対象は数学II・数学IIIの全187教材。

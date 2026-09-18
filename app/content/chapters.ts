@@ -12,5 +12,10 @@ export const chapters = [
   {name:"関数を読むための基礎",title:"第1章　関数を読むための基礎",id:"math3-chapter-one",subject:"数学III" as const},
   {name:"数列の極限と無限級数",title:"第2章　数列の極限と無限級数",id:"math3-chapter-two",subject:"数学III" as const},
   {name:"関数の極限と連続性",title:"第3章　関数の極限と連続性",id:"math3-chapter-three",subject:"数学III" as const},
+  {name:"微分法",title:"第4章　微分法",id:"math3-chapter-four",subject:"数学III" as const},
+  {name:"微分の応用",title:"第5章　微分の応用",id:"math3-chapter-five",subject:"数学III" as const},
+  {name:"不定積分",title:"第6章　不定積分",id:"math3-chapter-six",subject:"数学III" as const},
+  {name:"定積分",title:"第7章　定積分",id:"math3-chapter-seven",subject:"数学III" as const},
+  {name:"積分の応用",title:"第8章　積分の応用",id:"math3-chapter-eight",subject:"数学III" as const},
 ];
 export const subjectForChapter=(name:string)=>chapters.find(c=>c.name===name)?.subject??"数学II";

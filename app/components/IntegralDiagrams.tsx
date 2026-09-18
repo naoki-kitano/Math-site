@@ -33,13 +33,13 @@ export const integralFigures:Record<string,Record<number,Diagram>>={
   0:{title:"軸より上の部分を足し合わせる",description:"この区間では高さが非負なので、定積分は三角形の面積と一致します。",xRange:[-.5,2.5],yRange:[-.5,4.5],
    curves:[{label:"$y=2x$",value:x=>2*x}],areas:[{from:0,to:2,upper:x=>2*x,lower:()=>0,label:"$\\int_0^2 2x\\,dx=4$"}],segments:[{from:[2,0],to:[2,4],label:"右端 $x=2$"}],points:[{x:0,y:0,label:"$(0,0)$"},{x:2,y:4,label:"$(2,4)$"}]},
   1:{title:"軸の下では負として数える",description:"定積分は左右の面積の合計ではなく、符号付きの値の和です。下側の分を負として数えるので、結果は $-2$ です。",xRange:[-1.5,1.5],yRange:[-3.5,1.5],
-   curves:[{label:"$y=2x-1$",value:x=>2*x-1}],areas:[{from:-1,to:.5,upper:()=>0,lower:x=>2*x-1,label:"下側の寄与 $-9/4$"},{from:.5,to:1,upper:x=>2*x-1,lower:()=>0,label:"上側の寄与 $1/4$"}],segments:[{from:[-1,-3],to:[-1,0]},{from:[1,0],to:[1,1]}],points:[{x:.5,y:0,label:"零点 $(1/2,0)$"}]}
+   curves:[{label:"$y=2x-1$",value:x=>2*x-1}],areas:[{from:-1,to:.5,upper:()=>0,lower:x=>2*x-1,label:"下側の寄与 $-\\frac{9}{4}$"},{from:.5,to:1,upper:x=>2*x-1,lower:()=>0,label:"上側の寄与 $\\frac{1}{4}$"}],segments:[{from:[-1,-3],to:[-1,0]},{from:[1,0],to:[1,1]}],points:[{x:.5,y:0,label:"零点 $(\\frac{1}{2},0)$"}]}
  },
  "area-with-axis":{
   0:{title:"非負の高さを積分する",description:"底辺は $2$、高さは $2$ の三角形です。積分で求めた面積 $2$ と一致します。",xRange:[-.5,2.5],yRange:[-.5,2.5],
    curves:[{label:"$y=x$",value:x=>x}],areas:[{from:0,to:2,upper:x=>x,lower:()=>0,label:"面積 $S=2$"}],segments:[{from:[2,0],to:[2,2],label:"境界 $x=2$"}],points:[{x:0,y:0,label:"$(0,0)$"},{x:2,y:2,label:"$(2,2)$"}]},
-  1:{title:"軸の下の面積も正で足す",description:"左と右はそれぞれ面積 $1/2$。定積分では打ち消し合いますが、面積は足して $1$ になります。",xRange:[-.5,2.5],yRange:[-1.5,1.5],
-   curves:[{label:"$y=x-1$",value:x=>x-1}],areas:[{from:0,to:1,upper:()=>0,lower:x=>x-1,label:"左：高さ $1-x$、面積 $1/2$"},{from:1,to:2,upper:x=>x-1,lower:()=>0,label:"右：高さ $x-1$、面積 $1/2$"}],
+  1:{title:"軸の下の面積も正で足す",description:"左と右はそれぞれ面積 $\\frac{1}{2}$。定積分では打ち消し合いますが、面積は足して $1$ になります。",xRange:[-.5,2.5],yRange:[-1.5,1.5],
+   curves:[{label:"$y=x-1$",value:x=>x-1}],areas:[{from:0,to:1,upper:()=>0,lower:x=>x-1,label:"左：高さ $1-x$、面積 $\\frac{1}{2}$"},{from:1,to:2,upper:x=>x-1,lower:()=>0,label:"右：高さ $x-1$、面積 $\\frac{1}{2}$"}],
    segments:[{from:[0,-1],to:[0,0]},{from:[2,0],to:[2,1]},{from:[.5,-.5],to:[.5,0],width:3,label:"下側では $0-(x-1)=1-x$"},{from:[1.5,0],to:[1.5,.5],width:3,label:"上側では $(x-1)-0=x-1$"}],points:[{x:1,y:0,label:"分ける点 $(1,0)$"}]}
  },
  "area-between-curves":{0:between(1,1),1:between(1,2)},

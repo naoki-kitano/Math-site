@@ -25,7 +25,7 @@ const at = Date.now()-10*DAY;
 const attempt=(id,exerciseId,outcome='independent',offset=0,reviewOf)=>({id,exerciseId,outcome,at:at+offset,method:exerciseById[exerciseId].kind==='paper'?'self':'auto',...(reviewOf?{reviewOf}:{})});
 
 test('each published lesson is complete and every exercise has a valid answer and repair',()=>{
-  assert.equal(lessons.length,113); assert.equal(exercises.length,1601);
+  assert.equal(lessons.length,187); assert.equal(exercises.length,2743);
   assert.equal(new Set(exercises.map(e=>e.id)).size,exercises.length);
   for(const l of lessons){
     assert.ok(l.examples.length>=2,l.slug);
@@ -113,6 +113,336 @@ test('function limit diagrams preserve holes, branches and strict mathematical l
   for(const curve of limitFigures[slug][1].curves)assert.ok((curve.to??1)<0||(curve.from??-1)>0);
  }
 });
+test('math III derivatives retain the approved order, volume and chapter-check coverage',async()=>{
+ const {math3DerivativeOrder}=await import(contentModule(new URL('../app/content/math3-chapter4.ts',import.meta.url)));
+ const chapter=lessons.filter(l=>l.chapter==='微分法');
+ assert.deepEqual(chapter.map(l=>l.slug),[...math3DerivativeOrder,'m3-derivatives-check']);
+ const items=exercises.filter(e=>chapter.some(l=>l.slug===e.lesson));
+ assert.equal(items.length,297);
+ for(const lesson of chapter){
+  for(const p of lesson.prerequisites||[])assert.ok(lessons.some(l=>l.slug===p.slug),p.slug);
+  assert.equal(items.filter(e=>e.lesson===lesson.slug&&e.stage==='guided').length,lesson.examples.length);
+  for(const e of items.filter(e=>e.lesson===lesson.slug)){
+   const variant=alternateFor(e.id);
+   assert.ok(variant,e.id);
+   assert.equal(variant.lesson,e.lesson);
+   assert.equal(variant.family,e.family);
+   assert.notEqual(variant.id,e.id);
+  }
+ }
+ for(const slug of ['power-derivatives','trigonometric-derivatives','exponential-log-derivatives','product-derivative','quotient-derivative','chain-rule','chain-rule-functions','choose-derivative']){
+  assert.equal(items.filter(e=>e.lesson==='m3-'+slug&&e.stage==='practice').length,10);
+  assert.equal(items.filter(e=>e.lesson==='m3-'+slug&&e.stage==='review').length,4);
+ }
+ for(const stage of ['practice','review'])assert.equal(new Set(items.filter(e=>e.lesson==='m3-derivatives-check'&&e.stage===stage).map(e=>e.family)).size,17);
+});
+test('derivative review fixes preserve the required decision and targeted supplements',()=>{
+ const e=id=>exerciseById[id];
+ for(const [source,target] of [
+  ['m3-derivative-meaning-practice-5-v1','m3-derivative-meaning-review-2-v1'],
+  ['m3-derivative-definition-practice-6-v1','m3-derivative-definition-review-radical-v1'],
+  ['m3-differentiability-practice-5-v1','m3-differentiability-review-endpoint-v1'],
+  ['m3-implicit-derivative-practice-3-v1','m3-implicit-derivative-review-zero-denominator-v1'],
+  ['m3-parametric-derivative-practice-5-v1','m3-parametric-derivative-review-zero-horizontal-v1']
+ ])assert.equal(alternateFor(source).id,target);
+ for(const n of [4,5])assert.match(alternateFor('m3-inverse-derivative-practice-'+n+'-v1').family,/applicability$/);
+ assert.match(e('m3-inverse-derivative-ready-2-v1').prompt,/公式を使える/);
+ for(const [key,number] of [['derivative-meaning',4],['power-derivatives',6],['chain-rule-functions',6]]){
+  assert.equal(e('m3-derivatives-check-practice-m3-'+key+'-v1').prompt,e('m3-'+key+'-practice-'+number+'-v1').prompt);
+ }
+ const check=lessons.find(l=>l.slug==='m3-derivatives-check');
+ assert.equal(check.supplements.length,23);
+ for(const [slug,key,repair] of [
+  ['derivative-definition','guided-2','reciprocal'],['derivative-definition','practice-6','radical'],
+  ['differentiability','practice-5','endpoint'],['chain-rule','practice-3','root-domain'],
+  ['chain-rule-functions','practice-9','log-domain'],['second-derivative','practice-5','repeat-rules']
+ ]){
+  assert.equal(e('m3-'+slug+'-'+key+'-v1').repair,repair);
+  assert.ok(check.supplements.some(s=>s.id==='m3-'+slug+'-'+repair));
+ }
+ assert.equal(e('m3-derivatives-check-practice-m3-chain-rule-functions-v1').repair,'m3-chain-rule-functions-log-domain');
+ assert.equal(e('m3-derivatives-check-guided-2-v1').repair,'m3-second-derivative-repeat-rules');
+});
+test('math III derivative diagrams preserve example coordinates and mathematical labels',async()=>{
+ const require=createRequire(import.meta.url);
+ const source=readFileSync(new URL('../app/components/Math3DerivativeDiagrams.tsx',import.meta.url),'utf8');
+ const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
+  .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
+  .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/,'const CoordinateDiagram=()=>null;');
+ const {math3DerivativeFigures:f}=await import(url(compiled));
+ const all=Object.values(f).flatMap(Object.values);
+ assert.equal(all.length,7);
+ const walk=v=>{
+  if(typeof v==='string')for(const [,tex] of v.matchAll(/\$([^$]+)\$/g))katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});
+  else if(Array.isArray(v))v.forEach(walk);
+  else if(v&&typeof v==='object')Object.values(v).forEach(walk);
+ };
+ walk(all);
+ for(const [slug,figures] of Object.entries(f))for(const index of Object.keys(figures))assert.ok(lessons.find(l=>l.slug===slug).examples[Number(index)]);
+ const secant=f['m3-derivative-meaning'][0];
+ for(const p of secant.points)assert.ok(Math.abs(secant.curves[1].value(p.x)-p.y)<1e-12);
+ assert.equal(secant.curves[2].value(1),1);
+ assert.equal(f['m3-differentiability'][0].curves[0].to,0);
+ assert.equal(f['m3-differentiability'][0].curves[1].from,0);
+ assert.equal(f['m3-inverse-derivative'][0].points[0].open,true);
+ const circle=f['m3-implicit-derivative'][0],p=circle.points[0];
+ assert.ok(Math.abs(p.x*p.x+p.y*p.y-1)<1e-12);
+ assert.ok(Math.abs(circle.curves[0].value(p.x)-p.y)<1e-12);
+});
+test('applications retain thirteen decisions, exercise volume, targeted repairs and notation',async()=>{
+ const {math3ApplicationsOrder,math3ApplicationsCheckSelection}=await import(contentModule(new URL('../app/content/math3-chapter5.ts',import.meta.url)));
+ const chapter=lessons.filter(l=>l.chapter==='微分の応用');
+ assert.deepEqual(chapter.map(l=>l.slug),[...math3ApplicationsOrder,'m3-applications-check']);
+ const all=exercises.filter(e=>chapter.some(l=>l.slug===e.lesson));
+ assert.equal(all.length,195);
+ for(const l of chapter){
+  const qs=all.filter(e=>e.lesson===l.slug);
+  assert.ok(!l.description.includes('$'),'list summaries are plain text: '+l.slug);
+  assert.equal(qs.filter(e=>e.stage==='guided').length,l.examples.length);
+  assert.ok(qs.filter(e=>e.stage==='practice').length>=6,l.slug);
+  for(const pre of l.prerequisites||[])assert.ok(lessons.some(a=>a.slug===pre.slug),pre.slug);
+  for(const e of qs){const alt=alternateFor(e.id);assert.ok(alt,e.id);assert.equal(alt.family,e.family);assert.ok(l.supplements.some(s=>s.id===e.repair));}
+ }
+ for(const [i,[slug,p,r]] of math3ApplicationsCheckSelection.entries()){
+  const cp=exerciseById['m3-applications-check-practice-'+(i+1)+'-v1'];
+  const cr=exerciseById['m3-applications-check-review-'+(i+1)+'-v1'];
+  assert.equal(cp.prompt,exerciseById['m3-'+slug+'-practice-'+p+'-v1'].prompt);
+  assert.equal(cr.prompt,exerciseById['m3-'+slug+'-review-'+r+'-v1'].prompt);
+  assert.equal(cp.family,cr.family,slug);
+ }
+ const walk=(v,k)=>{
+  if(typeof v==='string'){
+   const math=k==='tex'?[v]:[...v.matchAll(/\$([^$]+)\$/g)].map(m=>m[1]);
+   for(const tex of math){assert.ok(!tex.includes('/'),tex);assert.ok(!tex.includes('\\binom'),tex);}
+  }else if(Array.isArray(v))v.forEach(a=>walk(a,k));
+  else if(v&&typeof v==='object')Object.entries(v).forEach(([key,value])=>walk(value,key));
+ };
+ walk([chapter,all]);
+});
+
+test('application review fixes retain attainment, endpoint and speed decisions with justified limits',()=>{
+ const e=id=>exerciseById['m3-'+id+'-v1'];
+ for(const [key,family] of [
+  ['optimization-model-practice-2','area-infimum'],['optimization-model-practice-5','area-infimum'],
+  ['optimization-model-practice-3','constrained-area'],['optimization-model-practice-4','constrained-area'],
+  ['velocity-acceleration-practice-5','speed-change']
+ ]){
+  const source=e(key);assert.equal(source.family,family);assert.equal(source.repair,family);
+  assert.equal(alternateFor(source.id).family,family);
+ }
+ assert.equal(alternateFor('m3-optimization-model-review-2-v1').family,'fence');
+ for(const slug of ['global-extrema','curve-sketch','roots-existence-count']){
+  const l=lessons.find(l=>l.slug==='m3-'+slug);
+  const support=l.supplements.find(s=>s.id==='exponential-growth');
+  assert.ok(support.text.includes("G'(u)=e^u-1"));
+  assert.ok(support.tex.includes('\\frac4t'));
+  assert.ok(support.answer.includes('x(1-\\dfrac{\\log x}{x})'));
+ }
+ const check=lessons.find(l=>l.slug==='m3-applications-check');
+ assert.equal(check.supplements.length,31);
+ for(const family of ['m3-global-extrema-closed-max','m3-roots-existence-count-one-root']){
+  for(const stage of ['practice','review'])assert.ok(exercises.some(e=>e.lesson===check.slug&&e.family===family&&e.stage===stage));
+ }
+});
+
+test('applications figures preserve tangency, perpendicularity, separate branches and strict labels',async()=>{
+ const require=createRequire(import.meta.url);
+ const source=readFileSync(new URL('../app/components/Math3ApplicationDiagrams.tsx',import.meta.url),'utf8');
+ const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
+  .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
+  .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/,'const CoordinateDiagram=()=>null;');
+ const {math3ApplicationFigures:f}=await import(url(compiled));
+ assert.equal(Object.values(f).flatMap(Object.values).length,13);
+ const walk=v=>{
+  if(typeof v==='string')for(const [,tex] of v.matchAll(/\$([^$]+)\$/g)){katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});assert.ok(!tex.includes('/'));}
+  else if(Array.isArray(v))v.forEach(walk);
+  else if(v&&typeof v==='object')Object.values(v).forEach(walk);
+ };
+ walk(f);
+ for(const [slug,figs] of Object.entries(f))for(const [index,fig] of Object.entries(figs)){
+  assert.ok(lessons.find(l=>l.slug===slug).examples[Number(index)]);
+  for(const p of fig.points||[])assert.ok(Number.isFinite(p.x)&&Number.isFinite(p.y));
+ }
+ const tangent=f['m3-tangent-at-point'][0];
+ assert.equal(tangent.curves[0].value(1),tangent.curves[1].value(1));
+ const normal=f['m3-normal-line'][0];
+ assert.equal((normal.curves[1].value(1)-normal.curves[1].value(0))*(normal.curves[2].value(1)-normal.curves[2].value(0)),-1);
+ const unknown=f['m3-unknown-contact'][0];
+ for(const curve of unknown.curves.slice(1))assert.equal(curve.value(0),-1);
+ const split=f['m3-curve-sketch'][1].curves;
+ assert.ok(split[0].to<0&&split[1].from>0);
+ const curve=f['m3-curve-sketch'][0];
+ for(const p of curve.points)assert.ok(Math.abs(curve.curves[0].value(p.x)-p.y)<1e-12);
+});
+
+test('indefinite integrals preserve the approved scope, working and review decisions',async()=>{
+ const {math3AntiderivativeOrder,math3IntegralCheckSelection}=await import(contentModule(new URL('../app/content/math3-chapter6.ts',import.meta.url)));
+ const chapter=lessons.filter(l=>l.chapter==='不定積分');
+ assert.deepEqual(chapter.map(l=>l.slug),[...math3AntiderivativeOrder,'m3-indefinite-integrals-check']);
+ assert.equal(chapter.reduce((n,l)=>n+l.examples.length,0),35);
+ assert.equal(exercises.filter(e=>chapter.some(l=>l.slug===e.lesson)).length,249);
+ assert.ok(math3IntegralCheckSelection.some(([s,p,r])=>s==='antiderivative-constant'&&p==='practice-4'&&r==='review-2'));
+ assert.ok(math3IntegralCheckSelection.some(([s,p,r])=>s==='algebra-before-integrals'&&p==='practice-3'&&r==='review-1'));
+ const methodItems=exercises.filter(e=>e.lesson==='m3-choose-integral');
+ assert.equal(methodItems.length,17);
+ for(const e of methodItems){assert.ok(e.answer.includes('からです'),e.id);assert.ok(e.steps[0].text.includes('からです'),e.id);}
+ for(const l of chapter){
+  assert.ok(!l.description.includes('$'));
+  for(const p of l.prerequisites||[])assert.ok(lessons.some(a=>a.slug===p.slug),p.slug);
+  const items=exercises.filter(e=>e.lesson===l.slug);
+  assert.equal(items.filter(e=>e.stage==='guided').length,l.examples.length);
+  for(const e of items){const alt=alternateFor(e.id);assert.ok(alt,e.id);assert.equal(alt.family,e.family);assert.ok(l.supplements.some(s=>s.id===e.repair));}
+ }
+ for(const [i,[slug,p,r]] of math3IntegralCheckSelection.entries()){
+  const a=exerciseById['m3-indefinite-integrals-check-practice-'+(i+1)+'-v1'],b=exerciseById['m3-indefinite-integrals-check-review-'+(i+1)+'-v1'];
+  assert.equal(a.prompt,exerciseById['m3-'+slug+'-'+p+'-v1'].prompt);
+  assert.equal(b.prompt,exerciseById['m3-'+slug+'-'+r+'-v1'].prompt);assert.equal(a.family,b.family);
+ }
+});
+
+test('indefinite-integral diagrams preserve vertical shifts and substitution signs',async()=>{
+ const require=createRequire(import.meta.url);
+ const source=readFileSync(new URL('../app/components/Math3IntegralDiagrams.tsx',import.meta.url),'utf8');
+ const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
+  .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
+  .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/,'const CoordinateDiagram=()=>null;');
+ const {math3IntegralFigures:f}=await import(url(js));
+ assert.equal(Object.values(f).flatMap(Object.values).length,3);
+ const walk=v=>{
+  if(typeof v==='string')for(const [,tex] of v.matchAll(/\$([^$]+)\$/g)){assert.ok(!tex.includes('/'));katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});}
+  else if(Array.isArray(v))v.forEach(walk);
+  else if(v&&typeof v==='object')Object.values(v).forEach(walk);
+ };
+ walk(f);
+ for(const [slug,figs] of Object.entries(f))for(const key of Object.keys(figs))assert.ok(lessons.find(l=>l.slug===slug).examples[Number(key)]);
+ const curves=f['m3-antiderivative-constant'][0].curves;
+ for(const x of [-1,0,1]){assert.equal(curves[1].value(x)-curves[0].value(x),2);assert.equal(curves[2].value(x)-curves[0].value(x),-2);}
+ const circle=f['m3-trig-substitution'][0],p=circle.points[0];
+ assert.ok(circle.axisDescription.includes('\\sin\\theta=x'));
+ assert.ok(Math.abs(p.x*p.x+p.y*p.y-1)<1e-12);assert.ok(p.x>0);
+ assert.equal(circle.arcs[0].from,-Math.PI/2);assert.equal(circle.arcs[0].to,Math.PI/2);
+ assert.ok(circle.points.slice(1).every(p=>p.open));
+});
+
+test('definite integrals cover decisions, conditions and compatible repair variants',async()=>{
+ const {math3DefiniteOrder,math3DefiniteCheckSelection}=await import(contentModule(new URL('../app/content/math3-chapter7.ts',import.meta.url)));
+ const chapter=lessons.filter(l=>l.chapter==='定積分');
+ assert.deepEqual(chapter.map(l=>l.slug),[...math3DefiniteOrder,'m3-definite-integrals-check']);
+ assert.equal(chapter.reduce((n,l)=>n+l.examples.length,0),25);
+ assert.equal(chapter.reduce((n,l)=>n+l.supplements.length,0),52);
+ const items=exercises.filter(e=>chapter.some(l=>l.slug===e.lesson));
+ assert.equal(items.length,193);
+ for(const l of chapter){
+  assert.ok(!l.description.includes('$'));
+  for(const p of l.prerequisites||[])assert.ok(lessons.some(a=>a.slug===p.slug));
+  assert.equal(items.filter(e=>e.lesson===l.slug&&e.stage==='guided').length,l.examples.length);
+ }
+ for(const e of items){const a=alternateFor(e.id);assert.ok(a,e.id);assert.equal(a.family,e.family);assert.notEqual(a.id,e.id);}
+ for(const [i,[slug,p,r]] of math3DefiniteCheckSelection.entries()){
+  const a=exerciseById['m3-definite-integrals-check-practice-'+(i+1)+'-v1'],b=exerciseById['m3-definite-integrals-check-review-'+(i+1)+'-v1'];
+  assert.equal(a.prompt,exerciseById['m3-'+slug+'-'+p+'-v1'].prompt);
+  assert.equal(b.prompt,exerciseById['m3-'+slug+'-'+r+'-v1'].prompt);assert.equal(a.family,b.family);
+ }
+ for(const [id,family] of [['m3-integral-properties-practice-2','linearity-scope'],['m3-integral-bounds-practice-2','reverse-compare'],['m3-integral-bounds-practice-4','compare-assumption']]){
+  const e=exerciseById[id+'-v1'];assert.equal(e.family,family);assert.equal(e.repair,family);
+ }
+ const check=items.filter(e=>e.lesson==='m3-definite-integrals-check'&&e.stage==='practice');
+ for(const f of ['integral-properties-linearity-scope','integral-bounds-compare','integral-bounds-reverse-compare','integral-bounds-compare-assumption'])assert.ok(check.some(e=>e.family===f));
+ const walk=(v,k)=>{
+  if(typeof v==='string')for(const tex of k==='tex'?[v]:[...v.matchAll(/\$([^$]+)\$/g)].map(x=>x[1])){assert.ok(!tex.includes('/'));assert.ok(!tex.includes('\\binom'));katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});}
+  else if(Array.isArray(v))v.forEach(x=>walk(x,k));
+  else if(v&&typeof v==='object')Object.entries(v).forEach(([key,x])=>walk(x,key));
+ };
+ walk([chapter,items]);
+});
+
+test('definite integral figures preserve widths, heights, signs and comparison intervals',async()=>{
+ const require=createRequire(import.meta.url);
+ const source=readFileSync(new URL('../app/components/Math3DefiniteDiagrams.tsx',import.meta.url),'utf8');
+ const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
+ .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
+ .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/,'const CoordinateDiagram=()=>null;');
+ const {math3DefiniteFigures:f}=await import(url(js));
+ assert.equal(Object.values(f).flatMap(Object.values).length,6);
+ for(const [slug,figs] of Object.entries(f))for(const key of Object.keys(figs)){
+  assert.ok(lessons.find(l=>l.slug===slug).examples[Number(key)]);
+  const g=figs[key];
+  for(const a of g.areas||[])for(let i=0;i<=16;i++){const x=a.from+(a.to-a.from)*i/16;assert.ok(a.upper(x)>=a.lower(x));}
+  const walk=v=>{
+   if(typeof v==='string')for(const [,tex] of v.matchAll(/\$([^$]+)\$/g)){assert.ok(!tex.includes('/'));katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});}
+   else if(Array.isArray(v))v.forEach(walk);else if(v&&typeof v==='object')Object.values(v).forEach(walk);
+  };walk(g);
+ }
+ const rectangles=f['m3-riemann-sums'][0].areas;
+ assert.equal(rectangles.length,4);
+ assert.equal(rectangles.reduce((sum,a)=>sum+(a.to-a.from)*a.upper(a.to),0),15/32);
+ rectangles.forEach(a=>{assert.equal(a.to-a.from,1/4);assert.equal(a.upper(a.to),a.to*a.to);});
+ const band=f['m3-integral-function'][0].areas[0];
+ assert.equal(band.to-band.from,1/4);assert.ok(f['m3-integral-function'][0].axisDescription.includes('$t$'));
+ const {math3DefiniteTables:tables}=await import(contentModule(new URL('../app/content/math3-chapter7-tables.ts',import.meta.url)));
+ assert.equal(Object.values(tables).flat().length,3);
+ for(const table of Object.values(tables).flat())for(const row of table.rows){assert.equal(row.length,table.headers.length);for(const cell of row)for(const [,tex] of cell.matchAll(/\$([^$]+)\$/g))katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});}
+});
+
+test('integral applications preserve setup and calculation, scope and repairs',async()=>{
+ const {math3IntegralApplicationOrder,math3ApplicationCheckSelection}=await import(contentModule(new URL('../app/content/math3-chapter8.ts',import.meta.url)));
+ const chapter=lessons.filter(l=>l.chapter==='積分の応用');
+ assert.deepEqual(chapter.map(l=>l.slug),[...math3IntegralApplicationOrder,'m3-integral-applications-check']);
+ assert.equal(chapter.reduce((n,l)=>n+l.examples.length,0),26);
+ assert.equal(chapter.reduce((n,l)=>n+l.supplements.length,0),56);
+ const items=exercises.filter(e=>chapter.some(l=>l.slug===e.lesson));assert.equal(items.length,208);
+ for(const [id,family] of [['m3-washer-volume-practice-5','shifted-setup'],['m3-washer-volume-practice-6','shifted-value'],['m3-rotation-direction-practice-3','vertical-washer-setup'],['m3-rotation-direction-practice-4','vertical-washer-value']]){
+  const e=exerciseById[id+'-v1'];assert.equal(e.family,family);assert.equal(e.repair,family);
+ }
+ const covered=new Set(items.filter(e=>e.lesson==='m3-integral-applications-check'&&e.stage==='practice').map(e=>e.family));
+ for(const f of ['washer-volume-washer-setup','washer-volume-washer-value','washer-volume-shifted-setup','washer-volume-shifted-value','rotation-direction-rotation-setup','rotation-direction-rotation-value','rotation-direction-vertical-washer-setup','rotation-direction-vertical-washer-value'])assert.ok(covered.has(f),f);
+ for(const l of chapter){
+  assert.ok(!l.description.includes('$'));
+  for(const p of l.prerequisites||[])assert.ok(lessons.some(a=>a.slug===p.slug));
+  assert.equal(items.filter(e=>e.lesson===l.slug&&e.stage==='guided').length,l.examples.length);
+ }
+ for(const e of items){const a=alternateFor(e.id);assert.ok(a,e.id);assert.equal(a.family,e.family);assert.notEqual(a.id,e.id);assert.ok(chapter.find(l=>l.slug===e.lesson).supplements.some(s=>s.id===e.repair));}
+ for(const [i,[slug,p,r]] of math3ApplicationCheckSelection.entries()){
+  const a=exerciseById['m3-integral-applications-check-practice-'+(i+1)+'-v1'],b=exerciseById['m3-integral-applications-check-review-'+(i+1)+'-v1'];
+  assert.equal(a.prompt,exerciseById['m3-'+slug+'-'+p+'-v1'].prompt);
+  assert.equal(b.prompt,exerciseById['m3-'+slug+'-'+r+'-v1'].prompt);assert.equal(a.family,b.family);
+ }
+ const walk=(v,k)=>{
+  if(typeof v==='string')for(const tex of k==='tex'?[v]:[...v.matchAll(/\$([^$]+)\$/g)].map(x=>x[1])){assert.ok(!tex.includes('/'));assert.ok(!tex.includes('\\binom'));katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});}
+  else if(Array.isArray(v))v.forEach(x=>walk(x,k));else if(v&&typeof v==='object')Object.entries(v).forEach(([key,x])=>walk(x,key));
+ };walk([chapter,items]);
+});
+
+test('integral application figures retain nonnegative slices, axes and radii',async()=>{
+ const require=createRequire(import.meta.url);
+ const source=readFileSync(new URL('../app/components/Math3IntegralApplicationDiagrams.tsx',import.meta.url),'utf8');
+ const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
+ .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
+ .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/,'const CoordinateDiagram=()=>null;');
+ const {math3IntegralApplicationFigures:f}=await import(url(js));
+ assert.equal(Object.values(f).flatMap(Object.values).length,15);
+ for(const [slug,figs] of Object.entries(f))for(const key of Object.keys(figs)){
+  assert.ok(lessons.find(l=>l.slug===slug).examples[Number(key)]);
+  const g=figs[key];
+  for(const a of g.areas||[])for(let i=0;i<=32;i++){const x=a.from+(a.to-a.from)*i/32;assert.ok(Number.isFinite(a.upper(x)));assert.ok(a.upper(x)>=a.lower(x)-1e-12);}
+  const walk=v=>{
+   if(typeof v==='string')for(const [,tex] of v.matchAll(/\$([^$]+)\$/g)){assert.ok(!tex.includes('/'));katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false});}
+   else if(Array.isArray(v))v.forEach(walk);else if(v&&typeof v==='object')Object.values(v).forEach(walk);
+  };walk(g);
+ }
+ const horizontal=f['m3-horizontal-area'][0];
+ for(const p of horizontal.points){assert.equal(p.x,p.y*p.y);assert.equal(p.x,2-p.y);}
+ const washer=f['m3-washer-volume'][1].circles;
+ assert.deepEqual(washer.map(c=>c.r),[1,0.5]);
+ assert.equal(f['m3-disk-volume'][1].circles[0].r**2,0.25);
+ const arc=f['m3-graph-length'][1].arcs[0];
+ assert.ok(Math.abs(arc.to-arc.from-Math.PI/6)<1e-12);
+ const speed=f['m3-displacement-distance'][1];
+ assert.ok(speed.axisDescription.includes('$t$'));
+ assert.equal(speed.curves[0].value(1),0);
+ assert.equal(f['m3-area-splitting'][0].areas[1].to,2);
+});
+
 test('all inline and display formulas render strictly with KaTeX',()=>{
   let count=0;
   const walk=(value,key)=>{
@@ -124,6 +454,20 @@ test('all inline and display formulas render strictly with KaTeX',()=>{
     else if(value&&typeof value==='object')Object.entries(value).forEach(([k,v])=>walk(v,k));
   };
   walk([lessons,exercises]);assert.ok(count>150);
+});
+test('published mathematics uses stacked fractions and Japanese combination notation',()=>{
+  const walk=(value,key)=>{
+    if(typeof value==='string'){
+      const expressions=key==='tex'?[value]:[...value.matchAll(/\$([^$]+)\$/g)].map(m=>m[1]);
+      for(const tex of expressions){
+        assert.ok(!tex.includes('/'),tex);assert.ok(!tex.includes('\\binom'),tex);
+        assert.ok(!/\\(?:d?frac)\{[^{}]*\}\{[fg]'?\}\(/.test(tex),'Function argument outside denominator: '+tex);
+      }
+      if(key!=='tex')assert.ok(!/\d\/\d/.test(value.replace(/\$[^$]+\$/g,'')),value);
+    }else if(Array.isArray(value))value.forEach(v=>walk(v,key));
+    else if(value&&typeof value==='object')Object.entries(value).forEach(([k,v])=>walk(v,k));
+  };
+  walk([lessons,exercises]);
 });
 test('chapter one is ordered and mixed reviews retain the requested skill',()=>{
   assert.deepEqual(lessons.filter(l=>l.chapter==='式と証明').map(l=>l.slug),[
@@ -149,6 +493,11 @@ test('chapter three example diagrams cover every new example and use valid math 
     .replace(/import ExponentialDiagrams from ["']\.\/ExponentialDiagrams["'];?/, 'const ExponentialDiagrams=()=>null;')
     .replace(/import DerivativeDiagrams from ["']\.\/DerivativeDiagrams["'];?/, 'const DerivativeDiagrams=()=>null;')
     .replace(/import Math3LimitDiagrams from ["']\.\/Math3LimitDiagrams["'];?/, 'const Math3LimitDiagrams=()=>null;')
+    .replace(/import Math3DerivativeDiagrams from ["']\.\/Math3DerivativeDiagrams["'];?/, 'const Math3DerivativeDiagrams=()=>null;')
+    .replace(/import Math3ApplicationDiagrams from ["']\.\/Math3ApplicationDiagrams["'];?/, 'const Math3ApplicationDiagrams=()=>null;')
+    .replace(/import Math3IntegralDiagrams from ["']\.\/Math3IntegralDiagrams["'];?/, 'const Math3IntegralDiagrams=()=>null;')
+    .replace(/import Math3DefiniteDiagrams from ["']\.\/Math3DefiniteDiagrams["'];?/, 'const Math3DefiniteDiagrams=()=>null;')
+    .replace(/import Math3IntegralApplicationDiagrams from ["']\.\/Math3IntegralApplicationDiagrams["'];?/, 'const Math3IntegralApplicationDiagrams=()=>null;')
     .replace(/import Math3FunctionDiagrams from ["']\.\/Math3FunctionDiagrams["'];?/, 'const Math3FunctionDiagrams=()=>null;')
     .replace(/import IntegralDiagrams from ["']\.\/IntegralDiagrams["'];?/, 'const IntegralDiagrams=()=>null;');
   const {figures}=await import(url(compiled));
@@ -206,7 +555,10 @@ test('trigonometry diagrams cover examples with strict math and correctly placed
   const tableSource=readFileSync(new URL('../app/components/LessonTables.tsx',import.meta.url),'utf8');
   const tableCompiled=ts.transpileModule(tableSource,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
     .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
-    .replace(/import MathTable from ["']\.\/MathTable["'];?/, 'const MathTable=()=>null;');
+    .replace(/import MathTable from ["']\.\/MathTable["'];?/, 'const MathTable=()=>null;')
+    .replace('"../content/math3-chapter5-tables"',JSON.stringify(contentModule(new URL('../app/content/math3-chapter5-tables.ts',import.meta.url))))
+    .replace('"../content/math3-chapter6-tables"',JSON.stringify(contentModule(new URL('../app/content/math3-chapter6-tables.ts',import.meta.url))))
+    .replace('"../content/math3-chapter7-tables"',JSON.stringify(contentModule(new URL('../app/content/math3-chapter7-tables.ts',import.meta.url))));
   const {lessonTables}=await import(url(tableCompiled));
   walk(lessonTables);
   for(const list of Object.values(lessonTables))for(const table of list)for(const row of table.rows)assert.equal(row.length,table.headers.length);
