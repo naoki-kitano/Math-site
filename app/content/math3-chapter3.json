@@ -340,7 +340,7 @@
           "id": "root",
           "title": "共役な和で有理化",
           "text": "分子と分母へ同じ式を掛け、二乗の差で根号を消します。",
-          "tex": "\\frac{\\sqrt{1+x}-1}{x}=\\frac1{\\sqrt{1+x}+1}\\quad(x\\ne0)",
+          "tex": "\\frac{\\sqrt{1+x}-1}{x}=\\frac1{\\sqrt{1+x}+1}\\quad(x\\geqq-1,\\ x\\ne0)",
           "check": "この式の $x\\to0$ の極限は？",
           "answer": "$\\frac{1}{2}$。"
         },

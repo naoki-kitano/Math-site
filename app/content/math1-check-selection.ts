@@ -1,0 +1,64 @@
+// Reviewed question IDs, not array positions. Additional entries retain distinct
+// forms in the chapter practice; the second entry is the review alternate.
+export const math1CheckSelection:Record<string,Record<string,string[]>>={
+ "m1-real-numbers":{
+  classification:["p-classify","v-classify"],"finite-decimal":["p-negative-finite","v-finite"],
+  "repeating-decimal":["p-repeat-two","v-repeat"],"decimal-judgment":["p-infinite","v-judgment"],"insufficient-digits":["p-prefix","v-prefix"],
+ },
+ "m1-substitution":{
+  "power-scope":["p-scope","v-power"],"fraction-arithmetic":["p-fraction-sum","v-fraction"],
+  "integer-substitution":["p-negative-a","v-integer","p-zero"],"fraction-substitution":["p-fraction-b","v-sub-fraction"],
+  order:["p-order","v-brackets","p-brackets"],"left-to-right":["v-order","v-left-to-right"],
+ },
+ "m1-terms-degree":{
+  terms:["p-unit","v-fraction"],degree:["p-degree","v-degree","p-constant"],
+  variable:["p-variable-x","v-variable-y"],"zero-degree":["p-zero","v-zero"],
+ },
+ "m1-like-terms":{
+  signed:["v-signed-a","v-signed-c"],identify:["p-identify","v-identify-a"],collect:["p-mixed","p-fraction","p-cancel"],
+  brackets:["p-brackets-b","p-brackets-a","p-plus"],"sum-product":["p-product","v-product-b"],"subtract-negative":["v-signed-b","v-subtract-negative"],
+ },
+ "m1-distributive-expansion":{
+  multiply:["v-multiply-a","v-multiply-b"],collect:["v-collect-a","v-collect-b"],one:["p-negative","v-one","p-fraction"],
+  two:["p-two-c","v-two","p-two-variables"],three:["p-three","v-three"],
+ },
+ "m1-product-identities":{
+  multiply:["v-multiply-a","v-multiply-b"],distribute:["v-distribute-a","v-distribute-b"],
+  square:["p-square-minus","v-square-a","p-square-coefficient","p-square-fraction"],
+  conjugates:["p-conjugates-b","v-conjugates-a"],choice:["p-choice-a","v-choice-a","p-choice-b"],common:["p-common","v-common"],
+ },
+ "m1-common-factors":{common:["common-5","common-7"],complete:["complete-4","complete-6"]},
+ "m1-quadratic-factorization":{monic:["monic-3","monic-7","monic-2"],nonmonic:["nonmonic-4","nonmonic-6","nonmonic-2"]},
+ "m1-grouping":{group:["group-2","group-6"],four:["four-4","four-6"]},
+ "m1-square-roots":{
+  principal:["principal-3","principal-6"],"all-roots":["all-roots-2","all-roots-6"],
+  "real-domain":["real-domain-2","real-domain-3"],"zero-root":["all-roots-3","zero-root-extra-2"],
+ },
+ "m1-radical-calculation":{
+  simplify:["simplify-3","simplify-6"],sum:["sum-3","sum-6"],product:["product-3","product-5"],
+  quotient:["product-4","product-6"],"sum-invalid":["sum-invalid-1","sum-invalid-3"],
+  difference:["difference-extra-1","difference-extra-2"],"unlike-roots":["unlike-roots-extra-1","unlike-roots-extra-2"],
+ },
+ "m1-rationalizing":{single:["single-4","single-7","single-3"],conjugate:["conjugate-2","conjugate-6","conjugate-7"]},
+ "m1-absolute-distance":{
+  value:["value-4","value-7"],distance:["distance-2","distance-6"],interval:["interval-2","interval-4","interval-3"],
+  "zero-distance":["distance-4","zero-distance-extra-2"],
+ },
+ "m1-linear-inequalities":{
+  positive:["positive-3","positive-6"],negative:["negative-2","negative-6","negative-3"],
+  "both-sides":["both-sides-extra-1","both-sides-extra-2"],brackets:["brackets-extra-1","brackets-extra-2"],
+ },
+ "m1-simultaneous-inequalities":{
+  overlap:["overlap-2","overlap-6","overlap-3"],empty:["empty-2","empty-5","empty-3"],"solve-system":["solve-system-2","solve-system-6"],
+  singleton:["singleton-extra-1","singleton-extra-2"],"same-direction":["same-direction-extra-1","same-direction-extra-2"],
+ },
+ "m1-inequality-modeling":{
+  words:["words-extra-2","words-extra-1"],budget:["budget-3","budget-6","budget-2"],threshold:["threshold-3","threshold-7","threshold-2"],
+  "integer-words":["integer-words-extra-1","integer-words-extra-2"],
+ },
+};
+// These exact prerequisite banks are shared; all other choices are lesson-specific.
+export const math1SharedCheckSelection:Record<string,string[]>={
+ "number-product":["number-product-2","number-product-3"],expand:["expand-2","expand-3"],
+ "number-square":["number-square-2","number-square-3"],endpoints:["endpoints-2","endpoints-3"],
+};

@@ -8,6 +8,33 @@ const mathTwoChapters = [
   {name:"積分の考え",title:"第7章　積分の考え",id:"chapter-seven"},
 ];
 export const chapters = [
+  {name:"数と計算の基礎",title:"第1章　数と計算",id:"junior-chapter-one",subject:"中学数学" as const},
+  {name:"文字と式の基礎",title:"第2章　文字と式",id:"junior-chapter-two",subject:"中学数学" as const},
+  {name:"方程式と平方根の基礎",title:"第3章　方程式と平方根",id:"junior-chapter-three",subject:"中学数学" as const},
+  {name:"座標と関数の基礎",title:"第4章　座標と関数",id:"junior-chapter-four",subject:"中学数学" as const},
+  {name:"図形の基礎",title:"第5章　図形",id:"junior-chapter-five",subject:"中学数学" as const},
+  {name:"データと確率の基礎",title:"第6章　データと確率",id:"junior-chapter-six",subject:"中学数学" as const},
+  {name:"平面ベクトル",title:"第1章　平面ベクトル",id:"mathc-chapter-one",subject:"数学C" as const},
+  {name:"空間ベクトル",title:"第2章　空間ベクトル",id:"mathc-chapter-two",subject:"数学C" as const},
+  {name:"複素数平面",title:"第3章　複素数平面",id:"mathc-chapter-three",subject:"数学C" as const},
+  {name:"二次曲線",title:"第4章　二次曲線",id:"mathc-chapter-four",subject:"数学C" as const},
+  {name:"媒介変数と極座標",title:"第5章　媒介変数と極座標",id:"mathc-chapter-five",subject:"数学C" as const},
+  {name:"数学的な表現の工夫",title:"第6章　数学的な表現の工夫",id:"mathc-chapter-six",subject:"数学C" as const},
+  {name:"数列と和",title:"第1章　数列と和",id:"mathb-chapter-one",subject:"数学B" as const},
+  {name:"漸化式と数学的帰納法",title:"第2章　漸化式と数学的帰納法",id:"mathb-chapter-two",subject:"数学B" as const},
+  {name:"確率分布",title:"第3章　確率分布",id:"mathb-chapter-three",subject:"数学B" as const},
+  {name:"統計的な推測",title:"第4章　統計的な推測",id:"mathb-chapter-four",subject:"数学B" as const},
+  {name:"数学と社会生活",title:"第5章　数学と社会生活",id:"mathb-chapter-five",subject:"数学B" as const},
+  {name:"場合の数",title:"第1章　場合の数",id:"matha-chapter-one",subject:"数学A" as const},
+  {name:"確率",title:"第2章　確率",id:"matha-chapter-two",subject:"数学A" as const},
+  {name:"平面図形の性質",title:"第3章　平面図形の性質",id:"matha-chapter-three",subject:"数学A" as const},
+  {name:"作図と空間図形",title:"第4章　作図と空間図形",id:"matha-chapter-four",subject:"数学A" as const},
+  {name:"整数と数学の活用",title:"第5章　整数と数学の活用",id:"matha-chapter-five",subject:"数学A" as const},
+  {name:"数と式",title:"第1章　数と式",id:"math1-chapter-one",subject:"数学I" as const},
+  {name:"集合と命題",title:"第2章　集合と命題",id:"math1-chapter-two",subject:"数学I" as const},
+  {name:"二次関数",title:"第3章　二次関数",id:"math1-chapter-three",subject:"数学I" as const},
+  {name:"図形と計量",title:"第4章　図形と計量",id:"math1-chapter-four",subject:"数学I" as const},
+  {name:"データの分析",title:"第5章　データの分析",id:"math1-chapter-five",subject:"数学I" as const},
   ...mathTwoChapters.map(chapter=>({...chapter,subject:"数学II" as const})),
   {name:"関数を読むための基礎",title:"第1章　関数を読むための基礎",id:"math3-chapter-one",subject:"数学III" as const},
   {name:"数列の極限と無限級数",title:"第2章　数列の極限と無限級数",id:"math3-chapter-two",subject:"数学III" as const},
@@ -19,3 +46,4 @@ export const chapters = [
   {name:"積分の応用",title:"第8章　積分の応用",id:"math3-chapter-eight",subject:"数学III" as const},
 ];
 export const subjectForChapter=(name:string)=>chapters.find(c=>c.name===name)?.subject??"数学II";
+export const subjectPath=(subject:"数学I"|"数学II"|"数学III"|"数学A"|"数学B"|"数学C"|"中学数学")=>({"数学I":"/math-one","数学II":"/math-two","数学III":"/math-three","数学A":"/math-a","数学B":"/math-b","数学C":"/math-c","中学数学":"/junior"})[subject];

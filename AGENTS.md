@@ -1,6 +1,12 @@
 # MathCanvas implementation gates
 
+Latest user instruction (2026-09-23, whole-site audit and review system): agents are permitted again. Main owns implementation and rendered-math checks; use one read-only Astra reviewer at a time for mathematical/pedagogical checks. Preserve the theme, finish without repeated approval requests, and record actual coverage rather than claiming every interaction or every item was independently reviewed.
+
+Rendered-math gate: source TeX parsing is not proof of rendering. Check all subject index cards and lesson hero descriptions through the real display components; run the rendered-description regression in tests/learning.test.mjs and scripts/check-math-rendering.mjs. Inspect affected PC/mobile screenshots and bundled fonts. Fail on raw $ delimiters or TeX commands in rendered body text outside KaTeX, even when .math-error count is zero. Check dark-background formula contrast. A mathematical-content approval does not approve UI output. Do not claim display verification from HTTP200, page text, or absence of runtime errors alone.
+
 Read MATHCANVAS_QA.md before modifying this site. These requirements implement the user's repeated instructions, not optional styling suggestions.
+
+Problem-specific prerequisite gate (2026-09-23): read PREREQUISITE_SYSTEM.md when changing learning/review paths. Use the actual required operation, never title similarity. Distinguish supplied forms from derivation, applicability from calculation, and setup from evaluation. Validate the exact destination supplement and same-operation practice, including chapter/review copies. Keep explicit local repair when there is no appropriate probe. Run tests/prerequisites.test.mjs and audit-prerequisites.mjs; after UI changes run check-deep-review.mjs in dev and Pages-static modes. Preserve both the original exercise/review attribution and the immediate prerequisite trail. Passing a child probe never implies mastering its parent.
 
 - Teach genuinely recurring fundamentals: identify the object, choose an operation and explain why, show working, check conditions, then practice independently. Do not add contrived parameters or case splits.
 - Keep student-facing prose about mathematics and necessary controls. Do not display design rationales, module-production labels, or marketing explanations of the teaching system.

@@ -526,7 +526,7 @@ supplement("m3-derivative-definition","reciprocal","逆数の差商を通分す�
  q(m`定義から $f(x)=\frac{2}{x}$ の導関数を求めなさい。`,m`$f'(x)=-\frac{2}{x^2}$（$x\ne0$）。`,"",
  m`$\frac{[\frac{2}{x+h}-\frac{2}{x}]}{h}=-\frac{2}{[x(x+h)]}\to-\frac{2}{x^2}$。十分小さい $h$ では $x+h\ne0$ です。`));
 supplement("m3-derivative-definition","radical","根号の差商を有理化する",
- m`$x>0$ を固定します。根号の差に対応する和を掛けると、分子から $h$ をくくり出せます。$h\ne0$ の間で約分します。`,
+ m`$x>0$ を固定し、$0<|h|<\frac{x}{2}$ の範囲で考えます。このとき $x+h>0$ で、掛ける $\sqrt{x+h}+\sqrt{x}$ も正です。根号の差に対応する和を掛けると分子が $h$ になり、$h\ne0$ の間で約分できます。`,
  m`\frac{\sqrt{x+h}-\sqrt{x}}h=\frac1{\sqrt{x+h}+\sqrt{x}}\longrightarrow\frac1{2\sqrt{x}}`,
  q(m`定義から $f(x)=\sqrt{x}$ を $x>0$ で微分しなさい。`,m`$f'(x)=\frac{1}{2\sqrt{x}}$`,"",
  m`分子・分母に $\sqrt{x+h}+\sqrt{x}$ を掛けると、分子は $h$。約分後の分母は $2\sqrt{x}$ へ近づきます。`));

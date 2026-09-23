@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import ReviewGuide from "./ReviewGuide";
 import Link from "./SiteLink";
-import { lessons, type Exercise, type Step } from "../content/lessons";
+import { type Exercise, type Step } from "../content/lessons";
 import { MathText, Formula } from "./MathText";
 import { useProgress } from "./Progress";
 import { matchesNumber, historyFor, type Outcome } from "../lib/progress";
@@ -26,6 +27,7 @@ function Question({item,label,index,total,next}:{item:QueueItem;label:string;ind
   const hints=q.lesson==="rational"&&q.kind==="paper"?[...q.hints,"元の分母をゼロにする値も、忘れずに除きます。"]:q.hints;
   const [choice,setChoice]=useState<number|null>(null),[input,setInput]=useState(""),[hint,setHint]=useState(0);
   const [revealed,setRevealed]=useState(false),[paperDone,setPaperDone]=useState(false);
+  const [helpOpen,setHelpOpen]=useState(false),[usedHelp,setUsedHelp]=useState(false);
   const [outcome,setOutcome]=useState<Outcome|null>(null),[invalid,setInvalid]=useState("");
   const heading=useRef<HTMLHeadingElement>(null),recorded=useRef(false),previewed=useRef(false);
   const attemptId=useRef<string|null>(null);
@@ -47,9 +49,9 @@ function Question({item,label,index,total,next}:{item:QueueItem;label:string;ind
     if(q.kind==="number"&&!/^[+-]?\d+(?:\.\d+)?$/.test(input.normalize("NFKC").replace(/−/g,"-").trim())){setInvalid("数を入力してください。");return;}
     setInvalid("");setRevealed(true);
     const ok=q.kind==="choice"?choice===q.correct:matchesNumber(input,q.correct!);
-    record(ok?(hint?"assisted":"independent"):"retry");
+    record(ok?(hint||usedHelp?"assisted":"independent"):"retry");
   };
-  const repair=lessons.find(l=>l.slug===q.lesson)!.supplements.find(s=>s.id===q.repair)!;
+
   return <article className="question" data-question-id={q.id}>
     <div className="question-head"><span>{label}</span><span>{index+1} / {total}</span></div>
     <div className="progress-track" role="progressbar" aria-label="回答済み" aria-valuemin={0} aria-valuemax={total} aria-valuenow={index}><div className="progress-fill" style={{width:(index/total*100)+"%"}}/></div>
@@ -65,11 +67,12 @@ function Question({item,label,index,total,next}:{item:QueueItem;label:string;ind
     </div>}
     {hint>0&&<div className="hint"><strong>ヒント</strong>{hints.slice(0,hint).map((h,i)=><p key={i}><MathText text={h}/></p>)}</div>}
     {revealed&&<div className="feedback" aria-live="polite">
-      <h4>{outcome==="retry"?"途中式を確かめよう":outcome==="independent"?"自力でできました":outcome==="assisted"?"ヒントを使ってできました":"解答"}</h4>
+      <h4>{outcome==="retry"?"途中式を確かめよう":outcome==="independent"?"自力でできました":outcome==="assisted"?"説明を使ってできました":"解答"}</h4>
       <p><MathText text={q.answer}/></p><Steps steps={q.steps}/>
-      {q.kind==="paper"&&paperDone&&!outcome&&<><p>答えだけでなく、途中式・理由・必要な条件も比べてください。</p><div className="ratings"><button className="button" onClick={()=>record(hint?"assisted":"independent")}>{hint?"ヒントを使って解けた":"自力で解けた"}</button><button className="button secondary" onClick={()=>record("retry")}>もう一度解く</button></div><small>紙で解いた結果は自己評価として記録します。</small></>}
-      {(outcome&&outcome!=="independent")&&<details className="supplement"><summary>{repair.title}</summary><p><MathText text={repair.text}/></p><Formula tex={repair.tex} display/><p><MathText text={repair.check}/></p><details><summary>確認する</summary><p><MathText text={repair.answer}/></p></details><Link className="text-link" href={"/learn/"+q.lesson+"#basics"}>説明を読み直す</Link></details>}
+      {q.kind==="paper"&&paperDone&&!outcome&&<><p>答えだけでなく、途中式・理由・必要な条件も比べてください。</p><div className="ratings"><button className="button" onClick={()=>record(hint||usedHelp?"assisted":"independent")}>{hint||usedHelp?"説明を使って解けた":"自力で解けた"}</button><button className="button secondary" onClick={()=>record("retry")}>もう一度解く</button></div><small>紙で解いた結果は自己評価として記録します。</small></>}
+
     </div>}
+    {outcome!=="independent"&&<div className="question-help">{!helpOpen?<button className="button secondary" onClick={()=>{preview();setUsedHelp(true);setHelpOpen(true);}}>復習するところを探す</button>:<ReviewGuide exercise={q} reviewOf={item.reviewOf} onClose={()=>setHelpOpen(false)}/>}</div>}
     {outcome&&<div className="actions"><button className="button" onClick={next}>{index+1===total?"結果へ":"次の問題へ"} <span aria-hidden="true">→</span></button></div>}
   </article>;
 }

@@ -1,0 +1,10 @@
+import {numberBanks,numberChapter} from "./junior-numbers";
+import {algebraBanks,algebraChapter} from "./junior-algebra";
+import {equationBanks,equationChapter} from "./junior-equations";
+import {functionBanks,functionChapter} from "./junior-functions";
+import {geometryBanks,geometryChapter} from "./junior-geometry";
+import {dataBanks,dataChapter} from "./junior-data";
+export const juniorBanks=[...numberBanks,...algebraBanks,...equationBanks,...functionBanks,...geometryBanks,...dataBanks];
+const all=[numberChapter,algebraChapter,equationChapter,functionChapter,geometryChapter,dataChapter];
+export const juniorLessons=all.flatMap(c=>c.lessons);
+export const juniorExercises=all.flatMap(c=>c.exercises);

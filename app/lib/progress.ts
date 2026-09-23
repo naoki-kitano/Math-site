@@ -1,4 +1,5 @@
 import { exerciseById, exercises } from "../content/lessons";
+import {legacyReviewGroups,preferredReviewIds} from "../content/review-family-refinement";
 export const STORAGE_KEY = "mathcanvas.math2.progress.v1";
 export type Outcome = "independent" | "assisted" | "seen" | "retry";
 export type Attempt = { id:string; exerciseId:string; at:number; outcome:Outcome; method:"auto"|"self"; reviewOf?:string };
@@ -11,7 +12,8 @@ export function validAttempt(a: unknown): a is Attempt {
   if(x.reviewOf!==undefined){
     if(typeof x.reviewOf!=="string"||!Object.hasOwn(exerciseById,x.reviewOf))return false;
     const source=exerciseById[x.exerciseId],target=exerciseById[x.reviewOf];
-    if(source.lesson!==target.lesson||source.family!==target.family)return false;
+    const legacy=legacyReviewGroups.has(source.id)&&legacyReviewGroups.get(source.id)===legacyReviewGroups.get(target.id);
+    if(source.lesson!==target.lesson||source.kind!==target.kind||source.family!==target.family&&!legacy)return false;
   }
   return typeof x.id==="string" && x.id.length>0 && x.id.length<100 && Number.isFinite(x.at) && x.at>0 && x.at<=Date.now()+DAY
     && ["independent","assisted","seen","retry"].includes(x.outcome) && ["auto","self"].includes(x.method)
@@ -39,7 +41,9 @@ export function historyFor(id:string, attempts:Attempt[]) {
   return attempts.filter(a=>(a.reviewOf??a.exerciseId)===id).sort((a,b)=>a.at-b.at||a.id.localeCompare(b.id));
 }
 export function stateFor(id:string,attempts:Attempt[],now=Date.now()) {
-  const history=historyFor(id,attempts), last=history.at(-1);
+  // Preserve old records, but a legacy alternate from a different refined
+  // decision is not evidence of independent success on this decision.
+  const history=historyFor(id,attempts).map(a=>a.reviewOf&&exerciseById[a.exerciseId].family!==exerciseById[a.reviewOf].family?{...a,outcome:"seen" as const}:a), last=history.at(-1);
   if(!last)return {label:"未回答",due:false,dueAt:0,needsHelp:false,retained:false};
   const breakAt=history.findLastIndex(a=>a.outcome!=="independent");
   const wins=history.slice(breakAt+1).filter(a=>a.outcome==="independent");
@@ -49,7 +53,8 @@ export function stateFor(id:string,attempts:Attempt[],now=Date.now()) {
   return {label:needsHelp?"もう一度":retained?"日を空けて確認":"自力でできた",due:dueAt<=now,dueAt,needsHelp,retained};
 }
 export function attemptedExercises(attempts:Attempt[]) {
-  return exercises.filter(e=>attempts.some(a=>(a.reviewOf??a.exerciseId)===e.id));
+  const ids=new Set(attempts.map(a=>a.reviewOf??a.exerciseId));
+  return exercises.filter(e=>ids.has(e.id));
 }
 export function dueExercises(attempts:Attempt[],now=Date.now()) {
   return attemptedExercises(attempts).filter(e=>stateFor(e.id,attempts,now).due).sort((a,b)=>stateFor(a.id,attempts,now).dueAt-stateFor(b.id,attempts,now).dueAt);
@@ -57,7 +62,9 @@ export function dueExercises(attempts:Attempt[],now=Date.now()) {
 export function alternateFor(id:string, attempts:Attempt[] = []) {
   const source=exerciseById[id];
   const last=historyFor(id,attempts).at(-1);
-  const candidates=exercises.filter(e=>e.id!==id&&e.lesson===source.lesson&&e.family===source.family&&(e.stage==="review"||e.stage==="practice"));
+  const compatible=exercises.filter(e=>e.id!==id&&e.lesson===source.lesson&&e.family===source.family&&(e.stage==="review"||e.stage==="practice"));
+  const preferred=compatible.filter(e=>preferredReviewIds.has(e.id));
+  const candidates=preferred.length?preferred:compatible;
   return candidates.find(e=>e.id!==last?.exerciseId&&e.stage==="review")
     ?? candidates.find(e=>e.id!==last?.exerciseId)
     ?? candidates[0];

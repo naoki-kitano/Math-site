@@ -1,8 +1,22 @@
 import MathTable, {type MathTableData} from "./MathTable";
+import {mathBTables} from "../content/mathb-tables";
 import {math3ApplicationTables} from "../content/math3-chapter5-tables";
 import {math3IntegralTables} from "../content/math3-chapter6-tables";
 import {math3DefiniteTables} from "../content/math3-chapter7-tables";
+import {math1LogicTables} from "../content/math1-logic-tables";
+import {math1TrigTables} from "../content/math1-trig-tables";
+import {math1DataTables} from "../content/math1-data-tables";
+import {mathACountingTables} from "../content/matha-counting-tables";
+import {mathAProbabilityTables} from "../content/matha-probability-tables";
+import {mathAIntegerTables} from "../content/matha-integer-tables";
 export const lessonTables:Record<string,MathTableData[]>={
+ ...mathBTables,
+ ...mathACountingTables,
+ ...mathAProbabilityTables,
+ ...mathAIntegerTables,
+ ...math1LogicTables,
+ ...math1TrigTables,
+ ...math1DataTables,
  ...math3ApplicationTables,
  ...math3IntegralTables,
  ...math3DefiniteTables,

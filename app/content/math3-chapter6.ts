@@ -340,7 +340,7 @@ add("partial-fractions","部分分数分解と積分","分数を基本的な分�
 ],m`分ける形を置く → 通分して分子の恒等式を作る → 係数を決める → 積分する。元の分母の条件を残します。`,[
  example("二つの逆数へ分ける",iq("partial-fractions",m`\dfrac1{x(x+1)}`,m`\log|x|-\log|x+1|`,m`$-1,0$ を含まない区間。`,m`$\dfrac A x+\dfrac B{x+1}$ と置きます。`,m`$1=A(x+1)+Bx$ より $A=1$、$A+B=0$、$B=-1$。`,m`(\log|x|-\log|x+1|+C)'=\dfrac1x-\dfrac1{x+1}=\dfrac1{x(x+1)}`)),
  example("差の係数を調整する",iq("partial-fractions",m`\dfrac1{x(x+2)}`,m`\dfrac12\log|x|-\dfrac12\log|x+2|`,m`$-2,0$ を含まない区間。`,m`二つの逆数の差を通分してみます。`,m`$\dfrac1x-\dfrac1{x+2}=\dfrac2{x(x+2)}$ なので半分にします。`,m`(\dfrac12\log|x|-\dfrac12\log|x+2|+C)'=\dfrac1{x(x+2)}`))
-],[s("partial-fractions","通分して係数を決める",m`分けた式が元の式と等しいことは、通分して確かめます。分子の恒等式として係数を決めるので、数点の近似値で同じと決める方法ではありません。`,m`\frac1{x(x+1)}=\frac1x-\frac1{x+1}`,m`この式を積分すると？`,m`$\log|x|-\log|x+1|+C$。$-1,0$ を含まない区間で考え、微分して通分すると元に戻ります。`)],[
+],[s("partial-fractions","通分して係数を決める",m`元の分母から $x\ne0,-1$ が必要です。$\frac A x+\frac B{x+1}$ と置いて通分すると、分子は $A(x+1)+Bx=(A+B)x+A$。これが常に $1$ となるには $A+B=0,A=1$、よって $B=-1$ です。分子の恒等式として係数を決め、通分で確かめます。`,m`\frac1{x(x+1)}=\frac1x-\frac1{x+1}`,m`$-1,0$ を含まない区間で、この式を積分しなさい。`,m`$\log|x|-\log|x+1|+C$。$-1,0$ を含まない区間で考え、微分して通分すると元に戻ります。`)],[
  iq("partial-fractions",m`\dfrac1{x(x-1)}`,m`-\log|x|+\log|x-1|`,m`$0,1$ を含まない区間。`,m`$\dfrac A x+\dfrac B{x-1}$ を通分します。`,m`$1=A(x-1)+Bx$ より $A=-1,B=1$。`,m`(-\log|x|+\log|x-1|+C)'=\dfrac1{x(x-1)}`),
  iq("partial-fractions",m`\dfrac2{x(x+2)}`,m`\log|x|-\log|x+2|`,m`$-2,0$ を含まない区間。`,m`逆数の差で分子が $2$ になります。`,m`$\dfrac2{x(x+2)}=\dfrac1x-\dfrac1{x+2}$。`,m`(\log|x|-\log|x+2|+C)'=\dfrac2{x(x+2)}`)
 ],[

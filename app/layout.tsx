@@ -7,8 +7,8 @@ import { sitePath } from "./lib/site-path";
 
 
 export const metadata: Metadata = {
-  title: { default: "数学II・数学III | MathCanvas", template: "%s | MathCanvas" },
-  description: "数学II・数学IIIの基礎を、考え方と途中式が分かる例題・練習・後日の復習で学ぶMathCanvas。",
+  title: { default: "高校数学と中学の基礎 | MathCanvas", template: "%s | MathCanvas" },
+  description: "数学I・A・II・B・III・Cと中学数学の基礎を、考え方と途中式が分かる例題・練習・復習で学ぶMathCanvas。",
   icons: {
     icon: sitePath("/favicon.svg"),
     shortcut: sitePath("/favicon.svg"),

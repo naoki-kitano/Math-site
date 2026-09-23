@@ -1,3 +1,3 @@
 import SubjectIndex from "../components/SubjectIndex";
-export const metadata={title:"数学II | MathCanvas"};
+export const metadata={title:"数学II"};
 export default function MathTwo(){return <SubjectIndex subject="数学II"/>;}

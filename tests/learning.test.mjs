@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import ts from 'typescript';
 import katex from 'katex';
 import {createRequire} from 'node:module';
@@ -19,20 +19,108 @@ function contentModule(file){
 }
 const contentURL = contentModule(new URL('../app/content/lessons.ts',import.meta.url));
 const {lessons,exercises,exerciseById} = await import(contentURL);
-const progress = await import(url(compile('../app/lib/progress.ts').replace('"../content/lessons"',JSON.stringify(contentURL))));
+const progress = await import(url(compile('../app/lib/progress.ts').replace('"../content/lessons"',JSON.stringify(contentURL)).replace('"../content/review-family-refinement"',JSON.stringify(contentModule(new URL('../app/content/review-family-refinement.ts',import.meta.url))))));
 const {DAY,parseBackup,mergeAttempts,stateFor,historyFor,attemptedExercises,alternateFor,matchesNumber,dueExercises} = progress;
 const at = Date.now()-10*DAY;
+const layout=await import(url(compile('../app/lib/lesson-layout.ts')));
+const {subjectPath}=await import(contentModule(new URL('../app/content/chapters.ts',import.meta.url)));
 const attempt=(id,exerciseId,outcome='independent',offset=0,reviewOf)=>({id,exerciseId,outcome,at:at+offset,method:exerciseById[exerciseId].kind==='paper'?'self':'auto',...(reviewOf?{reviewOf}:{})});
 
+test('function explanations identify the base graph and home starts with junior mathematics',()=>{
+ const home=readFileSync(new URL('../app/components/Home.tsx',import.meta.url),'utf8');
+ assert.ok(home.indexOf('<h2>中学数学</h2>')<home.indexOf('<h2>数学I</h2>'));
+ const radical=lessons.find(l=>l.slug==='m3-radical-functions');
+ const text=JSON.stringify(radical);
+ assert.ok(text.includes('基準'));
+ const question=exerciseById['m3-radical-functions-5-v1'];
+ assert.ok(question.prompt.includes(String.raw`$y=\sqrt{x}$`));
+ assert.match(JSON.stringify(question),/\(0,-3\)/);
+ const rational=lessons.find(l=>l.slug==='m3-rational-functions');
+ assert.ok(!JSON.stringify(rational).includes('枝'));
+ assert.ok(JSON.stringify(rational).includes('dfrac'));
+ const figure=readFileSync(new URL('../app/components/Math3FunctionDiagrams.tsx',import.meta.url),'utf8');
+ assert.ok(figure.includes('移動前')&&figure.includes('移動後'));
+});
+
+test('junior prerequisite routes exist across all subjects and preserve saved progress',async()=>{
+ const {foundationMap,foundationsFor}=await import(contentModule(new URL('../app/content/foundation-links.ts',import.meta.url)));
+ const subjects=new Set();
+ for(const [slug,targets]of Object.entries(foundationMap)){
+  const source=lessons.find(l=>l.slug===slug);assert.ok(source,'missing foundation source '+slug);
+  subjects.add(source.subject??'数学II');
+  for(const target of targets)assert.ok(lessons.some(l=>l.slug===target),target);
+ }
+ for(const s of ['数学I','数学A','数学II','数学B','数学III','数学C','中学数学'])assert.ok(subjects.has(s),s);
+ const qs=exercises.filter(e=>e.lesson.startsWith('jr-'));
+ for(const q of qs){
+  const alt=alternateFor(q.id,[],Date.now());
+  assert.ok(alt&&alt.id!==q.id&&alt.family===q.family,q.id);
+  assert.ok(foundationsFor(q).length<=2);
+ }
+ const {default:Diagram}=await import(displayModule(new URL('../app/components/JuniorDiagrams.tsx',import.meta.url)));
+ for(const l of lessons.filter(l=>l.slug.startsWith('jr-'))){
+  const html=renderToStaticMarkup(React.createElement(Diagram,{slug:l.slug,index:0}));
+  assert.ok(!html.includes('math-error')&&!html.includes('katex-error'),l.slug);
+ }
+ const seen=attempt('junior-seen',qs[0].id,'seen');
+ assert.notEqual(stateFor(qs[0].id,[seen],Date.now()),'mastered');
+});
+
+// Exercise the real display consumers, not just KaTeX parsing of source strings.
+// Share the loaded catalogue instead of embedding its multi-megabyte data URL recursively
+// in every client component. This is the same object used by the assertions above.
+globalThis.__mathcanvasDisplayContent={lessons,exercises,exerciseById};
+const displayContentURL=url('export const {lessons,exercises,exerciseById}=globalThis.__mathcanvasDisplayContent;');
+const displayCache=new Map();
+function displayModule(file){
+ if(file.href===new URL('../app/content/lessons.ts',import.meta.url).href)return displayContentURL;
+ if(displayCache.has(file.href))return displayCache.get(file.href);
+ const compiled=ts.transpileModule(readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;
+ const result=url(compiled.replace(/from\s+["']([^"']+)["']/g,(_,p)=>{
+  if(p==='../content/lessons')return 'from '+JSON.stringify(displayContentURL);
+  if(p==='./Practice')return 'from '+JSON.stringify(url('export const Practice=()=>null;export const Steps=()=>null;'));
+  if(['./LessonDiagrams','./LessonTables','./MathOneDiagrams'].includes(p))return 'from '+JSON.stringify(url('export default ()=>null;'));
+  return 'from '+JSON.stringify(p.startsWith('.')?displayModule(new URL(p+(existsSync(new URL(p+'.tsx',file))?'.tsx':'.ts'),file)):import.meta.resolve(p));
+ }));
+ displayCache.set(file.href,result);return result;
+}
+test('every subject card and lesson hero actually typesets its math description',async()=>{
+ const {default:SubjectIndex}=await import(displayModule(new URL('../app/components/SubjectIndex.tsx',import.meta.url)));
+ const {default:LessonView}=await import(displayModule(new URL('../app/components/LessonView.tsx',import.meta.url)));
+ const {ProgressProvider}=await import(displayModule(new URL('../app/components/Progress.tsx',import.meta.url)));
+ const {MathText}=await import(displayModule(new URL('../app/components/MathText.tsx',import.meta.url)));
+ const indices=Object.fromEntries(['数学I','数学A','数学II','数学B','数学III','数学C','中学数学'].map(subject=>[subject,renderToStaticMarkup(React.createElement(SubjectIndex,{subject}))]));
+ let checked=0;
+ for(const lesson of lessons.filter(l=>l.description.includes('$'))){
+  const expected=renderToStaticMarkup(React.createElement(MathText,{text:lesson.description}));
+  assert.ok(indices[lesson.subject??'数学II'].includes(expected),'raw description in subject card: '+lesson.slug);
+  const html=renderToStaticMarkup(React.createElement(ProgressProvider,null,React.createElement(LessonView,{lesson})));
+  const hero=html.slice(0,html.indexOf('</section>'));
+  assert.ok(hero.includes(expected),'raw description in lesson hero: '+lesson.slug);
+  checked++;
+ }
+ assert.ok(checked>=3,'test must cover real formula-bearing descriptions');
+});
+
+test('every math table caption uses the same typesetter as its cells',async()=>{
+ const {lessonTables}=await import(displayModule(new URL('../app/components/LessonTables.tsx',import.meta.url)));
+ const {default:MathTable}=await import(displayModule(new URL('../app/components/MathTable.tsx',import.meta.url)));
+ const {MathText}=await import(displayModule(new URL('../app/components/MathText.tsx',import.meta.url)));
+ for(const tables of Object.values(lessonTables))for(const table of tables){
+  const expected=renderToStaticMarkup(React.createElement(MathText,{text:table.caption}));
+  const html=renderToStaticMarkup(React.createElement(MathTable,table));
+  assert.ok(html.includes('<caption>'+expected+'</caption>'),'unprocessed caption: '+table.caption);
+ }
+});
 test('each published lesson is complete and every exercise has a valid answer and repair',()=>{
-  assert.equal(lessons.length,187); assert.equal(exercises.length,2743);
+  assert.equal(lessons.length,466); assert.equal(exercises.filter(e=>!e.lesson.startsWith('m1-')&&!e.lesson.startsWith('ma-')&&!e.lesson.startsWith('mb-')&&!e.lesson.startsWith('mc-')&&!e.lesson.startsWith('jr-')).length,2751);
   assert.equal(new Set(exercises.map(e=>e.id)).size,exercises.length);
   for(const l of lessons){
     assert.ok(l.examples.length>=2,l.slug);
     const checkCount=l.slug==='m3-function-limits-check'?11:l.slug==='m3-sequences-check'?10:l.slug==='chapter-one-check'?11:l.slug==='chapter-two-check'?9:l.slug==='chapter-four-check'?16:l.slug==='chapter-seven-check'?12:0;
     for(const [stage,count] of [['ready',2],['guided',2],['practice',checkCount||6],['review',checkCount||2]]) {
       const actual=exercises.filter(e=>e.lesson===l.slug&&e.stage===stage).length;
-      if(l.subject==='数学III'||(['図形と方程式','指数関数・対数関数','微分の考え','積分の考え'].includes(l.chapter)&&l.slug!=='points')||l.slug==='trig-synthesis')assert.ok(actual>=count,l.slug+' '+stage);
+      if(l.subject==='数学I'||l.subject==='数学III'||l.subject==='数学A'||l.subject==='数学B'||l.subject==='数学C'||l.subject==='中学数学'||(['図形と方程式','指数関数・対数関数','微分の考え','積分の考え'].includes(l.chapter)&&l.slug!=='points')||l.slug==='trig-synthesis')assert.ok(actual>=count,l.slug+' '+stage);
       else assert.equal(actual,count,l.slug+' '+stage);
     }
   }
@@ -43,6 +131,102 @@ test('each published lesson is complete and every exercise has a valid answer an
     if(e.kind==='number')assert.ok(Number.isFinite(e.correct),e.id);
   }
 });
+
+test('math I uses complete explicit guided groups and chapter-check sections without changing old layouts',()=>{
+  const one=lessons.filter(l=>l.subject==='数学I');
+  assert.equal(one.length,78);
+  assert.equal(subjectPath('数学I'),'/math-one');
+  assert.equal(subjectPath('数学II'),'/math-two');
+  assert.equal(subjectPath('数学III'),'/math-three');
+  for(const lesson of lessons) {
+    const items=exercises.filter(e=>e.lesson===lesson.slug);
+    if(lesson.guidedAfterExamples) {
+      const guided=items.filter(e=>e.stage==='guided');
+      const shown=lesson.examples.flatMap((e,i)=>layout.guidedForExample(e,i,guided));
+      assert.deepEqual(shown.map(e=>e.id).sort(),guided.map(e=>e.id).sort(),lesson.slug);
+    }
+    if(lesson.subject==='数学I')for(const e of items) {
+      const alternate=alternateFor(e.id);
+      assert.ok(alternate,e.id);
+      assert.equal(alternate.family,e.family);
+      assert.equal(alternate.lesson,e.lesson);
+      assert.notEqual(alternate.id,e.id);
+      assert.notEqual(alternate.prompt,e.prompt,e.id+' needs a different question, not only a different ID');
+    }
+  }
+  const check=one.find(l=>l.slug==='m1-number-expression-check');
+  assert.equal(check.practiceGroups.length,4);
+  const practice=exercises.filter(e=>e.lesson===check.slug&&e.stage==='practice');
+  const grouped=check.practiceGroups.flatMap(g=>layout.practiceForGroup(check,g.id,practice));
+  assert.equal(new Set(grouped.map(e=>e.id)).size,practice.length);
+  assert.equal(grouped.length,practice.length);
+  assert.deepEqual(layout.practiceForGroup(check,'all',practice),practice);
+  const old=lessons.find(l=>l.slug==='rational');
+  const original=exercises.filter(e=>e.lesson===old.slug&&e.stage==='practice');
+  assert.deepEqual(layout.practiceForGroup(old,'all',original),original);
+});
+
+test('math I and existing records coexist under the same backup format and review attribution',()=>{
+  const ids=['rational','m3-function-input','m1-common-factors'].map(slug=>exercises.find(e=>e.lesson===slug).id);
+  const saved=ids.map((id,i)=>attempt('three-subjects-'+i,id));
+  assert.deepEqual(parseBackup(JSON.stringify({version:1,attempts:saved})),saved);
+  const original=exercises.find(e=>e.lesson==='m1-rationalizing'&&e.stage==='practice');
+  const alternate=alternateFor(original.id);
+  const answer=attempt('math1-review',alternate.id,'independent',DAY,original.id);
+  const history=[...saved,answer];
+  assert.equal(historyFor(original.id,history).length,1);
+  assert.equal(historyFor(alternate.id,history).length,0);
+});
+
+test('math A integrates without changing old backup records and keeps all review decisions',()=>{
+ assert.equal(subjectPath('数学A'),'/math-a');
+ const a=exercises.find(e=>e.lesson==='ma-grouping'&&e.stage==='practice');
+ const old=exercises.find(e=>e.lesson==='rational');
+ const saved=[attempt('a-record',a.id),attempt('old-record',old.id)];
+ assert.deepEqual(parseBackup(JSON.stringify({version:1,attempts:saved})),saved);
+ for(const e of exercises.filter(e=>e.lesson.startsWith('ma-'))){
+  const alt=alternateFor(e.id);
+  assert.ok(alt,e.id);assert.equal(alt.family,e.family);assert.equal(alt.lesson,e.lesson);
+  assert.notEqual(alt.prompt,e.prompt,e.id);
+ }
+ const alt=alternateFor(a.id),entry=attempt('a-review',alt.id,'independent',DAY,a.id);
+ assert.equal(historyFor(a.id,[entry]).length,1);
+ assert.equal(historyFor(alt.id,[entry]).length,0);
+});
+test('math B integrates with the same records and keeps review attribution',()=>{
+ assert.equal(subjectPath('数学B'),'/math-b');
+ const b=exercises.find(e=>e.lesson==='mb-one-sided-test'&&e.stage==='practice');
+ const old=exercises.find(e=>e.lesson==='rational');
+ const saved=[attempt('b-record',b.id),attempt('old-b-record',old.id)];
+ assert.deepEqual(parseBackup(JSON.stringify({version:1,attempts:saved})),saved);
+ for(const e of exercises.filter(e=>e.lesson.startsWith('mb-'))){
+  const alt=alternateFor(e.id);
+  assert.ok(alt,e.id);assert.equal(alt.family,e.family);assert.equal(alt.lesson,e.lesson);assert.notEqual(alt.prompt,e.prompt,e.id);
+ }
+ const alt=alternateFor(b.id),entry=attempt('b-review',alt.id,'independent',DAY,b.id);
+ assert.equal(historyFor(b.id,[entry]).length,1);assert.equal(historyFor(alt.id,[entry]).length,0);
+ for(const l of lessons.filter(l=>l.subject==='数学B'))for(const p of l.prerequisites??[])assert.ok(lessons.some(x=>x.slug===p.slug),p.slug);
+});
+test('math C integrates with existing progress and renders every new diagram',async()=>{
+ assert.equal(subjectPath('数学C'),'/math-c');
+ const e=exercises.find(e=>e.lesson==='mc-vector-angle'&&e.family==='angle-condition'&&e.stage==='practice');
+ const saved=[attempt('c-record',e.id),attempt('old-c-record',exercises.find(e=>e.lesson==='rational').id)];
+ assert.deepEqual(parseBackup(JSON.stringify({version:1,attempts:saved})),saved);
+ for(const e of exercises.filter(e=>e.lesson.startsWith('mc-'))){
+  const a=alternateFor(e.id);assert.ok(a,e.id);assert.equal(a.family,e.family);assert.equal(a.lesson,e.lesson);assert.notEqual(a.prompt,e.prompt,e.id);
+ }
+ const a=alternateFor(e.id),entry=attempt('c-review',a.id,'independent',DAY,e.id);
+ assert.equal(historyFor(e.id,[entry]).length,1);assert.equal(historyFor(a.id,[entry]).length,0);
+ const {default:Diagrams}=await import(displayModule(new URL('../app/components/MathCDiagrams.tsx',import.meta.url)));
+ let count=0;
+ for(const l of lessons.filter(l=>l.subject==='数学C'))for(let index=0;index<l.examples.length;index++){
+  const html=renderToStaticMarkup(React.createElement(Diagrams,{slug:l.slug,index}));
+  assert.ok(!html.includes('math-error'),l.slug+' '+index);
+  if(html){assert.ok(html.includes('katex'),l.slug);count++;}
+ }
+ assert.equal(count,16);
+});
+
 test('math III chapter preserves exercise volume, prerequisites and same-skill review',()=>{
   const chapter=lessons.filter(l=>l.chapter==='関数を読むための基礎');
   assert.equal(chapter.length,9);
@@ -63,20 +247,20 @@ test('math III chapter preserves exercise volume, prerequisites and same-skill r
   // Preserve both subjects in the same validated backup without changing IDs.
   assert.deepEqual(parseBackup(JSON.stringify({version:1,attempts:saved})),saved);
 });
-test('math III sequences cover ten skills and preserve compatible review variants',()=>{
+test('math III sequences cover eleven decisions and preserve compatible review variants',()=>{
  const chapter=lessons.filter(l=>l.chapter==='数列の極限と無限級数');
  assert.equal(chapter.length,11);
  for(const l of chapter){
   const qs=exercises.filter(e=>e.lesson===l.slug);
-  assert.equal(qs.length,l.slug==='m3-sequences-check'?24:12);
+  assert.equal(qs.length,l.slug==='m3-sequences-check'?28:l.slug==='m3-sequence-radical-limit'?16:12);
   for(const q of qs){
    const alt=alternateFor(q.id);
    assert.ok(alt,q.id);assert.equal(alt.lesson,q.lesson);assert.equal(alt.family,q.family);
   }
  }
  const check=exercises.filter(e=>e.lesson==='m3-sequences-check');
- assert.equal(new Set(check.filter(e=>e.stage==='practice').map(e=>e.family)).size,10);
- assert.equal(new Set(check.filter(e=>e.stage==='review').map(e=>e.family)).size,10);
+ assert.equal(new Set(check.filter(e=>e.stage==='practice').map(e=>e.family)).size,11);
+ assert.equal(new Set(check.filter(e=>e.stage==='review').map(e=>e.family)).size,11);
 });
 test('function limits cover eleven skills with same-skill alternate practice',()=>{
  const chapter=lessons.filter(l=>l.chapter==='関数の極限と連続性');
@@ -558,6 +742,13 @@ test('trigonometry diagrams cover examples with strict math and correctly placed
     .replace(/import MathTable from ["']\.\/MathTable["'];?/, 'const MathTable=()=>null;')
     .replace('"../content/math3-chapter5-tables"',JSON.stringify(contentModule(new URL('../app/content/math3-chapter5-tables.ts',import.meta.url))))
     .replace('"../content/math3-chapter6-tables"',JSON.stringify(contentModule(new URL('../app/content/math3-chapter6-tables.ts',import.meta.url))))
+    .replace('"../content/math1-logic-tables"',JSON.stringify(contentModule(new URL('../app/content/math1-logic-tables.ts',import.meta.url))))
+    .replace('"../content/math1-trig-tables"',JSON.stringify(contentModule(new URL('../app/content/math1-trig-tables.ts',import.meta.url))))
+    .replace('"../content/math1-data-tables"',JSON.stringify(contentModule(new URL('../app/content/math1-data-tables.ts',import.meta.url))))
+    .replace('"../content/matha-counting-tables"',JSON.stringify(contentModule(new URL('../app/content/matha-counting-tables.ts',import.meta.url))))
+    .replace('"../content/matha-probability-tables"',JSON.stringify(contentModule(new URL('../app/content/matha-probability-tables.ts',import.meta.url))))
+    .replace('"../content/mathb-tables"',JSON.stringify(contentModule(new URL('../app/content/mathb-tables.ts',import.meta.url))))
+    .replace('"../content/matha-integer-tables"',JSON.stringify(contentModule(new URL('../app/content/matha-integer-tables.ts',import.meta.url))))
     .replace('"../content/math3-chapter7-tables"',JSON.stringify(contentModule(new URL('../app/content/math3-chapter7-tables.ts',import.meta.url))));
   const {lessonTables}=await import(url(tableCompiled));
   walk(lessonTables);
