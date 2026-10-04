@@ -1,8 +1,9 @@
-import {m,q,f,comb,range,skill} from "./matha-authoring";
+import {m,q,f,gcd,comb,range,skill} from "./matha-authoring";
 import type {Q} from "./matha-authoring";
 export const probabilityAudit:{q:Q;kind:string;args:number[]}[]=[];
 const checked=(x:Q,kind:string,args:number[])=>{probabilityAudit.push({q:x,kind,args});return x;};
-export const fraction=(a:number,b:number)=>q(m`分数 $\frac{${a}}{${b}}$ を約分しなさい。`,m`$${f(a,b)}$。`,"分子と分母を同じ公約数で割ります。",m`分子と分母を同じ数で割って $${f(a,b)}$。値は変わりません。`);
+const reducedFraction=(a:number,b:number)=>{const original=m`\frac{${a}}{${b}}`,simplified=f(a,b);return original===simplified?original:m`${original}=${simplified}`;};
+export const fraction=(a:number,b:number)=>q(m`分数 $\frac{${a}}{${b}}$ を約分しなさい。`,m`$${f(a,b)}$。`,"分子と分母を同じ公約数で割ります。",m`分子と分母を $${gcd(a,b)}$ で割って $${f(a,b)}$。値は変わりません。`);
 export const prep=[
  skill("fraction","分数を約分する","割合を表す分数も、分子と分母を同じ数で割れます。",fraction(2,6),[fraction(4,10),fraction(6,8),fraction(9,12)]),
  skill("fraction-complement","全体から一部分を引く","全体の一を同じ分母の分数で表します。",q(m`$1-\frac25$ を計算しなさい。`,m`$\frac35$。`,"一を五分の五と表します。",m`$\frac55-\frac25=\frac35$。`),[2,3,4].map(a=>q(m`$1-\frac{${a}}{${a+3}}$ を計算しなさい。`,m`$${f(3,a+3)}$。`,"一を同じ分母で表します。",m`$\frac{${a+3}}{${a+3}}-\frac{${a}}{${a+3}}=${f(3,a+3)}$。`)))
@@ -18,33 +19,33 @@ export function coinEvent(n:number,k:number,atLeast=false):Q{
  const selected=all.filter(s=>atLeast?s.split("表").length-1>=k:s.split("表").length-1===k);
  return q(m`硬貨を $${n}$ 回投げます。順番を区別し、「表が${atLeast?"少なくとも":"ちょうど"} $${k}$ 回」という事象の結果をすべて書きなさい。`,selected.join("、")+"。",
  "最初の結果を固定し、次の表・裏へ枝を分けます。条件に合う列を残します。",
- `すべての列は ${all.join("、")}。表の回数を調べると、${selected.join("、")} が当てはまります。表裏と裏表は順序が違うので別です。`);
+ `すべての列は ${all.join("、")}。表の回数を調べると、${selected.join("、")} が当てはまります。表が出る位置が違えば、別の結果です。`);
 }
 export function color(r:number,b:number,judgment=false):Q{
  const p=r/(r+b);
  return checked(q(m`赤玉 $${r}$ 個、青玉 $${b}$ 個の袋から、どの玉も同じ確率で選ばれるように $1$ 個取り出します。${judgment?"「二色だから赤が出る確率は半分」といえますか。理由と正しい確率を書きなさい。":"赤が出る確率を求めなさい。"}`,
- m`$${f(r,r+b)}$。`+(judgment?(r===b?"この袋ではいえます。赤と青の個数が同じで、各玉を等確率で選ぶからです。":"いえません。色ではなく、各玉が等確率で選ばれるからです。"):""),
+ m`$${f(r,r+b)}$。`+(judgment?(r===b?"確率は半分ですが、二色というだけでは理由になりません。赤と青が同数で、各玉が等確率で選ばれるからです。":"いえません。色ではなく、各玉が等確率で選ばれるからです。"):""),
  "同じ色でも玉一個ずつに番号を付け、全体と赤の個数を数えます。",
- m`等確率の結果は $${r+b}$ 個の玉です。そのうち赤は $${r}$ 個なので $\frac{${r}}{${r+b}}=${f(r,r+b)}$。色の種類数だけを分母にはできません。`,p),"color",[r,b]);
+ m`等確率の結果は $${r+b}$ 個の玉です。そのうち赤は $${r}$ 個なので $${reducedFraction(r,r+b)}$。色の種類数だけを分母にはできません。`,p),"color",[r,b]);
 }
 export function diceSum(target:number):Q{
  const pairs=range(6,1).flatMap(a=>range(6,1).filter(b=>a+b===target).map(b=>`(${a},${b})`));
  return checked(q(m`独立な公平な赤・白のさいころを $1$ 回ずつ投げます。和が $${target}$ になる確率を求め、「和の種類は等確率」としてよいかも説明しなさい。`,
  m`$${f(pairs.length,36)}$。和の種類は等確率ではありません。和ごとに出目の組の数が違います。`,
  "赤の目を一つずつ固定し、求める和になる白の目を探します。",
- m`等確率なのは順序付きの $36$ 組。条件に合う組は $${pairs.join(",")}$ の $${pairs.length}$ 組なので $\frac{${pairs.length}}{36}=${f(pairs.length,36)}$。和が $2$ の組は一つ、和が $7$ の組は六つで、和そのものは等確率ではありません。`,pairs.length/36),"sum",[target]);
+ m`等確率なのは順序付きの $36$ 組。条件に合う組は $${pairs.join(",")}$ の $${pairs.length}$ 組なので $${reducedFraction(pairs.length,36)}$。和が $2$ の組は一つ、和が $7$ の組は六つで、和そのものは等確率ではありません。`,pairs.length/36),"sum",[target]);
 }
 export function drawPair(r:number,b:number):Q{
  const a=comb(r,2),d=comb(r+b,2);
  return checked(q(m`赤玉 $${r}$ 個、青玉 $${b}$ 個から、どの二個の組も同じ確率になるように同時に $2$ 個選びます。両方赤である確率を求めなさい。`,m`$${f(a,d)}$。`,
  "全体も赤だけの場合も、順序を付けない二個の組で数えます。",
- m`全体は $ {}_{${r+b}}C_2=${d}$ 組、赤だけは $ {}_{${r}}C_2=${a}$ 組。したがって $\frac{${a}}{${d}}=${f(a,d)}$。分母と分子で数える単位をそろえます。`,a/d),"pair",[r,b]);
+ m`全体は $ {}_{${r+b}}C_2=${d}$ 組、赤だけは $ {}_{${r}}C_2=${a}$ 組。したがって $${reducedFraction(a,d)}$。分母と分子で数える単位をそろえます。`,a/d),"pair",[r,b]);
 }
 export function card(n:number,k:number):Q{
  const a=Math.floor(n/k);
  return checked(q(m`番号 $1$ から $${n}$ のカードから、各カードを等確率で $1$ 枚選びます。番号が $${k}$ の倍数である確率を求めなさい。`,m`$${f(a,n)}$。`,
  "範囲内にある倍数を書き出します。",
- m`該当する番号は $${range(a,1).map(x=>x*k).join(",")}$ の $${a}$ 枚。全 $${n}$ 枚なので $\frac{${a}}{${n}}=${f(a,n)}$。`,a/n),"card",[n,k]);
+ m`該当する番号は $${range(a,1).map(x=>x*k).join(",")}$ の $${a}$ 枚。全 $${n}$ 枚なので $${reducedFraction(a,n)}$。`,a/n),"card",[n,k]);
 }
 export function noHeads(n:number):Q{
  return checked(q(m`公平な硬貨を独立に $${n}$ 回投げます。少なくとも $1$ 回表が出る確率を求めなさい。`,m`$${f(2**n-1,2**n)}$。`,
@@ -75,7 +76,7 @@ export function successive(r:number,b:number,replace:boolean,different=false):Q{
  return checked(q(m`赤玉 $${r}$ 個、青玉 $${b}$ 個から $1$ 個ずつ $2$ 回引きます。毎回、残っている各玉を等確率で選びます。最初の玉は${replace?"戻してよく混ぜます":"戻しません"}。${different?"二個の色が異なる":"二個とも赤になる"}確率を求めなさい。`,m`$${f(num,den)}$。`,
  different?"赤の後に青、青の後に赤という二経路を別々に求めて足します。":replace?"戻すので、二回目の全体も赤の数も元に戻ります。":"一回目が赤の枝では、全体も赤も一個ずつ減ります。",
  different?m`赤青は $\frac{${r}}{${n}}\times\frac{${b}}{${replace?n:n-1}}$、青赤は $\frac{${b}}{${n}}\times\frac{${r}}{${replace?n:n-1}}$。この二経路は重ならないので足し、$${f(num,den)}$。`:
- m`最初が赤の確率は $\frac{${r}}{${n}}$。赤を引いた後、赤は $${replace?r:r-1}$ 個、全体は $${replace?n:n-1}$ 個。経路に沿って掛け、$\frac{${r}}{${n}}\times\frac{${replace?r:r-1}}{${replace?n:n-1}}=${f(num,den)}$。`,num/den),"successive",[r,b,+replace,+different]);
+ m`最初が赤の確率は $\frac{${r}}{${n}}$。赤を引${replace?"いて戻した":"いた"}後、赤は $${replace?r:r-1}$ 個、全体は $${replace?n:n-1}$ 個。経路に沿って掛け、$\frac{${r}}{${n}}\times\frac{${replace?r:r-1}}{${replace?n:n-1}}=${f(num,den)}$。`,num/den),"successive",[r,b,+replace,+different]);
 }
 export function independent(k:number,j:number):Q{
  const a=range(6,1).filter(x=>x>=k).length,b=range(6,1).filter(x=>x%j===0).length;
@@ -98,7 +99,7 @@ export function repeated(n:number,k:number,d:number):Q{
  m`成功位置は $ {}_{${n}}C_{${k}}=${comb(n,k)}$ 通り。一列の確率は $\left(\frac1{${d}}\right)^{${k}}\left(\frac{${d-1}}{${d}}\right)^{${n-k}}$。独立で各回同じ成功確率なので、積に組数を掛けて $${f(a,b)}$。零回や全回でも、位置の選び方は一通りです。`,a/b),"repeated",[n,k,d]);
 }
 export function repeatAllowed(r:number,b:number,replace:boolean):Q{
- return q(m`赤玉 $${r}$ 個、青玉 $${b}$ 個から、${replace?"毎回戻してよく混ぜ":"戻さず"}、各玉を等確率で二回引きます。赤が一回出る確率に、毎回同じ成功確率の反復試行の公式を使えますか。理由も答えなさい。`,
+ return q(m`赤玉 $${r}$ 個、青玉 $${b}$ 個から、${replace?"毎回戻してよく混ぜ":"戻さず"}、各玉を等確率で二回引きます。赤がちょうど一回出る確率に、毎回同じ成功確率の反復試行の公式を使えますか。理由も答えなさい。`,
  replace?"使えます。袋の中身が毎回同じで、各回の抽出は独立だからです。":"そのままでは使えません。最初の色により、二回目の赤の割合が変わるからです。",
  "各回の成功確率は同じか、前の結果に左右されないかを確かめます。",
  dependence(r,b,replace).working+" 反復試行の公式は、独立で、各回の成功確率が同じという条件の下で用います。");
@@ -107,7 +108,7 @@ export function conditional(n:number,k:number,lower=true):Q{
  const remaining=range(n,1).filter(x=>lower?x>=k:x<=k),good=remaining.filter(x=>x%2===0);
  return checked(q(m`番号 $1$ から $${n}$ のカードを等確率で一枚選びました。番号が $${k}$ ${lower?"以上":"以下"}と分かったとき、偶数である確率を求めなさい。`,
  m`$${f(good.length,remaining.length)}$。`,"知らせてもらった条件に合わない番号を、全体から除きます。",
- m`条件後の全体は $\{${remaining.join(",")}\}$ の $${remaining.length}$ 枚。その中の偶数は $${good.length}$ 枚なので $\frac{${good.length}}{${remaining.length}}=${f(good.length,remaining.length)}$。最初の全枚数では割りません。`,good.length/remaining.length),"conditional",[n,k,+lower]);
+ m`条件後の全体は $\{${remaining.join(",")}\}$ の $${remaining.length}$ 枚。その中の偶数は $${good.length}$ 枚なので $${reducedFraction(good.length,remaining.length)}$。最初の全枚数では割りません。`,good.length/remaining.length),"conditional",[n,k,+lower]);
 }
 export function conditionImpossible(n:number,k:number):Q{
  return q(m`番号 $1$ から $${n}$ のカードを一枚選びます。「番号が $${k}$」という条件の下で偶数になる確率を、条件付き確率の式で求められますか。`,
@@ -118,20 +119,20 @@ export function conditionImpossible(n:number,k:number):Q{
 export function multiplication(a:number,b:number,c:number,d:number):Q{
  return checked(q(m`$P(A)=${f(a,b)}$、$P_A(B)=${f(c,d)}$ です。$A$ と $B$ がともに起こる確率を求めなさい。`,
  m`$${f(a*c,b*d)}$。`,"二つ目は、最初の事象が起きたという条件の下での確率です。",
- m`$P_A(B)=\frac{P(A\cap B)}{P(A)}$ に $P(A)>0$ を掛け、$P(A\cap B)=P(A)P_A(B)=${f(a,b)}\times${f(c,d)}=${f(a*c,b*d)}$。独立を仮定する必要はありません。`,a*c/(b*d)),"multiply",[a,b,c,d]);
+ m`$P(A)>0$ のとき、$P_A(B)=\frac{P(A\cap B)}{P(A)}$ の両辺に $P(A)$ を掛け、$P(A\cap B)=P(A)P_A(B)=${f(a,b)}\times${f(c,d)}=${f(a*c,b*d)}$。独立を仮定する必要はありません。`,a*c/(b*d)),"multiply",[a,b,c,d]);
 }
 export function independenceEvents(a:number,b:number,opposite=false):Q{
  const aa=range(6,1).filter(x=>x%a===0),bb=range(6,1).filter(x=>opposite?x%a!==0:x%b===0),both=aa.filter(x=>bb.includes(x));
  const ind=both.length*6===aa.length*bb.length;
  return q(m`公平なさいころで、$A=\{${aa.join(",")}\}$、$B=\{${bb.join(",")}\}$ とします。排反かどうかと、独立かどうかを、それぞれ理由とともに答えなさい。`,
- `${both.length?"排反ではありません":"排反です"}。共通する目が ${both.length?m`$${both.join(",")}$ あります`:"ありません"}。${ind?"独立です":"独立ではありません"}。`+m`$P(A\cap B)=${f(both.length,6)}$ と $P(A)P(B)=${f(aa.length*bb.length,36)}$ が${ind?"等しい":"異なる"}からです。`,
+ `${both.length?m`排反ではありません。$${both.join(",")}$ が両方に含まれます。`:"排反です。共通する目がありません。"}${ind?"独立です":"独立ではありません"}。`+m`$P(A\cap B)=${f(both.length,6)}$ と $P(A)P(B)=${f(aa.length*bb.length,36)}$ が${ind?"等しい":"異なる"}からです。`,
  "共通部分が空かを調べた後、共通部分の確率と二つの確率の積を比べます。",
  m`$P(A)=${f(aa.length,6)},P(B)=${f(bb.length,6)}$。共通する目は $${both.length}$ 個なので $P(A\cap B)=${f(both.length,6)}$。排反は共通部分が空という条件、独立は $P(A\cap B)=P(A)P(B)$ という条件で、別々に調べます。`);
 }
 export function posterior(r:number,b:number,w:number,total:number):Q{
  const a=w*r,bb=(total-w)*b,den=a+bb;
  return checked(q(m`箱 $A$ には赤 $${r}$ 個・青 $${b}$ 個、箱 $B$ には赤 $${b}$ 個・青 $${r}$ 個があります。箱 $A$ を選ぶ確率は $${f(w,total)}$、箱 $B$ は $${f(total-w,total)}$ です。選んだ箱から各玉を等確率で一個引き、赤でした。箱 $A$ を選んだ確率を求めなさい。`,
- m`$${f(a,den)}$。`,"赤に至る二経路の確率を求め、赤の全体で割ります。",
+ m`$${f(a,den)}$。`,"赤と分かったので、赤に至る二経路だけを残します。$A$ から赤になる確率を、二経路の確率の合計で割ります。",
  m`$A$ から赤は $${f(w,total)}\times${f(r,r+b)}=${f(a,total*(r+b))}$、$B$ から赤は $${f(total-w,total)}\times${f(b,r+b)}=${f(bb,total*(r+b))}$。赤全体はその和 $${f(den,total*(r+b))}$。条件後の割合は $\dfrac{${f(a,total*(r+b))}}{${f(den,total*(r+b))}}=${f(a,den)}$。`,a/den),"posterior",[r,b,w,total]);
 }
 export function expectation(prize:number,a:number,b:number,cost=0):Q{
@@ -139,7 +140,7 @@ export function expectation(prize:number,a:number,b:number,cost=0):Q{
  return checked(q(m`仮想のくじで、$${f(a,b)}$ の確率で $${prize}$ 円、それ以外は零円を受け取ります。${cost?m`参加費は $${cost}$ 円です。利益（受取額から参加費を引いた額）`:"受取額"}の期待値を求めなさい。${cost?"損をする確率と、期待値の額を必ず得るかも答えなさい。":""}`,
  m`$${f(prize*a-cost*b,b)}$ 円。`+(cost?m`損をする確率は $${f(b-a,b)}$。この期待利益を毎回必ず得るわけではありません。`:""),
  cost?"受取額の平均から費用を引きます。当たらないときの利益も考えます。":"受け取る額に、それが起こる確率を掛けて足します。",
- m`受取額の期待値は $${prize}\times${f(a,b)}+0\times${f(b-a,b)}=${f(prize*a,b)}$ 円。`+(cost?m`費用を引いて $${f(prize*a,b)}-${cost}=${f(prize*a-cost*b,b)}$ 円。外れると $${cost}$ 円の損です。期待値は一回の結果の保証ではありません。`:"確率の大きい額ほど、平均への寄与が大きくなります。"),val),"expectation",[prize,a,b,cost]);
+ m`受取額の期待値は $${prize}\times${f(a,b)}+0\times${f(b-a,b)}=${f(prize*a,b)}$ 円。`+(cost?m`費用を引いて $${f(prize*a,b)}-${cost}=${f(prize*a-cost*b,b)}$ 円。外れると $${cost}$ 円の損です。期待値は一回の結果の保証ではありません。`:""),val),"expectation",[prize,a,b,cost]);
 }
 export function threeValues(a:number,b:number):Q{
  const num=2*a+b;

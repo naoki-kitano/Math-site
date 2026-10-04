@@ -14,10 +14,11 @@ export function spaceFigure(slug:string,index:number):GeoFigure|null{
   return base;
  }
  if(slug==="ma-construction-division"){
-  const n=index===0?2:4,points:Record<string,Point>={A:[0,0],B:[8,0]},es=[["A","B"]],ds:string[][]=[];
-  for(let i=1;i<=n;i++){points["P_"+i]=[i,i];points["Q_"+i]=[8*i/n,0];if(i<n)ds.push(["P_"+i,"Q_"+i]);}
+  if(index===1)return {caption:"補助半直線上に同じ長さの区間を四つ取り、二番目の点を $D$、最後の点を $C$ とします。$DP\\parallel CB$ より $AP:AB=2:4$、残りの $PB$ も比で $2$ です。",points:{A:[0,0],B:[8,0],C:[4,4],D:[2,2],P:[4,0],T_1:[1,1],T_3:[3,3]},labels:{T_1:"",T_3:""},edges:[["A","B"],["A","C"],["C","B"]],dashed:[["D","P"]]};
+  const n=2,points:Record<string,Point>={A:[0,0],B:[8,0]},es=[["A","B"]],ds:string[][]=[];
+  for(let i=1;i<=n;i++){points["P_"+i]=[i,i];if(i<n){points["Q_"+i]=[8*i/n,0];ds.push(["P_"+i,"Q_"+i]);}}
   es.push(["A","P_"+n],["P_"+n,"B"]);
-  return {caption:index===0?"補助半直線を同じ間隔で区切り、最後の点と $B$ を結びます。途中の点から平行線を作ります。":"比が $2:2$ の例では、補助半直線を四区間に分けて二番目を対応させます。",points,edges:es,dashed:ds};
+  return {caption:"補助半直線を同じ間隔で区切り、最後の点と $B$ を結びます。途中の点から平行線を作ります。",points,edges:es,dashed:ds};
  }
  if(slug==="ma-construction-tangents"){
   if(index===0)return {caption:"$T$ で半径 $OT$ に垂線を作図します。直線上の等距離二点から円弧を描きます。",points:{O:[0,0],T:[3,0],A:[2,0],B:[4,0],P:[3,Math.sqrt(3)],Q:[3,-Math.sqrt(3)]},edges:[["O","B"],["P","Q"]],circles:[{center:[0,0],radius:3},{center:[2,0],radius:2},{center:[4,0],radius:2}]};
@@ -38,7 +39,7 @@ export function spaceFigure(slug:string,index:number):GeoFigure|null{
   return {points,edges:es,dashed:ds,caption};
  }
  if(slug==="ma-polyhedron-counts"){
-  if(index===0)return {caption:"三角柱は三角形の底面が二つと、側面が三つです。奥の辺も含めて数えます。",points:{A:[0,0],B:[4,0],C:[2,2],D:[0,4],E:[4,4],F:[2,6]},edges:[["A","B"],["A","D"],["B","E"],["D","E"],["E","F"],["F","D"]],dashed:[["A","C"],["B","C"],["C","F"]]};
+  if(index===0||index===2)return {caption:index===2?"頂点6個・面5枚という条件を満たす立体の一例です。オイラーの関係式を使って辺の本数を求めます。":"三角柱は三角形の底面が二つと、側面が三つです。奥の辺も含めて数えます。",points:{A:[0,0],B:[4,0],C:[2,2],D:[0,4],E:[4,4],F:[2,6]},edges:[["A","B"],["A","D"],["B","E"],["D","E"],["E","F"],["F","D"]],dashed:[["A","C"],["B","C"],["C","F"]]};
   return {caption:"三角錐は底面の三辺と、頂点へつながる三辺を分けて数えます。",points:{A:[0,0],B:[4,0],C:[2,2],P:[2,5]},edges:[["A","B"],["A","P"],["B","P"],["C","P"]],dashed:[["A","C"],["B","C"]]};
  }
  return null;

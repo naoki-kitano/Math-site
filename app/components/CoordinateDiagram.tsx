@@ -20,7 +20,8 @@ export default function CoordinateDiagram({title,description,xRange,yRange,curve
  const scale=Math.min((width-2*padding)/(xRange[1]-xRange[0]),(height-2*padding)/(yRange[1]-yRange[0]));
  const plotWidth=(xRange[1]-xRange[0])*scale,plotHeight=(yRange[1]-yRange[0])*scale;
  const left=(width-plotWidth)/2,top=(height-plotHeight)/2;
- const px=(x:number)=>left+(x-xRange[0])*scale,py=(y:number)=>top+(yRange[1]-y)*scale;
+ // SVG precision must be stable across the server and browser math libraries.
+ const px=(x:number)=>Number((left+(x-xRange[0])*scale).toFixed(4)),py=(y:number)=>Number((top+(yRange[1]-y)*scale).toFixed(4));
  const ticks=(range:[number,number])=>Array.from({length:Math.max(0,Math.min(60,Math.floor(range[1]/tick)-Math.ceil(range[0]/tick)+1))},(_,i)=>(Math.ceil(range[0]/tick)+i)*tick);
  const path=(curve:Curve)=>{
   const from=Math.max(xRange[0],curve.from??xRange[0]),to=Math.min(xRange[1],curve.to??xRange[1]);

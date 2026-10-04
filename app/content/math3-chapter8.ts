@@ -202,7 +202,7 @@ add("rotation-direction","回転軸と積分方向","軸に垂直に切り、半
  s("vertical-washer-setup","横断面にある穴を引く",m`縦軸回転を横に切ると、$y\le x\le1$、$0\le y\le1$ では外半径 $1$、内半径 $y$ の円環です。厚みは $dy$ です。`,m`A(y)=\pi(1-y^2),\quad V=\pi\int_0^1(1-y^2)\,dy`,m`右の境界が $x=2$ なら体積の式は？`,m`外半径 $2$、内半径 $y$ より $\pi\int_0^1(4-y^2)\,dy$。区間全体で外半径が内半径以上です。`),
  s("vertical-washer-value","円環を縦に積み重ねる",m`連続で非負の外半径 $R(y)$、内半径 $r(y)$ が $R\ge r$ を満たす区間で、二乗差に円周率と厚みを掛けます。`,m`V=\pi\int_c^d(R(y)^2-r(y)^2)\,dy`,m`$0\le y\le1$、$y\le x\le1$ を縦軸回転した体積は？`,m`$\pi\int_0^1(1-y^2)\,dy=\pi\left[y-\dfrac{y^3}{3}\right]_0^1=\dfrac{2\pi}{3}$。`),
  s("rotation-value","縦の端に代入する",m`半径・厚み・両端が縦の変数でそろっていることを確かめて計算します。`,m`\pi\int_0^2y^2\,dy=\frac{8\pi}{3}`,m`$0\le y\le1$、半径 $2y$ の体積は？`,m`$\pi\int_0^1(2y)^2\,dy=\dfrac{4\pi}{3}$。`)],[
- q("rotation-setup",m`$y=x^2$、$x\ge0$ を $x$ について解くと？`,m`$x=\sqrt y$（$y\ge0$）。`,m`非負の枝を選びます。`,m`$x\ge0$ なので負の平方根は取りません。`),
+ q("rotation-setup",m`$y=x^2$、$x\ge0$ を $x$ について解くと？`,m`$x=\sqrt y$（$y\ge0$）。`,m`条件 $x\ge0$ に合う方を選びます。`,m`$x\ge0$ なので負の平方根は取りません。`),
  q("rotation-value",m`$\int_0^1y\,dy$ は？`,m`$\dfrac12$。`,m`変数 $y$ について積分します。`,m`$\left[\dfrac{y^2}{2}\right]_0^1=\dfrac12$。`)
 ],[
  q("rotation-setup",m`$0\le y\le2$、$0\le x\le y$ の $y$ 軸回転の体積の式は？`,m`$\pi\int_0^2y^2\,dy$。`,m`横の距離 $y$ が半径です。`,m`断面積は $\pi y^2$、縦の範囲は $[0,2]$。`),

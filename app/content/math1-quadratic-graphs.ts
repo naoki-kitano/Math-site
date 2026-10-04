@@ -22,14 +22,14 @@ function determineVertex(h:number,k:number,x:number,a:number):Worked{
 }
 function determineAxis(h:number,a:number,k:number):Worked{
  const y0=a+k,y1=4*a+k;
- return w(m`軸が $x=${h}$ で、点 $(${h+1},${y0})$、$(${h+2},${y1})$ を通る二次関数を求めなさい。`,m`$y=${vertexForm(a,h,k)}$。`,"軸から括弧の中を決め、二点を代入した二式の差を取ります。",m`$y=a(x${h<0?"+"+(-h):h>0?"-"+h:""})^2+k$ と置くと $a+k=${y0}$、$4a+k=${y1}$。差から $3a=${y1-y0}$、$a=${a}$。代入して $k=${k}$。$a\ne0$ で、二点をともに通ります。`);
+ return w(m`軸が $x=${h}$ で、点 $(${h+1},${y0})$、$(${h+2},${y1})$ を通る二次関数を求めなさい。`,m`$y=${vertexForm(a,h,k)}$。`,"軸から括弧の中を決め、二点を代入した二式の差を取ります。",m`$y=a(x${h<0?"+"+(-h):h>0?"-"+h:""})^2+k$ と置くと $a+k=${y0}$、$4a+k=${y1}$。$4a+k=${y1}$ から $a+k=${y0}$ を引くと、$k$ が消えて $3a=${y1-y0}$。したがって $a=${a}$。これを $a+k=${y0}$ に代入すると $k=${k}$。$a\ne0$ で、二点をともに通ります。`);
 }
 function determineThree(a:number,b:number,c:number):Worked{
- return w(m`三点 $(-1,${a-b+c})$、$(0,${c})$、$(1,${a+b+c})$ を通る二次関数を求めなさい。`,m`$y=${poly(a,b,c)}$。`,"頂点や軸の情報がないので、一般形に三点を代入します。まず横座標ゼロの点を使います。",m`$y=ax^2+bx+c$ と置くと、まず $c=${c}$。残る二点から $a-b=${a-b}$、$a+b=${a+b}$。足して $2a=${2*a}$ より $a=${a}\ne0$、続いて $b=${b}$。三点へ代入して元の高さに戻ることを確かめます。`);
+ return w(m`三点 $(-1,${a-b+c})$、$(0,${c})$、$(1,${a+b+c})$ を通る二次関数を求めなさい。`,m`$y=${poly(a,b,c)}$。`,"頂点や軸の情報がないので、一般形に三点を代入します。まず横座標ゼロの点を使います。",m`$y=ax^2+bx+c$ と置くと、まず $c=${c}$。残る二点から $a-b=${a-b}$、$a+b=${a+b}$。足して $2a=${2*a}$ より $a=${a}\ne0$。これを $a+b=${a+b}$ に代入して $b=${b}$。三点へ代入して元の高さに戻ることを確かめます。`);
 }
 export const determineQuadratic=topic("m1-determine-quadratic","条件から求める二次関数",[
  m`与えられた条件が式に入りやすい形を選びます。頂点 $(h,k)$ が分かるなら $y=a(x-h)^2+k$、軸だけなら $y=a(x-h)^2+k$ の $k$ も未知数とします。`,
- m`頂点や軸が分からず三点を通るなら $y=ax^2+bx+c$ と置き、各点の横・縦を代入します。「通る」という条件は $b=f(a)$ という等式に直せるためです。ここで点の座標の文字と関数の係数は区別します。`,
+ m`頂点や軸が分からず三点を通るなら $y=ax^2+bx+c$ と置きます。点 $(s,t)$ を通る条件は $t=as^2+bs+c$ です。各点の横座標を $x$、縦座標を $y$ に代入して三つの等式を作ります。`,
  m`求めた係数が二次関数の条件 $a\ne0$ を満たすか、与えられたすべての点を通るかを最後に確かめます。条件が少なければ一つに決まらない場合もあります。`,
 ],"条件に合う式の形を選び、点の座標を代入して係数を決めます。",[
  {id:"vertex-and-point",title:"頂点を先に式へ入れる",why:"頂点で二つの位置が決まるので、残る係数一つを点から求めます。",sample:determineVertex(1,-2,2,3),items:[determineVertex(-1,2,0,2),determineVertex(2,1,0,1),determineVertex(1,3,3,-1),determineVertex(0,-1,2,0.5),determineVertex(-2,-3,-1,4),determineVertex(3,0,1,-2)]},
@@ -60,14 +60,14 @@ function interval(a:number,h:number,k:number,l:number,r:number):Worked{
  const min=Math.min(...candidates.map(f)),max=Math.max(...candidates.map(f)),minAt=candidates.filter(x=>f(x)===min),maxAt=candidates.filter(x=>f(x)===max);
  intervalCases.push({a,h,k,l,r,min,max,minAt,maxAt});
  const answer=m`$x=${minAt.map(num).join(",")}$ で最小値 $${num(min)}$、$x=${maxAt.map(num).join(",")}$ で最大値 $${num(max)}$。`;
- return w(m`$y=${vertexForm(a,h,k)}$（$${l}\le x\le${r}$）の最大値・最小値と、それをとる $x$ をすべて求めなさい。`,answer,"軸が区間に入るかを先に調べ、両端の値と、使える場合の頂点の値を比べます。",m`軸 $x=${h}$ は区間に${h>=l&&h<=r?"含まれます":"含まれません"}。$x=${l}$ では $y=${num(f(l))}$、$x=${r}$ では $y=${num(f(r))}$。${h>=l&&h<=r?m`頂点では $y=${num(k)}$。`:"区間内では軸からの距離が一方向に変わるため、両端を比べれば十分です。"}平方は軸からの距離の二乗なので、${a>0?"近いほど小さく、遠いほど大きい":"近いほど大きく、遠いほど小さい"}値になります。${answer}`);
+ return w(m`$y=${vertexForm(a,h,k)}$（$${l}\le x\le${r}$）の最大値・最小値と、それをとる $x$ をすべて求めなさい。`,answer,"頂点の横座標が定義域に入るかを先に調べ、両端の値と、使える場合の頂点の値を比べます。",m`頂点の横座標 $${h}$ は定義域 $${l}\le x\le${r}$ に${h>=l&&h<=r?"含まれます":"含まれません"}。$x=${l}$ では $y=${num(f(l))}$、$x=${r}$ では $y=${num(f(r))}$。${h>=l&&h<=r?m`頂点では $y=${num(k)}$。`:"区間内では軸からの距離が一方向に変わるため、両端を比べれば十分です。"}平方は軸からの距離の二乗なので、${a>0?"近いほど小さく、遠いほど大きい":"近いほど大きく、遠いほど小さい"}値になります。${answer}`);
 }
 export const intervalExtrema=topic("m1-interval-extrema","区間内の最大値・最小値",[
  m`定義域が指定されたら、頂点をそのまま答えにしてはいけません。頂点の横座標が区間に入っているかを最初に確認します。`,
  m`$y=(x-1)^2$（$0\le x\le3$）なら頂点の $x=1$ は使えます。頂点で $y=0$、両端では $y=1,4$。したがって最小値は $0$（$x=1$）、最大値は $4$（$x=3$）です。`,
  m`同じ式でも $2\le x\le3$ なら頂点は使えません。軸からの距離は $1$ から $2$ に増えるので、最小値は $1$（$x=2$）、最大値は $4$（$x=3$）です。`,
  m`閉区間では両端を含むため、その点の値も候補です。両端が軸から同じ距離なら値も同じです。同じ最大値・最小値をとる入力はすべて答えます。`,
-],"頂点が指定された区間にあるかを確かめ、両端の値と比べます。",[
+],"頂点の横座標が定義域に入るかを確かめ、両端の値と比べます。",[
  {id:"axis-inside",title:"頂点と両端の値を比べる",why:"平方は軸からの距離の二乗なので、最も近い頂点と最も遠い端点が候補です。",sample:interval(1,1,0,0,3),items:[interval(1,0,1,-1,2),interval(-1,1,3,-1,2),interval(2,-1,0,-2,1),interval(1,1,-2,-1,3),interval(-2,0,4,-2,1),interval(1,2,1,2,4)]},
  {id:"axis-outside",title:"使えない頂点を除いて端点を比べる",why:"軸をまたがない区間では、軸からの距離は一方向に変わります。",sample:interval(1,1,0,2,3),items:[interval(1,2,-1,-1,1),interval(-1,0,3,1,3),interval(2,-1,1,0,2),interval(-2,2,0,-1,0),interval(1,-2,3,0,1),interval(-1,3,2,0,2)]},
 ],[vertexPrep,boundaryPrep]);

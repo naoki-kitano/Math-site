@@ -1,3 +1,4 @@
+import {workedText} from "./worked-text";
 import {sets,operations,inclusion} from "./math1-logic-sets";
 import {truth,necessary} from "./math1-logic-statements";
 import {negation,contrapositive} from "./math1-logic-negation";
@@ -36,7 +37,7 @@ const methodReasons:Record<string,string>={
  consecutive:"直接証明を選ぶ。連続する数を同じ文字で表すと、和や差を計算できるから。",
  "parity-contra":"対偶による証明を選ぶ。元の数の偶奇を仮定すると、平方や三乗を直接計算できるから。",
  "compound-contra":"対偶による証明を選ぶ。結論を否定すると二数の条件がそろい、和などを計算できるから。",
- "nonzero-contra":"対偶による証明を選ぶ。一方がゼロという仮定なら、積が直ちにゼロと分かるから。",
+ "nonzero-contra":"対偶による証明を選ぶ。少なくとも一方がゼロという仮定なら、積が直ちにゼロと分かるから。",
  contradiction:"背理法を選ぶ。元の仮定を保ち、結論を否定して計算すると両立しない条件が得られるから。",
  "integer-extreme":"背理法を選ぶ。最大・最小を仮定すると、そこからさらに大きい・小さい整数を作れるから。",
  "open-domain-extreme":"背理法を選ぶ。極端な値を仮定して半分にすると、範囲内により小さい・大きい数を作れるから。",
@@ -75,7 +76,11 @@ math1Chapter2Topics.forEach(({lesson,exercises},i)=>{
   });
   const repair=lesson.supplements.find(s=>s.id===family);
   if(!repair)throw new Error(`Missing logic repair: ${family}`);
-  supplements.push(choiceReason?{...repair,id:checkFamily,title:"方法を選ぶ："+repair.title,text:copied[0].prompt+"\n"+copied[0].answer+"\n正しい別解でも構いません。\n"+repair.text,check:copied[1].prompt,answer:copied[1].answer}:{...repair,id:checkFamily,title:lesson.title+"："+repair.title});
+  // The chosen proof is already printed in full above; remove only that exact
+  // source example block from the following support, preserving other examples.
+  const repeatedBlock=workedText(selected[0].prompt,...selected[0].steps.map(step=>step.text),selected[0].answer);
+  const supportingText=choiceReason?repair.text.replace(repeatedBlock,"").trim():repair.text;
+  supplements.push(choiceReason?{...repair,id:checkFamily,title:"方法を選ぶ："+repair.title,text:copied[0].prompt+"\n"+copied[0].answer+"\n正しい別解でも構いません。\n"+supportingText,check:copied[1].prompt,answer:copied[1].answer}:{...repair,id:checkFamily,title:lesson.title+"："+repair.title});
  }
 });
 const copy=(e:Exercise,stage:"ready"|"guided",key:string)=>{

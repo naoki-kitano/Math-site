@@ -15,6 +15,22 @@ const banks=[...p.mathAProbabilityTopics,...g.mathAGeometryTopics,...s.mathASpac
 const lessons=[...p.mathAChapter2Lessons,...g.mathAChapter3Lessons,...s.mathAChapter4Lessons,...i.mathAChapter5Lessons];
 const exercises=[...p.mathAChapter2Exercises,...g.mathAChapter3Exercises,...s.mathAChapter4Exercises,...i.mathAChapter5Exercises];
 const strings=x=>typeof x==='string'?[x]:Array.isArray(x)?x.flatMap(strings):x&&typeof x==='object'?Object.values(x).flatMap(strings):[];
+
+test('internal division diagram uses the proof points and preserves the required ratios',async()=>{
+ const {spaceFigure}=await get('matha-space-figures');
+ const figure=spaceFigure('ma-construction-division',1),{A,B,C,D,P}=figure.points;
+ const distance=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+ assert.equal(distance(A,D)/distance(A,C),1/2);
+ assert.equal(distance(A,P)/distance(A,B),1/2);
+ assert.equal(distance(A,P),distance(P,B));
+ assert.equal((P[0]-D[0])*(B[1]-C[1])-(P[1]-D[1])*(B[0]-C[0]),0);
+ assert.ok(figure.dashed.some(([a,b])=>a==='D'&&b==='P'));
+ for(const index of [0,1]){
+  const drawing=spaceFigure('ma-construction-division',index);
+  const labeled=Object.entries(drawing.points).filter(([name])=>drawing.labels?.[name]!=='');
+  assert.equal(new Set(labeled.map(([,point])=>point.join(','))).size,labeled.length,'distinct names must not overlap at the same point');
+ }
+});
 test('math A chapters 2–5 preserve all planned pages and every review decision',t=>{
  assert.deepEqual([p.mathAProbabilityTopics.length,g.mathAGeometryTopics.length,s.mathASpaceTopics.length,i.mathAIntegerTopics.length],[15,18,9,14]);
  for(const chapter of new Set(lessons.map(l=>l.chapter))){
@@ -149,4 +165,16 @@ test('subject descriptions and browser metadata describe the completed subjects'
   const source=readFileSync(new URL(`../app/${route}/page.tsx`,import.meta.url),'utf8');
   assert.ok(!source.includes('| MathCanvas'),'layout owns the title suffix');
  }
+});
+
+test('the Euler example illustration satisfies its stated vertex and face counts',async()=>{
+ const {spaceFigure}=await get('matha-space-figures');
+ const fig=spaceFigure('ma-polyhedron-counts',2);
+ const vertices=Object.keys(fig.points),edges=[...fig.edges,...fig.dashed??[]];
+ const uniqueEdges=new Set(edges.map(e=>[...e].sort().join('/')));
+ assert.equal(vertices.length,6);
+ assert.equal(uniqueEdges.size,9);
+ assert.equal(2-vertices.length+uniqueEdges.size,5);
+ assert.equal(edges.length,uniqueEdges.size);
+ for(const edge of edges)assert.ok(edge.every(v=>vertices.includes(v)));
 });

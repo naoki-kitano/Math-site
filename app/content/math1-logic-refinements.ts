@@ -25,7 +25,7 @@ export function applyLogicRefinements(){
 repair(truth,"true-reason","仮定から結論へ進む理由","代入・範囲の比較・整数の表現など、仮定に合う理由を使います。",[worked(find(truth,"true-reason-1")),worked(find(truth,"true-reason-2")),worked(find(truth,"true-reason-5"))]);
 repair(negation,"compound","かつ・またはを否定する","「両方が成立する」の否定は、「少なくとも一方が成立しない」です。「少なくとも一方が成立する」の否定は、「両方とも成立しない」です。",[worked(find(negation,"compound-2")),worked(find(negation,"compound-3"))]);
 repair(negation,"quantifier","すべて・あるを否定する","数の範囲を変えず、全体と存在の言葉、および条件の両方を否定します。",[worked(find(negation,"quantifier-1")),worked(find(negation,"quantifier-2"))]);
-repair(direct,"consecutive","連続する整数・奇数を表す","整数の間隔は一、連続する奇数の間隔は二です。指定された数の種類を先に確かめます。",[worked(find(direct,"consecutive-1")),worked(find(direct,"consecutive-3")),worked(find(direct,"consecutive-5"))]);
+repair(direct,"consecutive","連続する整数・奇数を表す","連続する整数の間隔は一、連続する奇数の間隔は二です。指定された数の種類を先に確かめます。",[worked(find(direct,"consecutive-1")),worked(find(direct,"consecutive-3")),worked(find(direct,"consecutive-5"))]);
 split(contraProof,["compound-contra-2","compound-contra-5"],"nonzero-contra","両方が非零という結論の対偶",m`「$a\ne0$ かつ $b\ne0$」の否定は「$a=0$ または $b=0$」。いずれの場合も積がゼロになることを使います。`);
 repair(contraProof,"compound-contra","またはの結論を否定して証明する","結論を否定すると、二つの条件が同時に成立する仮定になります。指定された和をその仮定のもとで調べます。",[worked(find(contraProof,"compound-contra-3")),worked(find(contraProof,"compound-contra-6"))]);
 
@@ -68,7 +68,7 @@ add(truth,"counter-candidate","反例として使える候補か確かめる","�
  w(m`実数 $x$ の命題「$x\ge0$ ならば $x>0$」に対し、$x=0$ は反例になりますか。理由も答えなさい。`,m`なります。$0\ge0$ は真、$0>0$ は偽です。`,"等号の境界を両方で確認します。",m`仮定を満たし結論を満たさないので、反例として使えます。`),
 ]);
 add(necessary,"classify-conditions","具体的な条件を両方向に調べる","両方向を別々に調べ、真には理由、偽には反例を示してから名前を付けます。",[
- w(m`実数 $x$ について $p:x=4$、$q:x^2=16$ とする。$p$ は $q$ のどの条件か、両方向の理由も答えなさい。`,m`十分条件ですが必要条件ではありません。$x=4$ なら $x^2=16$。逆は $x=-4$ が反例で、$x^2=16$ ですが $x\ne4$。`,"平方には正負二つの候補があることを確認します。",m`$p\Rightarrow q$ は真、$q\Rightarrow p$ は偽。したがって十分条件のみです。`),
+ w(m`実数 $x$ について $p:x=4$、$q:x^2=16$ とする。$p$ は $q$ のどの条件か、両方向の理由も答えなさい。`,m`十分条件ですが必要条件ではありません。$x=4$ なら $x^2=16$。逆は $x=-4$ が反例で、$x^2=16$ ですが $x\ne4$。`,"二乗して $16$ になる数を、正負の両方で探します。",m`$p\Rightarrow q$ は真、$q\Rightarrow p$ は偽。したがって十分条件のみです。`),
  w(m`実数 $x$ について $p:x>5$、$q:x>2$ とする。$p$ は $q$ のどの条件か、両方向の理由も答えなさい。`,m`十分条件ですが必要条件ではありません。$x>5>2$ より順方向は真。逆は $x=3$ が反例で、$3>2$ ですが $3>5$ は偽です。`,"狭い範囲から広い範囲へ進む向きを確かめます。",m`$p\Rightarrow q$ は真、$q\Rightarrow p$ は偽。十分と必要を逆にしません。`),
 ]);
 // Keep all four outcomes demonstrated in the repair after adding the sufficient-only pair.
@@ -102,9 +102,9 @@ scaffold(contraProof,"compound-contra-1","sum-contra-plan","結論全体を否�
  w(m`「$a+b<2$ なら $a<1$ または $b<1$」（$a,b$ は実数）の対偶の仮定・結論と、成立する理由を答えなさい。`,m`仮定は $a\ge1$ かつ $b\ge1$、結論は $a+b\ge2$。両辺を足せば得られます。`,"二つとも一以上であることを仮定します。",m`$a+b\ge1+1=2$。`),
 ]);
 scaffold(contradiction,"contradiction-1","contradiction-plan","矛盾する二つの条件を示す","元の仮定は保ち、結論だけを否定して矛盾の相手を明示します。",
- w(m`実数 $a,b$ で $a+b<0$ なら一方は負、という背理法を補いなさい。結論の否定は何ですか。そこから得られる不等式と、矛盾する元の条件を答えなさい。`,m`否定は $a\ge0$ かつ $b\ge0$。すると $a+b\ge0$ となり、元の $a+b<0$ と矛盾します。`,"和が負という仮定は変えません。",m`非負な数の和は非負です。`),[
- w(m`実数 $a,b$ で $a+b>0$ なら一方は正、という背理法を補いなさい。結論の否定、そこから得る式、矛盾する条件を答えなさい。`,m`否定は $a\le0$ かつ $b\le0$。和は $a+b\le0$ となり、$a+b>0$ と矛盾します。`,"一方は正、を全体として否定します。",m`両方が非正なら和も非正です。`),
- w(m`実数 $a,b$ で $a+b>6$ なら一方は三より大きい、という背理法を補いなさい。結論の否定、そこから得る式、矛盾する条件を答えなさい。`,m`否定は $a\le3$ かつ $b\le3$。和は $a+b\le6$ となり、$a+b>6$ と矛盾します。`,"三以下の二数の和を考えます。",m`$a+b\le3+3=6$。`),
+ w(m`実数 $a,b$ で $a+b<0$ なら少なくとも一方は負、という背理法を補いなさい。結論の否定は何ですか。そこから得られる不等式と、矛盾する元の条件を答えなさい。`,m`否定は $a\ge0$ かつ $b\ge0$。すると $a+b\ge0$ となり、元の $a+b<0$ と矛盾します。`,"和が負という仮定は変えません。",m`非負な数の和は非負です。`),[
+ w(m`実数 $a,b$ で $a+b>0$ なら少なくとも一方は正、という背理法を補いなさい。結論の否定、そこから得る式、矛盾する条件を答えなさい。`,m`否定は $a\le0$ かつ $b\le0$。和は $a+b\le0$ となり、$a+b>0$ と矛盾します。`,"「少なくとも一方は正」を全体として否定します。",m`両方が非正なら和も非正です。`),
+ w(m`実数 $a,b$ で $a+b>6$ なら少なくとも一方は三より大きい、という背理法を補いなさい。結論の否定、そこから得る式、矛盾する条件を答えなさい。`,m`否定は $a\le3$ かつ $b\le3$。和は $a+b\le6$ となり、$a+b>6$ と矛盾します。`,"三以下の二数の和を考えます。",m`$a+b\le3+3=6$。`),
 ]);
 scaffold(contradiction,"irrational-root-1","root-plan","既約分数の条件と矛盾を結ぶ","分数を既約にする理由と、何を示せば矛盾になるかを確かめます。",
  w(m`$\sqrt3$ の無理数性の背理法を補いなさい。有理数と仮定して $\sqrt3=\frac ab$ とするときの $a,b$ の条件、二乗後の式、両方が三の倍数と分かったときの矛盾を答えなさい。`,m`$a,b$ は互いに素な正の整数。$a^2=3b^2$。両方が三の倍数なら共通因数三をもち、互いに素に矛盾します。`,"正の数を表す既約分数にします。",m`既約という条件があるから、両方に共通因数が現れることが矛盾になります。`),[

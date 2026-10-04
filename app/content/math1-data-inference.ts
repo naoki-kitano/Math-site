@@ -8,7 +8,7 @@ export function simulateFairCoins(seed=20260922,trials=10000){
 }
 export const coinSimulation={seed:20260922,trials:10000,tosses:10,counts:simulateFairCoins()};
 export const coinModel=m`各回で表の確率は $\frac12$、各回は互いに独立と仮定し、$10$ 回投げることを一試行とします。`;
-export const coinAssumption=m`「表も裏も確率 $\frac12$ で、各回の結果は互いに独立」と仮定します。これをまねた計算機実験で、$10$ 回投げる試行を $10000$ 回繰り返しました。仮想の実験であり、表はシミュレーションの結果です。繰り返し方を変えると度数も少し変わります。`;
+export const coinAssumption=m`「表も裏も確率 $\frac12$ で、各回の結果は互いに独立」と仮定します。これをまねた計算機実験で、$10$ 回投げる試行を $10000$ 回繰り返しました。仮想の実験であり、表はシミュレーションの結果です。同じ条件で実験をやり直しても、偶然によって度数が変わることがあります。`;
 export const coinRule=m`実験前に「表が出やすいか」を調べると決め、観測以上の表の回数を数えます。この教材では、その割合が $5\%$ 以下なら仮定を疑う、という判断基準も実験前に決めておきます。`;
 function upperTail(observed:number):Worked{
  const count=sum(coinSimulation.counts.slice(observed));

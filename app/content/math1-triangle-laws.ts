@@ -8,7 +8,7 @@ export const sineSideCases:SineCase[]=[
  {A:120,B:30,a:m`3\sqrt3`,b:"3"},{A:30,B:120,a:"2",b:m`2\sqrt3`},
  {A:45,B:60,a:m`2\sqrt2`,b:m`2\sqrt3`},{A:60,B:45,a:m`4\sqrt3`,b:m`4\sqrt2`},
 ];
-function sineSide(t:SineCase):Worked{return w(m`三角形 $ABC$ で $A=${t.A}^\circ,B=${t.B}^\circ,a=${t.a}$。正弦定理で $b$ を求めなさい。`,m`$b=${t.b}$。`,m`既知の対応は $a$ と $A$。求めたい $b$ と $B$ の比を等置します。`,m`$\frac{b}{\sin B}=\frac{a}{\sin A}$ より $b=\frac{${t.a}\sin${t.B}^\circ}{\sin${t.A}^\circ}=\frac{(${t.a})(${specialValues[t.B][0]})}{${specialValues[t.A][0]}}=${t.b}$。角の和は $${t.A+t.B}^\circ<180^\circ$ です。`);}
+function sineSide(t:SineCase):Worked{return w(m`三角形 $ABC$ で $A=${t.A}^\circ,B=${t.B}^\circ,a=${t.a}$。正弦定理で $b$ を求めなさい。`,m`$b=${t.b}$。`,m`既知の対応は $a$ と $A$。求めたい $b$ と $B$ の比を等置します。`,m`$\frac{b}{\sin B}=\frac{a}{\sin A}$ より $b=\frac{${t.a}\sin${t.B}^\circ}{\sin${t.A}^\circ}=\frac{(${t.a})(${specialValues[t.B][0]})}{${specialValues[t.A][0]}}=${t.b}$。与えられた二つの角の和は $${t.A+t.B}^\circ<180^\circ$ なので、残る内角も正です。`);}
 function pairing(known:"a"|"b"|"c",unknown:"a"|"b"|"c"):Worked{
  const A=known.toUpperCase(),B=unknown.toUpperCase();
  return w(m`三角形 $ABC$ で、辺 $${known}$ と角 $${A}$、角 $${B}$ が分かっています。辺 $${unknown}$ を求めるために使う正弦定理の等式を、必要な二つの比だけで書きなさい。`,m`$\frac{${known}}{\sin ${A}}=\frac{${unknown}}{\sin ${B}}$。`,"辺とその向かいの角を、同じ分数に置きます。",m`$${known}$ の対角は $${A}$、$${unknown}$ の対角は $${B}$ なので、この二組を使います。三角形の内角は $0^\circ$ と $180^\circ$ の間にあり、分母の正弦は正です。`);
@@ -73,7 +73,7 @@ export const cosineLawAngle=topic("m1-cosine-law-angle","三辺から角を調�
  m`三辺が分かれば、余弦定理を角について整理します。$2bc\cos A=b^2+c^2-a^2$ より $\cos A=\frac{b^2+c^2-a^2}{2bc}$。辺の長さは正なので分母で割れます。`,
  m`内角は $0^\circ<A<180^\circ$。$\cos A>0$ なら鋭角、$=0$ なら直角、$<0$ なら鈍角です。角度の数値まで求められなくても、符号だけで種類を判定できます。`,
  m`三つの正の数が三角形の辺になるには、最長辺が他の二辺の和より短いことが必要十分です。等しければ一直線につぶれてしまいます。この条件を満たさない数から、三角形の角を計算することはできません。`,
-],"求める角の対辺を引き、余弦の符号と値を読み取ります。",[
+],"他の二辺の二乗和から、求める角の対辺の二乗を引きます。",[
  {id:"cosine-angle-type",title:"余弦の符号から角を判定",why:"分母は正なので、引き算の符号がそのまま角の種類を決めます。",sample:angleCos(4,3,3),items:cosineAngleCases.map(t=>angleCos(...t))},
  {id:"cosine-exact-angle",title:"余弦の値から内角へ",why:"三辺から計算した比を、特別な角の表と照らし合わせます。",sample:exactAngle(m`\sqrt3`,"1","1",m`-\frac12`,120),items:[exactAngle("2","2","2",m`\frac12`,60),exactAngle("5","3","4","0",90),exactAngle(m`2\sqrt3`,"2","2",m`-\frac12`,120),exactAngle(m`\sqrt2`,"1","1","0",90),exactAngle("3","3","3",m`\frac12`,60),exactAngle(m`3\sqrt3`,"3","3",m`-\frac12`,120)]},
 ],[lengthPrep,anglePrep]);

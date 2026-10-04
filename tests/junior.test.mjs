@@ -99,3 +99,36 @@ test('signs, powers, roots and geometric lengths use independently checked answe
   assert.equal(qs('averages','mean')[i].answer,`$${[n+5,n,n+2,n+1].reduce((s,x)=>s+x,0)/4}$。`);
  }
 });
+
+test('quadratic rates distinguish vertical change from rate in practice and review',()=>{
+ for(const question of qs('quadratic-function','rate')){
+  const match=question.prompt.match(/が \$(\d+)\$ から \$(\d+)\$/);
+  assert.ok(match,question.prompt);
+  const [,from,to]=match.map(Number);
+  assert.equal(question.answer,`$${(to*to-from*from)/(to-from)}$。`);
+ }
+ for(const lesson of ['jr-quadratic-function','jr-functions-check'])for(const stage of ['practice','review']){
+  const rates=exercises.filter(e=>e.lesson===lesson&&e.stage===stage&&(e.family==='rate'||e.family.endsWith('-rate')));
+  assert.ok(rates.some(e=>{const [,a,b]=e.prompt.match(/が \$(\d+)\$ から \$(\d+)\$/).map(Number);return b-a>1;}),lesson+' '+stage);
+ }
+ const interval=qs('quadratic-function','rate').find(q=>q.prompt.includes('が $2$ から $4$'));
+ assert.equal(interval.answer,'$6$。');
+});
+
+test('completed-square answers keep both roots and simplify exact radicals',()=>{
+ for(const question of qs('quadratic-equation','formula')){
+  const constant=Number(question.prompt.match(/x\^2-2x-(\d+)/)[1]);
+  const body=question.answer.slice(3,-2);
+  let roots;
+  if(body.includes('\\pm')){
+   const match=body.match(/^1\\pm(\d*)\\sqrt\{(\d+)\}$/);assert.ok(match,body);
+   const delta=Number(match[1]||1)*Math.sqrt(Number(match[2]));roots=[1+delta,1-delta];
+  }else roots=body.split(',').map(Number);
+  assert.equal(roots.length,2);assert.notEqual(roots[0],roots[1]);
+  for(const x of roots)assert.ok(Math.abs(x*x-2*x-constant)<1e-10,question.answer);
+ }
+ const formulas=qs('quadratic-equation','formula');
+ assert.equal(formulas.find(q=>q.prompt.includes('x^2-2x-3')).answer,'$x=3,-1$。');
+ assert.equal(formulas.find(q=>q.prompt.includes('x^2-2x-7')).answer,'$x=1\\pm2\\sqrt{2}$。');
+ assert.equal(formulas.find(q=>q.prompt.includes('x^2-2x-8')).answer,'$x=4,-2$。');
+});

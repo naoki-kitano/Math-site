@@ -15,7 +15,7 @@ export default function MathCDiagrams({slug,index}:{slug:string;index:number}){
    <Label x={165} y={184} text="$0$"/>
    <line x1={X(1)} x2={X(1)} y1="177" y2="183" stroke="#8293a5"/><Label x={X(1)} y={199} text="$1$"/>
    <line x1="177" x2="183" y1={Y(1)} y2={Y(1)} stroke="#8293a5"/>
-   {plot.paths.map((p,i)=><polyline key={i} points={p.points.map(([x,y])=>`${X(x)},${Y(y)}`).join(" ")} fill="none" stroke={p.dashed?"#8293a5":"#328e7e"} strokeWidth={p.dashed?1.4:2.4} strokeDasharray={p.dashed?"5 4":undefined} markerEnd={p.arrow?`url(#${id})`:undefined}/>)}
+   {plot.paths.map((p,i)=><polyline key={i} points={p.points.map(([x,y])=>`${X(x).toFixed(2)},${Y(y).toFixed(2)}`).join(" ")} fill="none" stroke={p.dashed?"#8293a5":"#328e7e"} strokeWidth={p.dashed?1.4:2.4} strokeDasharray={p.dashed?"5 4":undefined} markerEnd={p.arrow?`url(#${id})`:undefined}/>)}
    {plot.points.map((p,i)=><g key={i}><circle cx={X(p.at[0])} cy={Y(p.at[1])} r="4" fill="#14243f"/><Label x={X(p.at[0])+(p.offset?.[0]??0)} y={Y(p.at[1])+(p.offset?.[1]??-30)} text={p.label}/></g>)}
   </svg><figcaption><MathText text={plot.caption}/></figcaption></figure>;
  }

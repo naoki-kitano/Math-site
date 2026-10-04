@@ -30,7 +30,11 @@ function overlap(a:number,b:number,closed:boolean):Worked {
  const l=closed?"\\le":"<",r="\\le";
  return [t(m`x${closed?"\\ge":">"}${a}`)+" と "+t(m`x\le${b}`)+" を同時に満たす範囲を求めなさい。",t(m`${a}${l} x${r}${b}`)+"。",m`左の条件は ${t(String(a))} より${closed?"右（端を含む）":"右（端を含まない）"}、右の条件は ${t(String(b))} 以下です。`,"両方が重なる部分を取ります。"+t(m`${a}${l} x${r}${b}`)+" はどちらの条件も満たします。"];
 }
-function empty(a:number,b:number):Worked{return [t(m`x>${a}`)+" と "+t(m`x\le${b}`)+" を同時に満たす実数はありますか。理由も述べなさい。","ありません。解なしです。",m`二つの境界 ${t(String(a))} と ${t(String(b))} の順序を比べます。`,m`${t(m`x>${a}`)} なら ${t(m`x>${b}`)} でもあるので、${t(m`x\le${b}`)} と両立しません。共通範囲はありません。`]}
+function empty(a:number,b:number):Worked{
+ const hint=a===b?m`境界 ${t(String(a))} が両方の条件を満たすか確かめます。`:m`二つの境界 ${t(String(a))} と ${t(String(b))} の順序を比べます。`;
+ const reason=a===b?m`前者は ${t(String(a))} より大きい範囲、後者は ${t(String(a))} 以下の範囲なので、両方は満たせません。境界 ${t(String(a))} も前者を満たしません。`:m`${t(m`x>${a}`)} なら ${t(m`x>${b}`)} でもあるので、${t(m`x\le${b}`)} と両立しません。共通範囲はありません。`;
+ return [t(m`x>${a}`)+" と "+t(m`x\le${b}`)+" を同時に満たす実数はありますか。理由も述べなさい。","ありません。解なしです。",hint,reason];
+}
 function system(a:number,b:number):Worked {
  const lower=2*a+1,upper=4-b;
  return [t(m`\begin{cases}2x+1>${lower}\\-x+4\ge${upper}\end{cases}`)+" を解きなさい。",t(m`${a}<x\le${b}`)+"。", "各不等式を別々に解き、最後に共通範囲を取ります。二つ目は負の数で割ります。",m`${t(m`2x>${2*a}`)} より ${t(m`x>${a}`)}。${t(m`-x\ge${-b}`)} より ${t(m`x\le${b}`)}。共通部分は ${t(m`${a}<x\le${b}`)} です。`];
@@ -73,8 +77,6 @@ for(const e of simultaneous.exercises.filter(e=>e.family==="empty")) {
  e.answer += e.steps[0].text;
  e.steps[e.steps.length-1].text=e.answer;
 }
-const emptyRepair=simultaneous.lesson.supplements.find(s=>s.id==="empty")!;
-emptyRepair.text += "\n"+m`$x>3$ なら $x>2$ なので、$x\le2$ と両立しません。`;
 addPair(simultaneous,"singleton","共通部分が一点になるとき","上下の境界が一致し、どちらもその境界を含むときは、その一点だけが解です。",[
  [m`$x\ge2$ と $x\le2$ を同時に満たす範囲を求めなさい。`,m`$x=2$。`,"両方の等号が許す値を確かめます。",m`$2$ より小さい値は前者を、大きい値は後者を満たしません。$x=2$ は両方を満たします。`],
  [m`$x\le-1$ と $x\ge-1$ を同時に満たす範囲を求めなさい。`,m`$x=-1$。`,"境界を両方の条件に代入します。",m`$-1$ だけが上下の条件を同時に満たします。両方に等号があるので、この点は除きません。`],

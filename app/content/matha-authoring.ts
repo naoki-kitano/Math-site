@@ -1,3 +1,4 @@
+import {workedText} from "./worked-text";
 import type {Exercise,Lesson} from "./lessons";
 import type {Q,Skill} from "./matha-counting-authoring";
 export {m,q,skill,comb} from "./matha-counting-authoring";
@@ -9,12 +10,12 @@ export type Bank={lesson:Lesson;exercises:Exercise[];skills:Skill[]};
 export function addRepairExample(banks:Bank[],slug:string,family:string,example:Q){
  const help=banks.find(b=>b.lesson.slug===slug)?.lesson.supplements.find(h=>h.id===family);
  if(!help)throw Error("Missing repair example "+slug+family);
- help.text+="\n別の条件でも確かめる\n"+example.prompt+"\n"+example.working+"\n"+example.answer;
+ help.text+="\n別の条件でも確かめる\n"+example.prompt+"\n"+workedText(example.working,example.answer);
 }
 export function topic(chapter:string,slug:string,title:string,description:string,introduction:string[],rule:string,skills:Skill[],prep:Skill[],section:string):Bank{
  const exercises:Exercise[]=[];
  const add=(s:Skill,x:Q,i:number,stage:Exercise["stage"])=>{
-  exercises.push({id:`${slug}-${s.id}-${i+1}-v1`,lesson:slug,family:s.id,repair:s.id,stage,kind:"paper",prompt:x.prompt,answer:x.answer,hints:[x.hint],steps:[{title:"考えて進める",text:x.working},{title:"答えと確認",text:x.answer}]});
+  exercises.push({id:`${slug}-${s.id}-${i+1}-v1`,lesson:slug,family:s.id,repair:s.id,stage,kind:"paper",prompt:x.prompt,answer:x.answer,hints:[x.hint],steps:[{title:s.title,text:x.working},{title:"答え",text:x.answer}]});
  };
  for(const s of skills){if(s.items.length<4)throw Error("Missing practice "+slug+s.id);s.items.forEach((x,i)=>add(s,x,i,i===0?"guided":i>=s.items.length-2?"review":"practice"));}
  for(const s of prep)s.items.forEach((x,i)=>add(s,x,i,i===0?"ready":"review"));
@@ -27,8 +28,8 @@ export function topic(chapter:string,slug:string,title:string,description:string
  const other=exercises.filter(e=>e.stage!=="practice");
  if(firstPractice>=0){other.splice(Math.min(firstPractice,other.length),0,...mixed);exercises.splice(0,exercises.length,...other);}
  return {skills,exercises,lesson:{slug,title,subject:"数学A",chapter,section,description,introduction,rule,basicsTitle:title,guidedAfterExamples:true,
-  examples:skills.map(s=>({id:s.id,title:s.title,prompt:s.sample.prompt,guidedIds:[`${slug}-${s.id}-1-v1`],steps:[{title:"まず考えること",text:s.why},{title:"順に進める",text:s.sample.working},{title:"答えと確認",text:s.sample.answer}]})),
-  supplements:[...skills,...prep].map(s=>({id:s.id,title:s.title,text:[s.why,s.sample.prompt,s.sample.working,s.sample.answer].join("\n"),tex:"",check:s.items[0].prompt,answer:s.items[0].working+"\n"+s.items[0].answer}))}};
+  examples:skills.map(s=>({id:s.id,title:s.title,prompt:s.sample.prompt,guidedIds:[`${slug}-${s.id}-1-v1`],steps:[{title:"",text:s.sample.hint},{title:s.title,text:s.sample.working},{title:"答え",text:s.sample.answer}]})),
+  supplements:[...skills,...prep].map(s=>({id:s.id,title:s.title,text:workedText(s.why,s.sample.prompt,s.sample.working,s.sample.answer),tex:"",check:s.items[0].prompt,answer:workedText(s.items[0].working,s.items[0].answer)}))}};
 }
 // Explicit family coverage: one practice and two distinct review questions per decision.
 // All supplied selections are IDs within that family, not the order of lesson cards.

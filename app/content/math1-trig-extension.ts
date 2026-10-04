@@ -67,7 +67,7 @@ appendTrigQuestion(equalSines,"unit-sine-angle","extra-1",w(m`単位円の上半
 regroupTrig(equalSines,["sine-all-angles-4","unit-sine-angle-extra-1"],"unit-sine-angle","正弦が1となる点は一つ",m`半径1の単位円で高さ $1$ の点は頂点 $(0,1)$ だけです。二つの異なる候補を探す必要はありません。`);
 regroupTrig(equalSines,["sine-all-angles-5","sine-all-angles-6"],"zero-sine-endpoints","正弦が0となる端点と角の範囲",m`単位円で高さ $0$ の点は $(1,0),(-1,0)$。候補 $0^\circ,180^\circ$ を指定された範囲に含むかを調べます。内角のように両端を除く範囲では解がありません。`);
 addPair(trigRelations,"recover-sine","余弦から正弦を求める",m`$0^\circ<\theta<180^\circ$ では正弦は正です。$\sin^2\theta=1-\cos^2\theta$ から正の平方根を選びます。余弦が負でも二乗は正です。`,[
- w(m`$0^\circ<\theta<180^\circ$、$\cos\theta=-\frac35$ のとき、$\sin\theta$ を求めなさい。`,m`$\sin\theta=\frac45$。`,"余弦の負号も含めて二乗してから、正弦の符号を決めます。",m`$\sin^2\theta=1-\left(-\frac35\right)^2=\frac{16}{25}$。上半円の内点では縦座標は正なので $\sin\theta=\frac45$。`),
+ w(m`$0^\circ<\theta<180^\circ$、$\cos\theta=-\frac35$ のとき、$\sin\theta$ を求めなさい。`,m`$\sin\theta=\frac45$。`,"余弦の負号も含めて二乗してから、正弦の符号を決めます。",m`$\sin^2\theta=1-\left(-\frac35\right)^2=\frac{16}{25}$。$0^\circ<\theta<180^\circ$ では、上半円上の点の縦座標は正なので $\sin\theta=\frac45$。`),
  w(m`$0^\circ<\theta<180^\circ$、$\cos\theta=\frac5{13}$ のとき、$\sin\theta$ を求めなさい。`,m`$\sin\theta=\frac{12}{13}$。`,"正弦の二乗を求め、角の範囲から正の根を選びます。",m`$\sin^2\theta=1-\frac{25}{169}=\frac{144}{169}$。正弦は正なので $\sin\theta=\frac{12}{13}$。`),
 ]);
 addPair(trigRelations,"tangent-squared","正接から余弦の二乗へ",m`$\cos\theta\ne0$ で $\sin^2\theta+\cos^2\theta=1$ を $\cos^2\theta$ で割ると、$1+\tan^2\theta=\frac1{\cos^2\theta}$。したがって $\cos^2\theta=\frac1{1+\tan^2\theta}$ です。`,[

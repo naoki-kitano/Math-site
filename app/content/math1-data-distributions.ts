@@ -22,7 +22,7 @@ function groupedMean(counts:number[]):Worked{
  const centers=[5,15,25],n=sum(counts),total=sum(counts.map((c,i)=>c*centers[i]));
  return w(m`時間（分）の階級 $0$ 以上 $10$ 未満、$10$ 以上 $20$ 未満、$20$ 以上 $30$ 未満の度数が順に $${list(counts)}$ です。階級値で平均を推定し、正確な平均かどうか答えなさい。`,m`推定平均 $${frac(total,n)}$ 分。一般には近似値です。`,"階級の中央の値を、その階級の個数だけ使います。",m`階級値は $5,15,25$。$\frac{5\cdot${counts[0]}+15\cdot${counts[1]}+25\cdot${counts[2]}}{${n}}=${frac(total,n)}$。各記録を階級値で置き換えたため、元の正確な平均とは限りません。`);
 }
-const classMeans=skill("class-mean","階級値で平均を推定する","階級ごとの個数を重みにし、最後に全個数で割ります。",groupedMean([2,4,2]),[[1,2,1],[2,3,1],[1,3,2],[4,1,1],[2,2,4],[3,2,1]].map(groupedMean));
+const classMeans=skill("class-mean","階級値で平均を推定する","階級値は区間の両端の平均です。各階級値にその階級の度数を掛け、積の合計を全体の個数で割ります。",groupedMean([2,4,2]),[[1,2,1],[2,3,1],[1,3,2],[4,1,1],[2,2,4],[3,2,1]].map(groupedMean));
 export const histograms=dataTopic("m1-histogram","度数分布とヒストグラム",["ばらばらの値を区間ごとに数えると、どのあたりに集まっているかを見渡せます。","ここでは等しい階級幅を使います。横軸は時間（分）、縦軸は度数（人）。隣り合う階級の柱を接して描きます。"],"階級の端を含むかを確かめ、度数の合計が全体の個数と一致するか確認します。",[classes,classMeans]);
 
 function central(xs:number[],which:"mean"|"median"|"mode"):Worked{
@@ -36,7 +36,7 @@ const means=skill("arithmetic-mean","全部の値をならす","平均値は合�
 const medians=skill("median","順序の中央を読む","偶数個では中央の二つの平均を取り、奇数個では中央の一つを取ります。",central([8,2,3,1,6],"median"),[[6,1,2,4],[9,1,3,3,5],[1,7,2,5,4,3],[0,0,3,6,9],[-3,2,0,7],[2,8,4,5,1]].map(a=>central(a,"median")));
 const modes=skill("mode","最も多く現れる値","最頻値は出現回数で決めます。同じ最大回数の値が複数なら、すべて挙げます。",central([1,2,2,3,4],"mode"),[[2,2,3,4,4],[1,1,1,2,3],[0,1,1,2,2,3],[5,4,5,6,5],[1,3,3,4,4,5],[0,0,2,3,3,3]].map(a=>central(a,"mode")));
 function pooled(n:number,a:number,k:number,b:number):Worked{return w(m`$${n}$ 人の平均は $${a}$ 分、別の $${k}$ 人の平均は $${b}$ 分です。全員の平均を求めなさい。`,m`$${frac(n*a+k*b,n+k)}$ 分。`,"それぞれの合計に戻してから、一緒にした人数で割ります。",m`合計は $${n}\cdot${a}+${k}\cdot${b}=${n*a+k*b}$。したがって平均は $\frac{${n*a+k*b}}{${n+k}}=${frac(n*a+k*b,n+k)}$。人数が違う場合、二つの平均の単純平均では一般に正しく求められません。`);}
-const pooledMeans=skill("pooled-mean","人数の違う平均を合わせる","「平均×人数」で合計を復元してから、全員の平均を求めます。",pooled(2,4,6,8),[pooled(3,4,2,9),pooled(2,6,4,3),pooled(5,8,1,2),pooled(4,5,2,8),pooled(2,3,3,8),pooled(1,10,4,5)]);
+const pooledMeans=skill("pooled-mean","人数の違う平均を合わせる","各群の平均に人数を掛けて合計を復元し、全員の平均を求めます。",pooled(2,4,6,8),[pooled(3,4,2,9),pooled(2,6,4,3),pooled(5,8,1,2),pooled(4,5,2,8),pooled(2,3,3,8),pooled(1,10,4,5)]);
 export const representatives=dataTopic("m1-representative-values","平均値・中央値・最頻値",["「中心」を表す方法は一つではありません。合計をならす、順序の中央を見る、よく現れる値を探す、という違いがあります。"],"何を表したいかに応じて、代表値の求め方と意味を区別します。",[means,medians,modes,pooledMeans]);
 
 export const boxData=[8,1,5,2,7,4,9];

@@ -31,13 +31,16 @@ try{
  for(const width of [1100,390]){
   const context=await browser.newContext({viewport:{width,height:950},reducedMotion:'reduce'}),page=await context.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  page.on('console',m=>{if(m.type()==='error')console.error('browser console:',m.text());});
+  page.on('console',m=>{if(m.type()==='error'&&!m.text().startsWith('Failed to load resource:'))errors.push(m.text());});
   page.on('requestfailed',r=>console.error('request failed:',r.url(),r.failure()));
   page.on('response',r=>{if(r.status()>=400)console.error('HTTP:',r.status(),r.url());});
   const records=()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)||'{"attempts":[]}').attempts,key);
   const go=async path=>{const response=await page.goto(path,{waitUntil:'networkidle'});assert.equal(response?.status(),200,path);};
   const inspect=async()=>{
    await page.evaluate(()=>document.fonts.ready);
+   // Numeric-only repairs need not use KaTeX_Math. Still verify that the bundled
+   // variable font is available; a shorter explanation must not fail that check.
+   await page.evaluate(()=>document.fonts.load('16px KaTeX_Math','x'));
    const state=await page.evaluate(()=>{
     const raw=[],walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     while(walker.nextNode()){const n=walker.currentNode;if(n.parentElement?.closest('script,style,.katex,title,desc'))continue;if(/\$|\\[a-zA-Z]+/.test(n.textContent))raw.push(n.textContent.slice(0,100));}

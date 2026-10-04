@@ -25,7 +25,7 @@ addPair(sharedPoints,"cancel-quadratic","二次の項が消える共有点計算
 
 function rectangle(L:number,maximum:boolean):Worked{
  const formula=poly(-1,L,0),h=L/2,area=L*L/4;
- return w(m`周の長さが $${2*L}\,\mathrm{cm}$ の長方形で、一辺を $x\,\mathrm{cm}$ とします。${maximum?"面積が最大になる辺の長さと最大面積を求めなさい。":"面積を表す関数と、実数の変数 $x$ の定義域を求めなさい。"}辺の長さは正とします。`,maximum?m`二辺はともに $${num(h)}\,\mathrm{cm}$、最大面積は $${num(area)}\,\mathrm{cm}^2$。`:m`$S=${formula}$、$0<x<${L}$。`,maximum?"周の長さから他方の辺を表し、面積を平方完成します。頂点が実際の長方形になるかも確認します。":"向かい合う辺が二本ずつあることから、二辺の和を求めます。",m`他方の辺を $y\,\mathrm{cm}$ とすると $2x+2y=${2*L}$、よって $y=${L}-x$。両辺が正なので $0<x<${L}$。面積は $S=x(${L}-x)=${formula}$。`+(maximum?m`平方完成すると $S=${vertexForm(-1,h,area)}$。$x=${num(h)}$ は定義域に入り、平方がゼロなので最大面積は $${num(area)}\,\mathrm{cm}^2$。他方の辺も $${num(h)}\,\mathrm{cm}$ です。`:"両端では辺の一方がゼロとなり長方形ではないため、端を含めません。"));
+ return w(m`周の長さが $${2*L}\,\mathrm{cm}$ の長方形で、一辺を $x\,\mathrm{cm}$ とします。${maximum?"面積が最大になる辺の長さと最大面積を求めなさい。":"面積を表す関数と、実数の変数 $x$ の定義域を求めなさい。"}辺の長さは正とします。`,maximum?m`二辺はともに $${num(h)}\,\mathrm{cm}$、最大面積は $${num(area)}\,\mathrm{cm}^2$。`:m`$S=${formula}$、$0<x<${L}$。`,maximum?"周の長さから他方の辺を表し、面積を平方完成します。頂点が実際の長方形になるかも確認します。":"向かい合う辺が二本ずつあることから、二辺の和を求めます。",m`他方の辺を $y\,\mathrm{cm}$ とすると $2x+2y=${2*L}$、よって $y=${L}-x$。二辺の長さは正なので $x>0$ かつ $${L}-x>0$、よって $0<x<${L}$。面積を $S\,\mathrm{cm}^2$ とすると、$S=x(${L}-x)=${formula}$。`+(maximum?m`平方完成すると $S=${vertexForm(-1,h,area)}$。$x=${num(h)}$ は定義域に入り、平方がゼロなので最大面積は $${num(area)}\,\mathrm{cm}^2$。他方の辺も $${num(h)}\,\mathrm{cm}$ です。`:"両端では辺の一方がゼロとなり長方形ではないため、端を含めません。"));
 }
 function heightModel(h:number,k:number,last:number):Worked{
  const b=2*h,c=k-h*h;

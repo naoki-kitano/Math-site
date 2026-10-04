@@ -73,9 +73,9 @@ const substitution = defineMathOneLesson({
   rule:m`まずすべての文字を括弧付きの数に置き換えます。累乗の範囲を確かめてから計算し、分数の足し算では分母をそろえます。`,
   examples:[
     {id:"negative",guidedIds:["m1-substitution-g-negative-v1"],title:"負の数を代入する",prompt:m`$x=-3$ のとき、$2x^2-x$ の値を求めなさい。`,steps:[
-      {title:"二つの文字を置き換える",text:m`二乗される数は $x$ です。後ろの $-x$ は、負の数をさらに引く形になります。`,tex:m`2(-3)^2-(-3)`},
+      {title:"二か所の文字を置き換える",text:m`二乗される数は $x$ です。後ろの $-x$ は、負の数をさらに引く形になります。`,tex:m`2(-3)^2-(-3)`},
       {title:"累乗を先に計算する",text:m`$(-3)^2=9$ なので、$2\cdot9-(-3)=18+3=21$。`},
-      {title:"元の範囲を確かめる",text:m`答えは $21$。係数 $2$ は二乗の外にあり、二乗するのは $-3$ だけです。`},
+      {title:"二乗の範囲を確かめる",text:m`答えは $21$。係数 $2$ は二乗の外にあり、二乗するのは $-3$ だけです。`},
     ]},
     {id:"fraction",guidedIds:["m1-substitution-g-fraction-v1"],title:"分数を代入する",prompt:m`$x=-\dfrac12$ のとき、$x^2+x$ の値を求めなさい。`,steps:[
       {title:"分数全体を置き換える",text:m`$x^2$ では分子と分母の両方を二乗します。`,tex:m`\left(-\frac12\right)^2+\left(-\frac12\right)`},
@@ -86,7 +86,7 @@ const substitution = defineMathOneLesson({
   supplements:[
     {id:"power-scope",title:"どこまでを二乗するか",text:m`$-4^2$ は $-(4\cdot4)$。$(-4)^2$ は $(-4)(-4)$。括弧は見た目だけでなく計算の対象を変えます。`,tex:m`-4^2=-16,\qquad(-4)^2=16`,check:m`$-5^2$ と $(-5)^2$ を計算しなさい。`,answer:m`それぞれ $-25$、$25$。`},
     {id:"fraction-arithmetic",title:"分数の加減と累乗",text:m`加減では分母をそろえます。累乗では分数全体を繰り返し掛けるので、分子と分母の両方を累乗します。`,tex:m`\frac16+\frac13=\frac16+\frac26=\frac12,\qquad\left(-\frac23\right)^2=\frac49`,check:m`$\dfrac14-\dfrac12$ を計算しなさい。`,answer:m`$\dfrac14-\dfrac24=-\dfrac14$。`},
-    {id:"integer-substitution",title:"負号を保って代入する",text:m`$x=-2$ を $x^2-x$ に入れるなら、二つの文字をどちらも $(-2)$ に置き換えます。引く数が負なら足し算になります。`,tex:m`(-2)^2-(-2)=4+2=6`,check:m`$x=-1$ のとき $2x^2-x$ は？`,answer:m`$2(-1)^2-(-1)=2+1=3$。`},
+    {id:"integer-substitution",title:"負号を保って代入する",text:m`$x=-2$ を $x^2-x$ に入れるなら、二か所の $x$ をどちらも $(-2)$ に置き換えます。引く数が負なら足し算になります。`,tex:m`(-2)^2-(-2)=4+2=6`,check:m`$x=-1$ のとき $2x^2-x$ は？`,answer:m`$2(-1)^2-(-1)=2+1=3$。`},
     {id:"fraction-substitution",title:"分数を代入した後の計算",text:m`$x=\dfrac12$ を $x^2-x$ に代入すると、二乗の分母は $4$ になります。引き算の前に通分します。`,tex:m`\left(\frac12\right)^2-\frac12=\frac14-\frac24=-\frac14`,check:m`$x=\dfrac13$ のとき $x^2+x$ は？`,answer:m`$\dfrac19+\dfrac13=\dfrac19+\dfrac39=\dfrac49$。`},
     {id:"order",title:"括弧と計算の順序",text:m`足し算と掛け算が混じった式は、掛け算を先にします。括弧があれば、その中を先に計算します。割る数が括弧全体なら、$12\div(2\cdot3)=12\div6=2$ です。`,tex:m`2+3\cdot4=14,\qquad(2+3)\cdot4=20`,check:m`$8-2\cdot3$ を計算しなさい。`,answer:m`$8-6=2$。`},
     {id:"left-to-right",title:"乗除は同じ優先順位",text:m`掛け算と割り算は同じ優先順位なので、左から計算します。$12\div2\cdot3$ の割る数は $2$ であり、$2\cdot3$ 全体ではありません。`,tex:m`12\div2\cdot3=6\cdot3=18`,check:m`$20\div5\cdot2$ は？`,answer:m`$4\cdot2=8$。$20\div(5\cdot2)$ とは違います。`},

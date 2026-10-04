@@ -1,5 +1,6 @@
 import {type Bank,type Q,skill} from "./matha-authoring";
 import type {Exercise,Lesson} from "./lessons";
+import {workedText} from "./worked-text";
 export const legacyReviewGroups=new Map<string,string>();
 export const preferredReviewIds=new Set<string>();
 
@@ -12,14 +13,14 @@ export function refineFamily(bank:Bank,chapter:{lessons:Lesson[];exercises:Exerc
  const group=check.practiceGroups!.find(g=>g.exerciseIds.some(id=>chapter.exercises.some(e=>e.id===id&&e.family===chapterFamily)))!;
  const oldQuestions=bank.exercises.filter(e=>e.family===oldFamily);
  const example=bank.lesson.examples.find(e=>e.id===oldFamily);
- if(example){const part=parts[0];example.title=part.title;example.prompt=part.sample.prompt;example.steps=[{title:"まず考えること",text:part.why},{title:"順に進める",text:part.sample.working},{title:"答えと確認",text:part.sample.answer}];}
+ if(example){const part=parts[0];example.title=part.title;example.prompt=part.sample.prompt;example.steps=[{title:"",text:part.sample.hint},{title:part.title,text:part.sample.working},{title:"答え",text:part.sample.answer}];}
  for(const e of chapter.exercises.filter(e=>e.lesson===bank.lesson.slug&&e.family===oldFamily||e.lesson===check.slug&&e.family===chapterFamily)){
   legacyReviewGroups.set(e.id,e.lesson+":"+e.family);
  }
  for(const part of parts){
   const s=skill(part.id,part.title,part.why,part.sample,part.items);
   bank.skills.push(s);
-  const repair={id:part.id,title:part.title,text:[part.why,part.sample.prompt,part.sample.working,part.sample.answer].join("\n"),tex:"",check:part.items[0].prompt,answer:part.items[0].working+"\n"+part.items[0].answer};
+  const repair={id:part.id,title:part.title,text:workedText(part.why,part.sample.prompt,part.sample.working,part.sample.answer),tex:"",check:part.items[0].prompt,answer:workedText(part.items[0].working,part.items[0].answer)};
   bank.lesson.supplements.push(repair);
   const family=bank.lesson.slug+"-"+part.id;
   check.supplements.push({...repair,id:family,title:bank.lesson.title+"："+part.title});
@@ -30,7 +31,7 @@ export function refineFamily(bank:Bank,chapter:{lessons:Lesson[];exercises:Exerc
    for(const e of chapter.exercises.filter(e=>e.lesson===check.slug&&e.family===chapterFamily&&e.id===`${check.slug}-${chapterFamily}-${key}-v1`)){e.family=family;e.repair=family;}
   }
   part.items.forEach((item,i)=>{
-   const e:Exercise={id:`${bank.lesson.slug}-${part.id}-new-${i+1}-v1`,lesson:bank.lesson.slug,family:part.id,repair:part.id,stage:i===0?"practice":"review",kind:"paper",prompt:item.prompt,answer:item.answer,hints:[item.hint],steps:[{title:"考えて進める",text:item.working},{title:"答えと確認",text:item.answer}]};
+   const e:Exercise={id:`${bank.lesson.slug}-${part.id}-new-${i+1}-v1`,lesson:bank.lesson.slug,family:part.id,repair:part.id,stage:i===0?"practice":"review",kind:"paper",prompt:item.prompt,answer:item.answer,hints:[item.hint],steps:[{title:part.title,text:item.working},{title:"答え",text:item.answer}]};
    bank.exercises.push(e);chapter.exercises.push(e);
    const copy={...e,id:check.slug+"-"+e.id,lesson:check.slug,family,repair:family};
    chapter.exercises.push(copy);

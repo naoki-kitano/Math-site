@@ -18,8 +18,8 @@ export function construct(kind:Construction,n:number,orientation:string):Q{
   "bisect-angle":m`頂点 $O$ を中心とする円弧で二辺上に $P,Q$ を取ります。$P,Q$ を中心とする同じ半径の円弧を角内部で交わらせ、交点 $R$ と $O$ を結びます。$OP=OQ,PR=QR,OR$ 共通より $\triangle OPR\equiv\triangle OQR$。よって $\angle POR=\angle ROQ$ です。$R$ は頂点と違う点を選びます。`,
   "perpendicular":m`$P$ を中心とし、直線と二点 $A,B$ で交わる円を描きます。$PA=PB$ なので、$AB$ の垂直二等分線は $P$ を通ります。$A,B$ を中心とする等半径の円弧の二交点を結んで、その線を作図します。`,
   "parallel":m`まず $P$ から元の直線への垂線を作ります。その垂線上で $P$ から等距離の二点 $A,B$ を円で取り、$AB$ の垂直二等分線を作ります。これは $P$ を通り、最初の垂線に垂直です。同じ平面で同じ直線に垂直な二直線なので、元の直線に平行です。`,
-  "divide":m`$A$ から $AB$ と異なる向きの半直線を引き、コンパスの幅を変えずに $P_1,\ldots,P_{${n}}$ を順に取ります。$P_{${n}}B$ を結び、途中の各点からこの線に平行な線を作図します。$AB$ との交点が等分点です。相似より、補助半直線の等しい間隔が $AB$ の等しい間隔に対応します。平行線は垂線を二回作って引き、目測にしません。`,
-  "ratio":m`$A$ から補助半直線を引き、等間隔で $${n+2}$ 個の区間をコンパスで取ります。最後の点を $B$ と結び、$${n}$ 番目の点からそれに平行な線を作図します。$AB$ との交点を $P$ とすると、相似から $AP:PB=${n}:2$。比の和で全体を分けたことが理由です。`,
+  "divide":m`$A$ から、直線 $AB$ 上にない半直線を引き、コンパスの幅を変えずに同じ長さずつ $P_1,\ldots,P_{${n}}$ を順に取ります。$P_{${n}}B$ を結び、途中の各点からこの線に平行な線を作図します。途中の点 $P_j$（$${n===2?"j=1":`j=1,\\ldots,${n-1}`}$）から引いた平行線と $AB$ の交点を $Q_j$ とします。$\triangle AP_jQ_j\sim\triangle AP_{${n}}B$ より $AQ_j:AB=AP_j:AP_{${n}}=j:${n}$。したがって交点は $AB$ の等分点です。平行線は垂線を二回作って引き、目測にしません。`,
+  "ratio":m`$A$ から、直線 $AB$ 上にない半直線を引き、同じ長さずつ $${n+2}$ 個の区間をコンパスで取ります。最後の点を $C$、$${n}$ 番目の点を $D$ とします。$CB$ を結び、$D$ からそれに平行な線を作図し、$AB$ との交点を $P$ とします。$DP\parallel CB$ より $\triangle ADP\sim\triangle ACB$。$AP:AB=AD:AC=${n}:${n+2}$ なので、残りの $PB$ は比で $2$、$AP:PB=${n}:2$ です。平行線は垂線を二回作って引きます。`,
   "tangent-point":m`中心 $O$ と $T$ を結びます。$T$ を中心とする円で直線 $OT$ 上に等距離の二点を取り、その二点の垂直二等分線を作図します。これは $T$ を通り $OT$ に垂直なので、元の円の接線です。`,
   "tangent-outside":m`中心 $O$ と $P$ を結び、$OP$ の垂直二等分線で中点 $M$ を作ります。中心 $M$、半径 $MO$ の円を描き、元の円との二交点を $T,U$ とします。$PT,PU$ を引きます。直径 $OP$ に対する円周角は直角なので $OT\perp PT,OU\perp PU$。よって二本とも接線です。$P$ が円内ではこの作図で接点は得られません。`
  }[kind];
@@ -51,10 +51,31 @@ type V=[number,number,number];
 const sub=(a:V,b:V):V=>a.map((v,i)=>v-b[i]) as V;
 const cross=(a:V,b:V):V=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
 const dot=(a:V,b:V)=>a.reduce((s,v,i)=>s+v*b[i],0);
+const lineReasons:Record<string,string>={
+ "AB/BC":"どちらも点 $B$ を通るので、$B$ で交わります。",
+ "AB/EF":"長方形 $ABFE$ の向かい合う辺なので平行です。",
+ "AD/EH":"長方形 $ADHE$ の向かい合う辺なので平行です。",
+ "AD/AB":"どちらも点 $A$ を通るので、$A$ で交わります。",
+ "AD/BF":"$BF$ が底面と交わる点は $B$ だけで、$B$ は $AD$ 上にありません。また $BF$ は底面に垂直なので、底面内の $AD$ と平行でもありません。よって、ねじれの位置です。",
+ "BC/FG":"長方形 $BCGF$ の向かい合う辺なので平行です。",
+ "BC/CD":"どちらも点 $C$ を通るので、$C$ で交わります。",
+ "BC/AE":"$AE$ が底面と交わる点は $A$ だけで、$A$ は $BC$ 上にありません。また $AE$ は底面に垂直なので、底面内の $BC$ と平行でもありません。よって、ねじれの位置です。",
+ "AB/CG":"$CG$ が底面と交わる点は $C$ だけで、$C$ は $AB$ 上にありません。また $CG$ は底面に垂直なので、底面内の $AB$ と平行でもありません。よって、ねじれの位置です。",
+ "CD/EF":m`$CD\parallel AB$、$AB\parallel EF$ なので、$CD$ と $EF$ も平行です。`,
+ "AC/FH":m`$AC$ と $FH$ は平行な上下面にあるので交わりません。また $FH\parallel BD$ ですが、$AC$ と $BD$ は底面の対角線で交わるため、$AC$ と $FH$ は平行でもありません。よって、ねじれの位置です。`,
+ "AC/EG":"上面は底面をそのまま上へ平行移動したものなので、対応する対角線 $AC$ と $EG$ は平行です。",
+ "BD/FH":"上面は底面をそのまま上へ平行移動したものなので、対応する対角線 $BD$ と $FH$ は平行です。",
+ "AC/BD":"長方形 $ABCD$ の二本の対角線なので、その交点で交わります。",
+ "EG/FH":"長方形 $EFGH$ の二本の対角線なので、その交点で交わります。",
+ "AF/BE":"長方形 $ABFE$ の二本の対角線なので、その交点で交わります。",
+ "AH/DE":"長方形 $ADHE$ の二本の対角線なので、その交点で交わります。",
+ "AC/EF":m`平行な上下面にあるので交わりません。$EF\parallel AB$ で、$AC$ と $AB$ は平行でないため、この二直線も平行ではありません。よって、ねじれの位置です。`,
+ "BD/FG":m`平行な上下面にあるので交わりません。$FG\parallel BC$ で、$BD$ と $BC$ は平行でないため、この二直線も平行ではありません。よって、ねじれの位置です。`,
+};
 export function lines(a:string,b:string):Q{
  const av=cubeVertices[a[0]],bv=cubeVertices[b[0]],u=sub(cubeVertices[a[1]],av),v=sub(cubeVertices[b[1]],bv),normal=cross(u,v),parallel=normal.every(x=>x===0),samePlane=dot(sub(bv,av),normal)===0;
  const result=parallel?"平行":samePlane?"交わる":"ねじれの位置";
- const reason=parallel?"直方体の対応する辺（または対応する面の同じ向きの対角線）で、延長しても交わりません。":samePlane?"同じ平面上にあり、平行でないため延長した直線は一点で交わります。":"平行ではなく、延長しても交わりません。同じ平面上にない二直線です。";
+ const reason=lineReasons[`${a}/${b}`]??(parallel?"直方体の対応する辺（または対応する面の同じ向きの対角線）で、延長しても交わりません。":samePlane?"同じ平面上にあり、平行でないため延長した直線は一点で交わります。":"平行ではなく、延長しても交わりません。同じ平面上にない二直線です。");
  return q(cubeIntro+m`直線 $${a}$ と $${b}$ の位置関係を、理由とともに答えなさい。`,result+"。"+reason,"共有点を持つかを調べ、平行でも交わる関係でもない場合にねじれと判断します。",reason+" 見取図上で線が重なるかどうかだけでは判断しません。");
 }
 export function linePlane(edge:string,face:string,relation:string,reason:string):Q{
@@ -64,7 +85,7 @@ export function linePlane(edge:string,face:string,relation:string,reason:string)
 export function planes(face:string,other:string,perp:boolean):Q{
  return q(cubeIntro+m`平面 $${face}$ と平面 $${other}$ は平行ですか、垂直ですか。理由も答えなさい。`,
  perp?"垂直です。交線にそれぞれの面内で垂直な二直線が、直角をつくるからです。":"平行です。直方体の向かい合う二面で、交線を持たないからです。",
- "交わるなら交線を探し、その交線に垂直な線で二面の角を測ります。",
+ perp?"交線を探し、その交線に垂直な線を各面内に取ります。":"直方体の向かい合う面かどうかを確かめます。",
  perp?"直方体の隣り合う二面です。交線となる辺の一端で、各面内のもう一方の辺を取ると、どちらも交線に垂直で互いにも直角です。この二線の角が二面の角です。":"直方体の向かい合う面は、面を広げても交わりません。見取図の斜めの角度は、実際の二面の角ではありません。");
 }
 export function spaceDistance(a:number,h:number):Q{

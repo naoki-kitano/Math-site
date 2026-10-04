@@ -26,7 +26,7 @@ export function skill(id:string,title:string,why:string,sample:Worked,items:Work
  return {id,title,why,sample,items};
 }
 export const fictional="このページの数値・調査例は、教材用の仮想データです。";
-export const quartileRule=m`小さい順に並べ、奇数個のときは全体の中央値を除いて上下に分けます。下半分の中央値が $Q_1$、全体の中央値が $Q_2$、上半分の中央値が $Q_3$ です。この教材の箱ひげ図のひげは最小値と最大値まで引きます。ソフトによって四分位数やひげの定義が違う場合があるので、比較前に定義を確かめます。`;
+export const quartileRule=m`小さい順に並べ、奇数個のときは全体の中央値を除いて上下に分けます。下半分の中央値が第一四分位数 $Q_1$、全体の中央値が第二四分位数 $Q_2$、上半分の中央値が第三四分位数 $Q_3$ です。この教材の箱ひげ図のひげは最小値と最大値まで引きます。ソフトによって四分位数やひげの定義が違う場合があるので、比較前に定義を確かめます。`;
 function count(xs:number[]):Worked{return w(m`$${list(xs)}$ のデータは何個ありますか。同じ値も一つずつ数えなさい。`,m`$${xs.length}$ 個。`,"異なる値の種類ではなく、記録の個数を数えます。",m`同じ値が何度出ても、別の記録ならそれぞれ一つ。全部で $${xs.length}$ 個です。`);}
 function order(xs:number[]):Worked{return w(m`$${list(xs)}$ を小さい順に並べなさい。`,m`$${list([...xs].sort((a,b)=>a-b))}$。`,"同じ値を消さず、値の大小を比べます。負の数があれば、それは零や正の数より小さい数です。",m`記録の個数を変えずに並べると $${list([...xs].sort((a,b)=>a-b))}$。`);}
 export const countPrep=skill("data-count","値の種類とデータの個数","同じ値でも別の記録なら個数に含めます。",count([2,2,4,5]),[count([1,3,3,4,4]),count([0,0,2,2,2,5]),count([2,2,2,2])]);

@@ -18,7 +18,14 @@ import { exercises, lessons, type Lesson } from "../content/lessons";
 import { chapters, subjectForChapter,subjectPath } from "../content/chapters";
 import {guidedForExample,practiceForGroup} from "../lib/lesson-layout";
 import { Formula, MathText } from "./MathText";
-import { Practice, Steps } from "./Practice";
+import { Practice } from "./Practice";
+import ExampleSteps from "./ExampleSteps";
+import UnitCircleExplorer from "./UnitCircleExplorer";
+import UnitCircleCoordinates from "./UnitCircleCoordinates";
+import ParabolaExplorer from "./ParabolaExplorer";
+import ConceptExplorer from "./ConceptExplorer";
+import VisualLessonExplorer from "./VisualLessonExplorer";
+import { lessonStarts } from "../content/lesson-starts";
 import LessonDiagrams from "./LessonDiagrams";
 import LessonTables from "./LessonTables";
 import MathOneDiagrams from "./MathOneDiagrams";
@@ -38,6 +45,8 @@ function PointGraph() {
 }
 export default function LessonView({lesson}:{lesson:Lesson}) {
   const subject=subjectForChapter(lesson.chapter);
+  const start=lessonStarts[lesson.slug];
+  const compactBasics=Boolean(start);
   const [practiceGroup,setPracticeGroup]=useState(lesson.practiceGroups?.[0]?.id??"all");
   const lessonItems=exercises.filter(e=>e.lesson===lesson.slug);
   const guided=(i:number)=>guidedForExample(lesson.examples[i],i,lessonItems.filter(e=>e.stage==="guided")).map(exercise=>({exercise}));
@@ -49,14 +58,14 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
   const position=chapterLessons.findIndex(l=>l.slug===lesson.slug);
   const next=chapterLessons[position+1];
   const previous=chapterLessons[position-1];
-  return <main id="main"><section className="hero"><div className="breadcrumb"><Link href={subjectPath(subject)}>{subject}</Link> / {lesson.chapter}</div><h1>{lesson.title}</h1><p><MathText text={lesson.description}/></p><div className="actions"><a className="button teal" href="#basics">説明から</a><a className="button secondary" href="#practice">練習から</a></div></section>
+  return <main id="main"><section className="hero"><div className="breadcrumb"><Link href={subjectPath(subject)}>{subject}</Link> / {lesson.chapter}</div><h1>{lesson.title}</h1><p><MathText text={lesson.description}/></p><div className="actions"><a className="button teal" href={start?"#basics":"#first-example"}>{start?"まず図で確かめる":"まず例題を1問"}</a><a className="button secondary" href="#basics">基本の説明</a><a className="button secondary" href="#practice">練習から</a></div></section>
     <div className="wrap study-layout"><aside className="toc"><details open><summary>このページ</summary><nav aria-label="ページ内"><a href="#ready">始める前に</a><a href="#basics">基本を確かめる</a><a href="#examples">例題</a><a href="#guided">一緒に解く</a><a href="#practice">自分で解く</a><a href="#help">分からないとき</a></nav></details></aside>
     <div className="lesson-body">
       <ReturnQuestion slug={lesson.slug}/>
       <TargetedReview slug={lesson.slug}/>
       <section className="block" id="ready"><Preparation slug={lesson.slug}/>{!["数学B","数学C","中学数学"].includes(subject)&&<details className="supplement"><summary>計算・用語のウォームアップ</summary><Practice label="ウォームアップ" items={list("ready")}/></details>}</section>
-      <section className="block" id="basics"><p className="section-label">基本</p><h2>{lesson.basicsTitle??(lesson.slug==="rational"?"約分できるのは、共通の因数":"点の座標を、式に入れてみる")}</h2>{lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}{lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug}/><MathBSimulation slug={lesson.slug}/><div className="note"><p><MathText text={lesson.rule}/></p></div></section>
-<section className="block" id="examples"><p className="section-label">例題</p><h2>途中式を確かめよう</h2>{lesson.examples.map((e,i)=><article className="example" key={e.id??i}><span className="example-label">例題 {i+1}</span><h3 className="example-title">{e.title}</h3><p><MathText text={e.prompt}/></p>{e.tex&&<Formula tex={e.tex} display/>}<Steps steps={e.steps}/><LessonDiagrams slug={lesson.slug} index={i}/><MathOneDiagrams slug={lesson.slug} index={i}/><MathACountingDiagrams slug={lesson.slug} index={i}/><MathAProbabilityDiagrams slug={lesson.slug} index={i}/><MathAGeometryDiagrams slug={lesson.slug} index={i}/><MathASpaceDiagrams slug={lesson.slug} index={i}/><MathAIntegerDiagrams slug={lesson.slug} index={i}/><MathBDiagrams slug={lesson.slug} index={i}/><MathCDiagrams slug={lesson.slug} index={i}/><JuniorDiagrams slug={lesson.slug} index={i}/>{lesson.guidedAfterExamples&&guided(i).length>0&&<section id={i===0?"guided":undefined}><h3>一緒に解く</h3><Practice items={guided(i)} label="一緒に解く"/></section>}</article>)}</section>
+      <section className="block" id="basics"><p className="section-label">基本</p><h2>{lesson.basicsTitle??(lesson.slug==="rational"?"約分できるのは、共通の因数":"点の座標を、式に入れてみる")}</h2>{start?<div className="lesson-start"><p><MathText text={start.goal}/></p>{start.steps.length>0&&<ol>{start.steps.map((step,i)=><li key={i}><MathText text={step}/></li>)}</ol>}</div>:lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}{lesson.slug==="trig-unit-circle"&&<UnitCircleCoordinates/>}{lesson.slug==="trig-angle-change"&&<UnitCircleExplorer/>}{lesson.slug==="m1-parabola-translation"&&<ParabolaExplorer/>}<ConceptExplorer slug={lesson.slug}/><VisualLessonExplorer slug={lesson.slug}/>{start&&<><p className="start-check"><MathText text={start.check}/></p><details className="supplement original-explanation"><summary>定義・公式とその根拠を読む</summary>{lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}<p><MathText text={lesson.rule}/></p></details></>}{lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug}/><MathBSimulation slug={lesson.slug}/>{!compactBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}</section>
+<section className="block" id="examples"><p className="section-label">例題</p><h2>途中式を確かめよう</h2>{lesson.examples.map((e,i)=><article className="example" id={i===0?"first-example":undefined} key={e.id??i}><span className="example-label">例題 {i+1}</span><h3 className="example-title">{e.title}</h3><p><MathText text={e.prompt}/></p>{e.tex&&<Formula tex={e.tex} display/>}<ExampleSteps steps={e.steps}/><LessonDiagrams slug={lesson.slug} index={i}/><MathOneDiagrams slug={lesson.slug} index={i}/><MathACountingDiagrams slug={lesson.slug} index={i}/><MathAProbabilityDiagrams slug={lesson.slug} index={i}/><MathAGeometryDiagrams slug={lesson.slug} index={i}/><MathASpaceDiagrams slug={lesson.slug} index={i}/><MathAIntegerDiagrams slug={lesson.slug} index={i}/><MathBDiagrams slug={lesson.slug} index={i}/><MathCDiagrams slug={lesson.slug} index={i}/><JuniorDiagrams slug={lesson.slug} index={i}/>{lesson.guidedAfterExamples&&guided(i).length>0&&<section id={i===0?"guided":undefined}><h3>一緒に解く</h3><Practice items={guided(i)} label="一緒に解く"/></section>}</article>)}</section>
       {!lesson.guidedAfterExamples&&<section className="block" id="guided"><p className="section-label">練習 1</p><h2>一緒に解く</h2><Practice items={list("guided")} label="一緒に解く"/></section>}
       <section className="block" id="practice"><p className="section-label">練習 2</p><h2>自分で解く</h2>{lesson.practiceGroups&&<div className="page-tools" role="group" aria-label="確認する内容">{[{id:"all",title:"すべて"},...lesson.practiceGroups].map(g=><button className={"button "+(practiceGroup===g.id?"":"secondary")} aria-pressed={practiceGroup===g.id} key={g.id} onClick={()=>setPracticeGroup(g.id)}>{g.title}</button>)}</div>}<Practice key={practiceGroup} items={practiceItems} label="自分で解く" resume/>{subject!=="数学II"&&<details className="supplement"><summary>別の問題でもう少し練習する</summary><Practice items={list("review")} label="追加練習"/></details>}</section>
       <LessonHelp key={lesson.slug+":"+practiceGroup} lesson={lesson} items={practiceItems.map(item=>item.exercise)}/>

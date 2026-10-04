@@ -40,7 +40,7 @@ function shifted(xs:number[],base:number):Worked{
  if(!Number.isInteger(av)||!Number.isInteger(v))throw new Error("Use simple shift data");
  return w(m`$${list(xs)}$ の分散を求めなさい。各値から $${base}$ を引いて計算を簡単にし、分散が変わらない理由も説明しなさい。`,m`分散は $${v}$。平均も同じだけ移動するので、偏差が変わりません。`,"値から基準を引いた小さな数を作り、その平均からのずれを調べます。",m`新しい値は $${list(ys)}$、平均は $${mean(ys)}$。元の平均 $${av}$ とも $${base}$ の差です。$(x_i-${base})-(\bar x-${base})=x_i-\bar x$ なので偏差は不変。新しい値で二乗の平均から平均の二乗を引くと $${frac(sum(ys.map(x=>x*x)),ys.length)}-(${mean(ys)})^2=${v}$。`);
 }
-const convenient=skill("variance-shift-method","近い基準からの差で計算する","大きな数同士の二乗を引くより、全体を近い基準だけ平行移動すると楽な場合があります。偏差が変わらないので分散も変わりません。",shifted([98,100,100,102],100),[
+const convenient=skill("variance-shift-method","近い基準からの差で計算する","各値から、データに近い基準の数を引くと、小さな数で計算できる場合があります。偏差が変わらないので分散も変わりません。",shifted([98,100,100,102],100),[
  shifted([19,21,21,23],20),shifted([48,50,50,52],50),shifted([101,103,103,105],100),shifted([198,200,200,202],200),shifted([29,31,31,33],30),shifted([78,80,80,82],80)]);
 export const varianceMethods=dataTopic("m1-variance-calculation","分散の計算方法",["偏差の二乗を一つずつ出す方法と、二乗の平均を使う方法は、同じ量を計算しています。数値を見て計算しやすい方を選びます。"],m`$s^2=\overline{x^2}-(\bar x)^2$。$\overline{x^2}$ と $(\bar x)^2$ は別の量です。`,[moments,convenient]);
 
@@ -50,7 +50,7 @@ const transformedCenters=skill("transformed-mean","平均にも同じ変換を�
 export const transformCases=[{sd:2,a:1,b:5},{sd:3,a:2,b:0},{sd:2,a:-1,b:10},{sd:4,a:0,b:7},{sd:3,a:-2,b:20},{sd:2,a:3,b:-2}];
 function transformedSpread(s:number,a:number,b:number):Worked{return w(m`元の標準偏差は $${s}$。全ての値を $y=${affineTex(a,b)}$ に変えます。新しい分散と標準偏差を求めなさい。`,m`分散は $${a*a*s*s}$、標準偏差は $${Math.abs(a)*s}$。`,"加える定数は偏差から消えます。倍率は二乗と絶対値で使い分けます。",m`$y_i-\bar y=${a}(x_i-\bar x)$。二乗の平均は $(${a})^2\cdot${s*s}=${a*a*s*s}$、その非負の平方根は $|${a}|\cdot${s}=${Math.abs(a)*s}$。${a===0?"全ての値が同じ定数になるので、散らばりは零です。":a<0?"向きが反転しても、標準偏差を負にしてはいけません。":"定数を加えても平均からの距離は変わりません。"}`);}
 const transformedSpreads=skill("transformed-spread","偏差の変化から散らばりへ",m`$y_i-\bar y=a(x_i-\bar x)$ だから分散は $a^2$ 倍、標準偏差は $|a|$ 倍。加えた定数 $b$ は偏差から消えます。`,transformedSpread(2,-3,8),transformCases.map(c=>transformedSpread(c.sd,c.a,c.b)));
-export const dataTransform=dataTopic("m1-data-transformation","データの変換",["値の目盛りや基準を変えたとき、平均と散らばりは違う変化をします。毎回元データを並べ直さず、偏差がどう変わるかに着目します。"],m`$y=ax+b$ では、平均は $a\bar x+b$、分散は $a^2s_x^2$、標準偏差は $|a|s_x$。`,[transformedCenters,transformedSpreads]);
+export const dataTransform=dataTopic("m1-data-transformation","データの変換",["値の目盛りや基準を変えたとき、平均と散らばりは違う変化をします。変換後の値を一つずつ計算し直す代わりに、偏差がどう変わるかに着目します。"],m`$y=ax+b$ では、平均は $a\bar x+b$、分散は $a^2s_x^2$、標準偏差は $|a|s_x$。`,[transformedCenters,transformedSpreads]);
 export const dataSpreadTopics=[dataVariance,dataSD,varianceMethods,dataTransform];
 for(const bank of dataSpreadTopics)for(const family of new Set(bank.exercises.filter(e=>e.stage==="guided").map(e=>e.family)))addDataCases(bank,family,[2,3,4]);
 const dataNotation=m`$x_i$ は一つずつの記録、$\bar x$ はその平均、$n$ は個数です。$s^2$ が分散、$s$ が標準偏差を表します。`;

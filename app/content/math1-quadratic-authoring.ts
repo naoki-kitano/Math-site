@@ -28,7 +28,7 @@ export function addRepairExamples(bank:ReturnType<typeof quadraticTopic>,family:
   supplement.text+="\n"+[e.prompt,...e.steps.map(s=>s.text),e.answer].filter((x,i,a)=>a.indexOf(x)===i).join("\n");
  }
 }
-function square(n:number):Worked{return w(m`$(${num(n)})^2$ を計算しなさい。`,m`$${num(n*n)}$。`,"括弧の中の数全体を二回掛けます。",m`$(${num(n)})^2=(${num(n)})(${num(n)})=${num(n*n)}$。`);}
+function square(n:number):Worked{return w(m`$(${num(n)})^2$ を計算しなさい。`,m`$${num(n*n)}$。`,"括弧の中の数を二つ掛け合わせます。",m`$(${num(n)})^2=(${num(n)})(${num(n)})=${num(n*n)}$。`);}
 function linear(n:number):Worked{return w(m`$x=${n}$ のとき $2x+1$ の値を求めなさい。`,m`$${2*n+1}$。`,"文字を指定された数に置き換え、掛け算から計算します。",m`$2\cdot(${n})+1=${2*n+1}$。`);}
 export const squarePrep:Skill={id:"signed-square",title:"負の数を二乗する",why:"負の数を括弧で囲み、負号も含めて二乗します。",sample:square(-2),items:[square(-3),square(-4),square(-1)]};
 export const substitutionPrep:Skill={id:"linear-substitution",title:"文字へ数を代入する",why:"代入は文字を数に置き換えることです。",sample:linear(2),items:[linear(-2),linear(0),linear(3)]};

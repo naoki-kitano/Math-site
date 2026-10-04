@@ -10,7 +10,7 @@ function preparation(chapter:string):Skill[]{
  if(chapter==="数と計算の基礎")return prep;
  const value=(n:number)=>q(m`$x=${n}$ のとき $2x$ の値を求めなさい。`,m`$${2*n}$。`,"省略されている掛け算を補います。",m`$2x=2\times${n}=${2*n}$。`);
  const signed=(n:number)=>q(m`$${n}+(-2)$ を計算しなさい。`,m`$${n-2}$。`,"負の数を足すと、数直線で左へ進みます。",m`$${n}+(-2)=${n}-2=${n-2}$。`);
- const square=(n:number)=>q(m`$${n}^2$ を計算しなさい。`,m`$${n*n}$。`,"同じ数を二回掛けます。",m`$${n}\times${n}=${n*n}$。`);
+ const square=(n:number)=>q(m`$${n}^2$ を計算しなさい。`,m`$${n*n}$。`,"同じ数を二つ掛け合わせます。",m`$${n}\times${n}=${n*n}$。`);
  const divide=(n:number)=>q(m`$${3*n}\div3$ を計算しなさい。`,m`$${n}$。`,"三つの同じ量に分けます。",m`$3\times${n}=${3*n}$ なので商は $${n}$。`);
  const fs=chapter==="文字と式の基礎"?[signed,times]:chapter==="データと確率の基礎"?[add,divide]:[value,square];
  const titles=chapter==="文字と式の基礎"?["正負の計算","数の掛け算"]:chapter==="データと確率の基礎"?["合計の計算","同じ量に分ける"]:["代入の計算","二乗の計算"];

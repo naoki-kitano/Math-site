@@ -3,8 +3,8 @@ import {prepMultiply} from "./math1-factoring";
 const m=String.raw;
 const t=(s:string)=>m`$${s}$`;
 const w=(tex:string,answer:string,hint:string,working:string):Worked=>[t(tex)+" を計算しなさい。",t(answer)+"。",hint,t(working)+"。"];
-function square(n:number):Worked{return w(m`(${n})^2`,String(n*n),"括弧の数全体を二回掛けます。",m`(${n})(${n})=${n*n}`)}
-const prepSquare:Skill={id:"number-square",title:"負の数の二乗",why:"同じ負の数を二回掛けると正になります。",sample:square(-2),items:[square(-3),square(4),square(-5)]};
+function square(n:number):Worked{return w(m`(${n})^2`,String(n*n),"括弧の中の数を二つ掛け合わせます。",m`(${n})(${n})=${n*n}`)}
+const prepSquare:Skill={id:"number-square",title:"負の数の二乗",why:"同じ負の数を二つ掛け合わせると正になります。",sample:square(-2),items:[square(-3),square(4),square(-5)]};
 const P=[prepMultiply,prepSquare];
 function principal(n:number):Worked{return w(m`\sqrt{(${n})^2}`,String(Math.abs(n)),"先に根号の中を二乗し、非負の平方根を選びます。",m`\sqrt{(${n})^2}=\sqrt{${n*n}}=${Math.abs(n)}`)}
 function allRoots(n:number):Worked{return [t(String(n*n))+" の平方根をすべて求めなさい。",n===0?t("0")+"。":t(m`\pm${Math.abs(n)}`)+"。","二乗して元の数になる実数を、正負とも確かめます。",n===0?m`$0^2=0$。二乗してゼロになる実数は $0$ だけです。`:t(m`${n}^2=(-${n})^2=${n*n}`)+"。正の数の平方根は正負二つあります。"]}
@@ -51,7 +51,10 @@ function rational(d:number,n=1,k=1):Worked{
  const g=gcd(n,k*d),num=n/g,den=k*d/g;
  const answer=den===1?m`${num===1?"":num}\sqrt{${d}}`:m`\frac{${num===1?"":num}\sqrt{${d}}}{${den}}`;
  const input=m`\frac{${n}}{${k===1?"":k}\sqrt{${d}}}`;
- return [t(input)+" の分母を有理化しなさい。",t(answer)+"。",m`分子・分母に同じ非零の数 ${t(m`\sqrt{${d}}`)} を掛け、係数を約分します。`,t(m`${input}=\frac{${n===1?"":n}\sqrt{${d}}}{${k*d}}=${answer}`)+m`。元の分母と掛ける ${t(m`\sqrt{${d}}`)} は正なので、値を保つ変形です。`];
+ const multiplied=m`\frac{${n}\cdot\sqrt{${d}}}{${k===1?"":k}\sqrt{${d}}\cdot\sqrt{${d}}}`;
+ const combined=m`\frac{${n===1?"":n}\sqrt{${d}}}{${k*d}}`;
+ const calculation=[input,multiplied,combined,...(combined===answer?[]:[answer])].join("=");
+ return [t(input)+" の分母を有理化しなさい。",t(answer)+"。",m`分子・分母に同じ非零の数 ${t(m`\sqrt{${d}}`)} を掛け、係数を約分します。`,t(calculation)+m`。元の分母と掛ける ${t(m`\sqrt{${d}}`)} は正なので、値を保つ変形です。`];
 }
 function conjugate(a:number,d:number,s:number):Worked {
  const denom=m`${a}${s===1?"+":"-"}\sqrt{${d}}`,conj=m`${a}${s===1?"-":"+"}\sqrt{${d}}`,base=a*a-d;
@@ -108,7 +111,7 @@ export const absoluteValues=topic("m1-absolute-distance","絶対値と数直線�
 ],"絶対値は距離。中心と距離を数直線で確かめます。",[
  {id:"value",title:"絶対値の中を先に計算",why:"中の計算結果が負なら符号を反対にし、非負ならそのままにします。",sample:absolute(2,5),items:[[1,4],[5,2],[-2,3],[-3,-1],[2,2],[-4,-2],[1,-3]].map(v=>absolute(v[0],v[1]))},
  {id:"distance",title:"中心から左右の点を探す",why:"正の距離なら中心の左右に一つずつ、距離ゼロなら中心だけです。",sample:distance(2,3),items:[[1,2],[-2,3],[3,1],[2,0],[-1,2],[4,2],[0,3]].map(v=>distance(v[0],v[1]))},
- {id:"interval",title:"距離以内の範囲を読む",why:"中心の左右の境界を求め、等号があるかで端点を含むか決めます。",sample:interval(2,3,false),items:[interval(1,2,true),interval(-2,3,false),interval(3,2,true),interval(-1,1,false),interval(2,1,true)]},
+ {id:"interval",title:"距離から範囲を読む",why:"中心の左右の境界を求め、等号があるかで端点を含むか決めます。",sample:interval(2,3,false),items:[interval(1,2,true),interval(-2,3,false),interval(3,2,true),interval(-1,1,false),interval(2,1,true)]},
 ],P);
 addPair(absoluteValues,"zero-distance","距離ゼロは中心だけ","距離がゼロの点は中心そのものです。左右に異なる二点はありません。",[
  distance(-1,0),distance(4,0),

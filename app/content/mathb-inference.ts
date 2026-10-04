@@ -37,12 +37,12 @@ const meanCI=(n:number,unknown=false)=>{
  m`標準誤差${unknown?"の推定値":""}は $\frac{${sd}}{\sqrt{100}}=${sd/10}$。幅の片側は $1.96\times${sd/10}=${decimal(margin)}$。標本平均からこれを引き、足します。`+(unknown?"母標準偏差を標本の値で置き換えた大標本近似です。小標本でそのまま使える公式ではありません。":"正規母集団で母標準偏差既知の方法です。"));
 };
 const propCI=(n:number,width=false)=>{
- const p=n/10,margin=1.96*Math.sqrt(p*(1-p)/400);
+ const p=n/10,success=40*n,failure=400-success,margin=1.96*Math.sqrt(p*(1-p)/400);
  if(width)return checked("sample-size-width",[n*n*100],.5,m`同じ信頼係数、同じ標本比率で、標本数を $${n*n*100}$ から $${n*n*400}$ にすると、母比率の信頼区間の幅は何倍ですか。`,m`$\frac12$ 倍。`,"幅は標本数の平方根に反比例します。",m`標本数が $4$ 倍なので、標準誤差は $\frac1{\sqrt4}=\frac12$ 倍です。信頼区間の幅も同じ倍率です。`);
- return checked("ci-proportion",[p,400],margin,m`独立な無作為標本 $400$ 人のうち $${400*p}$ 人が賛成しました。母比率の近似的な $95\%$ 信頼区間を、小数第 $3$ 位まで求めなさい。$1.96$ を使います。`,
+ return checked("ci-proportion",[p,400],margin,m`独立な無作為標本 $400$ 人のうち $${success}$ 人が賛成しました。母比率の近似的な $95\%$ 信頼区間を、小数第 $3$ 位まで求めなさい。$1.96$ を使います。`,
  m`$\widehat p=${p}$、約 $[${(p-margin).toFixed(3)},${(p+margin).toFixed(3)}]$。`,
  "人数を標本数で割り、割合の標準誤差を求めます。",
- m`$\widehat p=${p}$。成功・失敗がそれぞれ $${400*p},${400*(1-p)}$ 件あり、正規近似を用います。$\widehat p\pm1.96\sqrt{\frac{\widehat p(1-\widehat p)}{400}}$ に代入します。これは大標本近似です。`);
+ m`$\widehat p=\dfrac{${success}}{400}=${p}$。成功・失敗がそれぞれ $${success},${failure}$ 件あり、正規近似を用います。標準誤差の推定値は $\sqrt{\dfrac{${p}(1-${p})}{400}}\approx${Math.sqrt(p*(1-p)/400).toFixed(5)}$。片側の幅は $1.96\sqrt{\dfrac{${p}(1-${p})}{400}}\approx${margin.toFixed(5)}$ なので、区間は約 $[${(p-margin).toFixed(3)},${(p+margin).toFixed(3)}]$ です。途中では丸めず、最後に小数第 $3$ 位まで丸めます。`);
 };
 const zs=[2.4,.8,-1.2,-2.4,1.5,2,-.5,-2];
 export function testMean(i:number,side:0|1|-1=0){

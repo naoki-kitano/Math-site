@@ -1,3 +1,4 @@
+import {workedText} from "./worked-text";
 import type {Exercise,Lesson} from "./lessons";
 export const m=String.raw;
 export type Q={prompt:string;answer:string;hint:string;working:string;value?:number;model?:{kind:string;args:number[]}};
@@ -20,7 +21,7 @@ export function countingTopic(slug:string,title:string,description:string,introd
  const exercises:Exercise[]=[];
  const add=(s:Skill,x:Q,i:number,stage:Exercise["stage"])=>{
   const id=`${slug}-${s.id}-${i+1}-v1`;
-  exercises.push({id,lesson:slug,family:s.id,repair:s.id,stage,kind:"paper",prompt:x.prompt,answer:x.answer,hints:[x.hint],steps:[{title:"考えて進める",text:x.working},{title:"答えと確認",text:x.answer}]});
+  exercises.push({id,lesson:slug,family:s.id,repair:s.id,stage,kind:"paper",prompt:x.prompt,answer:x.answer,hints:[x.hint],steps:[{title:s.title,text:x.working},{title:"答え",text:x.answer}]});
   auditQuestions.push({id,q:x});return id;
  };
  for(const s of main){
@@ -29,8 +30,8 @@ export function countingTopic(slug:string,title:string,description:string,introd
  }
  for(const s of prepSkills)s.items.forEach((x,i)=>add(s,x,i,i===0?"ready":"review"));
  const lesson:Lesson={slug,title,description,introduction,rule,basicsTitle:title,chapter:"場合の数",subject:"数学A",section,guidedAfterExamples:true,
-  examples:main.map(s=>({id:s.id,title:s.title,prompt:s.sample.prompt,guidedIds:[`${slug}-${s.id}-1-v1`],steps:[{title:"考え方",text:s.why},{title:"順に進める",text:s.sample.working},{title:"答えと確認",text:s.sample.answer}]})),
-  supplements:[...main,...prepSkills].map(s=>({id:s.id,title:s.title,text:[s.why,s.sample.prompt,s.sample.working,s.sample.answer].join("\n"),tex:"",check:s.items[0].prompt,answer:s.items[0].working+"\n"+s.items[0].answer}))
+  examples:main.map(s=>({id:s.id,title:s.title,prompt:s.sample.prompt,guidedIds:[`${slug}-${s.id}-1-v1`],steps:[{title:"",text:s.sample.hint},{title:s.title,text:s.sample.working},{title:"答え",text:s.sample.answer}]})),
+  supplements:[...main,...prepSkills].map(s=>({id:s.id,title:s.title,text:workedText(s.why,s.sample.prompt,s.sample.working,s.sample.answer),tex:"",check:s.items[0].prompt,answer:workedText(s.items[0].working,s.items[0].answer)}))
  };
  return {lesson,exercises,skills:main};
 }
@@ -46,12 +47,12 @@ export function digits(ds:number[],even=false):Q{
  const vals=rows.flat(),v=vals.length;
  return q(m`数字 $${ds.join(",")}$ のカードが各 $1$ 枚あります。$2$ 枚を使ってできる二桁の${even?"偶数":"整数"}をすべて書き、その個数も答えなさい。`,
  m`$${vals.join(",")}$ の $${v}$ 個。`,
- even?"一の位が偶数になるものだけを残します。十の位は零にできず、同じカードも二度使えません。":"十の位を固定します。零を十の位にせず、使ったカードを一の位から除きます。",
+ even?"十の位を固定して書き出し、一の位が偶数になるものを残します。十の位は零にできず、同じカードも二度使えません。":"十の位を固定します。零を十の位にせず、使ったカードを一の位から除きます。",
  rows.map(r=>m`十の位が $${Math.floor(r[0]/10)}$ のとき $${r.join(",")}$。`).join(" ")+m`合計 $${v}$ 個です。`,v,{kind:even?"even-digits":"digits",args:ds});
 }
 export function menu(a:number,b:number,mode:"sum"|"product"|"unequal"):Q{
  const v=mode==="product"?a*b:a+b;
- const prompt=mode==="sum"?m`ケーキ $${a}$ 種類とアイス $${b}$ 種類から、一つだけ選びます。選び方と、その数え方にした理由を答えなさい。`:mode==="product"?m`パン $${a}$ 種類、飲み物 $${b}$ 種類から一つずつ選びます。どのパンにも、どの飲み物でも付けられます。選び方と理由を答えなさい。`:m`パンは白パンと黒パンです。白パンに付けられる飲み物は $${a}$ 種類、黒パンには $${b}$ 種類あります。パン一つと飲み物一つのセットは何通りですか。理由も答えなさい。`;
+ const prompt=mode==="sum"?m`ケーキ $${a}$ 種類とアイス $${b}$ 種類から、一つだけ選びます。選び方は何通りですか。その数え方にした理由も答えなさい。`:mode==="product"?m`パン $${a}$ 種類、飲み物 $${b}$ 種類から一つずつ選びます。どのパンにも、どの飲み物でも付けられます。選び方は何通りですか。その理由も答えなさい。`:m`パンは白パンと黒パンです。白パンに付けられる飲み物は $${a}$ 種類、黒パンには $${b}$ 種類あります。パン一つと飲み物一つのセットは何通りですか。理由も答えなさい。`;
  const reason=mode==="product"?m`どのパンにも飲み物が $${b}$ 通りずつあるので掛けます。`:mode==="sum"?"ケーキを選ぶ場合とアイスを選ぶ場合は重ならないので足します。":"パンごとに飲み物を数えて足します。二種類のパンに同じ数の選択肢があるとは限りません。";
  return q(prompt,m`$${v}$ 通り。`+reason,mode==="product"?"一つのパンに何通りの飲み物が付くか確かめます。":"最初の選択ごとに分けて、それぞれを数えます。",reason+m`$${a}${mode==="product"?"\\times":"+"}${b}=${v}$。`,v,{kind:mode==="product"?"multiply":"add",args:[a,b]});
 }
@@ -63,14 +64,14 @@ export function sets(total:number,a:number,b:number,both:number,out=false):Q{
 }
 export function perm(n:number,r:number,all=false):Q{
  const v=fact(n)/fact(n-r);
- return q(all?m`異なる本 $${n}$ 冊を一列にすべて並べます。何通りですか。`:m`$${n}$ 人から、順番の違う $${r}$ 個の発表順を決めます。一人は一度だけ発表します。何通りですか。`,m`$${v}$ 通り。`,
- "最初に一人（一冊）を決めたら、次に選べる数は一つ減ります。",
- m`順に決めると選択肢は $${product(n,r)}$。したがって $${product(n,r)}=${v}$ 通りです。`,v,{kind:"permutation",args:[n,r]});
+ return q(all?m`異なる本 $${n}$ 冊を一列にすべて並べます。何通りですか。`:m`$${n}$ 人から $${r}$ 人を選び、その発表順を決めます。一人は一度だけ発表します。何通りですか。`,m`$${v}$ 通り。`,
+ "一番目を決めたら、次に選べる数は一つ減ります。",
+ m`使ったものを除いて順に決めるので、$${product(n,r)}=${v}$ 通りです。`,v,{kind:"permutation",args:[n,r]});
 }
 export function repeat(k:number,r:number,integer=false):Q{
  const v=(integer?k-1:k)*k**(r-1);
  return q(m`数字 $0$ から $${k-1}$ を使い、${integer?m`$${r}$ 桁の整数`:m`長さ $${r}$ の暗証番号`}を作ります。同じ数字は何度使ってもよく、${integer?"先頭は零にできません":"先頭も零にできます"}。何通りですか。`,m`$${v}$ 通り。`,
- integer?"先頭だけ零を除き、残りの桁ではすべての数字を使います。":"一度使った数字も残るので、どの桁でも選択肢は同じです。",
+ integer?"先頭だけ零を除きます。残りの各桁は、使えるすべての数字から一つ選べます。":"一度使った数字も残るので、どの桁でも選択肢は同じです。",
  m`先頭は $${integer?k-1:k}$ 通り、残りの各桁は $${k}$ 通り。$${integer?k-1:k}\times${k}^{${r-1}}=${v}$。`,v,{kind:integer?"integer-repeat":"repeat",args:[k,r]});
 }
 export function adjacent(n:number,apart=false):Q{
@@ -104,7 +105,7 @@ export function chooseOrArrange(n:number,r:number):Q{
 }
 export function identical(a:number,b:number,c=0,path=false):Q{
  const n=a+b+c,v=fact(n)/(fact(a)*fact(b)*fact(c));
- return q(path?m`格子の道を右へ $${a}$ 回、上へ $${b}$ 回だけ進みます。どの道も通れます。最短経路は何通りですか。`:m`文字 $A$ が $${a}$ 個、$B$ が $${b}$ 個${c?m`、$C$ が $${c}$ 個`:""}あります。すべてを一列に並べる方法は何通りですか。同じ文字は区別しません。`,m`$${v}$ 通り。`,
+ return q(path?m`格子の道で、出発点 $S$ から右へ $${a}$ 区間、上へ $${b}$ 区間の位置に目的地 $G$ があります。一回に一つの区間を進み、どの道も通れます。$S$ から $G$ への最短経路は何通りですか。`:m`文字 $A$ が $${a}$ 個、$B$ が $${b}$ 個${c?m`、$C$ が $${c}$ 個`:""}あります。すべてを一列に並べる方法は何通りですか。同じ文字は区別しません。`,m`$${v}$ 通り。`,
  path?"一歩を「右」「上」の文字に置き換えます。":"同じ文字に仮の番号を付け、番号を消すと何回重なるか考えます。",
  (path?m`一つの経路は、右 $${a}$ 個・上 $${b}$ 個の一つの並びと対応します。`:"同じ文字どうしの入れ替えでは見た目が変わりません。")+m`全部を区別した $${n}!$ を、同じものの並べ方で割り、$\frac{${n}!}{${a}!${b}!${c?`${c}!`:""}}=${v}$。`,v,{kind:"identical",args:[a,b,c]});
 }

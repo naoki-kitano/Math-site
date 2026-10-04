@@ -12,7 +12,7 @@ const prepExpand:Skill={id:"expand",title:"展開で確かめる",why:"積を各
 export {prepMultiply,prepExpand};
 function common(k:number,a:number,b:number):Worked {
   const input=poly(k*a,k*b,0),inside=lin(a,b),answer=m`${term(k,"x")}(${inside})`;
-  return [math(input)+" を因数分解しなさい。",math(answer)+"。",m`両方の項に共通する ${math(term(k,"x"))} を取り出します。`,m`${math(input+"="+term(k,"x")+m`\cdot(${term(a,"x")})+`+term(k,"x")+m`\cdot(${b})`)} なので ${math(answer)}。展開すると元の式に戻ります。式を ${math("x")} で割る方程式変形ではなく、分配法則を逆向きに使っています。`];
+  return [math(input)+" を因数分解しなさい。",math(answer)+"。",m`両方の項に共通する ${math(term(k,"x"))} を取り出します。`,m`${math(input+"="+term(k,"x")+m`\cdot(${term(a,"x")})+`+(k<0?m`(${term(k,"x")})`:term(k,"x"))+m`\cdot(${b})`)} なので ${math(answer)}。展開すると元の式に戻ります。式を ${math("x")} で割る方程式変形ではなく、分配法則を逆向きに使っています。`];
 }
 function complete(k:number,a:number):Worked {
  const input=m`${term(k,"x^3")}${sign(-k*a*a)}x`,answer=m`${term(k,"x")}(x-${a})(x+${a})`;
@@ -61,5 +61,5 @@ export const grouping=topic("m1-grouping","まとまりに注目する式変形"
  m`四つの項も、共通の括弧が現れるよう組にできます。$xy+2x+3y+6=x(y+2)+3(y+2)=(x+3)(y+2)$。$x$ を含む項と含まない項に分けると見つけやすくなります。`,
 ],"同じ括弧を一つのまとまりと見て、共通因数を探します。",[
  {id:"group",title:"括弧全体を共通因数にする",why:"展開する前に、同じ括弧が掛かっているかを見ます。",sample:grouped(1,2),items:[[2,3],[-1,2],[3,1],[-2,4],[4,2],[5,3],[-3,2]].map(v=>grouped(v[0],v[1]))},
- {id:"four",title:"項を組にして同じ括弧を作る",why:"一文字を含む項をまとめると、共通する括弧が現れます。",sample:groupFour(2,3),items:[[1,2],[2,1],[-1,3],[3,-2],[-2,-1],[4,2],[-3,1]].map(v=>groupFour(v[0],v[1]))},
+ {id:"four",title:"項を組にして同じ括弧を作る",why:m`$x$ を含む二項と含まない二項に分け、それぞれ共通因数でくくると、同じ括弧が現れます。`,sample:groupFour(2,3),items:[[1,2],[2,1],[-1,3],[3,-2],[-2,-1],[4,2],[-3,1]].map(v=>groupFour(v[0],v[1]))},
 ],[prepMultiply,prepExpand]);

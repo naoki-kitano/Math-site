@@ -30,7 +30,7 @@ function constantSum(n:number){
 }
 function sigma(n:number,constant=false){
  const v=constant?(n-1)*3:n*(n+1)/2-1;
- return checked(constant?"sigma-constant":"sigma",[n],v,m`$\sum_{k=2}^{${n}}${constant?"3":"k"}$ を省略せずに書いて計算しなさい。`,m`$${Array.from({length:n-1},(_,i)=>constant?3:i+2).join("+")}=${v}$。`,"下端から上端まで、添字に一つずつ整数を入れます。",m`$k=2,3,\ldots,${n}$ の $${n-1}$ 項を足します。`+(constant?m`定数 $3$ も $${n-1}$ 回足すので $3\times${n-1}=${v}$。`:m`$\frac{${n}(${n}+1)}{2}-1=${v}$。`));
+ return checked(constant?"sigma-constant":"sigma",[n],v,m`$\sum_{k=2}^{${n}}${constant?"3":"k"}$ を省略せずに書いて計算しなさい。`,m`$${Array.from({length:n-1},(_,i)=>constant?3:i+2).join("+")}=${v}$。`,"下端から上端まで、添字に一つずつ整数を入れます。",m`$k=2,3,\ldots,${n}$ の $${n-1}$ 項を足します。$\sum_{k=2}^{${n}}${constant?"3":"k"}=${Array.from({length:n-1},(_,i)=>constant?3:i+2).join("+")}=${v}$。`);
 }
 function powers(n:number,cube=false){
  const v=cube?(n*(n+1)/2)**2:n*(n+1)*(2*n+1)/6;
@@ -46,7 +46,7 @@ function difference(n:number,which=false){
 }
 function split(n:number,wide=false){
  const d=wide?2:1;
- return q(m`$\frac{${n}}{k(k+${d})}$ を二つの分数の差に直し、通分して確かめなさい。ただし $k$ は正の整数です。`,m`$${f(n,d)}\left(\frac{1}{k}-\frac{1}{k+${d}}\right)$。`,"分子を引き算して、元の分子になる係数を決めます。",m`$\frac{1}{k}-\frac{1}{k+${d}}=\frac{${d}}{k(k+${d})}$。これを $${f(n,d)}$ 倍します。$k>0$ なので両分母は零ではありません。`);
+ return q(m`$\frac{${n}}{k(k+${d})}$ を二つの分数の差に直し、通分して確かめなさい。ただし $k$ は正の整数です。`,m`$${f(n,d)}\left(\frac{1}{k}-\frac{1}{k+${d}}\right)$。`,"分子を引き算して、元の分子になる係数を決めます。",m`$\dfrac{1}{k}-\dfrac{1}{k+${d}}=\dfrac{(k+${d})-k}{k(k+${d})}=\dfrac{${d}}{k(k+${d})}$。これを $${f(n,d)}$ 倍します。$k>0$ なので両分母は零ではありません。`);
 }
 function telescope(n:number,wide=false){
  const d=wide?2:1,v=wide?(1+1/2-1/(n+1)-1/(n+2))/2:1-1/(n+1);

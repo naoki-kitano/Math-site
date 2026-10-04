@@ -78,7 +78,7 @@ test('root, boundary and integer decisions retain operation-specific repairs and
  assert.equal(all.find(e=>e.id==='m1-radical-calculation-sum-invalid-1-v1').stage,'practice');
  assert.equal(all.find(e=>e.id==='m1-absolute-distance-distance-4-v1').family,'zero-distance');
  assert.ok(!all.find(e=>e.id==='m1-square-roots-all-roots-3-v1').hints[0].includes('正負とも'));
- for(const e of all.filter(e=>e.lesson==='m1-simultaneous-inequalities'&&e.family==='empty'))assert.ok(e.answer.includes('両立しません'),e.id);
+ for(const e of all.filter(e=>e.lesson==='m1-simultaneous-inequalities'&&e.family==='empty'))assert.match(e.answer,/両立しません|両方は満たせません/,e.id);
  const practice=check.filter(e=>e.stage==='practice').map(e=>e.prompt);
  for(const id of ['m1-product-identities-p-square-minus-v1','m1-product-identities-p-square-coefficient-v1','m1-product-identities-p-square-fraction-v1','m1-quadratic-factorization-monic-2-v1','m1-radical-calculation-product-4-v1','m1-absolute-distance-interval-3-v1'])assert.ok(practice.includes(all.find(e=>e.id===id).prompt),id);
 });

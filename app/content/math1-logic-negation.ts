@@ -67,7 +67,7 @@ function equivalent(original:boolean,reverse:boolean,ask:"contra"|"inverse"):Wor
 }
 export const contrapositive=logicTopic("m1-converse-contrapositive","逆・裏・対偶",[
  m`命題 $p\Rightarrow q$ に対し、逆は $q\Rightarrow p$、裏は $\neg p\Rightarrow\neg q$、対偶は $\neg q\Rightarrow\neg p$ です。$\neg p$ は $p$ の否定を表します。対偶では順序の交換と否定の両方が必要です。`,
- m`元の命題と対偶の真偽は必ず一致します。元の命題が偽になるのは「$p$ が真で $q$ が偽」の場合です。対偶が偽になるのも「$q$ が偽で $p$ が真」の場合なので、同じものを除こうとしていると分かります。`,
+ m`元の命題と対偶の真偽は必ず一致します。元の命題が偽になるのは「$p$ が真で $q$ が偽」の場合です。対偶が偽になるのも「$q$ が偽で $p$ が真」の場合です。偽になる場合が同じなので、真偽が一致します。`,
  m`逆と裏も互いに対偶なので真偽が一致します。ただし元の命題と逆の真偽は一般には一致しません。「$x=2$ ならば $x^2=4$」は真ですが、逆は $x=-2$ が反例です。`,
 ],"対偶は順序を交換して両方を否定する。元の命題と真偽が一致します。",[
  {id:"transform",title:"仮定と結論を書き分ける",why:"元の仮定・結論と、その否定を先に用意すると、向きを取り違えません。",sample:transform(transformations[0]),items:transformations.slice(1).map(transform)},

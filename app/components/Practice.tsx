@@ -4,11 +4,12 @@ import ReviewGuide from "./ReviewGuide";
 import Link from "./SiteLink";
 import { type Exercise, type Step } from "../content/lessons";
 import { MathText, Formula } from "./MathText";
+import {stepHeading,distinctSteps} from "../lib/step-heading";
 import { useProgress } from "./Progress";
 import { matchesNumber, historyFor, type Outcome } from "../lib/progress";
 
 export function Steps({steps}:{steps:Step[]}) {
-  return <ol className="steps">{steps.map((s,i)=><li className="step" key={i}><span className="step-num" aria-hidden="true">{i+1}</span><div><strong>{s.title}</strong><p><MathText text={s.text}/></p>{s.tex&&<Formula tex={s.tex} display/>}</div></li>)}</ol>;
+  return <ol className="steps">{distinctSteps(steps).map((s,i)=><li className="step" key={i}><span className="step-num" aria-hidden="true">{i+1}</span><div>{stepHeading(s.title)&&<strong><MathText text={stepHeading(s.title)}/></strong>}<p><MathText text={s.text}/></p>{s.tex&&<Formula tex={s.tex} display/>}</div></li>)}</ol>;
 }
 export type QueueItem={exercise:Exercise;reviewOf?:string};
 export function Practice({items,label,resume=false}:{items:QueueItem[];label:string;resume?:boolean}) {

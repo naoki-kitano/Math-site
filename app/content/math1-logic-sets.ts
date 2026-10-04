@@ -1,7 +1,7 @@
 import {logicTopic,logicPreparation,m,math,set,w} from "./math1-logic-authoring";
 import {addPair,type Worked,type Skill} from "./math1-topic";
 const integerCheck=(tex:string,yes:boolean,why:string):Worked=>w(`${math(tex)} は整数ですか。理由も答えなさい。`,`${yes?"整数です":"整数ではありません"}。${why}`,"整数には負の整数とゼロも含みます。小数部分をもつ値と区別します。",why);
-const prepInteger:Skill={id:"integer-recognition",title:"整数の範囲",why:"整数はゼロと正負の整数です。整数でない分数や小数は含みません。",sample:integerCheck("-2",true,"負の整数も含まれます。"),items:[integerCheck("0",true,"ゼロも整数です。"),integerCheck(m`\frac12`,false,"ゼロと一の間にあり整数ではありません。"),integerCheck("-3",true,"負の整数も整数の範囲に含まれます。") ]};
+const prepInteger:Skill={id:"integer-recognition",title:"整数の範囲",why:m`整数は $0,1,2,\ldots$ と $-1,-2,\ldots$ です。整数でない分数や小数は含みません。`,sample:integerCheck("-2",true,"負の整数も含まれます。"),items:[integerCheck("0",true,"ゼロも整数です。"),integerCheck(m`\frac12`,false,"ゼロと一の間にあり整数ではありません。"),integerCheck("-3",true,"負の整数も整数の範囲に含まれます。") ]};
 function member(a:number[],n:number):Worked {
  const yes=a.includes(n);
  return w(m`$A=${set(a)}$ とする。${math(String(n))} が $A$ の要素かを記号で表しなさい。`,math(m`${n}${yes?"\\in":"\\notin"} A`)+"。",m`$A$ の波括弧の中に ${math(String(n))} があるか確かめます。`,`${math(String(n))} は列挙された数に${yes?"含まれます":"含まれません"}。要素と集合の関係には ${math(yes?m`\in`:m`\notin`)} を使います。`);

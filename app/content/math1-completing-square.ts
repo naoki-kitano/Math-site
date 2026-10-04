@@ -17,7 +17,7 @@ export const squareBasic=topic("m1-completing-square","平方完成の基本",[
  m`一次の係数が奇数でも同じです。$x^2+3x+1=(x+\frac32)^2-\frac94+1=(x+\frac32)^2-\frac54$。一次の係数の半分を使い、その二乗を補正します。`,
  m`変形後の式を展開すると元に戻ります。いくつかの数を代入して一致するだけでは、すべての入力で等しい理由にはなりません。`,
 ],"平方を作るために増えた数を引き、値を変えずに形を直します。",[
- {id:"integer-completion",title:"一次の係数を半分にする",why:"この問題群では一次係数が偶数なので、半分と補正は整数です。",sample:complete(1,6,2),items:[complete(1,4,1),complete(1,8,3),complete(1,10,4),complete(1,-6,5),complete(1,-4,-2),complete(1,2,0),complete(1,-2,5),complete(1,6,-1)]},
+ {id:"integer-completion",title:"一次の係数を半分にする",why:m`$(x+3)^2$ の一次の項は $6x$ です。平方にすると増える $9$ を引きます。`,sample:complete(1,6,2),items:[complete(1,4,1),complete(1,8,3),complete(1,10,4),complete(1,-6,5),complete(1,-4,-2),complete(1,2,0),complete(1,-2,5),complete(1,6,-1)]},
  {id:"fraction-completion",title:"分数でも同じ補正を行う",why:"一次係数の半分の二乗を引くので、分母は二から四になります。",sample:complete(1,3,1),items:[complete(1,-3,2),complete(1,1,1),complete(1,-5,2),complete(1,5,0),complete(1,-1,-1),complete(1,7,3)]},
 ],[expandPrep,fractionPrep]);
 addPair(squareBasic,"vertex-reading","平方の形から頂点を読む","括弧の符号をそのまま座標にせず、平方の部分がゼロになる入力を探します。",[readVertex(1,-2,3),readVertex(1,1.5,-0.25)]);
@@ -53,5 +53,5 @@ for(const [bank,key,a,b]of [[squareBasic,"integer-completion-1",1,4],[squareBasi
  e.prompt+=(a===1?" 一次係数の半分、平方を作るために引く数、平方完成した等式全体の順に答えなさい。":" 最初に二次と一次の項の係数をくくり、括弧内の一次係数の半分、括弧内で引く数、外の係数を掛けた補正項、平方完成した等式全体の順に答えなさい。");
  const t=b/(2*a);
  const c=key==="integer-completion-1"?1:key==="fraction-completion-1"?2:3;
- e.answer=m`半分は $${num(t)}$、平方を作るために引く数は $${num(t*t)}$。${a===1?"":m`最初の括り出しは $${poly(a,b,c)}=${num(a)}(x^2${signed(b/a)}x)+${c}$。外の係数を掛けた補正項は $${num(-a*t*t)}$。`}等式全体は $${poly(a,b,c)}=${vertexForm(a,-t,c-a*t*t)}$。`;
+ e.answer=(a===1?m`半分は $${num(t)}$、平方を作るために引く数は $${num(t*t)}$。`:m`最初の括り出しは $${poly(a,b,c)}=${num(a)}(x^2${signed(b/a)}x)+${c}$。括弧内の一次係数の半分は $${num(t)}$、括弧内で引く数は $${num(t*t)}$、外の係数を掛けた補正項は $${num(-a*t*t)}$。`)+m`等式全体は $${poly(a,b,c)}=${vertexForm(a,-t,c-a*t*t)}$。`;
 }

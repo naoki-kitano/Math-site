@@ -26,7 +26,7 @@ function special(a:number,h:number,k:number,rel:Rel):Worked{
  const positive=rel===">"||rel==="\\ge",closed=rel==="\\ge"||rel==="\\le",same=positive===(a>0);
  const answer=k===0?(same?(closed?"すべての実数。":m`$x\ne${h}$ のすべての実数。`):(closed?m`$x=${h}$。`:"解なし。")):(same?"すべての実数。":"解なし。");
  specialSignCases.push({a,h,k,rel,answer});
- return w(m`$${vertexForm(a,h,k)}${rel}0$ を解きなさい。`,answer,"平方の非負性から左辺の符号と、ゼロになる入力があるかを調べます。",m`平方は非負なので左辺は $${a>0?"\\ge":"\\le"}${k}$。${k===0?m`ゼロになるのは $x=${h}$ だけです。`:"定数項も同じ符号なので、左辺はゼロになりません。"}${k===0?m`$x=${h}$ 以外では${a>0?"正":"負"}です。`:""}求める不等号と等号の有無を合わせると、${answer}`);
+ return w(m`$${vertexForm(a,h,k)}${rel}0$ を解きなさい。`,answer,"平方の非負性から左辺の符号と、ゼロになる入力があるかを調べます。",m`平方は非負なので左辺は $${a>0?"\\ge":"\\le"}${k}$。${k===0?m`ゼロになるのは $x=${h}$ だけです。`:`したがって左辺は常に${a>0?"正":"負"}で、ゼロにはなりません。`}${k===0?m`$x=${h}$ 以外では${a>0?"正":"負"}です。`:""}求める不等号と等号の有無を合わせると、${answer}`);
 }
 export const specialInequality=topic("m1-quadratic-inequality-boundaries","接する・交わらない場合の不等式",[
  m`実数解のない方程式と、解のない不等式は同じ意味ではありません。$x^2+1=0$ の実数解はありませんが、$x^2+1>0$ はすべての実数で成り立ちます。`,
@@ -34,7 +34,7 @@ export const specialInequality=topic("m1-quadratic-inequality-boundaries","接�
  m`負の係数を掛ければ符号は逆になります。例えば $-(x-1)^2\ge0$ は $x=1$ のみ。零点だけでなく、零点以外の符号を必ず調べます。`,
 ],"ゼロになる点と、それ以外の符号を分けて判断します。",[
  {id:"tangent-sign",title:"接点で等号になるかを確かめる",why:"平方がゼロになる一点と、それ以外を分ければ四種類の不等号を判断できます。",sample:special(1,1,0,">"),items:[special(1,2,0,"\\le"),special(1,-1,0,"<"),special(-1,2,0,"\\ge"),special(2,3,0,"\\ge"),special(-2,-1,0,"<"),special(-1,1,0,">"),special(1,-2,0,">"),special(-2,0,0,"\\le")]},
- {id:"no-intersection-sign",title:"零点がなくても符号は判断できる",why:"平方項と定数が同じ符号なので、全体が常に正か常に負になります。",sample:special(1,0,1,">"),items:[special(1,1,2,"<"),special(-1,2,-1,"\\le"),special(2,-1,1,"\\ge"),special(-2,0,-3,">"),special(1,-2,3,"\\le"),special(-1,1,-2,"<"),special(2,0,1,">"),special(-1,-1,-1,"\\ge")]},
+ {id:"no-intersection-sign",title:"零点がなくても符号は判断できる",why:"平方項の係数と定数項がともに正なら全体は常に正、ともに負なら全体は常に負です。",sample:special(1,0,1,">"),items:[special(1,1,2,"<"),special(-1,2,-1,"\\le"),special(2,-1,1,"\\ge"),special(-2,0,-3,">"),special(1,-2,3,"\\le"),special(-1,1,-2,"<"),special(2,0,1,">"),special(-1,-1,-1,"\\ge")]},
 ],[squarePrep,boundaryPrep]);
 quadraticInequality.lesson.prerequisites=[{slug:"m1-equation-graph",label:"二次方程式とグラフ"}];
 specialInequality.lesson.prerequisites=[{slug:"m1-quadratic-inequality",label:"二次不等式とグラフの符号"}];

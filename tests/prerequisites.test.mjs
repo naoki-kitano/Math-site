@@ -11,6 +11,18 @@ const {allPrerequisitePlans,diagnosticPlan,diagnosticChecksFor,validDiagnosticTr
 const {exercisePrerequisites}=await loadContent('prerequisite-calculus');
 const ids=q=>diagnosticChecksFor(q).map(c=>c.id);
 const strings=x=>typeof x==='string'?[x]:Array.isArray(x)?x.flatMap(strings):x&&typeof x==='object'?Object.values(x).flatMap(strings):[];
+test('repeated prerequisite assembly never duplicates lessons, repairs or exercise IDs',async()=>{
+ const {addPrerequisiteScenarios}=await loadContent('prerequisite-scenarios');
+ const copy=structuredClone(lessons),items=structuredClone(exercises);
+ const lesson=copy.find(l=>l.slug==='m3-sequence-radical-limit');
+ const originalCount=lesson.supplements.length;
+ lesson.supplements.push(structuredClone(lesson.supplements.find(s=>s.id==='reciprocal-limit')));
+ addPrerequisiteScenarios(copy,items);addPrerequisiteScenarios(copy,items);
+ assert.equal(lesson.supplements.length,originalCount);
+ assert.equal(copy.find(l=>l.slug==='m3-sequences-check').supplements.filter(s=>s.id==='m3-sequence-radical-limit-reciprocal-limit').length,1);
+ assert.equal(items.length,exercises.length);assert.equal(new Set(items.map(q=>q.id)).size,items.length);
+ for(const item of items)assert.deepEqual(item,exerciseById[item.id]);
+});
 test('diagnostic graph has valid explicit targets, answer choices and no prerequisite cycles',()=>{
  assert.ok(prerequisiteChecks.length>=100);
  assert.equal(prerequisiteById.size,prerequisiteChecks.length);

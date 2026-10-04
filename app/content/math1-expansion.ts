@@ -15,7 +15,7 @@ export const expansion=defineMathOneLesson({
   examples:[
     {id:"one",guidedIds:["m1-distributive-expansion-g-one-v1"],title:"負の係数も各項に掛ける",prompt:m`$-3x(2x-5)$ を展開しなさい。`,steps:[
       {title:"掛ける相手を二つ書く",text:m`$-3x$ を $2x$ と $-5$ の両方に掛けます。`,tex:m`(-3x)(2x)+(-3x)(-5)`},
-      {title:"符号と文字を計算する",text:m`最初は負と正の積で $-6x^2$、次は負と負の積で $15x$。答えは $-6x^2+15x$ です。`},
+      {title:"符号と文字を計算する",text:m`最初の積は、係数が $(-3)\cdot2=-6$、文字の部分が $x\cdot x=x^2$ なので $-6x^2$。次の積は $(-3)\cdot(-5)\cdot x=15x$。答えは $-6x^2+15x$ です。`},
     ]},
     {id:"two",guidedIds:["m1-distributive-expansion-g-two-v1"],title:"二つの括弧を展開する",prompt:m`$(2x-1)(x+3)$ を展開しなさい。`,steps:[
       {title:"前の括弧を二項に分ける",text:m`後ろの括弧全体に、まず $2x$、次に $-1$ を掛けます。`,tex:m`2x(x+3)-(x+3)`},
@@ -42,7 +42,7 @@ export const expansion=defineMathOneLesson({
   practice:[
     q("p-one-a","one",m`$2x(x+3)$ を展開しなさい。`,m`$2x^2+6x$。`,m`$2x$ を両方の項に掛けます。`,m`$2x\cdot x+2x\cdot3=2x^2+6x$。`),
     q("p-one-b","one",m`$3x(2x+1)$ を展開しなさい。`,m`$6x^2+3x$。`,m`定数 $1$ にも掛けます。`,m`$3x\cdot2x+3x\cdot1=6x^2+3x$。`),
-    q("p-negative","one",m`$-4x(x-2)$ を展開しなさい。`,m`$-4x^2+8x$。`,m`二つ目は負と負の積です。`,m`$(-4x)x+(-4x)(-2)=-4x^2+8x$。`),
+    q("p-negative","one",m`$-4x(x-2)$ を展開しなさい。`,m`$-4x^2+8x$。`,m`二つ目の積では、係数 $-4$ と $-2$ を掛けます。`,m`$(-4x)x+(-4x)(-2)=-4x^2+8x$。`),
     q("p-fraction","one",m`$\dfrac12x(4x-6)$ を展開しなさい。`,m`$2x^2-3x$。`,m`係数の分数も各項に掛けます。`,m`$\dfrac12\cdot4x^2-\dfrac12\cdot6x=2x^2-3x$。`),
     q("p-two-a","two",m`$(x+2)(x+4)$ を展開しなさい。`,m`$x^2+6x+8$。`,m`まず四つの積を書きます。`,m`$x^2+4x+2x+8=x^2+6x+8$。`),
     q("p-two-b","two",m`$(x-3)(x+2)$ を展開しなさい。`,m`$x^2-x-6$。`,m`$-3$ を $x$ と $2$ の両方に掛けます。`,m`$x^2+2x-3x-6=x^2-x-6$。`),
@@ -53,7 +53,7 @@ export const expansion=defineMathOneLesson({
   ],
   review:[
     q("v-three","three",m`$(x+2)(x^2-x+1)$ を展開しなさい。`,m`$x^3+x^2-x+2$。`,m`$x$ と $2$ をそれぞれ後ろの三項すべてに掛けます。`,m`$x^3-x^2+x+2x^2-2x+2=x^3+x^2-x+2$。`),
-    q("v-multiply-a","multiply",m`$(-3x)(-4x^2)$ を計算しなさい。`,m`$12x^3$。`,m`負と負の積の符号と、文字の指数を確認します。`,m`$(-3)(-4)=12$、$x\cdot x^2=x^3$ です。`),
+    q("v-multiply-a","multiply",m`$(-3x)(-4x^2)$ を計算しなさい。`,m`$12x^3$。`,m`係数 $-3$ と $-4$ を掛け、文字の指数を確認します。`,m`$(-3)(-4)=12$、$x\cdot x^2=x^3$ です。`),
     q("v-multiply-b","multiply",m`$(5x^2)(-2x)$ を計算しなさい。`,m`$-10x^3$。`,m`数を掛け、文字の指数を足します。`,m`$5(-2)=-10$、$x^2\cdot x=x^3$ です。`),
     q("v-collect-a","collect",m`$3x^2-5x+2x$ を簡単にしなさい。`,m`$3x^2-3x$。`,m`一次の項の係数をまとめます。`,m`$(-5+2)x=-3x$。二次の項は残します。`),
     q("v-collect-b","collect",m`$4x^2+x-2x^2$ を簡単にしなさい。`,m`$2x^2+x$。`,m`二次の項の係数をまとめます。`,m`$(4-2)x^2+x=2x^2+x$。`),
@@ -68,7 +68,7 @@ export const identities=defineMathOneLesson({
   prerequisites:[{slug:"m1-distributive-expansion",label:"分配法則と展開"}],
   introduction:[
     m`乗法公式は、分配法則で展開した結果を使いやすくまとめたものです。$(a+b)^2=(a+b)(a+b)=a^2+ab+ba+b^2=a^2+2ab+b^2$。交差する二つの積があるので、中間の項 $2ab$ が必要です。`,
-    m`同じように $(a-b)^2=(a-b)(a-b)=a^2-ab-ab+b^2=a^2-2ab+b^2$。差の平方でも最後の項は正です。$(a+b)(a-b)=a^2-ab+ab-b^2=a^2-b^2$ では、交差する項が打ち消し合います。`,
+    m`同じように $(a-b)^2=(a-b)(a-b)=a^2-ab-ab+b^2=a^2-2ab+b^2$。差の平方でも最後の項は $+b^2$ です。$(a+b)(a-b)=a^2-ab+ab-b^2=a^2-b^2$ では、交差する項が打ち消し合います。`,
     m`$a,b$ は一文字だけとは限りません。$(2x-3)^2$ なら $a=2x,b=3$ と見ます。$(2x)^2=4x^2$ のように係数まで二乗し、真ん中は $-2\cdot2x\cdot3=-12x$ です。`,
     m`共通する項をもつ積も、$(x+a)(x+b)=x^2+bx+ax+ab=x^2+(a+b)x+ab$ とまとめられます。どの公式も、対応するまとまりが一致することを確認して使います。$(2x+1)(3x-1)$ は和と差の積の形ではないので、各項を掛けて展開します。`,
   ],
@@ -92,13 +92,13 @@ export const identities=defineMathOneLesson({
     {id:"common",title:"一次の係数は和、定数項は積",text:m`$(x+a)(x+b)$ を展開すると $x^2+bx+ax+ab$。一次の項をまとめると $(a+b)x$ になるため、二数の和と積を使えます。負の数は符号も含めます。`,tex:m`(x-2)(x+5)=x^2+(-2+5)x+(-2)\cdot5=x^2+3x-10`,check:m`$(x-3)(x+4)$ を和と積に注目して展開しなさい。`,answer:m`和は $-3+4=1$、積は $(-3)\cdot4=-12$ なので $x^2+x-12$。`},
     {id:"multiply",title:"文字を含む積の計算",text:m`数の係数も掛け、同じ文字をまとめます。二乗なら、括弧の中の係数も二乗します。`,tex:m`(3x)^2=(3x)(3x)=9x^2`,check:m`$(2x)(4x)$ は？`,answer:m`$8x^2$。係数は $2\cdot4=8$、文字は $x\cdot x=x^2$。`},
     {id:"distribute",title:"公式を使わず展開する",text:m`前の括弧の各項を後ろの各項に掛け、同類項をまとめます。`,tex:m`(2x+1)(x+3)=2x^2+6x+x+3=2x^2+7x+3`,check:m`$(3x-1)(x+2)$ は？`,answer:m`$3x^2+6x-x-2=3x^2+5x-2$。`},
-    {id:"square",title:"平方の中間項",text:m`同じ括弧を二つ掛けると、交差する積が二つ生まれます。差の平方では両方とも負です。`,tex:m`(x-4)^2=x^2-4x-4x+16=x^2-8x+16`,check:m`$(x+3)^2$ は？`,answer:m`$x^2+3x+3x+9=x^2+6x+9$。`},
-    {id:"conjugates",title:"交差する項が消える形",text:m`同じ二つのまとまりの和と差を掛けると、交差する積が正負で消えます。`,tex:m`(2x+5)(2x-5)=4x^2-10x+10x-25=4x^2-25`,check:m`$(x+6)(x-6)$ は？`,answer:m`$x^2-36$。交差する $-6x$ と $6x$ が消えます。`},
+    {id:"square",title:"平方の中間項",text:m`同じ括弧を二つ掛けると、交差する積が二つ生まれます。$(a-b)^2$ では $-ab$ と $-ab$ になり、合わせて $-2ab$ です。`,tex:m`(x-4)^2=x^2-4x-4x+16=x^2-8x+16`,check:m`$(x+3)^2$ は？`,answer:m`$x^2+3x+3x+9=x^2+6x+9$。`},
+    {id:"conjugates",title:"交差する項が消える形",text:m`同じ二つのまとまりの和と差を掛けると、交差する積 $-ab$ と $ab$ を足した結果が $0$ になります。`,tex:m`(2x+5)(2x-5)=4x^2-10x+10x-25=4x^2-25`,check:m`$(x+6)(x-6)$ は？`,answer:m`$x^2-36$。交差する $-6x$ と $6x$ が消えます。`},
     {id:"choice",title:"公式を使う前の対応確認",text:m`正負の符号だけで決めず、両方のまとまりが一致しているか見ます。$(x+2)(x-2)$ は同じ $x,2$ の和と差なので $x^2-4$。$(x+2)(x-3)$ は相手の数が違うので公式を直接使えません。`,tex:m`(x+2)(x-3)=x^2-3x+2x-6=x^2-x-6`,check:m`$(2x+3)(x-3)$ は和と差の積の公式を直接使えますか。理由を述べ、展開しなさい。`,answer:m`使えません。$2x$ と $x$ が一致しないからです。分配すると $2x^2-6x+3x-9=2x^2-3x-9$。`},
   ],
 },{
   ready:[
-    q("r-multiply","multiply",m`$(2x)^2$ を計算しなさい。`,m`$4x^2$。`,m`$2x$ 全体を二回掛けます。`,m`$(2x)(2x)=2\cdot2\cdot x\cdot x=4x^2$。`),
+    q("r-multiply","multiply",m`$(2x)^2$ を計算しなさい。`,m`$4x^2$。`,m`$2x$ を二つ掛け合わせます。`,m`$(2x)(2x)=2\cdot2\cdot x\cdot x=4x^2$。`),
     q("r-distribute","distribute",m`$(x+1)(x+2)$ を展開しなさい。`,m`$x^2+3x+2$。`,m`四つの積を先に書きます。`,m`$x^2+2x+x+2=x^2+3x+2$。`),
   ],
   guided:[
@@ -110,7 +110,7 @@ export const identities=defineMathOneLesson({
   practice:[
     q("p-square-a","square",m`$(x+4)^2$ を展開しなさい。`,m`$x^2+8x+16$。`,m`真ん中は $2\cdot x\cdot4$ です。`,m`$x^2+2\cdot x\cdot4+4^2=x^2+8x+16$。`),
     q("p-square-b","square",m`$(x+5)^2$ を展開しなさい。`,m`$x^2+10x+25$。`,m`両端だけでなく、交差する積も書きます。`,m`$x^2+2\cdot x\cdot5+5^2=x^2+10x+25$。`),
-    q("p-square-minus","square",m`$(x-3)^2$ を展開しなさい。`,m`$x^2-6x+9$。`,m`真ん中は負、最後は正です。`,m`$x^2-2\cdot x\cdot3+3^2=x^2-6x+9$。`),
+    q("p-square-minus","square",m`$(x-3)^2$ を展開しなさい。`,m`$x^2-6x+9$。`,m`中間の項は $-2\cdot x\cdot3$、最後の項は $3^2$ です。`,m`$x^2-2\cdot x\cdot3+3^2=x^2-6x+9$。`),
     q("p-square-coefficient","square",m`$(2x+1)^2$ を展開しなさい。`,m`$4x^2+4x+1$。`,m`$2x$ 全体を二乗します。`,m`$(2x)^2+2\cdot2x\cdot1+1^2=4x^2+4x+1$。`),
     q("p-square-fraction","square",m`$\left(x-\dfrac12\right)^2$ を展開しなさい。`,m`$x^2-x+\dfrac14$。`,m`中間項の係数は $-2\cdot\dfrac12$。`,m`$x^2-2\cdot x\cdot\dfrac12+\left(\dfrac12\right)^2=x^2-x+\dfrac14$。`),
     q("p-conjugates-a","conjugates",m`$(x+7)(x-7)$ を展開しなさい。`,m`$x^2-49$。`,m`二つのまとまり $x$ と $7$ を二乗します。`,m`$x^2-7^2=x^2-49$。`),

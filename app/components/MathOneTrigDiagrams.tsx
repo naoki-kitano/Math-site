@@ -5,6 +5,8 @@ type Point={x:number;y:number;label:string;labelOffset?:[number,number]};
 type Edge={from:number;to:number;label?:string;dashed?:boolean;teal?:boolean;labelOffset?:[number,number]};
 export type TrigFigure={title:string;description:string;points:Point[];edges:Edge[];right?:[number,number,number][];circle?:{x:number;y:number;r:number}};
 const m=String.raw;
+// Round only screen coordinates so server and browser agree on SVG attributes.
+const screen=(value:number)=>Number(value.toFixed(4));
 const tri=(title:string,description:string,b:number,c:number,A:number,labels:[string,string,string],sides:[string,string,string],right?:[number,number,number][]):TrigFigure=>({
  title,description,points:[{x:0,y:0,label:labels[0]},{x:c,y:0,label:labels[1]},{x:b*Math.cos(A*Math.PI/180),y:b*Math.sin(A*Math.PI/180),label:labels[2]}],
  edges:[{from:1,to:2,label:sides[0],teal:true},{from:2,to:0,label:sides[1]},{from:0,to:1,label:sides[2]}],right,
@@ -76,13 +78,13 @@ export default function MathOneTrigDiagrams({slug,index}:{slug:string;index:numb
  if(f.circle){xs.push(f.circle.x-f.circle.r,f.circle.x+f.circle.r);ys.push(f.circle.y-f.circle.r,f.circle.y+f.circle.r);}
  const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys),cx=(minX+maxX)/2,cy=(minY+maxY)/2;
  const scale=Math.min(470/(maxX-minX||1),260/(maxY-minY||1));
- const point=(p:{x:number;y:number})=>({x:320+(p.x-cx)*scale,y:185-(p.y-cy)*scale});
+ const point=(p:{x:number;y:number})=>({x:screen(320+(p.x-cx)*scale),y:screen(185-(p.y-cy)*scale)});
  const ps=f.points.map(point);
  return <figure className="panel math-figure trig-figure"><h4>{f.title}</h4><p><MathText text={f.description}/></p>
  <svg className="coordinate-diagram" viewBox="0 0 640 380" role="img" aria-label={f.title}><title>{f.title}</title>
- {f.circle&&<circle cx={point(f.circle).x} cy={point(f.circle).y} r={f.circle.r*scale} fill="none" stroke="#a5b9c7" strokeWidth="2"/>}
- {f.edges.map((e,i)=>{const a=ps[e.from],b=ps[e.to],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1;return <g key={i}><line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={e.teal?"#087c70":"#526d89"} strokeWidth={e.teal?3:2} strokeDasharray={e.dashed?"6 5":undefined}/>{e.label&&<foreignObject x={(a.x+b.x)/2+(e.labelOffset?.[0]??dy/len*17)-48} y={(a.y+b.y)/2+(e.labelOffset?.[1]??-dx/len*17)-30} width="96" height="60"><div className="diagram-label"><Formula tex={e.label}/></div></foreignObject>}</g>})}
- {f.right?.map(([i,j,k],n)=>{const a=ps[i],o=ps[j],b=ps[k],la=Math.hypot(a.x-o.x,a.y-o.y),lb=Math.hypot(b.x-o.x,b.y-o.y),u={x:(a.x-o.x)/la*12,y:(a.y-o.y)/la*12},v={x:(b.x-o.x)/lb*12,y:(b.y-o.y)/lb*12};return <polyline key={n} points={`${o.x+u.x},${o.y+u.y} ${o.x+u.x+v.x},${o.y+u.y+v.y} ${o.x+v.x},${o.y+v.y}`} fill="none" stroke="#526d89" strokeWidth="1.5"/>})}
- {ps.map((p,i)=>{const dx=p.x===320&&p.y===185?-1:p.x-320,dy=p.y-185,len=Math.hypot(dx,dy)||1;return <g key={i}><circle cx={p.x} cy={p.y} r="3.5" fill="#0b1f3a"/><foreignObject x={p.x+(f.points[i].labelOffset?.[0]??dx/len*25)-68} y={p.y+(f.points[i].labelOffset?.[1]??dy/len*25)-30} width="136" height="60"><div className="diagram-label"><Formula tex={f.points[i].label}/></div></foreignObject></g>})}
+ {f.circle&&<circle cx={point(f.circle).x} cy={point(f.circle).y} r={screen(f.circle.r*scale)} fill="none" stroke="#a5b9c7" strokeWidth="2"/>}
+ {f.edges.map((e,i)=>{const a=ps[e.from],b=ps[e.to],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1;return <g key={i}><line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={e.teal?"#087c70":"#526d89"} strokeWidth={e.teal?3:2} strokeDasharray={e.dashed?"6 5":undefined}/>{e.label&&<foreignObject x={screen((a.x+b.x)/2+(e.labelOffset?.[0]??dy/len*17)-48)} y={screen((a.y+b.y)/2+(e.labelOffset?.[1]??-dx/len*17)-30)} width="96" height="60"><div className="diagram-label"><Formula tex={e.label}/></div></foreignObject>}</g>})}
+ {f.right?.map(([i,j,k],n)=>{const a=ps[i],o=ps[j],b=ps[k],la=Math.hypot(a.x-o.x,a.y-o.y),lb=Math.hypot(b.x-o.x,b.y-o.y),u={x:(a.x-o.x)/la*12,y:(a.y-o.y)/la*12},v={x:(b.x-o.x)/lb*12,y:(b.y-o.y)/lb*12};return <polyline key={n} points={`${screen(o.x+u.x)},${screen(o.y+u.y)} ${screen(o.x+u.x+v.x)},${screen(o.y+u.y+v.y)} ${screen(o.x+v.x)},${screen(o.y+v.y)}`} fill="none" stroke="#526d89" strokeWidth="1.5"/>})}
+ {ps.map((p,i)=>{const dx=p.x===320&&p.y===185?-1:p.x-320,dy=p.y-185,len=Math.hypot(dx,dy)||1;return <g key={i}><circle cx={p.x} cy={p.y} r="3.5" fill="#0b1f3a"/><foreignObject x={screen(p.x+(f.points[i].labelOffset?.[0]??dx/len*25)-68)} y={screen(p.y+(f.points[i].labelOffset?.[1]??dy/len*25)-30)} width="136" height="60"><div className="diagram-label"><Formula tex={f.points[i].label}/></div></foreignObject></g>})}
  </svg></figure>;
 }

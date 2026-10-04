@@ -9,7 +9,7 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
-    "test": "node --test tests/learning.test.mjs tests/math1-drafts.test.mjs tests/math1-logic.test.mjs tests/math1-quadratic.test.mjs tests/math1-trigonometry.test.mjs tests/math1-data.test.mjs tests/matha-counting.test.mjs tests/matha-probability.test.mjs tests/matha-remaining.test.mjs tests/mathb.test.mjs tests/mathc.test.mjs tests/junior.test.mjs tests/review-guide.test.mjs tests/prerequisites.test.mjs",
+    "test": "node --test tests/learning.test.mjs tests/math1-drafts.test.mjs tests/math1-logic.test.mjs tests/math1-quadratic.test.mjs tests/math1-trigonometry.test.mjs tests/math1-data.test.mjs tests/matha-counting.test.mjs tests/matha-probability.test.mjs tests/matha-remaining.test.mjs tests/mathb.test.mjs tests/mathc.test.mjs tests/junior.test.mjs tests/review-guide.test.mjs tests/prerequisites.test.mjs tests/math-motion.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },

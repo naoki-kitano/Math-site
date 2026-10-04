@@ -3,7 +3,10 @@ import {addPair,type Worked,type Skill} from "./math1-topic";
 export const rootCases:{p:number;q:number;a:number;expression:string}[]=[];
 function factorSolve(p:number,q:number,a=1):Worked{
  const expr=poly(a,-a*(p+q),a*p*q);rootCases.push({p,q,a,expression:expr});
- return w(m`$${expr}=0$ を解きなさい。`,m`$x=${[...new Set([p,q])].sort((a,b)=>a-b).map(num).join(",")}$。`,"左辺を因数分解し、積がゼロになる二つの可能性を調べます。",m`$${a===1?"":num(a)}(x${signed(-p)})(x${signed(-q)})=0$。係数はゼロでないので、$x${signed(-p)}=0$ または $x${signed(-q)}=0$。${p===q?"同じ解は一回だけ書きます。":"両方の可能性を残します。"}`);
+ const product=p===q?m`(x${signed(-p)})^2`:m`(x${signed(-p)})(x${signed(-q)})`;
+ const division=a===1?"":m`両辺を $${num(a)}$ で割ると $${product}=0$。`;
+ const condition=p===q?m`平方がゼロなので $x${signed(-p)}=0$。同じ解は一回だけ書きます。`:m`積がゼロなので $x${signed(-p)}=0$ または $x${signed(-q)}=0$。両方の可能性を残します。`;
+ return w(m`$${expr}=0$ を解きなさい。`,m`$x=${[...new Set([p,q])].sort((a,b)=>a-b).map(num).join(",")}$。`,"左辺を因数分解し、積がゼロになる条件を調べます。",m`$${a===1?"":num(a)}${product}=0$。`+division+condition);
 }
 function squareSolve(h:number,c:number):Worked{
  const left=h===0?"x^2":`(x${signed(-h)})^2`,r=Math.sqrt(c);
@@ -24,22 +27,23 @@ export const factorEquation=topic("m1-quadratic-factor-equation","因数分解�
 addPair(factorEquation,"square-zero","平方がゼロの解","正負に書いてもゼロは同じ数です。中身がゼロになる一つの値を求めます。",[squareSolve(3,0),squareSolve(-2,0)]);
 addPair(factorEquation,"square-negative","実数の平方の符号","実数の平方は非負なので、負の値にはなりません。",[squareSolve(1,-1),squareSolve(0,-4)]);
 addPair(factorEquation,"unsafe-division","未知数で割る前にゼロを残す","ゼロで割れないため、未知数で割る操作はゼロの解を失うことがあります。移項して共通因数を取り出します。",[
- w(m`$x^2=4x$ を $x$ で割って $x=4$ とした解答を直しなさい。`,m`$x=0,4$。$x=0$ も元の式を満たします。`,"両辺を引いてゼロの積にします。",m`$x(x-4)=0$。$x=0$ と $x=4$ の両方を残します。`),
+ w(m`$x^2=4x$ を $x$ で割って $x=4$ とした解答を直しなさい。`,m`$x=0,4$。$x=0$ も元の式を満たします。`,m`両辺から $4x$ を引き、左辺の共通因数 $x$ をくくります。`,m`$x(x-4)=0$。$x=0$ と $x=4$ の両方を残します。`),
  w(m`$x^2+2x=0$ を $x$ で割って $x=-2$ とした解答を直しなさい。`,m`$x=0,-2$。`,"共通因数をくくっても、それで割らなければゼロの解が残ります。",m`$x(x+2)=0$ より $x=0$ または $x=-2$。`),
 ]);
 function formula(a:number,b:number,c:number):Worked{
  const D=b*b-4*a*c;
- let simplified="",factor=1;
+ let simplified="",factor=1,reduction=1;
  if(D>0){
   for(let s=1;s*s<=D;s++)if(D%(s*s)===0)factor=s;
   const radicand=D/(factor*factor),gcd=(u:number,v:number):number=>v===0?Math.abs(u):gcd(v,u%v);
   const divisor=gcd(gcd(b,factor),2*a),u=-b*Math.sign(a)/divisor,v=factor/divisor,den=2*Math.abs(a)/divisor;
+  reduction=divisor;
   const radical=radicand===1?String(v):`${v===1?"":v}\\sqrt{${radicand}}`;
   const numerator=`${u===0?"":u}\\pm${radical}`;
   simplified=den===1?numerator:m`\frac{${numerator}}{${den}}`;
  }
  const answer=D<0?"実数解はありません。":D===0?m`$x=${num(-b/(2*a))}$。`:m`$x=${simplified}$。`;
- return w(m`$${poly(a,b,c)}=0$ を解の公式で解きなさい。`,answer,"係数を符号ごと読み、判別式を計算してから公式へ入れます。",m`$a=${a},b=${b},c=${c}$、$D=(${b})^2-4\cdot(${a})\cdot(${c})=${D}$。${D<0?"根号内が負であり、実数解はありません。":D===0?m`$x=\frac{-(${b})}{2\cdot(${a})}=${num(-b/(2*a))}$。`:m`$x=\frac{-(${b})\pm\sqrt{${D}}}{2\cdot(${a})}$。${factor>1?m`$\sqrt{${D}}=${factor}\sqrt{${D/(factor*factor)}}$ と整理します。`:""}分子全体と分母の共通因数を約分して $x=${simplified}$。${a<0?"分母を正に直すと正負の対応が入れ替わりますが、両方の解は同じです。":""}`}`);
+ return w(m`$${poly(a,b,c)}=0$ を解の公式で解きなさい。`,answer,"係数を符号ごと読み、判別式を計算してから公式へ入れます。",m`$a=${a},b=${b},c=${c}$、$D=(${b})^2-4\cdot(${a})\cdot(${c})=${D}$。${D<0?"根号内が負であり、実数解はありません。":D===0?m`$x=\frac{-(${b})}{2\cdot(${a})}=${num(-b/(2*a))}$。`:m`$x=\frac{-(${b})\pm\sqrt{${D}}}{2\cdot(${a})}$。${factor>1?m`$\sqrt{${D}}=${factor}\sqrt{${D/(factor*factor)}}$ と整理します。`:""}${reduction>1?"分子全体と分母の共通因数を約分して":"符号と分母を整理して"} $x=${simplified}$。${a<0?"分母を正に直すと正負の対応が入れ替わりますが、両方の解は同じです。":""}`}`);
 }
 function countRoots(a:number,b:number,c:number):Worked{
  const D=b*b-4*a*c,n=D>0?2:D===0?1:0;
@@ -50,7 +54,7 @@ export const formulaEquation=topic("m1-quadratic-formula","解の公式と実数
  m`$D=b^2-4ac\ge0$ のとき、両辺を $4a^2$ 倍して $(2ax+b)^2=D$。よって $2ax+b=\pm\sqrt D$、$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ が解の公式です。$a$ が負でも使えます。`,
  m`$D>0$ なら異なる実数解が二つ、$D=0$ なら一つ（重解）、$D<0$ なら実数解はありません。`,
 ],"係数を符号ごと代入し、根号の中の値から実数解の個数を調べます。",[
- {id:"quadratic-formula",title:"符号を保って公式へ代入する",why:"一次係数が負でも、公式の分子はその係数の符号を反転したものです。",sample:formula(1,-2,-1),items:[formula(1,2,-1),formula(2,-2,-1),formula(1,-1,-1),formula(3,2,-2),formula(2,1,-2),formula(1,4,1),formula(-1,2,1),formula(-2,2,1)]},
+ {id:"quadratic-formula",title:"符号を保って公式へ代入する",why:m`公式の分子にある $-b$ は、一次の係数 $b$ の符号を反転したものです。根号の項と分けて計算します。`,sample:formula(1,-2,-1),items:[formula(1,2,-1),formula(2,-2,-1),formula(1,-1,-1),formula(3,2,-2),formula(2,1,-2),formula(1,4,1),formula(-1,2,1),formula(-2,2,1)]},
  {id:"discriminant-count",title:"判別式の符号で個数を決める",why:"平方に等しい数が正・ゼロ・負のどれかを調べます。",sample:countRoots(1,-4,4),items:[countRoots(1,2,-1),countRoots(1,2,1),countRoots(1,0,2),countRoots(-1,2,-1),countRoots(2,1,-1),countRoots(2,0,3)]},
 ],[squarePrep,substitutionPrep]);
 addPair(formulaEquation,"formula-no-real","公式と実数の範囲","根号内が負なら実数の平方根がなく、実数解はありません。",[formula(1,2,3),formula(2,2,2)]);

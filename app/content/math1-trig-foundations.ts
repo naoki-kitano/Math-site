@@ -32,7 +32,11 @@ export const trigMeaning=topic("m1-trig-meaning","三角比の意味",[
 function special(a:30|45|60,k:0|1|2):Worked{
  const name=["sin","cos","tan"][k],value=specialValues[a][k]!;
  const base=a===45?m`直角二等辺三角形の辺の比は $1:1:\sqrt2$。`:m`正三角形を二等分した直角三角形の辺の比は、$30^\circ$ の向かい・$60^\circ$ の向かい・斜辺の順で $1:\sqrt3:2$。`;
- return w(m`$${"\\"+(name)}${a}^\circ$ を正確な値で表しなさい。`,m`$${"\\"+(name)}${a}^\circ=${value}$。`,a===45?"直角二等辺三角形を使い、必要な二辺を選びます。":"正三角形を二等分し、着目する角に対応する二辺を選びます。",base+m`定義の比へ入れると $${"\\"+(name)}${a}^\circ=${value}$。分母の根号は有理化して表しています。`);
+ const opposite=a===60?m`\sqrt3`:"1",adjacent=a===30?m`\sqrt3`:"1",hypotenuse=a===45?m`\sqrt2`:"2";
+ const raw=m`\frac{${k===1?adjacent:opposite}}{${k===2?adjacent:hypotenuse}}`;
+ const rationalizer=a===45&&k!==2?m`\sqrt2`:a===30&&k===2?m`\sqrt3`:null;
+ const reason=rationalizer?m`分子と分母に同じ $${rationalizer}$ を掛け、分母の根号をなくします。`:"";
+ return w(m`$${"\\"+(name)}${a}^\circ$ を正確な値で表しなさい。`,m`$${"\\"+(name)}${a}^\circ=${value}$。`,a===45?"直角二等辺三角形を使い、必要な二辺を選びます。":"正三角形を二等分し、着目する角に対応する二辺を選びます。",base+m`定義の比へ入れると $${"\\"+(name)}${a}^\circ=${rationalizer||k===2?m`${raw}=${value}`:value}$。`+reason);
 }
 function specialDerived(angle:30|45|60,ratio:"sin"|"cos",scale:number):Worked{
  const opp=angle===30?String(scale):angle===60?m`${scale}\sqrt3`:String(scale);
@@ -53,8 +57,10 @@ type SideTask={a:30|45|60;known:string;which:"hyp-to-opp"|"hyp-to-adj"|"adj-to-o
 function sideFromAngle(t:SideTask):Worked{
  const names={"hyp-to-opp":["斜辺","向かいの辺","sin"],"hyp-to-adj":["斜辺","斜辺でない隣の辺","cos"],"adj-to-opp":["斜辺でない隣の辺","向かいの辺","tan"],"opp-to-hyp":["向かいの辺","斜辺","sin"]}[t.which];
  const ratio=specialValues[t.a][{sin:0,cos:1,tan:2}[names[2] as "sin"|"cos"|"tan"]]!;
+ const knownSide=names[0]==="斜辺"?"斜辺":m`$\theta$ の${names[0]}`;
+ const unknownSide=names[1]==="斜辺"?"斜辺":m`$\theta$ の${names[1]}`;
  const eq=t.which==="opp-to-hyp"?m`\frac{${t.known}}{x}=${ratio}`:m`\frac{x}{${t.known}}=${ratio}`;
- return w(m`直角三角形で $\theta=${t.a}^\circ$、$\theta$ の ${names[0]} は $${t.known}$ です。${names[1]} の長さ $x$ を求めなさい。`,m`$x=${t.answer}$。`,m`既知の辺と未知の辺を含む比は $${"\\"+(names[2])}\theta$ です。未知数が分子か分母かを確かめます。`,m`定義から $${eq}$。${t.which==="opp-to-hyp"?"両辺に未知の長さを掛けて整理":"両辺に既知の長さを掛ける"}と $x=${t.answer}$。`);
+ return w(m`直角三角形で $\theta=${t.a}^\circ$、${knownSide}の長さは $${t.known}$ です。${unknownSide}の長さ $x$ を求めなさい。`,m`$x=${t.answer}$。`,m`既知の辺と未知の辺を含む比は $${"\\"+(names[2])}\theta$ です。未知数が分子か分母かを確かめます。`,m`この二辺の比を表す $${"\\"+(names[2])}${t.a}^\circ$ の定義から、$${eq}$。`+(t.which==="opp-to-hyp"?m`$x>0$ なので両辺に $x$ を掛けると $${t.known}=\left(${ratio}\right)x$。正の数 $${ratio}$ で割って $x=\dfrac{${t.known}}{${ratio}}=${t.answer}$。`:m`両辺に $${t.known}$ を掛けると $x=${t.known}\times\left(${ratio}\right)=${t.answer}$。`));
 }
 const sideTasks:SideTask[]=[
  {a:30,known:"8",which:"hyp-to-opp",answer:"4"},{a:60,known:"10",which:"hyp-to-adj",answer:"5"},
@@ -73,7 +79,7 @@ export const sidesAndAngles=topic("m1-trig-sides-angles","三角比から辺・�
 ],[proportionPrep,anglePrep]);
 repairCases(sidesAndAngles,"side-from-angle",["1","2","3","5","6","7","8"]);
 addPair(sidesAndAngles,"trig-approximation","三角比表と近似値","角度は度数法です。電卓ではDEG（度）の設定を確認します。途中で丸め直さず、問いの指定に合わせて最後に丸めます。",[
- w(m`直角三角形で、$37^\circ$ の角に隣り合う斜辺でない辺が $12\,\mathrm{m}$ です。$\tan37^\circ\simeq0.7536$ を用い、向かいの辺を $0.1\,\mathrm{m}$ の位に四捨五入しなさい。`,m`約 $9.0\,\mathrm{m}$。`,"向かいと隣を結ぶ比を選び、百分の一の位を見て丸めます。",m`$\frac{x}{12}=\tan37^\circ$ なので $x\simeq12\cdot0.7536=9.0432$。$0.1\,\mathrm{m}$ の位へ四捨五入して約 $9.0\,\mathrm{m}$。`),
- w(m`直角三角形で、$53^\circ$ の角の向かいの辺が $8\,\mathrm{m}$ です。$\sin53^\circ\simeq0.7986$ を用い、斜辺を $0.1\,\mathrm{m}$ の位に四捨五入しなさい。`,m`約 $10.0\,\mathrm{m}$。`,"未知の斜辺は分母に入ります。",m`$\frac8x=\sin53^\circ$ なので $x\simeq\frac8{0.7986}\simeq10.0175$。指定の位に丸めて約 $10.0\,\mathrm{m}$。`),
+ w(m`直角三角形で、$37^\circ$ の角に隣り合う斜辺でない辺が $12\,\mathrm{m}$ です。$\tan37^\circ\simeq0.7536$ を用い、向かいの辺を $0.1\,\mathrm{m}$ の位に四捨五入しなさい。`,m`約 $9.0\,\mathrm{m}$。`,"向かいと隣を結ぶ比を選び、百分の一の位を見て丸めます。",m`求める辺の長さを $x\,\mathrm{m}$ とします。$\frac{x}{12}=\tan37^\circ$ なので $x\simeq12\cdot0.7536=9.0432$。$0.1\,\mathrm{m}$ の位へ四捨五入して約 $9.0\,\mathrm{m}$。`),
+ w(m`直角三角形で、$53^\circ$ の角の向かいの辺が $8\,\mathrm{m}$ です。$\sin53^\circ\simeq0.7986$ を用い、斜辺を $0.1\,\mathrm{m}$ の位に四捨五入しなさい。`,m`約 $10.0\,\mathrm{m}$。`,"未知の斜辺は分母に入ります。",m`求める斜辺の長さを $x\,\mathrm{m}$ とします。$\frac8x=\sin53^\circ$ なので $x\simeq\frac8{0.7986}\simeq10.0175$。指定の位に丸めて約 $10.0\,\mathrm{m}$。`),
 ]);
 export const trigFoundationTopics=[rightTriangle,trigMeaning,specialAngles,sidesAndAngles];

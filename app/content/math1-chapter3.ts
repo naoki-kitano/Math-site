@@ -45,7 +45,7 @@ const methodReasons:Record<string,string>={
  "discriminant-count":"判別式を調べる方法を選ぶ。個々の解を求めなくても、符号から異なる実数解の個数が分かるから。",
  "intercept-count":"判別式を調べる方法を選ぶ。縦座標がゼロとなる方程式の異なる実数解が、共有点に一対一に対応するから。",
 };
-const choosePrompt=(prompt:string)=>prompt.replace(/解の公式で|判別式で/g,"")+" 選んだ方法とその理由も答えなさい。";
+const choosePrompt=(prompt:string)=>prompt.replace(/解の公式で|判別式で/g,"").replace("共有点の個数を、説明しなさい。","共有点の個数を求め、理由を説明しなさい。")+" 選んだ方法とその理由も答えなさい。";
 math1Chapter3Topics.forEach(({lesson,exercises},i)=>{
  lesson.section=titles[groupOf(i)];
  for(const family of new Set(exercises.map(e=>e.family))){
