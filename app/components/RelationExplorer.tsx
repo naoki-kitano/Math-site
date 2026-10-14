@@ -57,7 +57,7 @@ function DotProjection(){
  const [angle,setAngle]=useState(60),{x,y}=dotProjection(angle),id=useId().replace(/:/g,"");
  const X=(v:number)=>240+48*v,Y=(v:number)=>258-48*v;
  const value=angle===60?"2":angle===90?"0":"-2",dot=angle===60?"6":angle===90?"0":"-6";
- const arc=Array.from({length:41},(_,i)=>{const a=angle*Math.PI/180*i/40;return `${i?"L":"M"}${X(.65*Math.cos(a))},${Y(.65*Math.sin(a))}`;}).join(" ");
+ const arc=Array.from({length:41},(_,i)=>{const a=angle*Math.PI/180*i/40;return `${i?"L":"M"}${X(.65*Math.cos(a)).toFixed(2)},${Y(.65*Math.sin(a)).toFixed(2)}`;}).join(" ");
  return <section className="panel relation-explorer" data-relation="projection">
   <h3>同じ向きの成分か、反対向きの成分か</h3>
   <p><MathText text={m`$|\vec a|=3,\ |\vec b|=4$ とします。$\vec b$ の先から、$\vec a$ を含む直線へ垂線を下ろします。`}/></p>

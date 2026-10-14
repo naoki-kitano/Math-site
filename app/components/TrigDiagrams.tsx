@@ -31,7 +31,7 @@ const figures:Record<string,Diagram[]>={
    segments:[{from:[0,0],to:[.8,.6],label:"斜辺 $1$"},{from:[0,0],to:[.8,0],label:"横 $\\cos\\theta$"},{from:[.8,0],to:[.8,.6],label:"縦 $\\sin\\theta$"}],points:[{x:.8,y:.6,label:"第一象限の点で図示（平方和は全象限で成立）"}]}
  ],
  "trig-graphs":[
-  {title:"中心を上げて、縦を二倍にする",description:"中心は $y=1$、そこから上下へ $2$ ずつ振れます。一周分の横の長さは変わりません。",xRange:[-.5,2*pi+.5],yRange:[-2,4],xTicks:quarterTicks,
+  {title:"縦を二倍にして、上へ一移動する",description:"中心は $y=1$、そこから上下へ $2$ ずつ振れます。一周分の横の長さは変わりません。",xRange:[-.5,2*pi+.5],yRange:[-2,4],xTicks:quarterTicks,
    curves:[{label:"$y=2\\sin x+1$",value:x=>2*Math.sin(x)+1,from:0,to:2*pi},{label:"中心 $y=1$",value:()=>1,dashed:true,color:blue}],points:quarterTicks.map(t=>({x:t.value,y:2*Math.sin(t.value)+1,label:t.label+" で $y="+Math.round(2*Math.sin(t.value)+1)+"$"}))},
   {title:"漸近線ではつながない",description:"$x=-\\frac{\\pi}{4},\\frac{\\pi}{4}$ では定義されません。その左右は別の枝としてかきます。",xRange:[-pi/2,pi/2],yRange:[-3,3],
    xTicks:[{value:-pi/2,label:"$-\\frac{\\pi}{2}$"},{value:-pi/4,label:"$-\\frac{\\pi}{4}$"},{value:0,label:"$0$"},{value:pi/4,label:"$\\frac{\\pi}{4}$"},{value:pi/2,label:"$\\frac{\\pi}{2}$"}],

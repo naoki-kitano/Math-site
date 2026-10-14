@@ -95,12 +95,19 @@ test('coordinate reading and angle reduction use different actual lesson figures
  const source=readFileSync(new URL('../app/components/LessonView.tsx',import.meta.url),'utf8');
  assert.ok(source.includes('lesson.slug==="trig-unit-circle"&&<UnitCircleCoordinates/>'));
  assert.ok(source.includes('lesson.slug==="trig-angle-change"&&<UnitCircleExplorer/>'));
- const {default:Component,coordinateCases}=await loadDisplay('UnitCircleCoordinates');
+ const {default:Component,coordinateCases,basicAngleCases}=await loadDisplay('UnitCircleCoordinates');
  for(const p of coordinateCases) {
   close(p.x*p.x+p.y*p.y,1);
   if(p.x===0)assert.equal(p.tan,null);
   else assert.equal(p.tan.startsWith('-'),p.x*p.y<0);
  }
+ assert.equal(basicAngleCases.length,5);
+ for(const [i,angle] of [0,Math.PI/6,Math.PI/4,Math.PI/3,Math.PI/2].entries()){
+  const p=basicAngleCases[i];
+  close(p.x,Math.cos(angle));close(p.y,Math.sin(angle));
+  if(i){assert.ok(p.y>basicAngleCases[i-1].y);assert.ok(p.x<basicAngleCases[i-1].x);}
+ }
+ assert.equal(basicAngleCases[4].tan,null);
  const html=renderToStaticMarkup(React.createElement(Component));
  assert.doesNotMatch(html,/math-error|katex-error/);
  assert.match(html,/<mfrac>/);

@@ -194,7 +194,7 @@ add("log-derivative-integrals","分母の微分と対数","分子が分母の微
  iq("log-form",m`\tan x`,m`-\log|\cos x|`,trigDomain,m`$\tan x=\dfrac{\sin x}{\cos x}$ と見ます。`,m`分母の微分が $-\sin x$ なので負号を補います。`,m`(-\log|\cos x|+C)'=\tan x`),
  iq("log-form",m`\dfrac{e^x}{e^x+1}`,m`\log(e^x+1)`,all,m`分母の微分が分子です。`,m`分母は正で絶対値を外せます。`,m`(\log(e^x+1)+C)'=\dfrac{e^x}{e^x+1}`),
  iq("log-form",m`\dfrac1{1-x}`,m`-\log|1-x|`,m`$1$ を含まない区間。`,m`分母の微分は $-1$ です。`,m`負号を付けて補正します。`,m`(-\log|1-x|+C)'=\dfrac1{1-x}`),
- iq("log-form",m`\dfrac{3x^2}{x^3+1}`,m`\log|x^3+1|`,m`$-1$ を含まない区間。`,m`三乗の微分が分子です。`,m`分母の符号は一定とは限らないため絶対値を保ちます。`,m`(\log|x^3+1|+C)'=\dfrac{3x^2}{x^3+1}`)
+ iq("log-form",m`\dfrac{3x^2}{x^3+1}`,m`\log|x^3+1|`,m`$-1$ を含まない区間。`,m`三乗の微分が分子です。`,m`分母が負になる区間もあるため、絶対値を保ちます。`,m`(\log|x^3+1|+C)'=\dfrac{3x^2}{x^3+1}`)
 ],[
  iq("log-form",m`\dfrac{x}{x^2+4}`,m`\dfrac12\log(x^2+4)`,all,m`分母の微分の半分です。`,m`分母は常に正。係数だけを補正します。`,m`(\dfrac12\log(x^2+4)+C)'=\dfrac{x}{x^2+4}`),
  iq("log-form",m`\dfrac{\cos x}{\sin x}`,m`\log|\sin x|`,trigDomain,m`分母の正弦の微分を見ます。`,m`$\sin x\ne0$ の区間で対数の形です。`,m`(\log|\sin x|+C)'=\dfrac{\cos x}{\sin x}`)
@@ -253,6 +253,9 @@ add("trig-substitution","三角置換と角の範囲","根号の形を三角関�
  iq("trig-sub",m`\dfrac{1-x^2}{\sqrt{1-x^2}}`,m`\dfrac12\{x\sqrt{1-x^2}+\theta\}`,circleRange,m`正の根号で割ると平方根に戻ります。`,m`元の式は $\sqrt{1-x^2}$。三角置換で $\int\cos^2\theta\,d\theta$ と計算します。`,m`\left(\dfrac{x\sqrt{1-x^2}+\theta}2+C\right)'=\sqrt{1-x^2}=\dfrac{1-x^2}{\sqrt{1-x^2}}`),
  q("angle-sign",m`$\pi<\theta<\dfrac{3\pi}2$ で $\sqrt{4\cos^2\theta}$ は？`,m`$-2\cos\theta$。`,m`第三象限でも余弦は負です。`,m`$2|\cos\theta|$ から、余弦の符号で絶対値を外します。`)
 ],"m3-trig-transform-integrals");
+
+const trigSubstitution=math3Chapter6Lessons.find(l=>l.slug==="m3-trig-substitution")!;
+trigSubstitution.examples[0].steps[1].text=m`$\int\cos^2\theta\,d\theta=\dfrac\theta2+\dfrac14\sin2\theta+C$。$\sin2\theta=2x\sqrt{1-x^2}$ で戻します。$\theta'=\dfrac1{\sqrt{1-x^2}}$ です。$F=\dfrac12\{x\sqrt{1-x^2}+\theta\}+C$ とおくと、積の微分から $(x\sqrt{1-x^2})'=\dfrac{1-2x^2}{\sqrt{1-x^2}}$。これと $\theta'$ を足して全体を $2$ で割ると、$F'(x)=\sqrt{1-x^2}$ です。`;
 
 add("parts-introduction","積の微分から部分積分へ","微分すると簡単になる因子を選ぼう。",[
  m`積の微分 $(uv)'=u'v+uv'$ を積分すると、$\int uv'\,dx=uv-\int u'v\,dx$ です。これを部分積分といいます。`,
@@ -390,7 +393,7 @@ add("substitution-integrals","置換積分と変数の統一","式と微分を�
  m`$dt=g'(x)\,dx$ は積分の変数を変えるための書き方です。合成関数の微分 $\{F(g(x))\}'=F'(g(x))g'(x)$ が根拠です。`,
  m`積分の中を新しい変数だけで表し、計算後は元の変数に戻します。不定積分には上下端はありません。`
 ],m`置換する式 → その微分 → 積分の中の変数を統一 → 積分 → 元に戻す → 微分で検算します。`,[
- example("中身の平方根を一文字にする",iq("substitution",m`x\sqrt{x^2+1}`,m`\dfrac13(x^2+1)^{\frac32}`,all,m`$t=x^2+1$、$dt=2x\,dx$ とします。`,m`$x\,dx=\dfrac12dt$ なので $\dfrac12\int t^{\frac12}\,dt=\dfrac13t^{\frac32}+C$。$t=x^2+1$ に戻します。`,m`(\dfrac13(x^2+1)^{\frac32}+C)'=x\sqrt{x^2+1}`)),
+ example("根号の中身を一文字にする",iq("substitution",m`x\sqrt{x^2+1}`,m`\dfrac13(x^2+1)^{\frac32}`,all,m`$t=x^2+1$、$dt=2x\,dx$ とします。`,m`$x\,dx=\dfrac12dt$ なので $\dfrac12\int t^{\frac12}\,dt=\dfrac13t^{\frac32}+C$。$t=x^2+1$ に戻します。`,m`(\dfrac13(x^2+1)^{\frac32}+C)'=x\sqrt{x^2+1}`)),
  example("指数の中身を置き換える",iq("substitution","xe^{x^2}",m`\dfrac12e^{x^2}`,all,m`$t=x^2$ の微分は $dt=2x\,dx$。`,m`$\dfrac12\int e^t\,dt=\dfrac12e^t+C$。元の変数へ戻します。`,m`(\dfrac12e^{x^2}+C)'=xe^{x^2}`))
 ],[s("substitution","式だけでなく微分も置き換える",m`$t=x^2+1$ と置いたとき、$x\,dx=\dfrac12dt$。式だけを $t$ にして $dx$ を放置せず、積分の中を統一します。`,m`\int x\sqrt{x^2+1}\,dx=\frac12\int\sqrt t\,dt`,m`右辺を積分し、元へ戻しなさい。`,m`$\dfrac13t^{\frac32}+C=\dfrac13(x^2+1)^{\frac32}+C$。微分は $x\sqrt{x^2+1}$。`)],[
  iq("substitution","2x(x^2+1)",m`\dfrac12(x^2+1)^2`,all,m`$t=x^2+1$、$dt=2x\,dx$。`,m`$\int t\,dt=\dfrac12t^2+C$ から戻します。`,m`(\dfrac12(x^2+1)^2+C)'=2x(x^2+1)`),
@@ -427,10 +430,18 @@ const methodReasons:Record<string,string>={
  "expand":m`先に積を展開します。展開すれば、基本公式で積分できる項の和になるからです。`,
  "parts-exp":m`一次式を微分する側、指数関数を積分する側として部分積分します。一次式が定数になり、残りの積分が簡単になるからです。`
 };
+const answerReasons:Record<string,string>={
+ "linear-inner":m`その定数で割ります。内側を微分するとその定数になるからです。`,
+ "reverse-chain":m`合成関数の微分を逆に使います。外の因子が内側の微分の定数倍になっているからです。`,
+ "expand":m`展開すると基本公式で積分できる項の和になるからです。`,
+ "parts-exp":m`一次式を微分すると残りの積分が簡単になるからです。`
+};
 const choose=(item:Q):Q=>{
  const reason=methodReasons[item.family];
+ const answerReason=answerReasons[item.family];
  if(!reason)throw new Error("Missing integral method reason: "+item.family);
- return {...item,prompt:"最初に行う操作と理由を述べてから、"+item.prompt,answer:reason+" "+item.answer,working:reason+" "+item.working};
+ if(!answerReason)throw new Error("Missing concise integral method reason: "+item.family);
+ return {...item,prompt:"最初に行う操作と理由を述べてから、"+item.prompt,answer:answerReason+" "+item.answer,working:reason+" "+item.working};
 };
 const chooseReady=[picked("m3-linear-inner-integrals","ready-2"),picked("m3-reverse-chain-integrals","ready-1")].map(choose);
 const chooseGuided=[picked("m3-reverse-chain-integrals","guided-1"),picked("m3-algebra-before-integrals","guided-1"),picked("m3-parts-introduction","guided-2")].map(choose);
@@ -446,6 +457,14 @@ add("choose-integral","式の構造と積分法","最初の一手を選び、微
  const family=math3Chapter6Exercises.find(e=>e.id===slug+"-"+selections.find(a=>a[0]===slug)![1][0]+"-v1")!.family;
  return {...l.supplements.find(s=>s.id===family)!};
 }),chooseReady,chooseGuided,selections.flatMap(([slug,keys])=>keys.map(key=>choose(picked(slug,key)))),selections.map(([slug,,key])=>choose(picked(slug,key))),"m3-parts-log-trig");
+
+// Practice already shows `answer` above the worked steps. Keep the concise reason
+// there, and leave the last step as the calculation result instead of repeating it.
+for(const exercise of math3Chapter6Exercises.filter(e=>e.lesson==="m3-choose-integral")){
+ const prefix=answerReasons[exercise.family]+" ";
+ const resultStep=exercise.steps[exercise.steps.length-1];
+ if(resultStep.text.startsWith(prefix))resultStep.text=resultStep.text.slice(prefix.length);
+}
 
 math3Chapter6Lessons.sort((a,b)=>math3AntiderivativeOrder.indexOf(a.slug)-math3AntiderivativeOrder.indexOf(b.slug));
 export const math3IntegralCheckSelection=[

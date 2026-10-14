@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
@@ -8,10 +9,18 @@ const staticMode=process.env.MATHCANVAS_STATIC==='1';
 const junior=process.env.MATHCANVAS_EDITORIAL_SCOPE==='junior';
 const mathi=process.env.MATHCANVAS_EDITORIAL_SCOPE==='mathi';
 const matha=process.env.MATHCANVAS_EDITORIAL_SCOPE==='matha';
-const output=`outputs/editorial${junior?'-junior':mathi?'-mathi':matha?'-matha':''}/browser-${staticMode?'static':'dev'}`;
+const mathc=process.env.MATHCANVAS_EDITORIAL_SCOPE==='mathc-remaining';
+const mathcSlugs=new Set(mathc?JSON.parse(readFileSync('outputs/editorial-mathc-remaining/baseline-inventory.json','utf8')).map(l=>l.slug):[]);
+const mathb=process.env.MATHCANVAS_EDITORIAL_SCOPE==='mathb-remaining';
+const mathbSlugs=new Set(mathb?JSON.parse(readFileSync('outputs/editorial-mathb-remaining/baseline-inventory.json','utf8')).map(l=>l.slug):[]);
+const mathii=process.env.MATHCANVAS_EDITORIAL_SCOPE==='mathii';
+const mathiiSlugs=new Set(mathii?JSON.parse(readFileSync('outputs/editorial-mathii/baseline-inventory.json','utf8')).map(l=>l.slug):[]);
+const mathiii=process.env.MATHCANVAS_EDITORIAL_SCOPE==='mathiii';
+const mathiiiSlugs=new Set(mathiii?JSON.parse(readFileSync('outputs/editorial-mathiii/baseline-inventory.json','utf8')).map(l=>l.slug):[]);
+const output=`outputs/editorial${junior?'-junior':mathi?'-mathi':matha?'-matha':mathii?'-mathii':mathiii?'-mathiii':mathb?'-mathb-remaining':mathc?'-mathc-remaining':''}/browser-${staticMode?'static':'dev'}`;
 const {lessons}=await (await import('./content-module.mjs')).loadContent('lessons');
-const chapter=lessons.filter(l=>junior?l.subject==='中学数学':mathi?(l.subject==='数学I'||l.subject==='数学A'&&l.chapter==='場合の数'):matha?(l.subject==='数学A'&&l.chapter!=='場合の数'||['式と証明','複素数と方程式'].includes(l.chapter)):l.chapter==='複素数平面');
-assert.equal(chapter.length,junior?37:mathi?92:matha?83:10);
+const chapter=lessons.filter(l=>mathc?mathcSlugs.has(l.slug):mathb?mathbSlugs.has(l.slug):mathii?mathiiSlugs.has(l.slug):mathiii?mathiiiSlugs.has(l.slug):junior?l.subject==='中学数学':mathi?(l.subject==='数学I'||l.subject==='数学A'&&l.chapter==='場合の数'):matha?(l.subject==='数学A'&&l.chapter!=='場合の数'||['式と証明','複素数と方程式'].includes(l.chapter)):l.chapter==='複素数平面');
+assert.equal(chapter.length,mathc?36:mathb?25:mathii?77:mathiii?106:junior?37:mathi?92:matha?83:10);
 await mkdir(output,{recursive:true});
 const browser=await chromium.launch({channel:'msedge',headless:true});
 const results=[];
@@ -76,7 +85,7 @@ try{
   }
   await context.close();
  }
- if(!junior&&!mathi&&!matha){
+ if(!junior&&!mathi&&!matha&&!mathii&&!mathiii&&!mathb&&!mathc){
  const touch=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true,reducedMotion:'reduce'});
  const touchPage=await touch.newPage();
  await touchPage.goto(`${base}/learn/mc-complex-rotation${staticMode?'.html':''}`,{waitUntil:'networkidle'});

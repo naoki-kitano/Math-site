@@ -248,14 +248,14 @@ add("graph-length","曲線の長さと小線分","横と縦の変化を三平方
 
 add("parametric-length","媒介変数と曲線の長さ","二つの座標の変化から速さを作ろう。",[
  m`$x=x(t)$、$y=y(t)$ が連続微分可能なら、小線分の長さはおよそ $\sqrt{x'(t)^2+y'(t)^2}\Delta t$。たどった長さは $\int_\alpha^\beta\sqrt{x'(t)^2+y'(t)^2}\,dt$ です。`,
- m`同じ部分を往復すれば、その分も重ねて数えます。図形そのものの長さを求めるときは、その曲線を一度だけたどる範囲かを確認します。ここでは線分や円弧を一度たどる例を使います。`
+ m`同じ部分を往復すれば、その分も重ねて数えます。図形そのものの長さを求めるときは、その曲線を一度だけたどる範囲かを確認します。ここでは曲線を一度だけたどる例を使います。`
 ],m`両方の座標を微分し、二乗和の平方根と媒介変数の範囲をそろえます。`,[
  ex("円の速さは一定",q("param-speed",m`$x=\cos t$、$y=\sin t$、$0\le t\le\dfrac\pi2$ の速さを求め、長さの積分を立てなさい。`,m`速さは $1$、$L=\int_0^{\frac\pi2}1\,dt$。`,m`二つの座標の導関数を二乗して足します。`,m`$x'=-\sin t$、$y'=\cos t$。$\sqrt{\sin^2t+\cos^2t}=1$。四分円を一度たどります。`)),
  ex("速さを範囲全体で積分",q("param-length",m`$x=\cos t$、$y=\sin t$、$0\le t\le\dfrac\pi2$ の曲線の長さは？`,m`$\dfrac\pi2$。`,m`速さと範囲を確認します。`,m`速さは $1$。$L=\int_0^{\frac\pi2}1\,dt=\dfrac\pi2$。単位円周の四分の一です。`))
 ],[s("param-speed","座標の微分の二乗和",m`座標が連続微分可能な曲線で、微小な横・縦の変化を三平方で合成します。`,m`v=\sqrt{x'(t)^2+y'(t)^2}`,m`$x=3t$、$y=4t$ の速さは？`,m`$\sqrt{3^2+4^2}=5$。`),
  s("param-length","一度たどる範囲を確認",m`連続微分可能な表示で、速さを媒介変数の区間全体で積分します。重複してたどった部分は重複して数えるので、図形の長さでは一度だけたどる範囲を使います。`,m`L=\int_\alpha^\beta v(t)\,dt`,m`$x=2\cos t$、$y=2\sin t$、$0\le t\le\pi$ の長さは？`,m`速さ $2$ の半円なので $\int_0^\pi2\,dt=2\pi$。`)],[
  q("param-speed",m`$x=\cos t$、$y=\sin t$ をそれぞれ微分すると？`,m`$x'=-\sin t$、$y'=\cos t$。`,m`正弦・余弦の微分を使います。`,m`余弦の微分の負号を残します。`),
- q("param-length",m`$\int_0^{\frac\pi2}1\,dt$ は？`,m`$\dfrac\pi2$。`,m`一定の速さに時間幅を掛けます。`,m`$[t]_0^{\frac\pi2}=\dfrac\pi2$。`)
+ q("param-length",m`$\int_0^{\frac\pi2}1\,dt$ は？`,m`$\dfrac\pi2$。`,m`一定の値に、媒介変数の区間の幅を掛けます。`,m`$[t]_0^{\frac\pi2}=\dfrac\pi2$。`)
 ],[
  q("param-speed",m`$x=2\cos t$、$y=2\sin t$、$0\le t\le\pi$ の速さと長さの積分は？`,m`速さ $2$、$\int_0^\pi2\,dt$。`,m`係数も二乗します。`,m`$\sqrt{4\sin^2t+4\cos^2t}=2$。半円を一度たどります。`),
  q("param-length",m`$x=2\cos t$、$y=2\sin t$、$0\le t\le\pi$ の長さは？`,m`$2\pi$。`,m`半円の速さは一定です。`,m`$L=\int_0^\pi2\,dt=2\pi$。`)
@@ -273,12 +273,12 @@ add("parametric-length","媒介変数と曲線の長さ","二つの座標の変�
 
 add("parametric-area","媒介変数と面積の向き","横の幅を媒介変数に直そう。",[
  m`$x=x(t)$、$y=y(t)\ge0$ が連続微分可能で、曲線を一度だけ右向きにたどるとき、軸との面積は $\int y\,dx=\int_\alpha^\beta y(t)x'(t)\,dt$。横の幅を $dx=x'(t)\,dt$ に直しています。`,
- m`左向きにたどる場合は $x$ が減少します。この積分は負になるので、軸との面積はその負号を反転します。ここでは横の座標が単調で、同じ領域を重複せず、曲線が軸以上にある場合を扱います。`
+ m`左向きにたどり、曲線が軸以上にある場合、この積分は $0$ 以下になります。面積は、その積分に $-1$ を掛けて求めます。ここでは横の座標が単調で、同じ領域を重複しない場合を扱います。`
 ],m`横の座標がどちらへ動くか、軸との位置関係、媒介変数の両端を先に確認します。`,[
  ex("横の幅を置き換える",q("param-area-direction",m`$x=t^2$、$y=t$、$0\le t\le1$ の曲線と軸の間の面積を表す積分を立てなさい。`,m`$\int_0^1 2t^2\,dt$。`,m`右へ進み、曲線は軸以上です。`,m`$dx=2t\,dt$。高さ $t$ に横の幅 $2t\,dt$ を掛けます。$x:0\to1$。`)),
- ex("左へ進む円弧",q("param-area-value",m`$x=\cos t$、$y=\sin t$、$0\le t\le\dfrac\pi2$ の曲線と両座標軸で囲む面積は？`,m`$\dfrac\pi4$。`,m`上半分の第一象限を右から左へたどります。`,m`$dx=-\sin t\,dt$。正の面積は $-\int_0^{\frac\pi2}\sin t(-\sin t)\,dt=\int_0^{\frac\pi2}\sin^2t\,dt=\left[\dfrac t2-\dfrac{\sin2t}{4}\right]_0^{\frac\pi2}=\dfrac\pi4$。`))
-],[s("param-area-direction","進む向きと横の幅",m`軸以上の単純な曲線で横座標が単調に動くとき、右向きなら $y x'$ を、左向きなら $-y x'$ を積分して正の面積を作ります。`,m`dx=x'(t)\,dt`,m`$x=1-t$、$y=t$、$0\le t\le1$ の軸との面積の式は？`,m`$-\int_0^1t(-1)\,dt=\int_0^1t\,dt$。左向きで $y\ge0$ なので符号を反転します。`),
- s("param-area-value","向きを確認した積分を計算",m`範囲・非負の高さ・単調な横移動を確認し、面積が正になる向きで計算します。`,m`\int_0^1t\cdot2t\,dt=\frac23`,m`$x=\cos t$、$y=\sin t$、$0\le t\le\dfrac\pi2$ の面積は？`,m`左向きなので $\int_0^{\frac\pi2}\sin^2t\,dt=\int_0^{\frac\pi2}\dfrac{1-\cos2t}{2}\,dt=\dfrac\pi4$。`)],[
+ ex("左へ進む円弧",q("param-area-value",m`$x=\cos t$、$y=\sin t$、$0\le t\le\dfrac\pi2$ の曲線と両座標軸で囲む面積は？`,m`$\dfrac\pi4$。`,m`単位円の第一象限の円弧を、$(1,0)$ から $(0,1)$ へたどります。`,m`$dx=-\sin t\,dt$。面積は $-\int_0^{\frac\pi2}\sin t(-\sin t)\,dt=\int_0^{\frac\pi2}\sin^2t\,dt=\left[\dfrac t2-\dfrac{\sin2t}{4}\right]_0^{\frac\pi2}=\dfrac\pi4$。`))
+],[s("param-area-direction","進む向きと横の幅",m`軸以上の単純な曲線で横座標が単調に動くとき、右向きなら $y x'$ を、左向きなら $-y x'$ を積分して非負の面積を作ります。`,m`dx=x'(t)\,dt`,m`$x=1-t$、$y=t$、$0\le t\le1$ の軸との面積の式は？`,m`$-\int_0^1t(-1)\,dt=\int_0^1t\,dt$。左向きで $y\ge0$ なので符号を反転します。`),
+ s("param-area-value","向きを確認した積分を計算",m`範囲・非負の高さ・単調な横移動を確認し、面積が非負になる向きで計算します。`,m`\int_0^1t\cdot2t\,dt=\frac23`,m`$x=\cos t$、$y=\sin t$、$0\le t\le\dfrac\pi2$ の面積は？`,m`左向きなので $\int_0^{\frac\pi2}\sin^2t\,dt=\int_0^{\frac\pi2}\dfrac{1-\cos2t}{2}\,dt=\dfrac\pi4$。`)],[
  q("param-area-direction",m`$x=t^2$、$0\le t\le1$ で $dx$ を $dt$ で表しなさい。`,m`$dx=2t\,dt$。`,m`横の座標を微分します。`,m`$\dfrac{dx}{dt}=2t$。`),
  q("param-area-value",m`$\int_0^1 2t^2\,dt$ は？`,m`$\dfrac23$。`,m`べきの公式で積分します。`,m`$\left[\dfrac23t^3\right]_0^1=\dfrac23$。`)
 ],[
@@ -318,7 +318,7 @@ add("displacement-distance","変位と道のり","速度の符号を見て、進
  q("displacement",m`$v(t)=2-t$、$0\le t\le4$ の変位は？`,m`$0$ メートル。`,m`速度の符号を保ちます。`,m`$\left[2t-\dfrac{t^2}{2}\right]_0^4=8-8=0$。`),
  q("distance",m`$v(t)=2-t$、$0\le t\le4$ の道のりは？`,m`$4$ メートル。`,m`$t=2$ で正から負へ変わります。`,m`$\int_0^2(2-t)\,dt-\int_2^4(2-t)\,dt=2+2=4$。`)
 ],[
- q("displacement",m`$v(t)=1-t$、$0\le t\le3$ の変位は？`,m`$-\dfrac32$ メートル。`,m`終わりの位置の差を求めます。`,m`$\left[t-\dfrac{t^2}{2}\right]_0^3=3-\dfrac92=-\dfrac32$。`),
+ q("displacement",m`$v(t)=1-t$、$0\le t\le3$ の変位は？`,m`$-\dfrac32$ メートル。`,m`終わりの位置から初めの位置を引きます。`,m`$\left[t-\dfrac{t^2}{2}\right]_0^3=3-\dfrac92=-\dfrac32$。`),
  q("distance",m`$v(t)=1-t$、$0\le t\le3$ の道のりは？`,m`$\dfrac52$ メートル。`,m`時刻 $1$ の前後で符号が変わります。`,m`$\int_0^1(1-t)\,dt-\int_1^3(1-t)\,dt=\dfrac12+2=\dfrac52$。`)
 ],"m3-signed-area");
 

@@ -27,18 +27,18 @@ const normalApprox=(n:number,correction=false)=>{
  m`境界は $${mu+sd} -\frac12$、標準化すると $1-\frac1{${2*sd}}$。`,
  "整数一個分を幅一の区間に対応させ、下端を半分下げます。",
  m`$Y\sim N(${mu},${trials/4})$ として $P(X\ge${mu+sd})\approx P(Y\ge${mu+sd}-\frac12)$。$Z=\frac{Y-${mu}}{${sd}}$ より下端は $1-\frac1{${2*sd}}$。近似であり等式ではありません。`);
- return checked("normal-approx",[trials],.1587,m`$X\sim B(${trials},\frac12)$ です。連続補正をしない正規近似で $P(X\ge${mu+sd})$ を求めなさい。$P(0\le Z\le1)\approx0.3413$ を使います。`,m`約 $0.1587$。`,"二項分布の平均と分散から、近似する正規分布を決めます。",m`$np=${mu},n(1-p)=${mu}$ は十分大きい値です。平均 $${mu}$、標準偏差 $${sd}$ なので境界は $Z=1$。$\frac12-0.3413=0.1587$。`);
+ return checked("normal-approx",[trials],.1587,m`$X\sim B(${trials},\frac12)$ です。連続補正をしない正規近似で $P(X\ge${mu+sd})$ を求めなさい。$P(0\le Z\le1)\approx0.3413$ を使います。`,m`約 $0.1587$。`,"二項分布の平均と分散から、近似する正規分布を決めます。",m`$np=${mu},n(1-p)=${mu}$ は十分大きい値です。平均 $${mu}$、標準偏差 $${sd}$。${n===nums[0]?m`境界を標準化すると $Z=\frac{${mu+sd}-${mu}}{${sd}}=1$。`:m`標準化した境界は $Z=1$。`}$\frac12-0.3413=0.1587$。`);
 };
 const meanCI=(n:number,unknown=false)=>{
  const mean=40+n,sd=unknown?8:10,margin=1.96*sd/10;
  return checked(unknown?"ci-unknown":"ci-known",[mean,sd,100],margin,m`${unknown?"有限な分散をもち、大標本の正規近似が妥当とする母集団":"正規母集団"}から独立に $100$ 個を無作為抽出しました。標本平均は $${mean}$、${unknown?"標本から求めた標準偏差":"既知の母標準偏差"}は $${sd}$ です。母平均の${unknown?"近似的な":""} $95\%$ 信頼区間を求めなさい。$1.96$ を使います。`,
  m`約 $[${decimal(mean-margin)},${decimal(mean+margin)}]$。`,
  "平均の標準誤差を使います。観測値そのものの標準偏差ではありません。",
- m`標準誤差${unknown?"の推定値":""}は $\frac{${sd}}{\sqrt{100}}=${sd/10}$。幅の片側は $1.96\times${sd/10}=${decimal(margin)}$。標本平均からこれを引き、足します。`+(unknown?"母標準偏差を標本の値で置き換えた大標本近似です。小標本でそのまま使える公式ではありません。":"正規母集団で母標準偏差既知の方法です。"));
+ m`標準誤差${unknown?"の推定値":""}は $\frac{${sd}}{\sqrt{100}}=${sd/10}$。幅の片側は $1.96\times${sd/10}=${decimal(margin)}$。${n===nums[0]?m`両端は $${mean}-${decimal(margin)}=${decimal(mean-margin)}$、$${mean}+${decimal(margin)}=${decimal(mean+margin)}$ です。`:"標本平均からこれを引き、足します。"}`+(unknown?"母標準偏差を標本の値で置き換えた大標本近似です。小標本でそのまま使える公式ではありません。":"正規母集団で母標準偏差既知の方法です。"));
 };
 const propCI=(n:number,width=false)=>{
  const p=n/10,success=40*n,failure=400-success,margin=1.96*Math.sqrt(p*(1-p)/400);
- if(width)return checked("sample-size-width",[n*n*100],.5,m`同じ信頼係数、同じ標本比率で、標本数を $${n*n*100}$ から $${n*n*400}$ にすると、母比率の信頼区間の幅は何倍ですか。`,m`$\frac12$ 倍。`,"幅は標本数の平方根に反比例します。",m`標本数が $4$ 倍なので、標準誤差は $\frac1{\sqrt4}=\frac12$ 倍です。信頼区間の幅も同じ倍率です。`);
+ if(width)return checked("sample-size-width",[n*n*100],.5,m`この正規近似による区間で、近似条件を満たすとします。同じ信頼係数、同じ標本比率で、標本数を $${n*n*100}$ から $${n*n*400}$ にすると、母比率の信頼区間の幅は何倍ですか。`,m`$\frac12$ 倍。`,"幅は標本数の平方根に反比例します。",m`標本数が $4$ 倍なので、標準誤差は $\frac1{\sqrt4}=\frac12$ 倍です。信頼区間の幅も同じ倍率です。`);
  return checked("ci-proportion",[p,400],margin,m`独立な無作為標本 $400$ 人のうち $${success}$ 人が賛成しました。母比率の近似的な $95\%$ 信頼区間を、小数第 $3$ 位まで求めなさい。$1.96$ を使います。`,
  m`$\widehat p=${p}$、約 $[${(p-margin).toFixed(3)},${(p+margin).toFixed(3)}]$。`,
  "人数を標本数で割り、割合の標準誤差を求めます。",

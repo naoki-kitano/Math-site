@@ -67,3 +67,9 @@
 
 /* Selected concept routes preserve the established navy/teal palette. */
 .lesson-start ol{margin:1rem 0 1.5rem;padding-left:1.55rem}.lesson-start li{padding:.35rem 0 .35rem .25rem}.lesson-start li::marker{color:#087c70;font-weight:700}.start-check{border-left:3px solid #087c70;padding:.7rem 1rem;background:#f2f8f6}.concept-diagram{width:100%;max-width:600px;height:auto;display:block;margin:1rem auto}.concept-svg-text{font:17px sans-serif;fill:#415971}.concept-explorer .translation-readout{min-height:7rem}.concept-explorer .translation-readout .katex-display{overflow-x:auto;padding:.3rem 0}.concept-explorer .unit-stages{flex-wrap:wrap}.concept-explorer button{min-height:44px}.concept-explorer .unit-math-label{font-size:19px}.original-explanation{margin-top:1rem}@media(max-width:600px){.concept-explorer.panel{padding:1rem}.concept-explorer .unit-stages button{flex:1 1 100%;text-align:left}.concept-explorer .unit-math-label{font-size:21px}.concept-explorer .translation-readout{min-height:9rem}}
+.unit-coordinates .unit-stages button .formula{color:inherit}
+
+/* Keep the current explanation next to the triangle; playback is the first action. */
+.unit-explorer .unit-layout{align-items:start;margin-top:14px}
+.unit-explorer>.unit-controls{margin-top:0;margin-bottom:12px}
+.unit-explorer .unit-explanation h4{margin-top:0}
