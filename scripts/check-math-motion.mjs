@@ -36,6 +36,20 @@ try{
   await page.goto(route('trig-unit-circle'),{waitUntil:'networkidle'});
   assert.equal(await page.locator('.unit-explorer').count(),0,'no duplicate angle-reduction figure');
   const coordinates=page.locator('.unit-coordinates');
+  const basic=coordinates.getByRole('group',{name:'基本角を順に確かめる'}).getByRole('button');
+  assert.equal(await basic.count(),5);
+  const expectedAngles=['0',String.raw`\dfrac\pi6`,String.raw`\dfrac\pi4`,String.raw`\dfrac\pi3`,String.raw`\dfrac\pi2`];
+  for(let i=0;i<5;i++){
+   await basic.nth(i).click();
+   assert.equal(await basic.nth(i).getAttribute('aria-pressed'),'true');
+   assert.ok(await basic.nth(i).evaluate(el=>getComputedStyle(el.querySelector('.formula')).color===getComputedStyle(el).color),'selected basic-angle formula contrast');
+   assert.equal(await coordinates.locator('.unit-explanation > .formula').first().locator('annotation').textContent(),String.raw`\theta=${expectedAngles[i]}`);
+   for(const fn of ['正弦','余弦','正接']){
+    await coordinates.getByRole('button',{name:fn,exact:true}).click();
+    await check(page,`coordinate-basic-${i}-${fn}-${width}`);
+   }
+   await coordinates.screenshot({style:'.topbar{visibility:hidden}',path:`${output}/coordinate-basic-${i}-${width}.png`});
+  }
   for(const position of ['右上','左上','左下','右下','真上']){
    await coordinates.getByRole('button',{name:position,exact:true}).click();
    for(const fn of ['正弦','余弦','正接']){
@@ -51,6 +65,15 @@ try{
   await page.goto(route('trig-angle-change'),{waitUntil:'networkidle'});
   assert.equal(await page.locator('.unit-coordinates').count(),0);
   const explorer=page.locator('.unit-explorer'),diagram=explorer.locator('svg.unit-diagram');
+  const layout=await explorer.evaluate(el=>{
+   const diagram=el.querySelector('.unit-diagram').getBoundingClientRect();
+   const explanation=el.querySelector('.unit-explanation').getBoundingClientRect();
+   const controls=el.querySelector('.unit-controls').getBoundingClientRect();
+   return {diagramTop:diagram.top,diagramBottom:diagram.bottom,explanationTop:explanation.top,controlsBottom:controls.bottom};
+  });
+  assert.ok(layout.controlsBottom<=layout.diagramTop,'playback comes before the diagram');
+  if(width>1050)assert.ok(Math.abs(layout.explanationTop-layout.diagramTop)<2,'desktop explanation aligned with diagram');
+  else assert.ok(layout.explanationTop-layout.diagramBottom<80,'mobile explanation stays near diagram');
   await explorer.scrollIntoViewIfNeeded();
   await explorer.screenshot({style:'.topbar{visibility:hidden}',path:`${output}/unit-start-${width}.png`});
   assert.equal(await diagram.getAttribute('data-rotation'),'0');

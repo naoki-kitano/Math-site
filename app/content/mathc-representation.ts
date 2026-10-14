@@ -14,10 +14,10 @@ function matrix(n:number,sum=false){
 }
 function product(n:number,order=false){
  return order?q(m`$A=\begin{pmatrix}1&${n}\\0&1\end{pmatrix},B=\begin{pmatrix}1&0\\1&1\end{pmatrix}$ の $AB,BA$ を求め、積の順序を交換できるか答えなさい。`,m`$AB=\begin{pmatrix}${n+1}&${n}\\1&1\end{pmatrix}$、$BA=\begin{pmatrix}1&${n}\\1&${n+1}\end{pmatrix}$。この二つは異なり、交換できません。`,"左の行と右の列の積の和を、順序ごとに計算します。",m`$AB$ の左上は $1\cdot1+${n}\cdot1=${n+1}$。$BA$ の左上は $1\cdot1+0\cdot0=1$。残りも同じ規則で計算します。`):
- q(m`二店舗の販売個数が $A=\begin{pmatrix}${n}&2\\3&4\end{pmatrix}$、商品の単価が $p=\begin{pmatrix}200\\100\end{pmatrix}$ 円です。行は店舗、列は商品を表します。各店舗の売上を行列の積で求めなさい。`,m`$Ap=\begin{pmatrix}${200*n+200}\\1000\end{pmatrix}$ 円。`,"店舗ごとに、個数と対応する単価を掛けて足します。",m`$Ap=\begin{pmatrix}${n}\cdot200+2\cdot100\\3\cdot200+4\cdot100\end{pmatrix}=\begin{pmatrix}${200*n+200}\\1000\end{pmatrix}$。左の列数と右の行数がともに $2$ で、商品が対応しています。`);
+ q(m`二店舗の販売個数が $A=\begin{pmatrix}${n}&2\\3&4\end{pmatrix}$、商品の単価が $p=\begin{pmatrix}200\\100\end{pmatrix}$ 円です。$A$ の行は店舗、列は商品を表し、$p$ も同じ商品の順に並べています。各店舗の売上を行列の積で求めなさい。`,m`$Ap=\begin{pmatrix}${200*n+200}\\1000\end{pmatrix}$ 円。`,"店舗ごとに、個数と対応する単価を掛けて足します。",m`$Ap=\begin{pmatrix}${n}\cdot200+2\cdot100\\3\cdot200+4\cdot100\end{pmatrix}=\begin{pmatrix}${200*n+200}\\1000\end{pmatrix}$。左の列数と右の行数がともに $2$ で、商品が対応しています。`);
 }
 function graph(n:number,twoStep=false){
- return twoStep?q(m`頂点 $A,B,C$ の有向グラフで、辺は $A\to B,B\to C,A\to C,C\to A$ のみです。各辺の移動時間は $${n}$ 分です。$A$ からちょうど二本の辺を使って $C$ へ行く方法の数と所要時間を答えなさい。`,m`$1$ 通り、$${2*n}$ 分。`,"中継する頂点を一つずつ調べます。直接の辺は二本の移動には数えません。",m`中継点が $B$ なら $A\to B\to C$ が可能。$A,C$ は自己ループがないため不可。隣接行列を $M=\begin{pmatrix}0&1&1\\0&0&1\\1&0&0\end{pmatrix}$ とすると $(M^2)_{AC}=0\cdot1+1\cdot1+1\cdot0=1$ と同じ数です。`):
+ return twoStep?q(m`頂点 $A,B,C$ の有向グラフで、辺は $A\to B,B\to C,A\to C,C\to A$ のみです。各辺の移動時間は $${n}$ 分です。$A$ からちょうど二本の辺を使って $C$ へ行く方法の数と所要時間を答えなさい。`,m`$1$ 通り、$${2*n}$ 分。`,"中継する頂点を一つずつ調べます。直接の辺は二本の移動には数えません。",m`中継点が $B$ なら $A\to B\to C$ が可能。$A\to A$ や $C\to C$ の辺がないので、$A,C$ は中継点にできません。行も列も $A,B,C$ の順とする隣接行列を $M=\begin{pmatrix}0&1&1\\0&0&1\\1&0&0\end{pmatrix}$ とすると $(M^2)_{AC}=0\cdot1+1\cdot1+1\cdot0=1$ と同じ数です。`):
  q(m`三地点 $A,B,C$ 間に双方向の道があり、所要時間は $AB=${n}$ 分、$BC=2$ 分、$AC=${n+3}$ 分です。$A$ から $C$ への最短経路と時間を求めなさい。`,m`$A\to B\to C$、$${n+2}$ 分。`,"直接行く場合と、中継する場合を比較します。",m`直接は $${n+3}$ 分、$B$ 経由は $${n}+2=${n+2}$ 分。どの辺も正の時間なので、同じ点へ戻る遠回りを加えても短くなりません。この二候補を比べれば十分です。`);
 }
 export const representationBanks=[

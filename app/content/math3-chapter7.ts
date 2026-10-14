@@ -150,13 +150,13 @@ add("definite-substitution","置換と積分範囲","式・微小量・両端を
 ],"m3-substitution-integrals");
 
 add("definite-parts","部分積分と境界の項","積の両端の値と、残りの積分を分けよう。",[
- m`$u,v$ が区間で連続微分可能なら、積の微分 $(uv)'=u'v+uv'$ を積分して $\int_a^b uv'\,dx=[uv]_a^b-\int_a^b u'v\,dx$。`,
+ m`$u,v$ が区間で微分可能で、その導関数も連続なら、積の微分 $(uv)'=u'v+uv'$ を積分して $\int_a^b uv'\,dx=[uv]_a^b-\int_a^b u'v\,dx$。`,
  m`$\int_0^1 xe^x\,dx$ では、$x$ を微分すると $1$ になり、残りが簡単になります。$u=x$、$v'=e^x$ と選び、$[xe^x]_0^1-\int_0^1e^x\,dx$ とします。`,
  m`最初の $[uv]_a^b$ は積全体の上端と下端の差です。残りの積分にも同じ区間を付け、最後まで負号を保ちます。`
 ],m`微分で簡単になる側を選び、境界の項と残りの定積分を別々に計算します。`,[
  ex("一次式を微分する",q("parts",m`$\int_0^1 xe^x\,dx$ を求めなさい。`,m`$1$。`,m`$x$ を微分、$e^x$ を積分します。`,m`$[xe^x]_0^1-\int_0^1e^x\,dx=e-(e-1)=1$。`)),
  ex("下端の積も引く",q("boundary",m`部分積分に現れた $[xe^x]_1^2$ を計算しなさい。`,m`$2e^2-e$。`,m`積全体へ両端を入れます。`,m`$2e^2-1\cdot e$。下端はゼロではありません。`))
-],[s("parts","残りが簡単になる選択",m`連続微分可能な二関数で部分積分を使います。一次式を微分すれば定数となります。`,m`\int_a^b xe^x\,dx=[xe^x]_a^b-[e^x]_a^b`,m`$\int_0^1x\cos x\,dx$ は？`,m`$[x\sin x]_0^1-\int_0^1\sin x\,dx=\sin1+\cos1-1$。`),
+],[s("parts","残りが簡単になる選択",m`区間で微分可能で、その導関数も連続な二関数に部分積分を使います。一次式を微分すれば定数となります。`,m`\int_a^b xe^x\,dx=[xe^x]_a^b-[e^x]_a^b`,m`$\int_0^1x\cos x\,dx$ は？`,m`$[x\sin x]_0^1-\int_0^1\sin x\,dx=\sin1+\cos1-1$。`),
  s("boundary","積全体の両端",m`境界の項では、両方の因子を同じ端で評価してから差を取ります。`,m`[u(x)v(x)]_a^b=u(b)v(b)-u(a)v(a)`,m`$[x\log x]_1^e$ は？`,m`$e\log e-1\log1=e$。区間は正なので対数も定義されます。`)],[
  q("parts",m`$x$ を微分し、$e^x$ を積分するとそれぞれ？（原始関数は一つでよい。）`,m`$1$、$e^x$。`,m`残りの積が簡単になる組合せです。`,m`$x'=1$、$(e^x)'=e^x$。`),
  q("boundary",m`$[x\sin x]_0^{\frac{\pi}{2}}$ は？`,m`$\dfrac{\pi}{2}$。`,m`両因子へ同じ端を入れます。`,m`$\dfrac{\pi}{2}\cdot1-0\cdot0=\dfrac{\pi}{2}$。`)
@@ -297,17 +297,17 @@ add("riemann-sums","小長方形の和と定積分","幅・高さ・個数から
  q("sum-setup",m`$[0,2]$ を $n$ 等分した幅は？`,m`$\dfrac2n$。`,m`全体の長さを個数で割ります。`,m`$\dfrac{2-0}{n}=\dfrac2n$。`),
  q("sum-limit",m`$\int_0^1x\,dx$ は？`,m`$\dfrac12$。`,m`和の極限に対応する基本積分です。`,m`$\left[\dfrac{x^2}{2}\right]_0^1=\dfrac12$。`)
 ],[
- q("sum-setup",m`$[0,2]$ の $y=x$ を右端で $n$ 等分した長方形の和は？`,m`$\dfrac2n\sum_{k=1}^n\dfrac{2k}{n}$。`,m`幅と右端の位置の両方に $2$ が入ります。`,m`幅 $\dfrac2n$、高さ $\dfrac{2k}{n}$、個数 $n$。`),
+ q("sum-setup",m`$[0,2]$ を $n$ 等分し、各右端での $y=x$ を高さとする長方形の面積の和は？`,m`$\dfrac2n\sum_{k=1}^n\dfrac{2k}{n}$。`,m`幅と右端の位置の両方に $2$ が入ります。`,m`幅 $\dfrac2n$、高さ $\dfrac{2k}{n}$、個数 $n$。`),
  q("sum-limit",m`$\lim_{n\to\infty}\dfrac1n\sum_{k=1}^ne^{\frac kn}$ は？`,m`$e-1$。`,m`高さは $f\left(\dfrac kn\right)$ の形です。`,m`$e^x$ は $[0,1]$ で連続。$\int_0^1e^x\,dx=e-1$。`)
 ],[
- q("sum-setup",m`$[1,2]$ の $y=x^2$ を右端で $n$ 等分した和は？`,m`$\dfrac1n\sum_{k=1}^n\left(1+\dfrac kn\right)^2$。`,m`左端が $1$ であることを位置に反映します。`,m`幅 $\dfrac1n$、右端 $1+\dfrac kn$、高さはその二乗です。`),
+ q("sum-setup",m`$[1,2]$ を $n$ 等分し、各右端での $y=x^2$ を高さとする長方形の面積の和は？`,m`$\dfrac1n\sum_{k=1}^n\left(1+\dfrac kn\right)^2$。`,m`左端が $1$ であることを位置に反映します。`,m`幅 $\dfrac1n$、右端 $1+\dfrac kn$、高さはその二乗です。`),
  q("sum-limit",m`$\lim_{n\to\infty}\dfrac2n\sum_{k=1}^n\dfrac{2k}{n}$ は？`,m`$2$。`,m`幅 $\dfrac2n$ と右端 $\dfrac{2k}{n}$ は $[0,2]$。`,m`$\int_0^2x\,dx=2$。`),
  q("sum-setup",m`$[0,1]$ の $y=x^2$ を左端の高さで $n$ 等分した和は？`,m`$\dfrac1n\sum_{k=1}^n\left(\dfrac{k-1}{n}\right)^2$。`,m`第 $k$ 区間の左端は一つ前の位置です。`,m`左端 $\dfrac{k-1}{n}$、幅 $\dfrac1n$、個数 $n$。`),
  q("sum-limit",m`$\lim_{n\to\infty}\dfrac1n\sum_{k=1}^n\left(1+\dfrac kn\right)$ は？`,m`$\dfrac32$。`,m`$[1,2]$ の右端の高さとして読めます。`,m`$\int_1^2x\,dx=\dfrac32$。$[0,1]$ で $1+x$ を積分しても同じです。`),
  q("sum-setup",m`$\dfrac1n\sum_{k=1}^n f\left(\dfrac kn\right)$ の幅・右端・個数を答えなさい。`,m`幅 $\dfrac1n$、右端 $\dfrac kn$、個数 $n$。`,m`和の外の係数と中の入力を区別します。`,m`$[0,1]$ を $n$ 等分しています。`),
  q("sum-limit",m`$\lim_{n\to\infty}\dfrac1n\sum_{k=1}^n\dfrac1{1+\frac kn}$ は？`,m`$\log2$。`,m`高さは $\dfrac1{1+x}$ です。`,m`$[0,1]$ で連続なので $\int_0^1\dfrac1{1+x}\,dx=\log2$。`)
 ],[
- q("sum-setup",m`$[0,2]$ の $y=x^2$ を右端で $n$ 等分した和は？`,m`$\dfrac2n\sum_{k=1}^n\left(\dfrac{2k}{n}\right)^2$。`,m`幅と高さを分けて書きます。`,m`幅 $\dfrac2n$、右端 $\dfrac{2k}{n}$、その二乗が高さです。`),
+ q("sum-setup",m`$[0,2]$ を $n$ 等分し、各右端での $y=x^2$ を高さとする長方形の面積の和は？`,m`$\dfrac2n\sum_{k=1}^n\left(\dfrac{2k}{n}\right)^2$。`,m`幅と高さを分けて書きます。`,m`幅 $\dfrac2n$、右端 $\dfrac{2k}{n}$、その二乗が高さです。`),
  q("sum-limit",m`$\lim_{n\to\infty}\dfrac1n\sum_{k=1}^n\left(\dfrac kn\right)^3$ は？`,m`$\dfrac14$。`,m`$[0,1]$ の $x^3$ の積分に対応します。`,m`連続性より $\int_0^1x^3\,dx=\left[\dfrac{x^4}{4}\right]_0^1=\dfrac14$。`)
 ],"m3-integral-function");
 

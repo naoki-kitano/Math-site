@@ -56,7 +56,7 @@ export const derivativeFigures:Record<string,Record<number,Diagram>>={
  "closed-interval-extrema":{0:interval(0),1:interval(-2)},
  "derivative-applications":{
   0:cubic(1,1,"単調な区間ごとに交点を数える","山は横軸より上、谷は横軸より下です。三つの単調な区間で、一度ずつ横軸を横切ります。"),
-  1:{title:"増加する関数で高さを比べる",description:"グラフは全体で右上がりです。高さ $2$ 以上になるのは、交点の右側だけです。",xRange:[-2,2],yRange:[-4,5],
+  1:{title:"増加する関数で高さを比べる",description:"グラフは全体で右上がりです。高さ $2$ 以上になるのは、$x=1$ とその右側です。",xRange:[-2,2],yRange:[-4,5],
    curves:[{label:"$y=x^3+x$",value:x=>x*x*x+x},{label:"$y=2$",value:()=>2,color:blue}],points:[{x:1,y:2,label:"境界 $(1,2)$、解は $x\\ge1$"}]},
   2:{title:"指定された範囲で最も低い点を見る",description:"$x\\ge0$ の曲線は、いったん下がり、$x=1$ から上がります。最小値がゼロなので、全範囲で負にはなりません。",xRange:[-.5,3],yRange:[-1,5],
    curves:[{label:"$y=x^3-3x+2$、$x\\ge0$",value:x=>x*x*x-3*x+2,from:0}],points:[{x:0,y:2,label:"端点 $(0,2)$"},{x:1,y:0,label:"最小の点 $(1,0)$、等号は $x=1$ のみ"}]}

@@ -1,3 +1,27 @@
+# 全文校閲完了 — 2026-10-14
+
+466/466教材を完了。最新は [数学III 106教材の校閲](EDITORIAL_MATHIII_CHECKPOINT.md)。未完了教材はありません。
+
+---
+
+# 現在の全文校閲の進捗 — 2026-10-14
+
+360/466教材まで完了。最新は [数学C残り36教材の校閲](EDITORIAL_MATHC_CHECKPOINT.md)。未完了は数学III 106教材です。
+
+---
+
+# 現在の全文校閲の進捗 — 2026-10-13
+
+324/466教材まで完了。最新は [数学B残り25教材の校閲](EDITORIAL_MATHB_CHECKPOINT.md)。未完了142教材は継続中。
+
+---
+
+# 現在の全文校閲の進捗 — 2026-10-13
+
+299/466教材まで完了。未完了167教材は継続中です。最新は [数学II・数列の校閲チェックポイント](EDITORIAL_MATHII_CHECKPOINT.md)、教材別台帳は [EDITORIAL_COVERAGE.json](EDITORIAL_COVERAGE.json)。
+
+---
+
 # 現在の全文校閲の進捗 — 2026-10-03
 
 数学A・数学II前半83教材を追加完了し、222/466教材まで完了しました。未完了は244教材です。最新記録は [数学A・数学II前半チェックポイント](EDITORIAL_MATHA_CHECKPOINT.md)、教材別台帳は [EDITORIAL_COVERAGE.json](EDITORIAL_COVERAGE.json)。以前のチェックポイントと復元資料も保持しています。

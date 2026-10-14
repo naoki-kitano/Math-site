@@ -81,6 +81,11 @@ export default function UnitCircleExplorer() {
     <div className="unit-stages" role="group" aria-label="考える順序">
       {["1 位置をみる", "2 長さをみる", "3 符号をつける"].map((label, i) => <button key={label} aria-pressed={stage === i} onClick={() => chooseStage(i)}>{label}</button>)}
     </div>
+    <div className="actions unit-controls">
+      <button className="button" onClick={playing ? () => setPlaying(false) : replay}>{playing ? "停止" : reduced ? "半回転後を見る" : intermediate ? "再生を続ける" : "時計回りに回す"}</button>
+      <button className="button secondary" onClick={reset}>リセット</button>
+      <button className="button secondary" disabled={stage === 2 || rotation !== 180} onClick={() => chooseStage(2)}>元の点の符号をみる</button>
+    </div>
     <div className="unit-layout">
       <div>
         <svg viewBox="0 0 420 430" role="img" aria-labelledby={`${uid}-diagram-title ${uid}-diagram-desc`} className="unit-diagram" data-rotation={rotation}>
@@ -109,13 +114,6 @@ export default function UnitCircleExplorer() {
           {rotation === 180 && <><path d={arc(0, Math.PI / 3, .3)} fill="none" stroke="#c67c28" strokeWidth="2" /><MathLabel at={[.44, .26]} tex="\frac{\pi}{3}" width={45} /><MathLabel at={[.88, .49]} tex="\frac{\sqrt3}{2}" width={65} /><MathLabel at={[.3, -.2]} tex="\frac12" width={42} /><MathLabel at={[.08, .64]} tex="1" width={26} /></>}
           {stage === 2 && <><line x1={px(-.5)} y1="210" x2={px(-.5)} y2={py(original[1])} stroke="#496fa8" strokeWidth="5" /><MathLabel at={[-.94, -.48]} tex="y=-\frac{\sqrt3}{2}" width={116} /></>}
         </svg>
-    <div className="actions unit-controls">
-      <button className="button" onClick={playing ? () => setPlaying(false) : replay}>{playing ? "停止" : reduced ? "半回転後を見る" : intermediate ? "再生を続ける" : "時計回りに回す"}</button>
-      <button className="button secondary" onClick={reset}>リセット</button>
-      <button className="button secondary" disabled={stage === 2 || rotation !== 180} onClick={() => chooseStage(2)}>元の点の符号をみる</button>
-    </div>
-    {!reduced && <details className="unit-manual"><summary>途中の位置を手で動かす</summary><label className="unit-scrubber">回す途中を自分で確かめる<input aria-label="時計回りの回転量" type="range" min="0" max="180" step="1" value={rotation} aria-valuetext={`時計回りに${Math.round(rotation)}度。180度で半回転。`} onChange={e => { setPlaying(false); setStage(1); position(Number(e.target.value)); }} /><span>回転前 → 半回転後</span></label></details>}
-    <label className="unit-reduced"><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => { setReduceMotion(e.target.checked); setPlaying(false); if (e.target.checked && stage === 1) position(180); }} />動きを減らす{systemReduced && "（端末の設定を使用）"}</label>
         <p className="unit-legend"><span className="unit-side-key" />青い辺は、回しても同じ長さ。破線は元の三角形。</p>
       </div>
       <div className="unit-explanation">
@@ -127,6 +125,8 @@ export default function UnitCircleExplorer() {
         {stage === 1 && <p className="meta">回転の途中では辺が斜めになります。青い辺の長さと、そのときの点の縦座標は区別します。</p>}
       </div>
     </div>
+    {!reduced && <details className="unit-manual"><summary>途中の位置を手で動かす</summary><label className="unit-scrubber">回す途中を自分で確かめる<input aria-label="時計回りの回転量" type="range" min="0" max="180" step="1" value={rotation} aria-valuetext={`時計回りに${Math.round(rotation)}度。180度で半回転。`} onChange={e => { setPlaying(false); setStage(1); position(Number(e.target.value)); }} /><span>回転前 → 半回転後</span></label></details>}
+    <label className="unit-reduced"><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => { setReduceMotion(e.target.checked); setPlaying(false); if (e.target.checked && stage === 1) position(180); }} />動きを減らす{systemReduced && "（端末の設定を使用）"}</label>
     <details className="supplement"><summary>長さが分かる根拠・回転と対称移動の違い</summary>
       <p><MathText text="正三角形を半分にすると、辺の比は $1:\sqrt3:2$。斜辺を $1$ にそろえると、短い辺は $\frac12$、長い辺は $\frac{\sqrt3}{2}$ です。$\frac{\pi}{3}$ の向かい側が長い辺です。" /></p>
       <p><MathText text="回転は図形の長さと角を保ちます。半回転では $(x,y)\mapsto(-x,-y)$ となり、元の点 $P$ と回転後の点の縦座標は反対符号です。ここで動かしたのは比較用の三角形で、求める角は最初の $\frac{4\pi}{3}$ のままです。" /></p>

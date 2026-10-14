@@ -2,7 +2,7 @@ import {MathText} from "./MathText";
 const m=String.raw;
 const phi=(z:number)=>Math.exp(-z*z/2)/Math.sqrt(2*Math.PI);
 const X=(z:number)=>180+42*z,Y=(z:number)=>185-340*phi(z);
-const coords=(lo:number,hi:number)=>Array.from({length:121},(_,i)=>{const z=lo+(hi-lo)*i/120;return `${X(z)},${Y(z)}`;}).join(" ");
+const coords=(lo:number,hi:number)=>Array.from({length:121},(_,i)=>{const z=lo+(hi-lo)*i/120;return `${X(z).toFixed(2)},${Y(z).toFixed(2)}`;}).join(" ");
 function Label({x,y,text}:{x:number;y:number;text:string}){return <foreignObject x={x-40} y={y} width="80" height="40"><div style={{textAlign:"center",fontSize:18,lineHeight:1.5}}><MathText text={text}/></div></foreignObject>;}
 function Normal({tail=false,critical=false}:{tail?:boolean;critical?:boolean}){
  const z=critical?1.96:1;

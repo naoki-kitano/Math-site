@@ -45,13 +45,13 @@ const binomialMoment=(n:number)=>{
 };
 const uniform=(n:number,point=false)=>{
  const v=point?0:1/n;
- return checked(point?"continuous-point":"uniform",[n],v,m`$X$ の確率密度は区間 $0\le x\le ${n}$ で高さ $\frac1{${n}}$、その外で零です。${point?m`$P(X=1)$`:"最初の幅一の区間に入る確率"}を求めなさい。`,m`$${point?"0":f(1,n)}$。`,
+ return checked(point?"continuous-point":"uniform",[n],v,m`$X$ の確率密度は区間 $0\le x\le ${n}$ で高さ $\frac1{${n}}$、その外で零です。${point?m`$P(X=1)$`:m`$P(0\le X\le1)$`}を求めなさい。`,m`$${point?"0":f(1,n)}$。`,
  "連続分布の確率は高さではなく、区間の上の面積です。",
  point?m`一点の幅は零なので面積も零です。密度の高さ $\frac1{${n}}$ が一点の確率ではありません。`:m`$P(0\le X\le1)=1\times\frac1{${n}}=${f(1,n)}$。全区間の面積は $${n}\times\frac1{${n}}=1$。`);
 };
 export function normalQuestion(n:number,tail=false):Q{
  const mu=50+n,sigma=4,z=[0.5,1,1.5,2][n%4],a=normalArea[String(z)],v=tail?.5-a:2*a;
- return checked(tail?"normal-tail":"normal-middle",[mu,sigma,z],v,m`$X$ は正規分布 $N(${mu},16)$ に従います。${tail?m`$P(X\ge${mu+sigma*z})$`:m`$P(${mu-sigma*z}\le X\le${mu+sigma*z})$`}を求めなさい。標準正規変数 $Z$ について $P(0\le Z\le${z})\approx${a}$ を使ってください。`,m`約 $${decimal(v)}$。`,"括弧の二番目は分散です。標準偏差で割って標準化します。",m`標準偏差は $4$。$Z=\frac{X-${mu}}4$ とすると `+(tail?m`$P(Z\ge${z})=\frac12-P(0\le Z\le${z})\approx${decimal(v)}$。`:m`$P(-${z}\le Z\le${z})=2P(0\le Z\le${z})\approx${decimal(v)}$。左右対称を使いました。`));
+ return checked(tail?"normal-tail":"normal-middle",[mu,sigma,z],v,m`$X$ は正規分布 $N(${mu},16)$ に従います。${tail?m`$P(X\ge${mu+sigma*z})$`:m`$P(${mu-sigma*z}\le X\le${mu+sigma*z})$`}を求めなさい。標準正規変数 $Z$ について $P(0\le Z\le${z})\approx${a}$ を使ってください。`,m`約 $${decimal(v)}$。`,"括弧の二番目は分散です。標準偏差で割って標準化します。",m`標準偏差は $4$。$Z=\frac{X-${mu}}4$ とします。`+(n===nums[0]?(tail?m`境界は $\frac{${mu+sigma*z}-${mu}}4=${z}$。`:m`両端は $\frac{${mu-sigma*z}-${mu}}4=-${z}$、$\frac{${mu+sigma*z}-${mu}}4=${z}$ です。`):"")+(tail?m`$P(Z\ge${z})=\frac12-P(0\le Z\le${z})\approx${decimal(v)}$。`:m`$P(-${z}\le Z\le${z})=2P(0\le Z\le${z})\approx${decimal(v)}$。左右対称を使いました。`));
 }
 function normalBetween(n:number){
  const mu=50+n,lo=n%2?-1.5:.5,hi=n%2?-.5:1.5;
