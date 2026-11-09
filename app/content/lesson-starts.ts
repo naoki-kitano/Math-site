@@ -2,9 +2,11 @@
 // in the lesson's existing introduction and rule, immediately below each figure.
 import {visualLessons} from "./visual-lessons";
 import {relationStarts} from "./relation-lessons";
+import {formulaCorrespondence} from "./formula-correspondence";
 export type LessonStart = { goal: string; steps: string[]; check: string };
 export const lessonStarts: Record<string, LessonStart> = {
   ...relationStarts,
+  ...Object.fromEntries(Object.entries(formulaCorrespondence).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
   ...Object.fromEntries(Object.entries(visualLessons).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
   "jr-linear-equation": {
     goal: "まず、文字のない項を消します。移項の符号を覚える前に、両辺へ同じ操作をしてみよう。",

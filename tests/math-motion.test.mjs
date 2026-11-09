@@ -139,7 +139,7 @@ test('all seven subject routes keep typeset instructions and their existing defi
  const {subjectForChapter}=await import(contentModule(new URL('../app/content/chapters.ts',import.meta.url)));
  const {MathText}=await loadDisplay('MathText');
  const subjects=new Set();
- assert.equal(Object.keys(lessonStarts).length,20);
+ assert.equal(Object.keys(lessonStarts).length,27);
  for(const [slug,start] of Object.entries(lessonStarts)){
   const lesson=lessons.find(l=>l.slug===slug);assert.ok(lesson);
   subjects.add(subjectForChapter(lesson.chapter));
@@ -151,6 +151,24 @@ test('all seven subject routes keep typeset instructions and their existing defi
   }
  }
  assert.equal(subjects.size,7);
+});
+
+test('formula correspondence keeps every stage typeset and retains its lesson conditions',async()=>{
+ const {formulaCorrespondence}=await import(contentModule(new URL('../app/content/formula-correspondence.ts',import.meta.url)));
+ const {MathText,Formula}=await loadDisplay('MathText');
+ const {lessonStarts}=await import(contentModule(new URL('../app/content/lesson-starts.ts',import.meta.url)));
+ assert.equal(Object.keys(formulaCorrespondence).length,7);
+ for(const [slug,lesson] of Object.entries(formulaCorrespondence)){
+  assert.equal(lessonStarts[slug].check,lesson.check);
+  assert.ok(lesson.steps.length>=3);
+  for(const step of lesson.steps){
+   assert.doesNotMatch(renderToStaticMarkup(React.createElement(MathText,{text:step.text})),/math-error|katex-error/,slug);
+   for(const tex of step.formulas){
+    const html=renderToStaticMarkup(React.createElement(Formula,{tex,display:true}));
+    assert.match(html,/<math /,slug);assert.doesNotMatch(html,/math-error|katex-error/,slug);
+   }
+  }
+ }
 });
 
 test('new concept figures render formulas through KaTeX and start without motion',async()=>{
