@@ -8,6 +8,6 @@ export const math3ApplicationTables:Record<string,MathTableData[]>={
  [m`$y''=6x$`,m`$-$`,m`$0$`,m`$+$`],["凹凸","上に凸","変曲点","下に凸"]]}],
  "m3-global-extrema":[{caption:"例題：対数を含む関数の増減",headers:[m`$x$`,m`$0<x<e$`,m`$e$`,m`$x>e$`],rows:[
  [m`$1-\log x$`,m`$+$`,m`$0$`,m`$-$`],[m`$f'(x)$`,m`$+$`,m`$0$`,m`$-$`],[m`$f(x)=\dfrac{\log x}{x}$`,"増加",m`最大値 $\dfrac1e$`,"減少"]]}],
- "m3-velocity-acceleration":[{caption:"例題：位置が減る間は速度が負",headers:[m`$t$`,m`$0<t<2$`,m`$2$`,m`$2<t<3$`],rows:[
+ "m3-velocity-acceleration":[{caption:"例題：速度の符号から向きと速さを読む",headers:[m`$t$`,m`$0\le t<2$`,m`$2$`,m`$2<t\le3$`],rows:[
  [m`$v(t)=2t-4$`,m`$-$`,m`$0$`,m`$+$`],["向き","負の向き","静止","正の向き"],[m`$|v(t)|$`,m`$4-2t$`,m`$0$`,m`$2t-4$`]]}]
 };
