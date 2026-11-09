@@ -1,12 +1,13 @@
 "use client";
 import {useEffect,useId,useRef,useState} from "react";
 import {Formula} from "./MathText";
-export type Transfer={source:string;target:string;parts:{tex:string;color:string;sourceEdge?:"left"|"right";targetEdge?:"left"|"right"}[]};
+export type Transfer={source:string;target:string;template?:string;parts:{tex:string;color:string;sourceEdge?:"left"|"right";targetEdge?:"left"|"right"}[]};
 type Track={tex:string;color:string;sx:number;sy:number;tx:number;ty:number;from:number;to:number;sh:number;th:number;path:string};
 /** Measure typeset symbols so arrows follow the actual glyphs, at every width. */
 export default function FormulaTransfer({motion,reduce}:{motion:Transfer;reduce:boolean}){
  const root=useRef<HTMLDivElement>(null),source=useRef<HTMLDivElement>(null),target=useRef<HTMLDivElement>(null);
  const id=useId().replaceAll(":","");
+ const [settled,setSettled]=useState(false);
  const [layout,setLayout]=useState<{width:number;height:number;tracks:Track[]}|null>(null);
  useEffect(()=>{
   const el=root.current;if(!el)return;
@@ -35,14 +36,21 @@ export default function FormulaTransfer({motion,reduce}:{motion:Transfer;reduce:
   return()=>{cancelled=true;observer.disconnect();cancelAnimationFrame(frame);};
  },[motion]);
  useEffect(()=>{
-  if(!layout||reduce||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!layout)return;
+  if(reduce||window.matchMedia('(prefers-reduced-motion: reduce)').matches){const frame=requestAnimationFrame(()=>setSettled(true));return()=>cancelAnimationFrame(frame);}
   const animations=[...root.current!.querySelectorAll<HTMLElement>('.formula-flight')].map((el,i)=>{
    const p=layout.tracks[i],height=el.querySelector('.katex-html')!.getBoundingClientRect().height;return el.animate([{transform:`translate(${p.sx}px,${p.sy}px) scale(${p.sh/height})`,opacity:1},{transform:`translate(${p.tx}px,${p.ty}px) scale(${p.th/height})`,opacity:1},{transform:`translate(${p.tx}px,${p.ty}px) scale(${p.th/height})`,opacity:0}],{duration:900,easing:'ease-in-out'});
-  });return()=>animations.forEach(a=>a.cancel());
- },[layout,reduce]);
- return <div ref={root} className="formula-transfer">
+  });
+  if(motion.template){
+   const result=root.current!.querySelector('.transfer-result')!,template=root.current!.querySelector('.transfer-template')!;
+   animations.push(result.animate([{opacity:0,offset:0},{opacity:0,offset:.8},{opacity:1,offset:1}],{duration:900}),template.animate([{opacity:1,offset:0},{opacity:1,offset:.8},{opacity:0,offset:1}],{duration:900}));
+  }
+  let active=true;void Promise.all(animations.map(a=>a.finished)).then(()=>{if(active)setSettled(true);}).catch(()=>{});
+  return()=>{active=false;animations.forEach(a=>a.cancel());};
+ },[layout,reduce,motion.template]);
+ return <div ref={root} className={`formula-transfer ${motion.template?"has-template":""} ${settled||reduce?"is-settled":""}`}>
   <div ref={source} className="transfer-source"><Formula tex={motion.source} display/></div>
-  <div ref={target} className="transfer-target"><Formula tex={motion.target} display/></div>
+  <div className="transfer-target"><div ref={target} className="transfer-result"><Formula tex={motion.target} display/></div>{motion.template&&<div className="transfer-template" aria-hidden="true"><Formula tex={motion.template} display/></div>}</div>
   {layout&&<><svg className="transfer-arrows" width={layout.width} height={layout.height} aria-hidden="true" focusable="false">
    {layout.tracks.map((p,i)=><g key={i}><defs><marker id={`${id}-${i}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke={p.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></marker></defs><path d={p.path} fill="none" stroke={p.color} strokeWidth="1.5" markerEnd={`url(#${id}-${i})`}/></g>)}
   </svg>{layout.tracks.map((p,i)=><div key={i} className="formula-flight" aria-hidden="true"><div><Formula tex={p.tex}/></div></div>)}</>}

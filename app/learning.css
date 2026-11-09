@@ -84,3 +84,6 @@
 .basics-reader:has(>.supplement[open])>.basic-passage,.basics-reader:has(>.supplement[open])>.actions{display:none}
 
 .basics-reader .basic-passage>.basic-context{font-size:.9rem;color:#415971;border-bottom:1px solid #c6dcd7;padding-bottom:12px;margin-bottom:12px}
+.formula-transfer .transfer-target{display:grid;place-items:center}.transfer-result,.transfer-template{grid-area:1/1;display:flex;justify-content:center;max-width:100%;min-width:0}.transfer-template{opacity:0}.has-template:not(.is-settled) .transfer-result{opacity:0}.has-template:not(.is-settled) .transfer-template{opacity:1}@media(prefers-reduced-motion:reduce){.has-template:not(.is-settled) .transfer-result{opacity:1}.has-template:not(.is-settled) .transfer-template{opacity:0}}
+/* Keep long inline checks inside their worked-step column on narrow screens. */
+.step p{overflow-x:auto}

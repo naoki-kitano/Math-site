@@ -469,7 +469,12 @@ test('indefinite integrals preserve the approved scope, working and review decis
  assert.ok(math3IntegralCheckSelection.some(([s,p,r])=>s==='algebra-before-integrals'&&p==='practice-3'&&r==='review-1'));
  const methodItems=exercises.filter(e=>e.lesson==='m3-choose-integral');
  assert.equal(methodItems.length,17);
- for(const e of methodItems){assert.ok(e.answer.includes('からです'),e.id);assert.ok(e.steps[0].text.includes('からです'),e.id);}
+ assert.equal(new Set(methodItems.map(e=>e.hints[0])).size,17,'each method decision has its own reason');
+ for(const e of methodItems){
+  assert.ok(e.answer.startsWith(e.hints[0]),e.id+': the revealed answer includes the reason without opening a hint');
+  assert.match(e.hints[0],/微分|展開/,e.id+': explain the operation that makes this integrand simpler');
+  assert.ok(e.steps.some(s=>s.text.includes('検算')),e.id+': retain the derivative check');
+ }
  for(const l of chapter){
   assert.ok(!l.description.includes('$'));
   for(const p of l.prerequisites||[])assert.ok(lessons.some(a=>a.slug===p.slug),p.slug);

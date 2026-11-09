@@ -163,7 +163,7 @@ test('formula correspondence keeps every stage typeset and retains its lesson co
   assert.ok(lesson.steps.length>=3);
   for(const step of lesson.steps){
    assert.doesNotMatch(renderToStaticMarkup(React.createElement(MathText,{text:step.text})),/math-error|katex-error/,slug);
-   for(const tex of [...step.formulas,...(step.motion?[step.motion.source,step.motion.target,...step.motion.parts.map(p=>p.tex)]:[])]){
+   for(const tex of [...step.formulas,...(step.motion?[step.motion.source,step.motion.target,...(step.motion.template?[step.motion.template]:[]),...step.motion.parts.map(p=>p.tex)]:[])]){
     const html=renderToStaticMarkup(React.createElement(Formula,{tex,display:true}));
     assert.match(html,/<math /,slug);assert.doesNotMatch(html,/math-error|katex-error/,slug);
    }

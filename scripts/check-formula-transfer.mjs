@@ -16,7 +16,10 @@ try{
    const flight=panel.locator('.formula-flight').first(),first=await flight.evaluate(e=>getComputedStyle(e).transform);
    await page.waitForTimeout(220);const middle=await flight.evaluate(e=>getComputedStyle(e).transform);
    assert.notEqual(first,middle,slug+': corresponding symbol actually moves');
+   const hasTemplate=await panel.locator('.transfer-template').count();
+   if(hasTemplate){assert.equal(await panel.locator('.transfer-result').evaluate(e=>getComputedStyle(e).opacity),'0','the general formula stays visible while the value moves');assert.equal(await panel.locator('.transfer-template').evaluate(e=>getComputedStyle(e).opacity),'1');}
    await page.waitForTimeout(1000);assert.equal(await flight.evaluate(e=>getComputedStyle(e).opacity),'0');
+   if(hasTemplate){assert.equal(await panel.locator('.transfer-result').evaluate(e=>getComputedStyle(e).opacity),'1');assert.equal(await panel.locator('.transfer-template').evaluate(e=>getComputedStyle(e).opacity),'0');}
    const paths=panel.locator('.transfer-arrows g>path');assert.ok(await paths.count()>0);
    for(const node of await paths.all()){
     const points=await node.evaluate(p=>{const a=p.getPointAtLength(0),b=p.getPointAtLength(p.getTotalLength());return {ax:a.x,ay:a.y,bx:b.x,by:b.y,w:p.ownerSVGElement.width.baseVal.value,h:p.ownerSVGElement.height.baseVal.value}});

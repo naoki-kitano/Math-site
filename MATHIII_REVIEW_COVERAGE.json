@@ -1,0 +1,3953 @@
+{
+  "date": "2026-11-09",
+  "baseline": "ca53137280664fc1351f562e0beb3f554a2bb4b5",
+  "scope": {
+    "lessons": 106,
+    "exercises": 1600,
+    "examples": 214,
+    "supplements": 359,
+    "changedLessons": 88,
+    "changedExercises": 804
+  },
+  "method": "Assigned authors read introductions, formulas, examples, all questions, hints, working and supplements. Chapter copies were read or checked against their read originals. Different authors reviewed changed text with surrounding context. Astra independently reviewed the complete mathematical diff, eight correspondence lessons and 53 persistent contexts; this does not mean all unchanged exercises were independently reread.",
+  "lessons": [
+    {
+      "slug": "m3-function-input",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-function-input-1-v1",
+        "m3-function-input-2-v1",
+        "m3-function-input-3-v1",
+        "m3-function-input-4-v1",
+        "m3-function-input-5-v1",
+        "m3-function-input-6-v1",
+        "m3-function-input-7-v1",
+        "m3-function-input-8-v1",
+        "m3-function-input-9-v1",
+        "m3-function-input-10-v1",
+        "m3-function-input-11-v1",
+        "m3-function-input-12-v1",
+        "m3-function-input-13-v1",
+        "m3-function-input-14-v1",
+        "m3-function-input-15-v1",
+        "m3-function-input-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-function-input-1-v1",
+        "m3-function-input-2-v1",
+        "m3-function-input-3-v1",
+        "m3-function-input-4-v1",
+        "m3-function-input-5-v1",
+        "m3-function-input-6-v1",
+        "m3-function-input-7-v1",
+        "m3-function-input-8-v1",
+        "m3-function-input-9-v1",
+        "m3-function-input-10-v1",
+        "m3-function-input-11-v1",
+        "m3-function-input-12-v1",
+        "m3-function-input-13-v1",
+        "m3-function-input-14-v1",
+        "m3-function-input-15-v1",
+        "m3-function-input-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-domain-range",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-domain-range-1-v1",
+        "m3-domain-range-2-v1",
+        "m3-domain-range-3-v1",
+        "m3-domain-range-4-v1",
+        "m3-domain-range-5-v1",
+        "m3-domain-range-6-v1",
+        "m3-domain-range-7-v1",
+        "m3-domain-range-8-v1",
+        "m3-domain-range-9-v1",
+        "m3-domain-range-10-v1",
+        "m3-domain-range-11-v1",
+        "m3-domain-range-12-v1",
+        "m3-domain-range-13-v1",
+        "m3-domain-range-14-v1",
+        "m3-domain-range-15-v1",
+        "m3-domain-range-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-domain-range-1-v1",
+        "m3-domain-range-2-v1",
+        "m3-domain-range-3-v1",
+        "m3-domain-range-4-v1",
+        "m3-domain-range-5-v1",
+        "m3-domain-range-6-v1",
+        "m3-domain-range-7-v1",
+        "m3-domain-range-8-v1",
+        "m3-domain-range-9-v1",
+        "m3-domain-range-10-v1",
+        "m3-domain-range-11-v1",
+        "m3-domain-range-12-v1",
+        "m3-domain-range-13-v1",
+        "m3-domain-range-14-v1",
+        "m3-domain-range-15-v1",
+        "m3-domain-range-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-rational-functions",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-rational-functions-1-v1",
+        "m3-rational-functions-2-v1",
+        "m3-rational-functions-3-v1",
+        "m3-rational-functions-4-v1",
+        "m3-rational-functions-5-v1",
+        "m3-rational-functions-6-v1",
+        "m3-rational-functions-7-v1",
+        "m3-rational-functions-8-v1",
+        "m3-rational-functions-9-v1",
+        "m3-rational-functions-10-v1",
+        "m3-rational-functions-11-v1",
+        "m3-rational-functions-12-v1",
+        "m3-rational-functions-13-v1",
+        "m3-rational-functions-14-v1",
+        "m3-rational-functions-15-v1",
+        "m3-rational-functions-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-rational-functions-1-v1",
+        "m3-rational-functions-2-v1",
+        "m3-rational-functions-3-v1",
+        "m3-rational-functions-4-v1",
+        "m3-rational-functions-5-v1",
+        "m3-rational-functions-6-v1",
+        "m3-rational-functions-7-v1",
+        "m3-rational-functions-8-v1",
+        "m3-rational-functions-9-v1",
+        "m3-rational-functions-10-v1",
+        "m3-rational-functions-11-v1",
+        "m3-rational-functions-12-v1",
+        "m3-rational-functions-13-v1",
+        "m3-rational-functions-14-v1",
+        "m3-rational-functions-15-v1",
+        "m3-rational-functions-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-radical-functions",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-radical-functions-1-v1",
+        "m3-radical-functions-2-v1",
+        "m3-radical-functions-3-v1",
+        "m3-radical-functions-4-v1",
+        "m3-radical-functions-5-v1",
+        "m3-radical-functions-6-v1",
+        "m3-radical-functions-7-v1",
+        "m3-radical-functions-8-v1",
+        "m3-radical-functions-9-v1",
+        "m3-radical-functions-10-v1",
+        "m3-radical-functions-11-v1",
+        "m3-radical-functions-12-v1",
+        "m3-radical-functions-13-v1",
+        "m3-radical-functions-14-v1",
+        "m3-radical-functions-15-v1",
+        "m3-radical-functions-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-radical-functions-1-v1",
+        "m3-radical-functions-2-v1",
+        "m3-radical-functions-4-v1",
+        "m3-radical-functions-6-v1",
+        "m3-radical-functions-7-v1",
+        "m3-radical-functions-8-v1",
+        "m3-radical-functions-9-v1",
+        "m3-radical-functions-10-v1",
+        "m3-radical-functions-12-v1",
+        "m3-radical-functions-14-v1",
+        "m3-radical-functions-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-composition",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-composition-1-v1",
+        "m3-composition-2-v1",
+        "m3-composition-3-v1",
+        "m3-composition-4-v1",
+        "m3-composition-5-v1",
+        "m3-composition-6-v1",
+        "m3-composition-7-v1",
+        "m3-composition-8-v1",
+        "m3-composition-9-v1",
+        "m3-composition-10-v1",
+        "m3-composition-11-v1",
+        "m3-composition-12-v1",
+        "m3-composition-13-v1",
+        "m3-composition-14-v1",
+        "m3-composition-15-v1",
+        "m3-composition-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-composition-2-v1",
+        "m3-composition-3-v1",
+        "m3-composition-4-v1",
+        "m3-composition-5-v1",
+        "m3-composition-6-v1",
+        "m3-composition-7-v1",
+        "m3-composition-8-v1",
+        "m3-composition-9-v1",
+        "m3-composition-10-v1",
+        "m3-composition-11-v1",
+        "m3-composition-12-v1",
+        "m3-composition-13-v1",
+        "m3-composition-14-v1",
+        "m3-composition-15-v1",
+        "m3-composition-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-composition-domain",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-composition-domain-1-v1",
+        "m3-composition-domain-2-v1",
+        "m3-composition-domain-3-v1",
+        "m3-composition-domain-4-v1",
+        "m3-composition-domain-5-v1",
+        "m3-composition-domain-6-v1",
+        "m3-composition-domain-7-v1",
+        "m3-composition-domain-8-v1",
+        "m3-composition-domain-9-v1",
+        "m3-composition-domain-10-v1",
+        "m3-composition-domain-11-v1",
+        "m3-composition-domain-12-v1",
+        "m3-composition-domain-13-v1",
+        "m3-composition-domain-14-v1",
+        "m3-composition-domain-15-v1",
+        "m3-composition-domain-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-composition-domain-1-v1",
+        "m3-composition-domain-2-v1",
+        "m3-composition-domain-3-v1",
+        "m3-composition-domain-4-v1",
+        "m3-composition-domain-5-v1",
+        "m3-composition-domain-6-v1",
+        "m3-composition-domain-7-v1",
+        "m3-composition-domain-8-v1",
+        "m3-composition-domain-9-v1",
+        "m3-composition-domain-10-v1",
+        "m3-composition-domain-11-v1",
+        "m3-composition-domain-12-v1",
+        "m3-composition-domain-13-v1",
+        "m3-composition-domain-14-v1",
+        "m3-composition-domain-15-v1",
+        "m3-composition-domain-16-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-inverse-functions",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-inverse-functions-1-v1",
+        "m3-inverse-functions-2-v1",
+        "m3-inverse-functions-3-v1",
+        "m3-inverse-functions-4-v1",
+        "m3-inverse-functions-5-v1",
+        "m3-inverse-functions-6-v1",
+        "m3-inverse-functions-7-v1",
+        "m3-inverse-functions-8-v1",
+        "m3-inverse-functions-9-v1",
+        "m3-inverse-functions-10-v1",
+        "m3-inverse-functions-11-v1",
+        "m3-inverse-functions-12-v1",
+        "m3-inverse-functions-13-v1",
+        "m3-inverse-functions-14-v1",
+        "m3-inverse-functions-15-v1",
+        "m3-inverse-functions-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-inverse-functions-1-v1",
+        "m3-inverse-functions-2-v1",
+        "m3-inverse-functions-3-v1",
+        "m3-inverse-functions-4-v1",
+        "m3-inverse-functions-5-v1",
+        "m3-inverse-functions-6-v1",
+        "m3-inverse-functions-7-v1",
+        "m3-inverse-functions-8-v1",
+        "m3-inverse-functions-9-v1",
+        "m3-inverse-functions-10-v1",
+        "m3-inverse-functions-11-v1",
+        "m3-inverse-functions-12-v1",
+        "m3-inverse-functions-13-v1",
+        "m3-inverse-functions-14-v1",
+        "m3-inverse-functions-15-v1",
+        "m3-inverse-functions-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-graph-equations",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-graph-equations-1-v1",
+        "m3-graph-equations-2-v1",
+        "m3-graph-equations-3-v1",
+        "m3-graph-equations-4-v1",
+        "m3-graph-equations-5-v1",
+        "m3-graph-equations-6-v1",
+        "m3-graph-equations-7-v1",
+        "m3-graph-equations-8-v1",
+        "m3-graph-equations-9-v1",
+        "m3-graph-equations-10-v1",
+        "m3-graph-equations-11-v1",
+        "m3-graph-equations-12-v1",
+        "m3-graph-equations-13-v1",
+        "m3-graph-equations-14-v1",
+        "m3-graph-equations-15-v1",
+        "m3-graph-equations-16-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-graph-equations-1-v1",
+        "m3-graph-equations-2-v1",
+        "m3-graph-equations-3-v1",
+        "m3-graph-equations-4-v1",
+        "m3-graph-equations-5-v1",
+        "m3-graph-equations-6-v1",
+        "m3-graph-equations-7-v1",
+        "m3-graph-equations-8-v1",
+        "m3-graph-equations-9-v1",
+        "m3-graph-equations-10-v1",
+        "m3-graph-equations-11-v1",
+        "m3-graph-equations-12-v1",
+        "m3-graph-equations-13-v1",
+        "m3-graph-equations-14-v1",
+        "m3-graph-equations-15-v1",
+        "m3-graph-equations-16-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-functions-check",
+      "chapter": "関数を読むための基礎",
+      "examplesRead": 2,
+      "supplementsRead": 8,
+      "exerciseIdsRead": [
+        "m3-functions-check-1-v1",
+        "m3-functions-check-2-v1",
+        "m3-functions-check-3-v1",
+        "m3-functions-check-4-v1",
+        "m3-functions-check-5-v1",
+        "m3-functions-check-6-v1",
+        "m3-functions-check-7-v1",
+        "m3-functions-check-8-v1",
+        "m3-functions-check-9-v1",
+        "m3-functions-check-10-v1",
+        "m3-functions-check-11-v1",
+        "m3-functions-check-12-v1",
+        "m3-functions-check-13-v1",
+        "m3-functions-check-14-v1",
+        "m3-functions-check-15-v1",
+        "m3-functions-check-16-v1",
+        "m3-functions-check-17-v1",
+        "m3-functions-check-18-v1",
+        "m3-functions-check-19-v1",
+        "m3-functions-check-20-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-functions-check-1-v1",
+        "m3-functions-check-2-v1",
+        "m3-functions-check-3-v1",
+        "m3-functions-check-4-v1",
+        "m3-functions-check-5-v1",
+        "m3-functions-check-6-v1",
+        "m3-functions-check-7-v1",
+        "m3-functions-check-8-v1",
+        "m3-functions-check-9-v1",
+        "m3-functions-check-10-v1",
+        "m3-functions-check-11-v1",
+        "m3-functions-check-12-v1",
+        "m3-functions-check-13-v1",
+        "m3-functions-check-14-v1",
+        "m3-functions-check-15-v1",
+        "m3-functions-check-16-v1",
+        "m3-functions-check-17-v1",
+        "m3-functions-check-18-v1",
+        "m3-functions-check-19-v1",
+        "m3-functions-check-20-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-sequence-basics",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-sequence-basics-1-v1",
+        "m3-sequence-basics-2-v1",
+        "m3-sequence-basics-3-v1",
+        "m3-sequence-basics-4-v1",
+        "m3-sequence-basics-5-v1",
+        "m3-sequence-basics-6-v1",
+        "m3-sequence-basics-7-v1",
+        "m3-sequence-basics-8-v1",
+        "m3-sequence-basics-9-v1",
+        "m3-sequence-basics-10-v1",
+        "m3-sequence-basics-11-v1",
+        "m3-sequence-basics-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-sequence-basics-1-v1",
+        "m3-sequence-basics-2-v1",
+        "m3-sequence-basics-3-v1",
+        "m3-sequence-basics-4-v1",
+        "m3-sequence-basics-5-v1",
+        "m3-sequence-basics-6-v1",
+        "m3-sequence-basics-7-v1",
+        "m3-sequence-basics-8-v1",
+        "m3-sequence-basics-9-v1",
+        "m3-sequence-basics-10-v1",
+        "m3-sequence-basics-11-v1",
+        "m3-sequence-basics-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-sequence-convergence",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-sequence-convergence-1-v1",
+        "m3-sequence-convergence-2-v1",
+        "m3-sequence-convergence-3-v1",
+        "m3-sequence-convergence-4-v1",
+        "m3-sequence-convergence-5-v1",
+        "m3-sequence-convergence-6-v1",
+        "m3-sequence-convergence-7-v1",
+        "m3-sequence-convergence-8-v1",
+        "m3-sequence-convergence-9-v1",
+        "m3-sequence-convergence-10-v1",
+        "m3-sequence-convergence-11-v1",
+        "m3-sequence-convergence-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-sequence-convergence-1-v1",
+        "m3-sequence-convergence-2-v1",
+        "m3-sequence-convergence-3-v1",
+        "m3-sequence-convergence-4-v1",
+        "m3-sequence-convergence-5-v1",
+        "m3-sequence-convergence-6-v1",
+        "m3-sequence-convergence-7-v1",
+        "m3-sequence-convergence-8-v1",
+        "m3-sequence-convergence-9-v1",
+        "m3-sequence-convergence-10-v1",
+        "m3-sequence-convergence-11-v1",
+        "m3-sequence-convergence-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-sequence-rational-limit",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-sequence-rational-limit-1-v1",
+        "m3-sequence-rational-limit-2-v1",
+        "m3-sequence-rational-limit-3-v1",
+        "m3-sequence-rational-limit-4-v1",
+        "m3-sequence-rational-limit-5-v1",
+        "m3-sequence-rational-limit-6-v1",
+        "m3-sequence-rational-limit-7-v1",
+        "m3-sequence-rational-limit-8-v1",
+        "m3-sequence-rational-limit-9-v1",
+        "m3-sequence-rational-limit-10-v1",
+        "m3-sequence-rational-limit-11-v1",
+        "m3-sequence-rational-limit-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-sequence-rational-limit-1-v1",
+        "m3-sequence-rational-limit-2-v1",
+        "m3-sequence-rational-limit-3-v1",
+        "m3-sequence-rational-limit-4-v1",
+        "m3-sequence-rational-limit-5-v1",
+        "m3-sequence-rational-limit-6-v1",
+        "m3-sequence-rational-limit-7-v1",
+        "m3-sequence-rational-limit-8-v1",
+        "m3-sequence-rational-limit-9-v1",
+        "m3-sequence-rational-limit-10-v1",
+        "m3-sequence-rational-limit-11-v1",
+        "m3-sequence-rational-limit-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-sequence-radical-limit",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 3,
+      "exerciseIdsRead": [
+        "m3-sequence-radical-limit-1-v1",
+        "m3-sequence-radical-limit-2-v1",
+        "m3-sequence-radical-limit-3-v1",
+        "m3-sequence-radical-limit-4-v1",
+        "m3-sequence-radical-limit-5-v1",
+        "m3-sequence-radical-limit-6-v1",
+        "m3-sequence-radical-limit-7-v1",
+        "m3-sequence-radical-limit-8-v1",
+        "m3-sequence-radical-limit-9-v1",
+        "m3-sequence-radical-limit-10-v1",
+        "m3-sequence-radical-limit-11-v1",
+        "m3-sequence-radical-limit-12-v1",
+        "m3-sequence-radical-limit-reciprocal-1-v1",
+        "m3-sequence-radical-limit-reciprocal-2-v1",
+        "m3-sequence-radical-limit-reciprocal-3-v1",
+        "m3-sequence-radical-limit-reciprocal-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-sequence-radical-limit-1-v1",
+        "m3-sequence-radical-limit-2-v1",
+        "m3-sequence-radical-limit-3-v1",
+        "m3-sequence-radical-limit-4-v1",
+        "m3-sequence-radical-limit-5-v1",
+        "m3-sequence-radical-limit-6-v1",
+        "m3-sequence-radical-limit-7-v1",
+        "m3-sequence-radical-limit-8-v1",
+        "m3-sequence-radical-limit-9-v1",
+        "m3-sequence-radical-limit-10-v1",
+        "m3-sequence-radical-limit-11-v1",
+        "m3-sequence-radical-limit-12-v1",
+        "m3-sequence-radical-limit-reciprocal-1-v1",
+        "m3-sequence-radical-limit-reciprocal-2-v1",
+        "m3-sequence-radical-limit-reciprocal-3-v1",
+        "m3-sequence-radical-limit-reciprocal-4-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json",
+        "review-prerequisite-scenarios.json"
+      ]
+    },
+    {
+      "slug": "m3-geometric-sequence-limit",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-geometric-sequence-limit-1-v1",
+        "m3-geometric-sequence-limit-2-v1",
+        "m3-geometric-sequence-limit-3-v1",
+        "m3-geometric-sequence-limit-4-v1",
+        "m3-geometric-sequence-limit-5-v1",
+        "m3-geometric-sequence-limit-6-v1",
+        "m3-geometric-sequence-limit-7-v1",
+        "m3-geometric-sequence-limit-8-v1",
+        "m3-geometric-sequence-limit-9-v1",
+        "m3-geometric-sequence-limit-10-v1",
+        "m3-geometric-sequence-limit-11-v1",
+        "m3-geometric-sequence-limit-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-geometric-sequence-limit-1-v1",
+        "m3-geometric-sequence-limit-2-v1",
+        "m3-geometric-sequence-limit-3-v1",
+        "m3-geometric-sequence-limit-4-v1",
+        "m3-geometric-sequence-limit-5-v1",
+        "m3-geometric-sequence-limit-6-v1",
+        "m3-geometric-sequence-limit-7-v1",
+        "m3-geometric-sequence-limit-8-v1",
+        "m3-geometric-sequence-limit-9-v1",
+        "m3-geometric-sequence-limit-10-v1",
+        "m3-geometric-sequence-limit-11-v1",
+        "m3-geometric-sequence-limit-12-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-sequence-squeeze",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-sequence-squeeze-1-v1",
+        "m3-sequence-squeeze-2-v1",
+        "m3-sequence-squeeze-3-v1",
+        "m3-sequence-squeeze-4-v1",
+        "m3-sequence-squeeze-5-v1",
+        "m3-sequence-squeeze-6-v1",
+        "m3-sequence-squeeze-7-v1",
+        "m3-sequence-squeeze-8-v1",
+        "m3-sequence-squeeze-9-v1",
+        "m3-sequence-squeeze-10-v1",
+        "m3-sequence-squeeze-11-v1",
+        "m3-sequence-squeeze-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-sequence-squeeze-1-v1",
+        "m3-sequence-squeeze-2-v1",
+        "m3-sequence-squeeze-3-v1",
+        "m3-sequence-squeeze-4-v1",
+        "m3-sequence-squeeze-5-v1",
+        "m3-sequence-squeeze-6-v1",
+        "m3-sequence-squeeze-7-v1",
+        "m3-sequence-squeeze-8-v1",
+        "m3-sequence-squeeze-9-v1",
+        "m3-sequence-squeeze-10-v1",
+        "m3-sequence-squeeze-11-v1",
+        "m3-sequence-squeeze-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-infinite-series-meaning",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-infinite-series-meaning-1-v1",
+        "m3-infinite-series-meaning-2-v1",
+        "m3-infinite-series-meaning-3-v1",
+        "m3-infinite-series-meaning-4-v1",
+        "m3-infinite-series-meaning-5-v1",
+        "m3-infinite-series-meaning-6-v1",
+        "m3-infinite-series-meaning-7-v1",
+        "m3-infinite-series-meaning-8-v1",
+        "m3-infinite-series-meaning-9-v1",
+        "m3-infinite-series-meaning-10-v1",
+        "m3-infinite-series-meaning-11-v1",
+        "m3-infinite-series-meaning-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-infinite-series-meaning-1-v1",
+        "m3-infinite-series-meaning-2-v1",
+        "m3-infinite-series-meaning-3-v1",
+        "m3-infinite-series-meaning-4-v1",
+        "m3-infinite-series-meaning-5-v1",
+        "m3-infinite-series-meaning-6-v1",
+        "m3-infinite-series-meaning-7-v1",
+        "m3-infinite-series-meaning-8-v1",
+        "m3-infinite-series-meaning-9-v1",
+        "m3-infinite-series-meaning-10-v1",
+        "m3-infinite-series-meaning-11-v1",
+        "m3-infinite-series-meaning-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-geometric-series",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-geometric-series-1-v1",
+        "m3-geometric-series-2-v1",
+        "m3-geometric-series-3-v1",
+        "m3-geometric-series-4-v1",
+        "m3-geometric-series-5-v1",
+        "m3-geometric-series-6-v1",
+        "m3-geometric-series-7-v1",
+        "m3-geometric-series-8-v1",
+        "m3-geometric-series-9-v1",
+        "m3-geometric-series-10-v1",
+        "m3-geometric-series-11-v1",
+        "m3-geometric-series-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-geometric-series-1-v1",
+        "m3-geometric-series-2-v1",
+        "m3-geometric-series-3-v1",
+        "m3-geometric-series-4-v1",
+        "m3-geometric-series-5-v1",
+        "m3-geometric-series-6-v1",
+        "m3-geometric-series-7-v1",
+        "m3-geometric-series-8-v1",
+        "m3-geometric-series-9-v1",
+        "m3-geometric-series-10-v1",
+        "m3-geometric-series-11-v1",
+        "m3-geometric-series-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-telescoping-series",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-telescoping-series-1-v1",
+        "m3-telescoping-series-2-v1",
+        "m3-telescoping-series-3-v1",
+        "m3-telescoping-series-4-v1",
+        "m3-telescoping-series-5-v1",
+        "m3-telescoping-series-6-v1",
+        "m3-telescoping-series-7-v1",
+        "m3-telescoping-series-8-v1",
+        "m3-telescoping-series-9-v1",
+        "m3-telescoping-series-10-v1",
+        "m3-telescoping-series-11-v1",
+        "m3-telescoping-series-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-telescoping-series-1-v1",
+        "m3-telescoping-series-2-v1",
+        "m3-telescoping-series-3-v1",
+        "m3-telescoping-series-4-v1",
+        "m3-telescoping-series-5-v1",
+        "m3-telescoping-series-6-v1",
+        "m3-telescoping-series-7-v1",
+        "m3-telescoping-series-8-v1",
+        "m3-telescoping-series-9-v1",
+        "m3-telescoping-series-10-v1",
+        "m3-telescoping-series-11-v1",
+        "m3-telescoping-series-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-recurrence-limit",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-recurrence-limit-1-v1",
+        "m3-recurrence-limit-2-v1",
+        "m3-recurrence-limit-3-v1",
+        "m3-recurrence-limit-4-v1",
+        "m3-recurrence-limit-5-v1",
+        "m3-recurrence-limit-6-v1",
+        "m3-recurrence-limit-7-v1",
+        "m3-recurrence-limit-8-v1",
+        "m3-recurrence-limit-9-v1",
+        "m3-recurrence-limit-10-v1",
+        "m3-recurrence-limit-11-v1",
+        "m3-recurrence-limit-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-recurrence-limit-1-v1",
+        "m3-recurrence-limit-2-v1",
+        "m3-recurrence-limit-3-v1",
+        "m3-recurrence-limit-4-v1",
+        "m3-recurrence-limit-5-v1",
+        "m3-recurrence-limit-6-v1",
+        "m3-recurrence-limit-7-v1",
+        "m3-recurrence-limit-8-v1",
+        "m3-recurrence-limit-9-v1",
+        "m3-recurrence-limit-10-v1",
+        "m3-recurrence-limit-11-v1",
+        "m3-recurrence-limit-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json"
+      ]
+    },
+    {
+      "slug": "m3-sequences-check",
+      "chapter": "数列の極限と無限級数",
+      "examplesRead": 2,
+      "supplementsRead": 11,
+      "exerciseIdsRead": [
+        "m3-sequences-check-1-v1",
+        "m3-sequences-check-2-v1",
+        "m3-sequences-check-3-v1",
+        "m3-sequences-check-4-v1",
+        "m3-sequences-check-5-v1",
+        "m3-sequences-check-6-v1",
+        "m3-sequences-check-7-v1",
+        "m3-sequences-check-8-v1",
+        "m3-sequences-check-9-v1",
+        "m3-sequences-check-10-v1",
+        "m3-sequences-check-11-v1",
+        "m3-sequences-check-12-v1",
+        "m3-sequences-check-13-v1",
+        "m3-sequences-check-14-v1",
+        "m3-sequences-check-15-v1",
+        "m3-sequences-check-16-v1",
+        "m3-sequences-check-17-v1",
+        "m3-sequences-check-18-v1",
+        "m3-sequences-check-19-v1",
+        "m3-sequences-check-20-v1",
+        "m3-sequences-check-21-v1",
+        "m3-sequences-check-22-v1",
+        "m3-sequences-check-23-v1",
+        "m3-sequences-check-24-v1",
+        "m3-sequences-check-reciprocal-1-v1",
+        "m3-sequences-check-reciprocal-2-v1",
+        "m3-sequences-check-reciprocal-3-v1",
+        "m3-sequences-check-reciprocal-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-sequences-check-1-v1",
+        "m3-sequences-check-2-v1",
+        "m3-sequences-check-3-v1",
+        "m3-sequences-check-4-v1",
+        "m3-sequences-check-5-v1",
+        "m3-sequences-check-6-v1",
+        "m3-sequences-check-7-v1",
+        "m3-sequences-check-8-v1",
+        "m3-sequences-check-9-v1",
+        "m3-sequences-check-10-v1",
+        "m3-sequences-check-11-v1",
+        "m3-sequences-check-12-v1",
+        "m3-sequences-check-13-v1",
+        "m3-sequences-check-14-v1",
+        "m3-sequences-check-15-v1",
+        "m3-sequences-check-16-v1",
+        "m3-sequences-check-17-v1",
+        "m3-sequences-check-18-v1",
+        "m3-sequences-check-19-v1",
+        "m3-sequences-check-20-v1",
+        "m3-sequences-check-21-v1",
+        "m3-sequences-check-22-v1",
+        "m3-sequences-check-23-v1",
+        "m3-sequences-check-24-v1",
+        "m3-sequences-check-reciprocal-1-v1",
+        "m3-sequences-check-reciprocal-2-v1",
+        "m3-sequences-check-reciprocal-3-v1",
+        "m3-sequences-check-reciprocal-4-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-functions-sequences.json",
+        "review-prerequisite-scenarios.json"
+      ]
+    },
+    {
+      "slug": "m3-limit-and-value",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-limit-and-value-1-v1",
+        "m3-limit-and-value-2-v1",
+        "m3-limit-and-value-3-v1",
+        "m3-limit-and-value-4-v1",
+        "m3-limit-and-value-5-v1",
+        "m3-limit-and-value-6-v1",
+        "m3-limit-and-value-7-v1",
+        "m3-limit-and-value-8-v1",
+        "m3-limit-and-value-9-v1",
+        "m3-limit-and-value-10-v1",
+        "m3-limit-and-value-11-v1",
+        "m3-limit-and-value-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-limit-and-value-1-v1",
+        "m3-limit-and-value-2-v1",
+        "m3-limit-and-value-3-v1",
+        "m3-limit-and-value-4-v1",
+        "m3-limit-and-value-5-v1",
+        "m3-limit-and-value-6-v1",
+        "m3-limit-and-value-7-v1",
+        "m3-limit-and-value-8-v1",
+        "m3-limit-and-value-10-v1",
+        "m3-limit-and-value-11-v1",
+        "m3-limit-and-value-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-one-sided-limits",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-one-sided-limits-1-v1",
+        "m3-one-sided-limits-2-v1",
+        "m3-one-sided-limits-3-v1",
+        "m3-one-sided-limits-4-v1",
+        "m3-one-sided-limits-5-v1",
+        "m3-one-sided-limits-6-v1",
+        "m3-one-sided-limits-7-v1",
+        "m3-one-sided-limits-8-v1",
+        "m3-one-sided-limits-9-v1",
+        "m3-one-sided-limits-10-v1",
+        "m3-one-sided-limits-11-v1",
+        "m3-one-sided-limits-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-one-sided-limits-1-v1",
+        "m3-one-sided-limits-3-v1",
+        "m3-one-sided-limits-4-v1",
+        "m3-one-sided-limits-5-v1",
+        "m3-one-sided-limits-6-v1",
+        "m3-one-sided-limits-7-v1",
+        "m3-one-sided-limits-8-v1",
+        "m3-one-sided-limits-9-v1",
+        "m3-one-sided-limits-10-v1",
+        "m3-one-sided-limits-11-v1",
+        "m3-one-sided-limits-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-direct-substitution",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-direct-substitution-1-v1",
+        "m3-direct-substitution-2-v1",
+        "m3-direct-substitution-3-v1",
+        "m3-direct-substitution-4-v1",
+        "m3-direct-substitution-5-v1",
+        "m3-direct-substitution-6-v1",
+        "m3-direct-substitution-7-v1",
+        "m3-direct-substitution-8-v1",
+        "m3-direct-substitution-9-v1",
+        "m3-direct-substitution-10-v1",
+        "m3-direct-substitution-11-v1",
+        "m3-direct-substitution-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-direct-substitution-1-v1",
+        "m3-direct-substitution-2-v1",
+        "m3-direct-substitution-3-v1",
+        "m3-direct-substitution-4-v1",
+        "m3-direct-substitution-5-v1",
+        "m3-direct-substitution-6-v1",
+        "m3-direct-substitution-7-v1",
+        "m3-direct-substitution-8-v1",
+        "m3-direct-substitution-9-v1",
+        "m3-direct-substitution-10-v1",
+        "m3-direct-substitution-11-v1",
+        "m3-direct-substitution-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-factorization-limits",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-factorization-limits-1-v1",
+        "m3-factorization-limits-2-v1",
+        "m3-factorization-limits-3-v1",
+        "m3-factorization-limits-4-v1",
+        "m3-factorization-limits-5-v1",
+        "m3-factorization-limits-6-v1",
+        "m3-factorization-limits-7-v1",
+        "m3-factorization-limits-8-v1",
+        "m3-factorization-limits-9-v1",
+        "m3-factorization-limits-10-v1",
+        "m3-factorization-limits-11-v1",
+        "m3-factorization-limits-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-factorization-limits-1-v1",
+        "m3-factorization-limits-2-v1",
+        "m3-factorization-limits-3-v1",
+        "m3-factorization-limits-4-v1",
+        "m3-factorization-limits-5-v1",
+        "m3-factorization-limits-6-v1",
+        "m3-factorization-limits-7-v1",
+        "m3-factorization-limits-8-v1",
+        "m3-factorization-limits-9-v1",
+        "m3-factorization-limits-10-v1",
+        "m3-factorization-limits-11-v1",
+        "m3-factorization-limits-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-rationalizing-limits",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-rationalizing-limits-1-v1",
+        "m3-rationalizing-limits-2-v1",
+        "m3-rationalizing-limits-3-v1",
+        "m3-rationalizing-limits-4-v1",
+        "m3-rationalizing-limits-5-v1",
+        "m3-rationalizing-limits-6-v1",
+        "m3-rationalizing-limits-7-v1",
+        "m3-rationalizing-limits-8-v1",
+        "m3-rationalizing-limits-9-v1",
+        "m3-rationalizing-limits-10-v1",
+        "m3-rationalizing-limits-11-v1",
+        "m3-rationalizing-limits-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-rationalizing-limits-3-v1",
+        "m3-rationalizing-limits-4-v1",
+        "m3-rationalizing-limits-5-v1",
+        "m3-rationalizing-limits-6-v1",
+        "m3-rationalizing-limits-7-v1",
+        "m3-rationalizing-limits-8-v1",
+        "m3-rationalizing-limits-9-v1",
+        "m3-rationalizing-limits-10-v1",
+        "m3-rationalizing-limits-11-v1",
+        "m3-rationalizing-limits-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-limits-at-infinity",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-limits-at-infinity-1-v1",
+        "m3-limits-at-infinity-2-v1",
+        "m3-limits-at-infinity-3-v1",
+        "m3-limits-at-infinity-4-v1",
+        "m3-limits-at-infinity-5-v1",
+        "m3-limits-at-infinity-6-v1",
+        "m3-limits-at-infinity-7-v1",
+        "m3-limits-at-infinity-8-v1",
+        "m3-limits-at-infinity-9-v1",
+        "m3-limits-at-infinity-10-v1",
+        "m3-limits-at-infinity-11-v1",
+        "m3-limits-at-infinity-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-limits-at-infinity-1-v1",
+        "m3-limits-at-infinity-2-v1",
+        "m3-limits-at-infinity-3-v1",
+        "m3-limits-at-infinity-4-v1",
+        "m3-limits-at-infinity-5-v1",
+        "m3-limits-at-infinity-6-v1",
+        "m3-limits-at-infinity-7-v1",
+        "m3-limits-at-infinity-8-v1",
+        "m3-limits-at-infinity-9-v1",
+        "m3-limits-at-infinity-10-v1",
+        "m3-limits-at-infinity-11-v1",
+        "m3-limits-at-infinity-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-trigonometric-limits",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-trigonometric-limits-1-v1",
+        "m3-trigonometric-limits-2-v1",
+        "m3-trigonometric-limits-3-v1",
+        "m3-trigonometric-limits-4-v1",
+        "m3-trigonometric-limits-5-v1",
+        "m3-trigonometric-limits-6-v1",
+        "m3-trigonometric-limits-7-v1",
+        "m3-trigonometric-limits-8-v1",
+        "m3-trigonometric-limits-9-v1",
+        "m3-trigonometric-limits-10-v1",
+        "m3-trigonometric-limits-11-v1",
+        "m3-trigonometric-limits-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-trigonometric-limits-1-v1",
+        "m3-trigonometric-limits-2-v1",
+        "m3-trigonometric-limits-3-v1",
+        "m3-trigonometric-limits-4-v1",
+        "m3-trigonometric-limits-5-v1",
+        "m3-trigonometric-limits-6-v1",
+        "m3-trigonometric-limits-7-v1",
+        "m3-trigonometric-limits-9-v1",
+        "m3-trigonometric-limits-10-v1",
+        "m3-trigonometric-limits-11-v1",
+        "m3-trigonometric-limits-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-e-and-natural-log",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-e-and-natural-log-1-v1",
+        "m3-e-and-natural-log-2-v1",
+        "m3-e-and-natural-log-3-v1",
+        "m3-e-and-natural-log-4-v1",
+        "m3-e-and-natural-log-5-v1",
+        "m3-e-and-natural-log-6-v1",
+        "m3-e-and-natural-log-7-v1",
+        "m3-e-and-natural-log-8-v1",
+        "m3-e-and-natural-log-9-v1",
+        "m3-e-and-natural-log-10-v1",
+        "m3-e-and-natural-log-11-v1",
+        "m3-e-and-natural-log-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-e-and-natural-log-1-v1",
+        "m3-e-and-natural-log-2-v1",
+        "m3-e-and-natural-log-3-v1",
+        "m3-e-and-natural-log-4-v1",
+        "m3-e-and-natural-log-5-v1",
+        "m3-e-and-natural-log-6-v1",
+        "m3-e-and-natural-log-7-v1",
+        "m3-e-and-natural-log-8-v1",
+        "m3-e-and-natural-log-10-v1",
+        "m3-e-and-natural-log-11-v1",
+        "m3-e-and-natural-log-12-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-exponential-log-limits",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-exponential-log-limits-1-v1",
+        "m3-exponential-log-limits-2-v1",
+        "m3-exponential-log-limits-3-v1",
+        "m3-exponential-log-limits-4-v1",
+        "m3-exponential-log-limits-5-v1",
+        "m3-exponential-log-limits-6-v1",
+        "m3-exponential-log-limits-7-v1",
+        "m3-exponential-log-limits-8-v1",
+        "m3-exponential-log-limits-9-v1",
+        "m3-exponential-log-limits-10-v1",
+        "m3-exponential-log-limits-11-v1",
+        "m3-exponential-log-limits-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-exponential-log-limits-1-v1",
+        "m3-exponential-log-limits-2-v1",
+        "m3-exponential-log-limits-3-v1",
+        "m3-exponential-log-limits-4-v1",
+        "m3-exponential-log-limits-5-v1",
+        "m3-exponential-log-limits-6-v1",
+        "m3-exponential-log-limits-7-v1",
+        "m3-exponential-log-limits-8-v1",
+        "m3-exponential-log-limits-9-v1",
+        "m3-exponential-log-limits-10-v1",
+        "m3-exponential-log-limits-11-v1",
+        "m3-exponential-log-limits-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-continuity",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-continuity-1-v1",
+        "m3-continuity-2-v1",
+        "m3-continuity-3-v1",
+        "m3-continuity-4-v1",
+        "m3-continuity-5-v1",
+        "m3-continuity-6-v1",
+        "m3-continuity-7-v1",
+        "m3-continuity-8-v1",
+        "m3-continuity-9-v1",
+        "m3-continuity-10-v1",
+        "m3-continuity-11-v1",
+        "m3-continuity-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-continuity-1-v1",
+        "m3-continuity-2-v1",
+        "m3-continuity-3-v1",
+        "m3-continuity-4-v1",
+        "m3-continuity-5-v1",
+        "m3-continuity-6-v1",
+        "m3-continuity-7-v1",
+        "m3-continuity-8-v1",
+        "m3-continuity-9-v1",
+        "m3-continuity-10-v1",
+        "m3-continuity-11-v1",
+        "m3-continuity-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-intermediate-value",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-intermediate-value-1-v1",
+        "m3-intermediate-value-2-v1",
+        "m3-intermediate-value-3-v1",
+        "m3-intermediate-value-4-v1",
+        "m3-intermediate-value-5-v1",
+        "m3-intermediate-value-6-v1",
+        "m3-intermediate-value-7-v1",
+        "m3-intermediate-value-8-v1",
+        "m3-intermediate-value-9-v1",
+        "m3-intermediate-value-10-v1",
+        "m3-intermediate-value-11-v1",
+        "m3-intermediate-value-12-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-intermediate-value-1-v1",
+        "m3-intermediate-value-2-v1",
+        "m3-intermediate-value-3-v1",
+        "m3-intermediate-value-4-v1",
+        "m3-intermediate-value-5-v1",
+        "m3-intermediate-value-6-v1",
+        "m3-intermediate-value-7-v1",
+        "m3-intermediate-value-8-v1",
+        "m3-intermediate-value-9-v1",
+        "m3-intermediate-value-10-v1",
+        "m3-intermediate-value-11-v1",
+        "m3-intermediate-value-12-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-function-limits-check",
+      "chapter": "関数の極限と連続性",
+      "examplesRead": 2,
+      "supplementsRead": 11,
+      "exerciseIdsRead": [
+        "m3-function-limits-check-1-v1",
+        "m3-function-limits-check-2-v1",
+        "m3-function-limits-check-3-v1",
+        "m3-function-limits-check-4-v1",
+        "m3-function-limits-check-5-v1",
+        "m3-function-limits-check-6-v1",
+        "m3-function-limits-check-7-v1",
+        "m3-function-limits-check-8-v1",
+        "m3-function-limits-check-9-v1",
+        "m3-function-limits-check-10-v1",
+        "m3-function-limits-check-11-v1",
+        "m3-function-limits-check-12-v1",
+        "m3-function-limits-check-13-v1",
+        "m3-function-limits-check-14-v1",
+        "m3-function-limits-check-15-v1",
+        "m3-function-limits-check-16-v1",
+        "m3-function-limits-check-17-v1",
+        "m3-function-limits-check-18-v1",
+        "m3-function-limits-check-19-v1",
+        "m3-function-limits-check-20-v1",
+        "m3-function-limits-check-21-v1",
+        "m3-function-limits-check-22-v1",
+        "m3-function-limits-check-23-v1",
+        "m3-function-limits-check-24-v1",
+        "m3-function-limits-check-25-v1",
+        "m3-function-limits-check-26-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-function-limits-check-2-v1",
+        "m3-function-limits-check-3-v1",
+        "m3-function-limits-check-4-v1",
+        "m3-function-limits-check-6-v1",
+        "m3-function-limits-check-8-v1",
+        "m3-function-limits-check-9-v1",
+        "m3-function-limits-check-10-v1",
+        "m3-function-limits-check-11-v1",
+        "m3-function-limits-check-12-v1",
+        "m3-function-limits-check-13-v1",
+        "m3-function-limits-check-14-v1",
+        "m3-function-limits-check-17-v1",
+        "m3-function-limits-check-19-v1",
+        "m3-function-limits-check-20-v1",
+        "m3-function-limits-check-21-v1",
+        "m3-function-limits-check-22-v1",
+        "m3-function-limits-check-23-v1",
+        "m3-function-limits-check-24-v1",
+        "m3-function-limits-check-25-v1",
+        "m3-function-limits-check-26-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-derivative-meaning",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-derivative-meaning-ready-1-v1",
+        "m3-derivative-meaning-ready-2-v1",
+        "m3-derivative-meaning-guided-1-v1",
+        "m3-derivative-meaning-guided-2-v1",
+        "m3-derivative-meaning-practice-1-v1",
+        "m3-derivative-meaning-practice-2-v1",
+        "m3-derivative-meaning-practice-3-v1",
+        "m3-derivative-meaning-practice-4-v1",
+        "m3-derivative-meaning-practice-5-v1",
+        "m3-derivative-meaning-practice-6-v1",
+        "m3-derivative-meaning-review-1-v1",
+        "m3-derivative-meaning-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-derivative-meaning-guided-1-v1",
+        "m3-derivative-meaning-practice-1-v1",
+        "m3-derivative-meaning-practice-2-v1",
+        "m3-derivative-meaning-practice-4-v1",
+        "m3-derivative-meaning-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-derivative-definition",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 3,
+      "exerciseIdsRead": [
+        "m3-derivative-definition-ready-1-v1",
+        "m3-derivative-definition-ready-2-v1",
+        "m3-derivative-definition-guided-1-v1",
+        "m3-derivative-definition-guided-2-v1",
+        "m3-derivative-definition-practice-1-v1",
+        "m3-derivative-definition-practice-2-v1",
+        "m3-derivative-definition-practice-3-v1",
+        "m3-derivative-definition-practice-4-v1",
+        "m3-derivative-definition-practice-5-v1",
+        "m3-derivative-definition-practice-6-v1",
+        "m3-derivative-definition-review-1-v1",
+        "m3-derivative-definition-review-2-v1",
+        "m3-derivative-definition-review-reciprocal-v1",
+        "m3-derivative-definition-review-radical-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-derivative-definition-guided-1-v1",
+        "m3-derivative-definition-guided-2-v1",
+        "m3-derivative-definition-practice-1-v1",
+        "m3-derivative-definition-review-1-v1",
+        "m3-derivative-definition-review-2-v1",
+        "m3-derivative-definition-review-reciprocal-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-differentiability",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-differentiability-ready-1-v1",
+        "m3-differentiability-ready-2-v1",
+        "m3-differentiability-guided-1-v1",
+        "m3-differentiability-guided-2-v1",
+        "m3-differentiability-practice-1-v1",
+        "m3-differentiability-practice-2-v1",
+        "m3-differentiability-practice-3-v1",
+        "m3-differentiability-practice-4-v1",
+        "m3-differentiability-practice-5-v1",
+        "m3-differentiability-practice-6-v1",
+        "m3-differentiability-review-1-v1",
+        "m3-differentiability-review-2-v1",
+        "m3-differentiability-review-endpoint-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-differentiability-practice-2-v1",
+        "m3-differentiability-practice-6-v1",
+        "m3-differentiability-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-power-derivatives",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-power-derivatives-ready-1-v1",
+        "m3-power-derivatives-ready-2-v1",
+        "m3-power-derivatives-guided-1-v1",
+        "m3-power-derivatives-guided-2-v1",
+        "m3-power-derivatives-practice-1-v1",
+        "m3-power-derivatives-practice-2-v1",
+        "m3-power-derivatives-practice-3-v1",
+        "m3-power-derivatives-practice-4-v1",
+        "m3-power-derivatives-practice-5-v1",
+        "m3-power-derivatives-practice-6-v1",
+        "m3-power-derivatives-practice-7-v1",
+        "m3-power-derivatives-practice-8-v1",
+        "m3-power-derivatives-practice-9-v1",
+        "m3-power-derivatives-practice-10-v1",
+        "m3-power-derivatives-review-1-v1",
+        "m3-power-derivatives-review-2-v1",
+        "m3-power-derivatives-review-3-v1",
+        "m3-power-derivatives-review-4-v1"
+      ],
+      "changedExerciseIds": [],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-trigonometric-derivatives",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-trigonometric-derivatives-ready-1-v1",
+        "m3-trigonometric-derivatives-ready-2-v1",
+        "m3-trigonometric-derivatives-guided-1-v1",
+        "m3-trigonometric-derivatives-guided-2-v1",
+        "m3-trigonometric-derivatives-practice-1-v1",
+        "m3-trigonometric-derivatives-practice-2-v1",
+        "m3-trigonometric-derivatives-practice-3-v1",
+        "m3-trigonometric-derivatives-practice-4-v1",
+        "m3-trigonometric-derivatives-practice-5-v1",
+        "m3-trigonometric-derivatives-practice-6-v1",
+        "m3-trigonometric-derivatives-practice-7-v1",
+        "m3-trigonometric-derivatives-practice-8-v1",
+        "m3-trigonometric-derivatives-practice-9-v1",
+        "m3-trigonometric-derivatives-practice-10-v1",
+        "m3-trigonometric-derivatives-review-1-v1",
+        "m3-trigonometric-derivatives-review-2-v1",
+        "m3-trigonometric-derivatives-review-3-v1",
+        "m3-trigonometric-derivatives-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-trigonometric-derivatives-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-exponential-log-derivatives",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-exponential-log-derivatives-ready-1-v1",
+        "m3-exponential-log-derivatives-ready-2-v1",
+        "m3-exponential-log-derivatives-guided-1-v1",
+        "m3-exponential-log-derivatives-guided-2-v1",
+        "m3-exponential-log-derivatives-practice-1-v1",
+        "m3-exponential-log-derivatives-practice-2-v1",
+        "m3-exponential-log-derivatives-practice-3-v1",
+        "m3-exponential-log-derivatives-practice-4-v1",
+        "m3-exponential-log-derivatives-practice-5-v1",
+        "m3-exponential-log-derivatives-practice-6-v1",
+        "m3-exponential-log-derivatives-practice-7-v1",
+        "m3-exponential-log-derivatives-practice-8-v1",
+        "m3-exponential-log-derivatives-practice-9-v1",
+        "m3-exponential-log-derivatives-practice-10-v1",
+        "m3-exponential-log-derivatives-review-1-v1",
+        "m3-exponential-log-derivatives-review-2-v1",
+        "m3-exponential-log-derivatives-review-3-v1",
+        "m3-exponential-log-derivatives-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-exponential-log-derivatives-guided-2-v1",
+        "m3-exponential-log-derivatives-practice-8-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-product-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-product-derivative-ready-1-v1",
+        "m3-product-derivative-ready-2-v1",
+        "m3-product-derivative-guided-1-v1",
+        "m3-product-derivative-guided-2-v1",
+        "m3-product-derivative-practice-1-v1",
+        "m3-product-derivative-practice-2-v1",
+        "m3-product-derivative-practice-3-v1",
+        "m3-product-derivative-practice-4-v1",
+        "m3-product-derivative-practice-5-v1",
+        "m3-product-derivative-practice-6-v1",
+        "m3-product-derivative-practice-7-v1",
+        "m3-product-derivative-practice-8-v1",
+        "m3-product-derivative-practice-9-v1",
+        "m3-product-derivative-practice-10-v1",
+        "m3-product-derivative-review-1-v1",
+        "m3-product-derivative-review-2-v1",
+        "m3-product-derivative-review-3-v1",
+        "m3-product-derivative-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-product-derivative-ready-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-quotient-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-quotient-derivative-ready-1-v1",
+        "m3-quotient-derivative-ready-2-v1",
+        "m3-quotient-derivative-guided-1-v1",
+        "m3-quotient-derivative-guided-2-v1",
+        "m3-quotient-derivative-practice-1-v1",
+        "m3-quotient-derivative-practice-2-v1",
+        "m3-quotient-derivative-practice-3-v1",
+        "m3-quotient-derivative-practice-4-v1",
+        "m3-quotient-derivative-practice-5-v1",
+        "m3-quotient-derivative-practice-6-v1",
+        "m3-quotient-derivative-practice-7-v1",
+        "m3-quotient-derivative-practice-8-v1",
+        "m3-quotient-derivative-practice-9-v1",
+        "m3-quotient-derivative-practice-10-v1",
+        "m3-quotient-derivative-review-1-v1",
+        "m3-quotient-derivative-review-2-v1",
+        "m3-quotient-derivative-review-3-v1",
+        "m3-quotient-derivative-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-quotient-derivative-ready-1-v1",
+        "m3-quotient-derivative-guided-1-v1",
+        "m3-quotient-derivative-practice-3-v1",
+        "m3-quotient-derivative-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-chain-rule",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-chain-rule-ready-1-v1",
+        "m3-chain-rule-ready-2-v1",
+        "m3-chain-rule-guided-1-v1",
+        "m3-chain-rule-guided-2-v1",
+        "m3-chain-rule-practice-1-v1",
+        "m3-chain-rule-practice-2-v1",
+        "m3-chain-rule-practice-3-v1",
+        "m3-chain-rule-practice-4-v1",
+        "m3-chain-rule-practice-5-v1",
+        "m3-chain-rule-practice-6-v1",
+        "m3-chain-rule-practice-7-v1",
+        "m3-chain-rule-practice-8-v1",
+        "m3-chain-rule-practice-9-v1",
+        "m3-chain-rule-practice-10-v1",
+        "m3-chain-rule-review-1-v1",
+        "m3-chain-rule-review-2-v1",
+        "m3-chain-rule-review-3-v1",
+        "m3-chain-rule-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-chain-rule-guided-1-v1",
+        "m3-chain-rule-guided-2-v1",
+        "m3-chain-rule-practice-6-v1",
+        "m3-chain-rule-review-3-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-chain-rule-functions",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-chain-rule-functions-ready-1-v1",
+        "m3-chain-rule-functions-ready-2-v1",
+        "m3-chain-rule-functions-guided-1-v1",
+        "m3-chain-rule-functions-guided-2-v1",
+        "m3-chain-rule-functions-practice-1-v1",
+        "m3-chain-rule-functions-practice-2-v1",
+        "m3-chain-rule-functions-practice-3-v1",
+        "m3-chain-rule-functions-practice-4-v1",
+        "m3-chain-rule-functions-practice-5-v1",
+        "m3-chain-rule-functions-practice-6-v1",
+        "m3-chain-rule-functions-practice-7-v1",
+        "m3-chain-rule-functions-practice-8-v1",
+        "m3-chain-rule-functions-practice-9-v1",
+        "m3-chain-rule-functions-practice-10-v1",
+        "m3-chain-rule-functions-review-1-v1",
+        "m3-chain-rule-functions-review-2-v1",
+        "m3-chain-rule-functions-review-3-v1",
+        "m3-chain-rule-functions-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-chain-rule-functions-ready-2-v1",
+        "m3-chain-rule-functions-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-simplify-before-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-simplify-before-derivative-ready-1-v1",
+        "m3-simplify-before-derivative-ready-2-v1",
+        "m3-simplify-before-derivative-guided-1-v1",
+        "m3-simplify-before-derivative-guided-2-v1",
+        "m3-simplify-before-derivative-practice-1-v1",
+        "m3-simplify-before-derivative-practice-2-v1",
+        "m3-simplify-before-derivative-practice-3-v1",
+        "m3-simplify-before-derivative-practice-4-v1",
+        "m3-simplify-before-derivative-practice-5-v1",
+        "m3-simplify-before-derivative-practice-6-v1",
+        "m3-simplify-before-derivative-review-1-v1",
+        "m3-simplify-before-derivative-review-2-v1"
+      ],
+      "changedExerciseIds": [],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-logarithmic-differentiation",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-logarithmic-differentiation-ready-1-v1",
+        "m3-logarithmic-differentiation-ready-2-v1",
+        "m3-logarithmic-differentiation-guided-1-v1",
+        "m3-logarithmic-differentiation-guided-2-v1",
+        "m3-logarithmic-differentiation-practice-1-v1",
+        "m3-logarithmic-differentiation-practice-2-v1",
+        "m3-logarithmic-differentiation-practice-3-v1",
+        "m3-logarithmic-differentiation-practice-4-v1",
+        "m3-logarithmic-differentiation-practice-5-v1",
+        "m3-logarithmic-differentiation-practice-6-v1",
+        "m3-logarithmic-differentiation-review-1-v1",
+        "m3-logarithmic-differentiation-review-2-v1"
+      ],
+      "changedExerciseIds": [],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-implicit-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-implicit-derivative-ready-1-v1",
+        "m3-implicit-derivative-ready-2-v1",
+        "m3-implicit-derivative-guided-1-v1",
+        "m3-implicit-derivative-guided-2-v1",
+        "m3-implicit-derivative-practice-1-v1",
+        "m3-implicit-derivative-practice-2-v1",
+        "m3-implicit-derivative-practice-3-v1",
+        "m3-implicit-derivative-practice-4-v1",
+        "m3-implicit-derivative-practice-5-v1",
+        "m3-implicit-derivative-practice-6-v1",
+        "m3-implicit-derivative-review-1-v1",
+        "m3-implicit-derivative-review-2-v1",
+        "m3-implicit-derivative-review-zero-denominator-v1"
+      ],
+      "changedExerciseIds": [],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-inverse-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-inverse-derivative-ready-1-v1",
+        "m3-inverse-derivative-ready-2-v1",
+        "m3-inverse-derivative-guided-1-v1",
+        "m3-inverse-derivative-guided-2-v1",
+        "m3-inverse-derivative-practice-1-v1",
+        "m3-inverse-derivative-practice-2-v1",
+        "m3-inverse-derivative-practice-3-v1",
+        "m3-inverse-derivative-practice-4-v1",
+        "m3-inverse-derivative-practice-5-v1",
+        "m3-inverse-derivative-practice-6-v1",
+        "m3-inverse-derivative-review-1-v1",
+        "m3-inverse-derivative-review-2-v1",
+        "m3-inverse-derivative-review-one-to-one-v1",
+        "m3-inverse-derivative-review-zero-slope-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-inverse-derivative-practice-6-v1",
+        "m3-inverse-derivative-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-parametric-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-parametric-derivative-ready-1-v1",
+        "m3-parametric-derivative-ready-2-v1",
+        "m3-parametric-derivative-guided-1-v1",
+        "m3-parametric-derivative-guided-2-v1",
+        "m3-parametric-derivative-practice-1-v1",
+        "m3-parametric-derivative-practice-2-v1",
+        "m3-parametric-derivative-practice-3-v1",
+        "m3-parametric-derivative-practice-4-v1",
+        "m3-parametric-derivative-practice-5-v1",
+        "m3-parametric-derivative-practice-6-v1",
+        "m3-parametric-derivative-review-1-v1",
+        "m3-parametric-derivative-review-2-v1",
+        "m3-parametric-derivative-review-zero-horizontal-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-parametric-derivative-practice-1-v1",
+        "m3-parametric-derivative-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-second-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-second-derivative-ready-1-v1",
+        "m3-second-derivative-ready-2-v1",
+        "m3-second-derivative-guided-1-v1",
+        "m3-second-derivative-guided-2-v1",
+        "m3-second-derivative-practice-1-v1",
+        "m3-second-derivative-practice-2-v1",
+        "m3-second-derivative-practice-3-v1",
+        "m3-second-derivative-practice-4-v1",
+        "m3-second-derivative-practice-5-v1",
+        "m3-second-derivative-practice-6-v1",
+        "m3-second-derivative-review-1-v1",
+        "m3-second-derivative-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-second-derivative-guided-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-choose-derivative",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-choose-derivative-ready-1-v1",
+        "m3-choose-derivative-ready-2-v1",
+        "m3-choose-derivative-guided-1-v1",
+        "m3-choose-derivative-guided-2-v1",
+        "m3-choose-derivative-practice-1-v1",
+        "m3-choose-derivative-practice-2-v1",
+        "m3-choose-derivative-practice-3-v1",
+        "m3-choose-derivative-practice-4-v1",
+        "m3-choose-derivative-practice-5-v1",
+        "m3-choose-derivative-practice-6-v1",
+        "m3-choose-derivative-practice-7-v1",
+        "m3-choose-derivative-practice-8-v1",
+        "m3-choose-derivative-practice-9-v1",
+        "m3-choose-derivative-practice-10-v1",
+        "m3-choose-derivative-review-1-v1",
+        "m3-choose-derivative-review-2-v1",
+        "m3-choose-derivative-review-3-v1",
+        "m3-choose-derivative-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-choose-derivative-guided-2-v1",
+        "m3-choose-derivative-practice-9-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-derivatives-check",
+      "chapter": "微分法",
+      "examplesRead": 2,
+      "supplementsRead": 23,
+      "exerciseIdsRead": [
+        "m3-derivatives-check-practice-m3-derivative-meaning-v1",
+        "m3-derivatives-check-review-m3-derivative-meaning-v1",
+        "m3-derivatives-check-practice-m3-derivative-definition-v1",
+        "m3-derivatives-check-review-m3-derivative-definition-v1",
+        "m3-derivatives-check-practice-m3-differentiability-v1",
+        "m3-derivatives-check-review-m3-differentiability-v1",
+        "m3-derivatives-check-practice-m3-power-derivatives-v1",
+        "m3-derivatives-check-review-m3-power-derivatives-v1",
+        "m3-derivatives-check-practice-m3-trigonometric-derivatives-v1",
+        "m3-derivatives-check-review-m3-trigonometric-derivatives-v1",
+        "m3-derivatives-check-practice-m3-exponential-log-derivatives-v1",
+        "m3-derivatives-check-review-m3-exponential-log-derivatives-v1",
+        "m3-derivatives-check-practice-m3-product-derivative-v1",
+        "m3-derivatives-check-review-m3-product-derivative-v1",
+        "m3-derivatives-check-practice-m3-quotient-derivative-v1",
+        "m3-derivatives-check-review-m3-quotient-derivative-v1",
+        "m3-derivatives-check-practice-m3-chain-rule-v1",
+        "m3-derivatives-check-review-m3-chain-rule-v1",
+        "m3-derivatives-check-practice-m3-chain-rule-functions-v1",
+        "m3-derivatives-check-review-m3-chain-rule-functions-v1",
+        "m3-derivatives-check-practice-m3-simplify-before-derivative-v1",
+        "m3-derivatives-check-review-m3-simplify-before-derivative-v1",
+        "m3-derivatives-check-practice-m3-logarithmic-differentiation-v1",
+        "m3-derivatives-check-review-m3-logarithmic-differentiation-v1",
+        "m3-derivatives-check-practice-m3-implicit-derivative-v1",
+        "m3-derivatives-check-review-m3-implicit-derivative-v1",
+        "m3-derivatives-check-practice-m3-inverse-derivative-v1",
+        "m3-derivatives-check-review-m3-inverse-derivative-v1",
+        "m3-derivatives-check-practice-m3-parametric-derivative-v1",
+        "m3-derivatives-check-review-m3-parametric-derivative-v1",
+        "m3-derivatives-check-practice-m3-second-derivative-v1",
+        "m3-derivatives-check-review-m3-second-derivative-v1",
+        "m3-derivatives-check-practice-m3-choose-derivative-v1",
+        "m3-derivatives-check-review-m3-choose-derivative-v1",
+        "m3-derivatives-check-ready-value-v1",
+        "m3-derivatives-check-ready-structure-v1",
+        "m3-derivatives-check-guided-1-v1",
+        "m3-derivatives-check-guided-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-derivatives-check-practice-m3-derivative-meaning-v1",
+        "m3-derivatives-check-review-m3-derivative-meaning-v1",
+        "m3-derivatives-check-practice-m3-derivative-definition-v1",
+        "m3-derivatives-check-review-m3-derivative-definition-v1",
+        "m3-derivatives-check-practice-m3-chain-rule-functions-v1",
+        "m3-derivatives-check-review-m3-inverse-derivative-v1",
+        "m3-derivatives-check-practice-m3-parametric-derivative-v1",
+        "m3-derivatives-check-review-m3-parametric-derivative-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-limits-derivatives.json"
+      ]
+    },
+    {
+      "slug": "m3-tangent-at-point",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-tangent-at-point-ready-1-v1",
+        "m3-tangent-at-point-ready-2-v1",
+        "m3-tangent-at-point-guided-1-v1",
+        "m3-tangent-at-point-guided-2-v1",
+        "m3-tangent-at-point-practice-1-v1",
+        "m3-tangent-at-point-practice-2-v1",
+        "m3-tangent-at-point-practice-3-v1",
+        "m3-tangent-at-point-practice-4-v1",
+        "m3-tangent-at-point-practice-5-v1",
+        "m3-tangent-at-point-practice-6-v1",
+        "m3-tangent-at-point-review-1-v1",
+        "m3-tangent-at-point-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-tangent-at-point-ready-1-v1",
+        "m3-tangent-at-point-ready-2-v1",
+        "m3-tangent-at-point-practice-1-v1",
+        "m3-tangent-at-point-practice-2-v1",
+        "m3-tangent-at-point-practice-3-v1",
+        "m3-tangent-at-point-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-normal-line",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-normal-line-ready-1-v1",
+        "m3-normal-line-ready-2-v1",
+        "m3-normal-line-guided-1-v1",
+        "m3-normal-line-guided-2-v1",
+        "m3-normal-line-practice-1-v1",
+        "m3-normal-line-practice-2-v1",
+        "m3-normal-line-practice-3-v1",
+        "m3-normal-line-practice-4-v1",
+        "m3-normal-line-practice-5-v1",
+        "m3-normal-line-practice-6-v1",
+        "m3-normal-line-review-1-v1",
+        "m3-normal-line-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-normal-line-ready-1-v1",
+        "m3-normal-line-practice-1-v1",
+        "m3-normal-line-practice-2-v1",
+        "m3-normal-line-practice-3-v1",
+        "m3-normal-line-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-unknown-contact",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-unknown-contact-ready-1-v1",
+        "m3-unknown-contact-ready-2-v1",
+        "m3-unknown-contact-guided-1-v1",
+        "m3-unknown-contact-guided-2-v1",
+        "m3-unknown-contact-practice-1-v1",
+        "m3-unknown-contact-practice-2-v1",
+        "m3-unknown-contact-practice-3-v1",
+        "m3-unknown-contact-practice-4-v1",
+        "m3-unknown-contact-practice-5-v1",
+        "m3-unknown-contact-practice-6-v1",
+        "m3-unknown-contact-review-1-v1",
+        "m3-unknown-contact-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-unknown-contact-ready-2-v1",
+        "m3-unknown-contact-guided-1-v1",
+        "m3-unknown-contact-practice-1-v1",
+        "m3-unknown-contact-practice-4-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-linear-approximation",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-linear-approximation-ready-1-v1",
+        "m3-linear-approximation-ready-2-v1",
+        "m3-linear-approximation-guided-1-v1",
+        "m3-linear-approximation-guided-2-v1",
+        "m3-linear-approximation-practice-1-v1",
+        "m3-linear-approximation-practice-2-v1",
+        "m3-linear-approximation-practice-3-v1",
+        "m3-linear-approximation-practice-4-v1",
+        "m3-linear-approximation-practice-5-v1",
+        "m3-linear-approximation-practice-6-v1",
+        "m3-linear-approximation-review-1-v1",
+        "m3-linear-approximation-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-linear-approximation-ready-1-v1",
+        "m3-linear-approximation-guided-1-v1",
+        "m3-linear-approximation-guided-2-v1",
+        "m3-linear-approximation-practice-3-v1",
+        "m3-linear-approximation-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-mean-value-theorem",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-mean-value-theorem-ready-1-v1",
+        "m3-mean-value-theorem-ready-2-v1",
+        "m3-mean-value-theorem-guided-1-v1",
+        "m3-mean-value-theorem-guided-2-v1",
+        "m3-mean-value-theorem-practice-1-v1",
+        "m3-mean-value-theorem-practice-2-v1",
+        "m3-mean-value-theorem-practice-3-v1",
+        "m3-mean-value-theorem-practice-4-v1",
+        "m3-mean-value-theorem-practice-5-v1",
+        "m3-mean-value-theorem-practice-6-v1",
+        "m3-mean-value-theorem-review-1-v1",
+        "m3-mean-value-theorem-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-mean-value-theorem-guided-2-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-monotonicity-extrema",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-monotonicity-extrema-ready-1-v1",
+        "m3-monotonicity-extrema-ready-2-v1",
+        "m3-monotonicity-extrema-guided-1-v1",
+        "m3-monotonicity-extrema-guided-2-v1",
+        "m3-monotonicity-extrema-practice-1-v1",
+        "m3-monotonicity-extrema-practice-2-v1",
+        "m3-monotonicity-extrema-practice-3-v1",
+        "m3-monotonicity-extrema-practice-4-v1",
+        "m3-monotonicity-extrema-practice-5-v1",
+        "m3-monotonicity-extrema-practice-6-v1",
+        "m3-monotonicity-extrema-review-1-v1",
+        "m3-monotonicity-extrema-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-monotonicity-extrema-practice-1-v1",
+        "m3-monotonicity-extrema-practice-2-v1",
+        "m3-monotonicity-extrema-practice-5-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-global-extrema",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 3,
+      "exerciseIdsRead": [
+        "m3-global-extrema-ready-1-v1",
+        "m3-global-extrema-ready-2-v1",
+        "m3-global-extrema-guided-1-v1",
+        "m3-global-extrema-guided-2-v1",
+        "m3-global-extrema-practice-1-v1",
+        "m3-global-extrema-practice-2-v1",
+        "m3-global-extrema-practice-3-v1",
+        "m3-global-extrema-practice-4-v1",
+        "m3-global-extrema-practice-5-v1",
+        "m3-global-extrema-practice-6-v1",
+        "m3-global-extrema-review-1-v1",
+        "m3-global-extrema-review-2-v1"
+      ],
+      "changedExerciseIds": [],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-concavity-inflection",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-concavity-inflection-ready-1-v1",
+        "m3-concavity-inflection-ready-2-v1",
+        "m3-concavity-inflection-guided-1-v1",
+        "m3-concavity-inflection-guided-2-v1",
+        "m3-concavity-inflection-practice-1-v1",
+        "m3-concavity-inflection-practice-2-v1",
+        "m3-concavity-inflection-practice-3-v1",
+        "m3-concavity-inflection-practice-4-v1",
+        "m3-concavity-inflection-practice-5-v1",
+        "m3-concavity-inflection-practice-6-v1",
+        "m3-concavity-inflection-review-1-v1",
+        "m3-concavity-inflection-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-concavity-inflection-practice-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-curve-sketch",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 3,
+      "exerciseIdsRead": [
+        "m3-curve-sketch-ready-1-v1",
+        "m3-curve-sketch-ready-2-v1",
+        "m3-curve-sketch-guided-1-v1",
+        "m3-curve-sketch-guided-2-v1",
+        "m3-curve-sketch-practice-1-v1",
+        "m3-curve-sketch-practice-2-v1",
+        "m3-curve-sketch-practice-3-v1",
+        "m3-curve-sketch-practice-4-v1",
+        "m3-curve-sketch-practice-5-v1",
+        "m3-curve-sketch-practice-6-v1",
+        "m3-curve-sketch-review-1-v1",
+        "m3-curve-sketch-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-curve-sketch-guided-2-v1",
+        "m3-curve-sketch-practice-2-v1",
+        "m3-curve-sketch-practice-4-v1",
+        "m3-curve-sketch-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-roots-existence-count",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 3,
+      "exerciseIdsRead": [
+        "m3-roots-existence-count-ready-1-v1",
+        "m3-roots-existence-count-ready-2-v1",
+        "m3-roots-existence-count-guided-1-v1",
+        "m3-roots-existence-count-guided-2-v1",
+        "m3-roots-existence-count-practice-1-v1",
+        "m3-roots-existence-count-practice-2-v1",
+        "m3-roots-existence-count-practice-3-v1",
+        "m3-roots-existence-count-practice-4-v1",
+        "m3-roots-existence-count-practice-5-v1",
+        "m3-roots-existence-count-practice-6-v1",
+        "m3-roots-existence-count-review-1-v1",
+        "m3-roots-existence-count-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-roots-existence-count-guided-1-v1",
+        "m3-roots-existence-count-practice-1-v1",
+        "m3-roots-existence-count-practice-2-v1",
+        "m3-roots-existence-count-practice-3-v1",
+        "m3-roots-existence-count-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-derivative-inequalities",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-derivative-inequalities-ready-1-v1",
+        "m3-derivative-inequalities-ready-2-v1",
+        "m3-derivative-inequalities-guided-1-v1",
+        "m3-derivative-inequalities-guided-2-v1",
+        "m3-derivative-inequalities-practice-1-v1",
+        "m3-derivative-inequalities-practice-2-v1",
+        "m3-derivative-inequalities-practice-3-v1",
+        "m3-derivative-inequalities-practice-4-v1",
+        "m3-derivative-inequalities-practice-5-v1",
+        "m3-derivative-inequalities-practice-6-v1",
+        "m3-derivative-inequalities-review-1-v1",
+        "m3-derivative-inequalities-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-derivative-inequalities-ready-2-v1",
+        "m3-derivative-inequalities-practice-4-v1",
+        "m3-derivative-inequalities-review-1-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-velocity-acceleration",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 3,
+      "exerciseIdsRead": [
+        "m3-velocity-acceleration-ready-1-v1",
+        "m3-velocity-acceleration-ready-2-v1",
+        "m3-velocity-acceleration-guided-1-v1",
+        "m3-velocity-acceleration-guided-2-v1",
+        "m3-velocity-acceleration-practice-1-v1",
+        "m3-velocity-acceleration-practice-2-v1",
+        "m3-velocity-acceleration-practice-3-v1",
+        "m3-velocity-acceleration-practice-4-v1",
+        "m3-velocity-acceleration-practice-5-v1",
+        "m3-velocity-acceleration-practice-6-v1",
+        "m3-velocity-acceleration-review-1-v1",
+        "m3-velocity-acceleration-review-2-v1",
+        "m3-velocity-acceleration-practice-speed-v1",
+        "m3-velocity-acceleration-review-speed-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-velocity-acceleration-guided-2-v1",
+        "m3-velocity-acceleration-practice-1-v1",
+        "m3-velocity-acceleration-practice-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-optimization-model",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 4,
+      "exerciseIdsRead": [
+        "m3-optimization-model-ready-1-v1",
+        "m3-optimization-model-ready-2-v1",
+        "m3-optimization-model-guided-1-v1",
+        "m3-optimization-model-guided-2-v1",
+        "m3-optimization-model-practice-1-v1",
+        "m3-optimization-model-practice-2-v1",
+        "m3-optimization-model-practice-3-v1",
+        "m3-optimization-model-practice-4-v1",
+        "m3-optimization-model-practice-5-v1",
+        "m3-optimization-model-practice-6-v1",
+        "m3-optimization-model-review-1-v1",
+        "m3-optimization-model-review-2-v1",
+        "m3-optimization-model-review-minimum-v1",
+        "m3-optimization-model-review-endpoint-v1",
+        "m3-optimization-model-practice-parallel-side-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-optimization-model-ready-2-v1",
+        "m3-optimization-model-guided-1-v1",
+        "m3-optimization-model-practice-3-v1",
+        "m3-optimization-model-practice-4-v1",
+        "m3-optimization-model-practice-6-v1",
+        "m3-optimization-model-review-2-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-applications-check",
+      "chapter": "微分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 31,
+      "exerciseIdsRead": [
+        "m3-applications-check-ready-1-v1",
+        "m3-applications-check-ready-2-v1",
+        "m3-applications-check-guided-1-v1",
+        "m3-applications-check-guided-2-v1",
+        "m3-applications-check-practice-1-v1",
+        "m3-applications-check-review-1-v1",
+        "m3-applications-check-practice-2-v1",
+        "m3-applications-check-review-2-v1",
+        "m3-applications-check-practice-3-v1",
+        "m3-applications-check-review-3-v1",
+        "m3-applications-check-practice-4-v1",
+        "m3-applications-check-review-4-v1",
+        "m3-applications-check-practice-5-v1",
+        "m3-applications-check-review-5-v1",
+        "m3-applications-check-practice-6-v1",
+        "m3-applications-check-review-6-v1",
+        "m3-applications-check-practice-7-v1",
+        "m3-applications-check-review-7-v1",
+        "m3-applications-check-practice-8-v1",
+        "m3-applications-check-review-8-v1",
+        "m3-applications-check-practice-9-v1",
+        "m3-applications-check-review-9-v1",
+        "m3-applications-check-practice-10-v1",
+        "m3-applications-check-review-10-v1",
+        "m3-applications-check-practice-11-v1",
+        "m3-applications-check-review-11-v1",
+        "m3-applications-check-practice-12-v1",
+        "m3-applications-check-review-12-v1",
+        "m3-applications-check-practice-13-v1",
+        "m3-applications-check-review-13-v1",
+        "m3-applications-check-review-closed-v1",
+        "m3-applications-check-review-unique-v1",
+        "m3-applications-check-practice-closed-v1",
+        "m3-applications-check-practice-unique-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-applications-check-ready-1-v1",
+        "m3-applications-check-guided-2-v1",
+        "m3-applications-check-practice-1-v1",
+        "m3-applications-check-review-1-v1",
+        "m3-applications-check-practice-11-v1",
+        "m3-applications-check-review-unique-v1",
+        "m3-applications-check-practice-unique-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-derivative-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-antiderivative-constant",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-antiderivative-constant-ready-1-v1",
+        "m3-antiderivative-constant-ready-2-v1",
+        "m3-antiderivative-constant-guided-1-v1",
+        "m3-antiderivative-constant-guided-2-v1",
+        "m3-antiderivative-constant-practice-1-v1",
+        "m3-antiderivative-constant-practice-2-v1",
+        "m3-antiderivative-constant-practice-3-v1",
+        "m3-antiderivative-constant-practice-4-v1",
+        "m3-antiderivative-constant-practice-5-v1",
+        "m3-antiderivative-constant-practice-6-v1",
+        "m3-antiderivative-constant-review-1-v1",
+        "m3-antiderivative-constant-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-antiderivative-constant-ready-2-v1",
+        "m3-antiderivative-constant-guided-1-v1",
+        "m3-antiderivative-constant-practice-1-v1",
+        "m3-antiderivative-constant-practice-6-v1",
+        "m3-antiderivative-constant-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-power-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-power-integrals-ready-1-v1",
+        "m3-power-integrals-ready-2-v1",
+        "m3-power-integrals-guided-1-v1",
+        "m3-power-integrals-guided-2-v1",
+        "m3-power-integrals-practice-1-v1",
+        "m3-power-integrals-practice-2-v1",
+        "m3-power-integrals-practice-3-v1",
+        "m3-power-integrals-practice-4-v1",
+        "m3-power-integrals-practice-5-v1",
+        "m3-power-integrals-practice-6-v1",
+        "m3-power-integrals-review-1-v1",
+        "m3-power-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-trig-basic-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-trig-basic-integrals-ready-1-v1",
+        "m3-trig-basic-integrals-ready-2-v1",
+        "m3-trig-basic-integrals-guided-1-v1",
+        "m3-trig-basic-integrals-guided-2-v1",
+        "m3-trig-basic-integrals-practice-1-v1",
+        "m3-trig-basic-integrals-practice-2-v1",
+        "m3-trig-basic-integrals-practice-3-v1",
+        "m3-trig-basic-integrals-practice-4-v1",
+        "m3-trig-basic-integrals-practice-5-v1",
+        "m3-trig-basic-integrals-practice-6-v1",
+        "m3-trig-basic-integrals-review-1-v1",
+        "m3-trig-basic-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-trig-basic-integrals-ready-1-v1",
+        "m3-trig-basic-integrals-guided-1-v1",
+        "m3-trig-basic-integrals-practice-1-v1",
+        "m3-trig-basic-integrals-practice-2-v1",
+        "m3-trig-basic-integrals-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-exponential-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-exponential-integrals-ready-1-v1",
+        "m3-exponential-integrals-ready-2-v1",
+        "m3-exponential-integrals-guided-1-v1",
+        "m3-exponential-integrals-guided-2-v1",
+        "m3-exponential-integrals-practice-1-v1",
+        "m3-exponential-integrals-practice-2-v1",
+        "m3-exponential-integrals-practice-3-v1",
+        "m3-exponential-integrals-practice-4-v1",
+        "m3-exponential-integrals-practice-5-v1",
+        "m3-exponential-integrals-practice-6-v1",
+        "m3-exponential-integrals-review-1-v1",
+        "m3-exponential-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-exponential-integrals-ready-2-v1",
+        "m3-exponential-integrals-guided-2-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-linear-inner-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-linear-inner-integrals-ready-1-v1",
+        "m3-linear-inner-integrals-ready-2-v1",
+        "m3-linear-inner-integrals-guided-1-v1",
+        "m3-linear-inner-integrals-guided-2-v1",
+        "m3-linear-inner-integrals-practice-1-v1",
+        "m3-linear-inner-integrals-practice-2-v1",
+        "m3-linear-inner-integrals-practice-3-v1",
+        "m3-linear-inner-integrals-practice-4-v1",
+        "m3-linear-inner-integrals-practice-5-v1",
+        "m3-linear-inner-integrals-practice-6-v1",
+        "m3-linear-inner-integrals-review-1-v1",
+        "m3-linear-inner-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-linear-inner-integrals-ready-2-v1",
+        "m3-linear-inner-integrals-practice-4-v1",
+        "m3-linear-inner-integrals-practice-5-v1",
+        "m3-linear-inner-integrals-review-2-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-reverse-chain-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-reverse-chain-integrals-ready-1-v1",
+        "m3-reverse-chain-integrals-ready-2-v1",
+        "m3-reverse-chain-integrals-guided-1-v1",
+        "m3-reverse-chain-integrals-guided-2-v1",
+        "m3-reverse-chain-integrals-practice-1-v1",
+        "m3-reverse-chain-integrals-practice-2-v1",
+        "m3-reverse-chain-integrals-practice-3-v1",
+        "m3-reverse-chain-integrals-practice-4-v1",
+        "m3-reverse-chain-integrals-practice-5-v1",
+        "m3-reverse-chain-integrals-practice-6-v1",
+        "m3-reverse-chain-integrals-review-1-v1",
+        "m3-reverse-chain-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-reverse-chain-integrals-ready-1-v1",
+        "m3-reverse-chain-integrals-guided-1-v1",
+        "m3-reverse-chain-integrals-practice-1-v1",
+        "m3-reverse-chain-integrals-practice-2-v1",
+        "m3-reverse-chain-integrals-practice-3-v1",
+        "m3-reverse-chain-integrals-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-log-derivative-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-log-derivative-integrals-ready-1-v1",
+        "m3-log-derivative-integrals-ready-2-v1",
+        "m3-log-derivative-integrals-guided-1-v1",
+        "m3-log-derivative-integrals-guided-2-v1",
+        "m3-log-derivative-integrals-practice-1-v1",
+        "m3-log-derivative-integrals-practice-2-v1",
+        "m3-log-derivative-integrals-practice-3-v1",
+        "m3-log-derivative-integrals-practice-4-v1",
+        "m3-log-derivative-integrals-practice-5-v1",
+        "m3-log-derivative-integrals-practice-6-v1",
+        "m3-log-derivative-integrals-review-1-v1",
+        "m3-log-derivative-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-log-derivative-integrals-practice-1-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-algebra-before-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-algebra-before-integrals-ready-1-v1",
+        "m3-algebra-before-integrals-ready-2-v1",
+        "m3-algebra-before-integrals-guided-1-v1",
+        "m3-algebra-before-integrals-guided-2-v1",
+        "m3-algebra-before-integrals-practice-1-v1",
+        "m3-algebra-before-integrals-practice-2-v1",
+        "m3-algebra-before-integrals-practice-3-v1",
+        "m3-algebra-before-integrals-practice-4-v1",
+        "m3-algebra-before-integrals-practice-5-v1",
+        "m3-algebra-before-integrals-practice-6-v1",
+        "m3-algebra-before-integrals-review-1-v1",
+        "m3-algebra-before-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-algebra-before-integrals-guided-1-v1",
+        "m3-algebra-before-integrals-practice-3-v1",
+        "m3-algebra-before-integrals-practice-5-v1",
+        "m3-algebra-before-integrals-review-1-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-partial-fractions",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-partial-fractions-ready-1-v1",
+        "m3-partial-fractions-ready-2-v1",
+        "m3-partial-fractions-guided-1-v1",
+        "m3-partial-fractions-guided-2-v1",
+        "m3-partial-fractions-practice-1-v1",
+        "m3-partial-fractions-practice-2-v1",
+        "m3-partial-fractions-practice-3-v1",
+        "m3-partial-fractions-practice-4-v1",
+        "m3-partial-fractions-practice-5-v1",
+        "m3-partial-fractions-practice-6-v1",
+        "m3-partial-fractions-review-1-v1",
+        "m3-partial-fractions-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-partial-fractions-practice-3-v1",
+        "m3-partial-fractions-practice-4-v1",
+        "m3-partial-fractions-practice-5-v1",
+        "m3-partial-fractions-review-2-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-trig-transform-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-trig-transform-integrals-ready-1-v1",
+        "m3-trig-transform-integrals-ready-2-v1",
+        "m3-trig-transform-integrals-guided-1-v1",
+        "m3-trig-transform-integrals-guided-2-v1",
+        "m3-trig-transform-integrals-practice-1-v1",
+        "m3-trig-transform-integrals-practice-2-v1",
+        "m3-trig-transform-integrals-practice-3-v1",
+        "m3-trig-transform-integrals-practice-4-v1",
+        "m3-trig-transform-integrals-practice-5-v1",
+        "m3-trig-transform-integrals-practice-6-v1",
+        "m3-trig-transform-integrals-review-1-v1",
+        "m3-trig-transform-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-trig-transform-integrals-guided-1-v1",
+        "m3-trig-transform-integrals-practice-2-v1",
+        "m3-trig-transform-integrals-practice-6-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-substitution-integrals",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-substitution-integrals-ready-1-v1",
+        "m3-substitution-integrals-ready-2-v1",
+        "m3-substitution-integrals-guided-1-v1",
+        "m3-substitution-integrals-guided-2-v1",
+        "m3-substitution-integrals-practice-1-v1",
+        "m3-substitution-integrals-practice-2-v1",
+        "m3-substitution-integrals-practice-3-v1",
+        "m3-substitution-integrals-practice-4-v1",
+        "m3-substitution-integrals-practice-5-v1",
+        "m3-substitution-integrals-practice-6-v1",
+        "m3-substitution-integrals-review-1-v1",
+        "m3-substitution-integrals-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-substitution-integrals-practice-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-radical-substitution",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-radical-substitution-ready-1-v1",
+        "m3-radical-substitution-ready-2-v1",
+        "m3-radical-substitution-guided-1-v1",
+        "m3-radical-substitution-guided-2-v1",
+        "m3-radical-substitution-practice-1-v1",
+        "m3-radical-substitution-practice-2-v1",
+        "m3-radical-substitution-practice-3-v1",
+        "m3-radical-substitution-practice-4-v1",
+        "m3-radical-substitution-practice-5-v1",
+        "m3-radical-substitution-practice-6-v1",
+        "m3-radical-substitution-review-1-v1",
+        "m3-radical-substitution-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-radical-substitution-ready-1-v1",
+        "m3-radical-substitution-practice-2-v1",
+        "m3-radical-substitution-practice-6-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-trig-substitution",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-trig-substitution-ready-1-v1",
+        "m3-trig-substitution-ready-2-v1",
+        "m3-trig-substitution-guided-1-v1",
+        "m3-trig-substitution-guided-2-v1",
+        "m3-trig-substitution-practice-1-v1",
+        "m3-trig-substitution-practice-2-v1",
+        "m3-trig-substitution-practice-3-v1",
+        "m3-trig-substitution-practice-4-v1",
+        "m3-trig-substitution-practice-5-v1",
+        "m3-trig-substitution-practice-6-v1",
+        "m3-trig-substitution-review-1-v1",
+        "m3-trig-substitution-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-trig-substitution-guided-1-v1",
+        "m3-trig-substitution-practice-6-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-parts-introduction",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 1,
+      "exerciseIdsRead": [
+        "m3-parts-introduction-ready-1-v1",
+        "m3-parts-introduction-ready-2-v1",
+        "m3-parts-introduction-guided-1-v1",
+        "m3-parts-introduction-guided-2-v1",
+        "m3-parts-introduction-practice-1-v1",
+        "m3-parts-introduction-practice-2-v1",
+        "m3-parts-introduction-practice-3-v1",
+        "m3-parts-introduction-practice-4-v1",
+        "m3-parts-introduction-practice-5-v1",
+        "m3-parts-introduction-practice-6-v1",
+        "m3-parts-introduction-review-1-v1",
+        "m3-parts-introduction-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-parts-introduction-ready-1-v1",
+        "m3-parts-introduction-ready-2-v1",
+        "m3-parts-introduction-guided-1-v1",
+        "m3-parts-introduction-guided-2-v1",
+        "m3-parts-introduction-practice-1-v1",
+        "m3-parts-introduction-practice-2-v1",
+        "m3-parts-introduction-practice-3-v1",
+        "m3-parts-introduction-practice-4-v1",
+        "m3-parts-introduction-practice-5-v1",
+        "m3-parts-introduction-practice-6-v1",
+        "m3-parts-introduction-review-1-v1",
+        "m3-parts-introduction-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-parts-log-trig",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-parts-log-trig-ready-1-v1",
+        "m3-parts-log-trig-ready-2-v1",
+        "m3-parts-log-trig-guided-1-v1",
+        "m3-parts-log-trig-guided-2-v1",
+        "m3-parts-log-trig-practice-1-v1",
+        "m3-parts-log-trig-practice-2-v1",
+        "m3-parts-log-trig-practice-3-v1",
+        "m3-parts-log-trig-practice-4-v1",
+        "m3-parts-log-trig-practice-5-v1",
+        "m3-parts-log-trig-practice-6-v1",
+        "m3-parts-log-trig-review-1-v1",
+        "m3-parts-log-trig-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-parts-log-trig-ready-1-v1",
+        "m3-parts-log-trig-ready-2-v1",
+        "m3-parts-log-trig-guided-1-v1",
+        "m3-parts-log-trig-guided-2-v1",
+        "m3-parts-log-trig-practice-1-v1",
+        "m3-parts-log-trig-practice-2-v1",
+        "m3-parts-log-trig-practice-4-v1",
+        "m3-parts-log-trig-practice-5-v1",
+        "m3-parts-log-trig-review-1-v1",
+        "m3-parts-log-trig-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-choose-integral",
+      "chapter": "不定積分",
+      "examplesRead": 3,
+      "supplementsRead": 4,
+      "exerciseIdsRead": [
+        "m3-choose-integral-ready-1-v1",
+        "m3-choose-integral-ready-2-v1",
+        "m3-choose-integral-guided-1-v1",
+        "m3-choose-integral-guided-2-v1",
+        "m3-choose-integral-guided-3-v1",
+        "m3-choose-integral-practice-1-v1",
+        "m3-choose-integral-practice-2-v1",
+        "m3-choose-integral-practice-3-v1",
+        "m3-choose-integral-practice-4-v1",
+        "m3-choose-integral-practice-5-v1",
+        "m3-choose-integral-practice-6-v1",
+        "m3-choose-integral-practice-7-v1",
+        "m3-choose-integral-practice-8-v1",
+        "m3-choose-integral-review-1-v1",
+        "m3-choose-integral-review-2-v1",
+        "m3-choose-integral-review-3-v1",
+        "m3-choose-integral-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-choose-integral-ready-1-v1",
+        "m3-choose-integral-ready-2-v1",
+        "m3-choose-integral-guided-1-v1",
+        "m3-choose-integral-guided-2-v1",
+        "m3-choose-integral-guided-3-v1",
+        "m3-choose-integral-practice-1-v1",
+        "m3-choose-integral-practice-2-v1",
+        "m3-choose-integral-practice-3-v1",
+        "m3-choose-integral-practice-4-v1",
+        "m3-choose-integral-practice-5-v1",
+        "m3-choose-integral-practice-6-v1",
+        "m3-choose-integral-practice-7-v1",
+        "m3-choose-integral-practice-8-v1",
+        "m3-choose-integral-review-1-v1",
+        "m3-choose-integral-review-2-v1",
+        "m3-choose-integral-review-3-v1",
+        "m3-choose-integral-review-4-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-indefinite-integrals-check",
+      "chapter": "不定積分",
+      "examplesRead": 2,
+      "supplementsRead": 27,
+      "exerciseIdsRead": [
+        "m3-indefinite-integrals-check-ready-1-v1",
+        "m3-indefinite-integrals-check-ready-2-v1",
+        "m3-indefinite-integrals-check-guided-1-v1",
+        "m3-indefinite-integrals-check-guided-2-v1",
+        "m3-indefinite-integrals-check-practice-1-v1",
+        "m3-indefinite-integrals-check-review-1-v1",
+        "m3-indefinite-integrals-check-practice-2-v1",
+        "m3-indefinite-integrals-check-review-2-v1",
+        "m3-indefinite-integrals-check-practice-3-v1",
+        "m3-indefinite-integrals-check-review-3-v1",
+        "m3-indefinite-integrals-check-practice-4-v1",
+        "m3-indefinite-integrals-check-review-4-v1",
+        "m3-indefinite-integrals-check-practice-5-v1",
+        "m3-indefinite-integrals-check-review-5-v1",
+        "m3-indefinite-integrals-check-practice-6-v1",
+        "m3-indefinite-integrals-check-review-6-v1",
+        "m3-indefinite-integrals-check-practice-7-v1",
+        "m3-indefinite-integrals-check-review-7-v1",
+        "m3-indefinite-integrals-check-practice-8-v1",
+        "m3-indefinite-integrals-check-review-8-v1",
+        "m3-indefinite-integrals-check-practice-9-v1",
+        "m3-indefinite-integrals-check-review-9-v1",
+        "m3-indefinite-integrals-check-practice-10-v1",
+        "m3-indefinite-integrals-check-review-10-v1",
+        "m3-indefinite-integrals-check-practice-11-v1",
+        "m3-indefinite-integrals-check-review-11-v1",
+        "m3-indefinite-integrals-check-practice-12-v1",
+        "m3-indefinite-integrals-check-review-12-v1",
+        "m3-indefinite-integrals-check-practice-13-v1",
+        "m3-indefinite-integrals-check-review-13-v1",
+        "m3-indefinite-integrals-check-practice-14-v1",
+        "m3-indefinite-integrals-check-review-14-v1",
+        "m3-indefinite-integrals-check-practice-15-v1",
+        "m3-indefinite-integrals-check-review-15-v1",
+        "m3-indefinite-integrals-check-practice-16-v1",
+        "m3-indefinite-integrals-check-review-16-v1",
+        "m3-indefinite-integrals-check-practice-17-v1",
+        "m3-indefinite-integrals-check-review-17-v1",
+        "m3-indefinite-integrals-check-practice-18-v1",
+        "m3-indefinite-integrals-check-review-18-v1",
+        "m3-indefinite-integrals-check-practice-19-v1",
+        "m3-indefinite-integrals-check-review-19-v1",
+        "m3-indefinite-integrals-check-practice-20-v1",
+        "m3-indefinite-integrals-check-review-20-v1",
+        "m3-indefinite-integrals-check-practice-21-v1",
+        "m3-indefinite-integrals-check-review-21-v1",
+        "m3-indefinite-integrals-check-practice-22-v1",
+        "m3-indefinite-integrals-check-review-22-v1",
+        "m3-indefinite-integrals-check-practice-23-v1",
+        "m3-indefinite-integrals-check-review-23-v1",
+        "m3-indefinite-integrals-check-practice-24-v1",
+        "m3-indefinite-integrals-check-review-24-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-indefinite-integrals-check-guided-2-v1",
+        "m3-indefinite-integrals-check-review-1-v1",
+        "m3-indefinite-integrals-check-review-6-v1",
+        "m3-indefinite-integrals-check-practice-9-v1",
+        "m3-indefinite-integrals-check-review-9-v1",
+        "m3-indefinite-integrals-check-practice-13-v1",
+        "m3-indefinite-integrals-check-review-13-v1",
+        "m3-indefinite-integrals-check-practice-14-v1",
+        "m3-indefinite-integrals-check-review-14-v1",
+        "m3-indefinite-integrals-check-practice-21-v1",
+        "m3-indefinite-integrals-check-review-21-v1",
+        "m3-indefinite-integrals-check-practice-22-v1",
+        "m3-indefinite-integrals-check-review-22-v1",
+        "m3-indefinite-integrals-check-practice-23-v1",
+        "m3-indefinite-integrals-check-review-23-v1",
+        "m3-indefinite-integrals-check-practice-24-v1",
+        "m3-indefinite-integrals-check-review-24-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-indefinite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-definite-meaning",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-definite-meaning-ready-1-v1",
+        "m3-definite-meaning-ready-2-v1",
+        "m3-definite-meaning-guided-1-v1",
+        "m3-definite-meaning-guided-2-v1",
+        "m3-definite-meaning-practice-1-v1",
+        "m3-definite-meaning-practice-2-v1",
+        "m3-definite-meaning-practice-3-v1",
+        "m3-definite-meaning-practice-4-v1",
+        "m3-definite-meaning-practice-5-v1",
+        "m3-definite-meaning-practice-6-v1",
+        "m3-definite-meaning-review-1-v1",
+        "m3-definite-meaning-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-definite-meaning-guided-1-v1",
+        "m3-definite-meaning-guided-2-v1",
+        "m3-definite-meaning-practice-1-v1",
+        "m3-definite-meaning-practice-4-v1",
+        "m3-definite-meaning-practice-5-v1",
+        "m3-definite-meaning-review-1-v1",
+        "m3-definite-meaning-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-endpoint-evaluation",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-endpoint-evaluation-ready-1-v1",
+        "m3-endpoint-evaluation-ready-2-v1",
+        "m3-endpoint-evaluation-guided-1-v1",
+        "m3-endpoint-evaluation-guided-2-v1",
+        "m3-endpoint-evaluation-practice-1-v1",
+        "m3-endpoint-evaluation-practice-2-v1",
+        "m3-endpoint-evaluation-practice-3-v1",
+        "m3-endpoint-evaluation-practice-4-v1",
+        "m3-endpoint-evaluation-practice-5-v1",
+        "m3-endpoint-evaluation-practice-6-v1",
+        "m3-endpoint-evaluation-review-1-v1",
+        "m3-endpoint-evaluation-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-endpoint-evaluation-practice-1-v1",
+        "m3-endpoint-evaluation-practice-3-v1",
+        "m3-endpoint-evaluation-practice-4-v1",
+        "m3-endpoint-evaluation-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-integral-properties",
+      "chapter": "定積分",
+      "examplesRead": 3,
+      "supplementsRead": 4,
+      "exerciseIdsRead": [
+        "m3-integral-properties-ready-1-v1",
+        "m3-integral-properties-ready-2-v1",
+        "m3-integral-properties-guided-1-v1",
+        "m3-integral-properties-guided-2-v1",
+        "m3-integral-properties-guided-3-v1",
+        "m3-integral-properties-practice-1-v1",
+        "m3-integral-properties-practice-2-v1",
+        "m3-integral-properties-practice-3-v1",
+        "m3-integral-properties-practice-4-v1",
+        "m3-integral-properties-practice-5-v1",
+        "m3-integral-properties-practice-6-v1",
+        "m3-integral-properties-review-1-v1",
+        "m3-integral-properties-review-2-v1",
+        "m3-integral-properties-review-3-v1",
+        "m3-integral-properties-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-integral-properties-guided-1-v1",
+        "m3-integral-properties-guided-2-v1",
+        "m3-integral-properties-practice-4-v1",
+        "m3-integral-properties-practice-5-v1",
+        "m3-integral-properties-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-dummy-variable",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-dummy-variable-ready-1-v1",
+        "m3-dummy-variable-ready-2-v1",
+        "m3-dummy-variable-guided-1-v1",
+        "m3-dummy-variable-guided-2-v1",
+        "m3-dummy-variable-practice-1-v1",
+        "m3-dummy-variable-practice-2-v1",
+        "m3-dummy-variable-practice-3-v1",
+        "m3-dummy-variable-practice-4-v1",
+        "m3-dummy-variable-practice-5-v1",
+        "m3-dummy-variable-practice-6-v1",
+        "m3-dummy-variable-review-1-v1",
+        "m3-dummy-variable-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-dummy-variable-guided-1-v1",
+        "m3-dummy-variable-guided-2-v1",
+        "m3-dummy-variable-practice-1-v1",
+        "m3-dummy-variable-practice-4-v1",
+        "m3-dummy-variable-practice-6-v1",
+        "m3-dummy-variable-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-definite-substitution",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-definite-substitution-ready-1-v1",
+        "m3-definite-substitution-ready-2-v1",
+        "m3-definite-substitution-guided-1-v1",
+        "m3-definite-substitution-guided-2-v1",
+        "m3-definite-substitution-practice-1-v1",
+        "m3-definite-substitution-practice-2-v1",
+        "m3-definite-substitution-practice-3-v1",
+        "m3-definite-substitution-practice-4-v1",
+        "m3-definite-substitution-practice-5-v1",
+        "m3-definite-substitution-practice-6-v1",
+        "m3-definite-substitution-review-1-v1",
+        "m3-definite-substitution-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-definite-substitution-guided-1-v1",
+        "m3-definite-substitution-practice-1-v1",
+        "m3-definite-substitution-practice-2-v1",
+        "m3-definite-substitution-practice-6-v1",
+        "m3-definite-substitution-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-definite-parts",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-definite-parts-ready-1-v1",
+        "m3-definite-parts-ready-2-v1",
+        "m3-definite-parts-guided-1-v1",
+        "m3-definite-parts-guided-2-v1",
+        "m3-definite-parts-practice-1-v1",
+        "m3-definite-parts-practice-2-v1",
+        "m3-definite-parts-practice-3-v1",
+        "m3-definite-parts-practice-4-v1",
+        "m3-definite-parts-practice-5-v1",
+        "m3-definite-parts-practice-6-v1",
+        "m3-definite-parts-review-1-v1",
+        "m3-definite-parts-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-definite-parts-ready-1-v1",
+        "m3-definite-parts-guided-1-v1",
+        "m3-definite-parts-guided-2-v1",
+        "m3-definite-parts-practice-1-v1",
+        "m3-definite-parts-practice-2-v1",
+        "m3-definite-parts-practice-3-v1",
+        "m3-definite-parts-practice-4-v1",
+        "m3-definite-parts-practice-5-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-integral-symmetry",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-integral-symmetry-ready-1-v1",
+        "m3-integral-symmetry-ready-2-v1",
+        "m3-integral-symmetry-guided-1-v1",
+        "m3-integral-symmetry-guided-2-v1",
+        "m3-integral-symmetry-practice-1-v1",
+        "m3-integral-symmetry-practice-2-v1",
+        "m3-integral-symmetry-practice-3-v1",
+        "m3-integral-symmetry-practice-4-v1",
+        "m3-integral-symmetry-practice-5-v1",
+        "m3-integral-symmetry-practice-6-v1",
+        "m3-integral-symmetry-review-1-v1",
+        "m3-integral-symmetry-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-integral-symmetry-guided-1-v1",
+        "m3-integral-symmetry-practice-1-v1",
+        "m3-integral-symmetry-practice-3-v1",
+        "m3-integral-symmetry-practice-5-v1",
+        "m3-integral-symmetry-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-integral-function",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-integral-function-ready-1-v1",
+        "m3-integral-function-ready-2-v1",
+        "m3-integral-function-guided-1-v1",
+        "m3-integral-function-guided-2-v1",
+        "m3-integral-function-practice-1-v1",
+        "m3-integral-function-practice-2-v1",
+        "m3-integral-function-practice-3-v1",
+        "m3-integral-function-practice-4-v1",
+        "m3-integral-function-practice-5-v1",
+        "m3-integral-function-practice-6-v1",
+        "m3-integral-function-review-1-v1",
+        "m3-integral-function-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-integral-function-ready-2-v1",
+        "m3-integral-function-guided-1-v1",
+        "m3-integral-function-practice-2-v1",
+        "m3-integral-function-practice-3-v1",
+        "m3-integral-function-practice-4-v1",
+        "m3-integral-function-practice-5-v1",
+        "m3-integral-function-practice-6-v1",
+        "m3-integral-function-review-1-v1",
+        "m3-integral-function-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-moving-endpoints",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-moving-endpoints-ready-1-v1",
+        "m3-moving-endpoints-ready-2-v1",
+        "m3-moving-endpoints-guided-1-v1",
+        "m3-moving-endpoints-guided-2-v1",
+        "m3-moving-endpoints-practice-1-v1",
+        "m3-moving-endpoints-practice-2-v1",
+        "m3-moving-endpoints-practice-3-v1",
+        "m3-moving-endpoints-practice-4-v1",
+        "m3-moving-endpoints-practice-5-v1",
+        "m3-moving-endpoints-practice-6-v1",
+        "m3-moving-endpoints-review-1-v1",
+        "m3-moving-endpoints-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-moving-endpoints-ready-1-v1",
+        "m3-moving-endpoints-ready-2-v1",
+        "m3-moving-endpoints-guided-1-v1",
+        "m3-moving-endpoints-guided-2-v1",
+        "m3-moving-endpoints-practice-1-v1",
+        "m3-moving-endpoints-practice-2-v1",
+        "m3-moving-endpoints-practice-3-v1",
+        "m3-moving-endpoints-practice-6-v1",
+        "m3-moving-endpoints-review-1-v1",
+        "m3-moving-endpoints-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-riemann-sums",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-riemann-sums-ready-1-v1",
+        "m3-riemann-sums-ready-2-v1",
+        "m3-riemann-sums-guided-1-v1",
+        "m3-riemann-sums-guided-2-v1",
+        "m3-riemann-sums-practice-1-v1",
+        "m3-riemann-sums-practice-2-v1",
+        "m3-riemann-sums-practice-3-v1",
+        "m3-riemann-sums-practice-4-v1",
+        "m3-riemann-sums-practice-5-v1",
+        "m3-riemann-sums-practice-6-v1",
+        "m3-riemann-sums-review-1-v1",
+        "m3-riemann-sums-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-riemann-sums-ready-2-v1",
+        "m3-riemann-sums-guided-1-v1",
+        "m3-riemann-sums-guided-2-v1",
+        "m3-riemann-sums-practice-1-v1",
+        "m3-riemann-sums-practice-3-v1",
+        "m3-riemann-sums-practice-4-v1",
+        "m3-riemann-sums-practice-5-v1",
+        "m3-riemann-sums-practice-6-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-integral-bounds",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 4,
+      "exerciseIdsRead": [
+        "m3-integral-bounds-ready-1-v1",
+        "m3-integral-bounds-ready-2-v1",
+        "m3-integral-bounds-guided-1-v1",
+        "m3-integral-bounds-guided-2-v1",
+        "m3-integral-bounds-practice-1-v1",
+        "m3-integral-bounds-practice-2-v1",
+        "m3-integral-bounds-practice-3-v1",
+        "m3-integral-bounds-practice-4-v1",
+        "m3-integral-bounds-practice-5-v1",
+        "m3-integral-bounds-practice-6-v1",
+        "m3-integral-bounds-review-1-v1",
+        "m3-integral-bounds-review-2-v1",
+        "m3-integral-bounds-review-3-v1",
+        "m3-integral-bounds-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-integral-bounds-practice-1-v1",
+        "m3-integral-bounds-review-4-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-definite-integrals-check",
+      "chapter": "定積分",
+      "examplesRead": 2,
+      "supplementsRead": 26,
+      "exerciseIdsRead": [
+        "m3-definite-integrals-check-ready-1-v1",
+        "m3-definite-integrals-check-ready-2-v1",
+        "m3-definite-integrals-check-guided-1-v1",
+        "m3-definite-integrals-check-guided-2-v1",
+        "m3-definite-integrals-check-practice-1-v1",
+        "m3-definite-integrals-check-practice-2-v1",
+        "m3-definite-integrals-check-practice-3-v1",
+        "m3-definite-integrals-check-practice-4-v1",
+        "m3-definite-integrals-check-practice-5-v1",
+        "m3-definite-integrals-check-practice-6-v1",
+        "m3-definite-integrals-check-practice-7-v1",
+        "m3-definite-integrals-check-practice-8-v1",
+        "m3-definite-integrals-check-practice-9-v1",
+        "m3-definite-integrals-check-practice-10-v1",
+        "m3-definite-integrals-check-practice-11-v1",
+        "m3-definite-integrals-check-practice-12-v1",
+        "m3-definite-integrals-check-practice-13-v1",
+        "m3-definite-integrals-check-practice-14-v1",
+        "m3-definite-integrals-check-practice-15-v1",
+        "m3-definite-integrals-check-practice-16-v1",
+        "m3-definite-integrals-check-practice-17-v1",
+        "m3-definite-integrals-check-practice-18-v1",
+        "m3-definite-integrals-check-practice-19-v1",
+        "m3-definite-integrals-check-practice-20-v1",
+        "m3-definite-integrals-check-practice-21-v1",
+        "m3-definite-integrals-check-practice-22-v1",
+        "m3-definite-integrals-check-practice-23-v1",
+        "m3-definite-integrals-check-practice-24-v1",
+        "m3-definite-integrals-check-practice-25-v1",
+        "m3-definite-integrals-check-practice-26-v1",
+        "m3-definite-integrals-check-review-1-v1",
+        "m3-definite-integrals-check-review-2-v1",
+        "m3-definite-integrals-check-review-3-v1",
+        "m3-definite-integrals-check-review-4-v1",
+        "m3-definite-integrals-check-review-5-v1",
+        "m3-definite-integrals-check-review-6-v1",
+        "m3-definite-integrals-check-review-7-v1",
+        "m3-definite-integrals-check-review-8-v1",
+        "m3-definite-integrals-check-review-9-v1",
+        "m3-definite-integrals-check-review-10-v1",
+        "m3-definite-integrals-check-review-11-v1",
+        "m3-definite-integrals-check-review-12-v1",
+        "m3-definite-integrals-check-review-13-v1",
+        "m3-definite-integrals-check-review-14-v1",
+        "m3-definite-integrals-check-review-15-v1",
+        "m3-definite-integrals-check-review-16-v1",
+        "m3-definite-integrals-check-review-17-v1",
+        "m3-definite-integrals-check-review-18-v1",
+        "m3-definite-integrals-check-review-19-v1",
+        "m3-definite-integrals-check-review-20-v1",
+        "m3-definite-integrals-check-review-21-v1",
+        "m3-definite-integrals-check-review-22-v1",
+        "m3-definite-integrals-check-review-23-v1",
+        "m3-definite-integrals-check-review-24-v1",
+        "m3-definite-integrals-check-review-25-v1",
+        "m3-definite-integrals-check-review-26-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-definite-integrals-check-guided-1-v1",
+        "m3-definite-integrals-check-guided-2-v1",
+        "m3-definite-integrals-check-practice-1-v1",
+        "m3-definite-integrals-check-practice-2-v1",
+        "m3-definite-integrals-check-practice-3-v1",
+        "m3-definite-integrals-check-practice-4-v1",
+        "m3-definite-integrals-check-practice-7-v1",
+        "m3-definite-integrals-check-practice-9-v1",
+        "m3-definite-integrals-check-practice-10-v1",
+        "m3-definite-integrals-check-practice-11-v1",
+        "m3-definite-integrals-check-practice-12-v1",
+        "m3-definite-integrals-check-practice-14-v1",
+        "m3-definite-integrals-check-practice-17-v1",
+        "m3-definite-integrals-check-practice-18-v1",
+        "m3-definite-integrals-check-practice-20-v1",
+        "m3-definite-integrals-check-practice-21-v1",
+        "m3-definite-integrals-check-review-1-v1",
+        "m3-definite-integrals-check-review-2-v1",
+        "m3-definite-integrals-check-review-3-v1",
+        "m3-definite-integrals-check-review-8-v1",
+        "m3-definite-integrals-check-review-10-v1",
+        "m3-definite-integrals-check-review-14-v1",
+        "m3-definite-integrals-check-review-16-v1",
+        "m3-definite-integrals-check-review-17-v1",
+        "m3-definite-integrals-check-review-18-v1",
+        "m3-definite-integrals-check-review-19-v1",
+        "m3-definite-integrals-check-review-25-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-definite-integrals.json"
+      ]
+    },
+    {
+      "slug": "m3-signed-area",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-signed-area-ready-1-v1",
+        "m3-signed-area-ready-2-v1",
+        "m3-signed-area-guided-1-v1",
+        "m3-signed-area-guided-2-v1",
+        "m3-signed-area-practice-1-v1",
+        "m3-signed-area-practice-2-v1",
+        "m3-signed-area-practice-3-v1",
+        "m3-signed-area-practice-4-v1",
+        "m3-signed-area-practice-5-v1",
+        "m3-signed-area-practice-6-v1",
+        "m3-signed-area-review-1-v1",
+        "m3-signed-area-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-signed-area-ready-1-v1",
+        "m3-signed-area-guided-1-v1",
+        "m3-signed-area-guided-2-v1",
+        "m3-signed-area-practice-1-v1",
+        "m3-signed-area-practice-2-v1",
+        "m3-signed-area-practice-3-v1",
+        "m3-signed-area-practice-4-v1",
+        "m3-signed-area-practice-5-v1",
+        "m3-signed-area-practice-6-v1",
+        "m3-signed-area-review-1-v1",
+        "m3-signed-area-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-between-curves",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-between-curves-ready-1-v1",
+        "m3-between-curves-ready-2-v1",
+        "m3-between-curves-guided-1-v1",
+        "m3-between-curves-guided-2-v1",
+        "m3-between-curves-practice-1-v1",
+        "m3-between-curves-practice-2-v1",
+        "m3-between-curves-practice-3-v1",
+        "m3-between-curves-practice-4-v1",
+        "m3-between-curves-practice-5-v1",
+        "m3-between-curves-practice-6-v1",
+        "m3-between-curves-review-1-v1",
+        "m3-between-curves-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-between-curves-ready-1-v1",
+        "m3-between-curves-practice-1-v1",
+        "m3-between-curves-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-area-splitting",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-area-splitting-ready-1-v1",
+        "m3-area-splitting-ready-2-v1",
+        "m3-area-splitting-guided-1-v1",
+        "m3-area-splitting-guided-2-v1",
+        "m3-area-splitting-practice-1-v1",
+        "m3-area-splitting-practice-2-v1",
+        "m3-area-splitting-practice-3-v1",
+        "m3-area-splitting-practice-4-v1",
+        "m3-area-splitting-practice-5-v1",
+        "m3-area-splitting-practice-6-v1",
+        "m3-area-splitting-review-1-v1",
+        "m3-area-splitting-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-area-splitting-practice-2-v1",
+        "m3-area-splitting-practice-3-v1",
+        "m3-area-splitting-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-horizontal-area",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-horizontal-area-ready-1-v1",
+        "m3-horizontal-area-ready-2-v1",
+        "m3-horizontal-area-guided-1-v1",
+        "m3-horizontal-area-guided-2-v1",
+        "m3-horizontal-area-practice-1-v1",
+        "m3-horizontal-area-practice-2-v1",
+        "m3-horizontal-area-practice-3-v1",
+        "m3-horizontal-area-practice-4-v1",
+        "m3-horizontal-area-practice-5-v1",
+        "m3-horizontal-area-practice-6-v1",
+        "m3-horizontal-area-review-1-v1",
+        "m3-horizontal-area-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-horizontal-area-ready-2-v1",
+        "m3-horizontal-area-practice-3-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-cross-section-volume",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-cross-section-volume-ready-1-v1",
+        "m3-cross-section-volume-ready-2-v1",
+        "m3-cross-section-volume-guided-1-v1",
+        "m3-cross-section-volume-guided-2-v1",
+        "m3-cross-section-volume-practice-1-v1",
+        "m3-cross-section-volume-practice-2-v1",
+        "m3-cross-section-volume-practice-3-v1",
+        "m3-cross-section-volume-practice-4-v1",
+        "m3-cross-section-volume-practice-5-v1",
+        "m3-cross-section-volume-practice-6-v1",
+        "m3-cross-section-volume-review-1-v1",
+        "m3-cross-section-volume-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-cross-section-volume-practice-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-disk-volume",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-disk-volume-ready-1-v1",
+        "m3-disk-volume-ready-2-v1",
+        "m3-disk-volume-guided-1-v1",
+        "m3-disk-volume-guided-2-v1",
+        "m3-disk-volume-practice-1-v1",
+        "m3-disk-volume-practice-2-v1",
+        "m3-disk-volume-practice-3-v1",
+        "m3-disk-volume-practice-4-v1",
+        "m3-disk-volume-practice-5-v1",
+        "m3-disk-volume-practice-6-v1",
+        "m3-disk-volume-review-1-v1",
+        "m3-disk-volume-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-disk-volume-ready-1-v1",
+        "m3-disk-volume-practice-1-v1",
+        "m3-disk-volume-practice-3-v1",
+        "m3-disk-volume-practice-4-v1",
+        "m3-disk-volume-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-washer-volume",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 4,
+      "exerciseIdsRead": [
+        "m3-washer-volume-ready-1-v1",
+        "m3-washer-volume-ready-2-v1",
+        "m3-washer-volume-guided-1-v1",
+        "m3-washer-volume-guided-2-v1",
+        "m3-washer-volume-practice-1-v1",
+        "m3-washer-volume-practice-2-v1",
+        "m3-washer-volume-practice-3-v1",
+        "m3-washer-volume-practice-4-v1",
+        "m3-washer-volume-practice-5-v1",
+        "m3-washer-volume-practice-6-v1",
+        "m3-washer-volume-review-1-v1",
+        "m3-washer-volume-review-2-v1",
+        "m3-washer-volume-review-3-v1",
+        "m3-washer-volume-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-washer-volume-ready-1-v1",
+        "m3-washer-volume-practice-5-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-rotation-direction",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 4,
+      "exerciseIdsRead": [
+        "m3-rotation-direction-ready-1-v1",
+        "m3-rotation-direction-ready-2-v1",
+        "m3-rotation-direction-guided-1-v1",
+        "m3-rotation-direction-guided-2-v1",
+        "m3-rotation-direction-practice-1-v1",
+        "m3-rotation-direction-practice-2-v1",
+        "m3-rotation-direction-practice-3-v1",
+        "m3-rotation-direction-practice-4-v1",
+        "m3-rotation-direction-practice-5-v1",
+        "m3-rotation-direction-practice-6-v1",
+        "m3-rotation-direction-review-1-v1",
+        "m3-rotation-direction-review-2-v1",
+        "m3-rotation-direction-review-3-v1",
+        "m3-rotation-direction-review-4-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-rotation-direction-ready-1-v1",
+        "m3-rotation-direction-ready-2-v1",
+        "m3-rotation-direction-practice-1-v1",
+        "m3-rotation-direction-practice-3-v1",
+        "m3-rotation-direction-review-3-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-graph-length",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-graph-length-ready-1-v1",
+        "m3-graph-length-ready-2-v1",
+        "m3-graph-length-guided-1-v1",
+        "m3-graph-length-guided-2-v1",
+        "m3-graph-length-practice-1-v1",
+        "m3-graph-length-practice-2-v1",
+        "m3-graph-length-practice-3-v1",
+        "m3-graph-length-practice-4-v1",
+        "m3-graph-length-practice-5-v1",
+        "m3-graph-length-practice-6-v1",
+        "m3-graph-length-review-1-v1",
+        "m3-graph-length-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-graph-length-ready-1-v1",
+        "m3-graph-length-guided-1-v1",
+        "m3-graph-length-practice-1-v1",
+        "m3-graph-length-practice-3-v1",
+        "m3-graph-length-practice-5-v1",
+        "m3-graph-length-review-1-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-parametric-length",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-parametric-length-ready-1-v1",
+        "m3-parametric-length-ready-2-v1",
+        "m3-parametric-length-guided-1-v1",
+        "m3-parametric-length-guided-2-v1",
+        "m3-parametric-length-practice-1-v1",
+        "m3-parametric-length-practice-2-v1",
+        "m3-parametric-length-practice-3-v1",
+        "m3-parametric-length-practice-4-v1",
+        "m3-parametric-length-practice-5-v1",
+        "m3-parametric-length-practice-6-v1",
+        "m3-parametric-length-review-1-v1",
+        "m3-parametric-length-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-parametric-length-ready-1-v1",
+        "m3-parametric-length-guided-1-v1",
+        "m3-parametric-length-practice-3-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-parametric-area",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-parametric-area-ready-1-v1",
+        "m3-parametric-area-ready-2-v1",
+        "m3-parametric-area-guided-1-v1",
+        "m3-parametric-area-guided-2-v1",
+        "m3-parametric-area-practice-1-v1",
+        "m3-parametric-area-practice-2-v1",
+        "m3-parametric-area-practice-3-v1",
+        "m3-parametric-area-practice-4-v1",
+        "m3-parametric-area-practice-5-v1",
+        "m3-parametric-area-practice-6-v1",
+        "m3-parametric-area-review-1-v1",
+        "m3-parametric-area-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-parametric-area-guided-1-v1",
+        "m3-parametric-area-guided-2-v1",
+        "m3-parametric-area-practice-1-v1",
+        "m3-parametric-area-practice-2-v1",
+        "m3-parametric-area-practice-3-v1",
+        "m3-parametric-area-practice-4-v1",
+        "m3-parametric-area-practice-5-v1",
+        "m3-parametric-area-review-1-v1",
+        "m3-parametric-area-review-2-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-displacement-distance",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 2,
+      "exerciseIdsRead": [
+        "m3-displacement-distance-ready-1-v1",
+        "m3-displacement-distance-ready-2-v1",
+        "m3-displacement-distance-guided-1-v1",
+        "m3-displacement-distance-guided-2-v1",
+        "m3-displacement-distance-practice-1-v1",
+        "m3-displacement-distance-practice-2-v1",
+        "m3-displacement-distance-practice-3-v1",
+        "m3-displacement-distance-practice-4-v1",
+        "m3-displacement-distance-practice-5-v1",
+        "m3-displacement-distance-practice-6-v1",
+        "m3-displacement-distance-review-1-v1",
+        "m3-displacement-distance-review-2-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-displacement-distance-ready-1-v1",
+        "m3-displacement-distance-guided-1-v1",
+        "m3-displacement-distance-guided-2-v1",
+        "m3-displacement-distance-practice-4-v1",
+        "m3-displacement-distance-review-1-v1"
+      ],
+      "lessonContentChanged": false,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    },
+    {
+      "slug": "m3-integral-applications-check",
+      "chapter": "積分の応用",
+      "examplesRead": 2,
+      "supplementsRead": 28,
+      "exerciseIdsRead": [
+        "m3-integral-applications-check-ready-1-v1",
+        "m3-integral-applications-check-ready-2-v1",
+        "m3-integral-applications-check-guided-1-v1",
+        "m3-integral-applications-check-guided-2-v1",
+        "m3-integral-applications-check-practice-1-v1",
+        "m3-integral-applications-check-practice-2-v1",
+        "m3-integral-applications-check-practice-3-v1",
+        "m3-integral-applications-check-practice-4-v1",
+        "m3-integral-applications-check-practice-5-v1",
+        "m3-integral-applications-check-practice-6-v1",
+        "m3-integral-applications-check-practice-7-v1",
+        "m3-integral-applications-check-practice-8-v1",
+        "m3-integral-applications-check-practice-9-v1",
+        "m3-integral-applications-check-practice-10-v1",
+        "m3-integral-applications-check-practice-11-v1",
+        "m3-integral-applications-check-practice-12-v1",
+        "m3-integral-applications-check-practice-13-v1",
+        "m3-integral-applications-check-practice-14-v1",
+        "m3-integral-applications-check-practice-15-v1",
+        "m3-integral-applications-check-practice-16-v1",
+        "m3-integral-applications-check-practice-17-v1",
+        "m3-integral-applications-check-practice-18-v1",
+        "m3-integral-applications-check-practice-19-v1",
+        "m3-integral-applications-check-practice-20-v1",
+        "m3-integral-applications-check-practice-21-v1",
+        "m3-integral-applications-check-practice-22-v1",
+        "m3-integral-applications-check-practice-23-v1",
+        "m3-integral-applications-check-practice-24-v1",
+        "m3-integral-applications-check-practice-25-v1",
+        "m3-integral-applications-check-practice-26-v1",
+        "m3-integral-applications-check-practice-27-v1",
+        "m3-integral-applications-check-practice-28-v1",
+        "m3-integral-applications-check-review-1-v1",
+        "m3-integral-applications-check-review-2-v1",
+        "m3-integral-applications-check-review-3-v1",
+        "m3-integral-applications-check-review-4-v1",
+        "m3-integral-applications-check-review-5-v1",
+        "m3-integral-applications-check-review-6-v1",
+        "m3-integral-applications-check-review-7-v1",
+        "m3-integral-applications-check-review-8-v1",
+        "m3-integral-applications-check-review-9-v1",
+        "m3-integral-applications-check-review-10-v1",
+        "m3-integral-applications-check-review-11-v1",
+        "m3-integral-applications-check-review-12-v1",
+        "m3-integral-applications-check-review-13-v1",
+        "m3-integral-applications-check-review-14-v1",
+        "m3-integral-applications-check-review-15-v1",
+        "m3-integral-applications-check-review-16-v1",
+        "m3-integral-applications-check-review-17-v1",
+        "m3-integral-applications-check-review-18-v1",
+        "m3-integral-applications-check-review-19-v1",
+        "m3-integral-applications-check-review-20-v1",
+        "m3-integral-applications-check-review-21-v1",
+        "m3-integral-applications-check-review-22-v1",
+        "m3-integral-applications-check-review-23-v1",
+        "m3-integral-applications-check-review-24-v1",
+        "m3-integral-applications-check-review-25-v1",
+        "m3-integral-applications-check-review-26-v1",
+        "m3-integral-applications-check-review-27-v1",
+        "m3-integral-applications-check-review-28-v1"
+      ],
+      "changedExerciseIds": [
+        "m3-integral-applications-check-ready-2-v1",
+        "m3-integral-applications-check-practice-1-v1",
+        "m3-integral-applications-check-practice-2-v1",
+        "m3-integral-applications-check-practice-6-v1",
+        "m3-integral-applications-check-practice-11-v1",
+        "m3-integral-applications-check-practice-12-v1",
+        "m3-integral-applications-check-practice-13-v1",
+        "m3-integral-applications-check-practice-17-v1",
+        "m3-integral-applications-check-practice-19-v1",
+        "m3-integral-applications-check-practice-21-v1",
+        "m3-integral-applications-check-practice-28-v1",
+        "m3-integral-applications-check-review-1-v1",
+        "m3-integral-applications-check-review-2-v1",
+        "m3-integral-applications-check-review-3-v1",
+        "m3-integral-applications-check-review-6-v1",
+        "m3-integral-applications-check-review-11-v1",
+        "m3-integral-applications-check-review-17-v1",
+        "m3-integral-applications-check-review-21-v1",
+        "m3-integral-applications-check-review-22-v1",
+        "m3-integral-applications-check-review-23-v1",
+        "m3-integral-applications-check-review-28-v1"
+      ],
+      "lessonContentChanged": true,
+      "authorReports": [
+        "review-integral-applications.json"
+      ]
+    }
+  ],
+  "sourceSha256": {
+    "app/content/math3-chapter1.json": "33bcb11e15a0a9fd1e1ea8994febab250cbd9c79ade6fa3eed2470b58006a67e",
+    "app/content/math3-chapter2.json": "b2bf87c51d18889cbe4cfceb4a970f95dc2fea3a858a8473147b2901d81a3277",
+    "app/content/math3-chapter3.json": "d09195e5ad8da7388f6c9a603a32213db293773935de69309e73cd259fdc9be1",
+    "app/content/math3-chapter4.ts": "4d6f78a8c50cc672ffba2408d527c70edaff58f62eef4a81ae8da3dd8bb37ce0",
+    "app/content/math3-chapter5.ts": "1a3ad30af6591657b4a0199d3c70e070471166e537492549fcacdfae20b87a57",
+    "app/content/math3-chapter5-tables.ts": "f83c579651f6d024b8a268b117573248a2420745d01dd743f3ace56aa68ac083",
+    "app/content/math3-chapter6.ts": "2bf2ff61af3a8606687fd888775481a99ec5c969018ab311a1d1d9c4a63f2fbc",
+    "app/content/math3-chapter7.ts": "fb8e6edfe1eb57b46ca7c3cc6d4adc318f5397c0b86db664babe39d6a11292dc",
+    "app/content/math3-chapter8.ts": "620ae39f71f42e78c8be044caeb5c91879b06d5e57a47ae60a5691ad8db77bd4",
+    "app/content/prerequisite-scenarios.ts": "0d57876feb93bec2db6835f864515ad5cc96b4c9163406857b5fc2c0b822edea",
+    "app/content/math3-formula-correspondence.ts": "f835fe6f19b6f9e3447b4c83a2e5d29db0abdb568be9a2119c9bcfe6025bfc36",
+    "app/content/formula-correspondence.ts": "ab24549f51e7380bfca3ea9222ef4f22a356d38489c23456aad5d8365a5e841e",
+    "app/components/FormulaTransfer.tsx": "f7abdf1c449cd14c3e38f9f513db2f1279b38a660e5c6115ddb4c6a830a28297",
+    "app/learning.css": "7983599f1b04a65eb8146185bfae22ac036b9bca95aa525225e8ef7661a48195"
+  },
+  "verification": {
+    "tests": {
+      "passed": 167,
+      "failed": 0
+    },
+    "types": "passed",
+    "lint": "passed",
+    "normalBuild": "passed",
+    "pagesBuild": "passed",
+    "pagesHTML": 477,
+    "localReferences": 9518,
+    "prerequisites": {
+      "checks": 107,
+      "rules": 530,
+      "errors": 0
+    },
+    "rendering": {
+      "mathErrors": 0,
+      "rawTextIssues": 0,
+      "pageOverflowPages": [],
+      "leakFields": [],
+      "containedFormulaScrollCount": 47,
+      "fontFailures": [],
+      "networkFailures": []
+    },
+    "renderedPages": 212,
+    "displayFields": 16449,
+    "motionStates": 58,
+    "viewports": [
+      1100,
+      390
+    ],
+    "independentReview": "gpt-6-astra: all changed mathematical and pedagogical content, eight correspondence lessons and 53 persistent contexts; final recheck has no required fixes",
+    "limitations": [
+      "All 1600 exercises were reviewed as content; not all interaction sequences were exercised.",
+      "Physical phones, Safari and screen readers were not tested."
+    ]
+  }
+}
