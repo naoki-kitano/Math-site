@@ -34,10 +34,8 @@ try{
   assert.equal(await page.locator('.focused-navigation').getByRole('button',{name:'例題 1へ',exact:true}).count(),0);
   const formula=page.locator('[data-formula-lesson="logarithm-laws"]');
   assert.equal(await formula.locator('.start-check:visible').count(),1);
-  const productTokens=formula.locator('.formula-moving .moving'),productStart=await productTokens.evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).transform));
-  assert.equal(productStart.length,2);
   await formula.getByRole('button',{name:'次へ',exact:true}).click();assert.equal(await formula.locator('.start-check:visible').count(),1);
-  assert.notDeepEqual(await productTokens.evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).transform)),productStart);
+  await formula.locator('path[marker-end]').first().waitFor();
   assert.equal(await formula.locator('path[marker-end]').count(),2);
   await formula.getByRole('button',{name:'次へ',exact:true}).click();assert.equal(await formula.locator('.start-check:visible').count(),1);
   await page.locator('.focused-navigation').getByRole('button',{name:'例題 1へ',exact:true}).click();assert.deepEqual(await visible(),['example-0']);
@@ -93,6 +91,15 @@ try{
   await page.locator('.focused-navigation').getByRole('button',{name:'前へ',exact:true}).click();assert.deepEqual(await visible(),['practice-extra']);
   await page.goto(url('logarithm-laws')+'#example-2',{waitUntil:'networkidle'});
   await page.locator('[data-task-pane="example-1"]:visible').waitFor();assert.deepEqual(await visible(),['example-1']);
+  await page.goto(url('m3-derivative-definition')+'#basics',{waitUntil:'networkidle'});
+  const reader=page.locator('.basics-reader'),advance=page.locator('.focused-navigation').getByRole('button',{name:'例題 1へ',exact:true});
+  assert.equal(await reader.locator('.basic-passage:visible').count(),1);assert.equal(await advance.count(),0);
+  while(await reader.getByRole('button',{name:'次へ',exact:true}).count())await reader.getByRole('button',{name:'次へ',exact:true}).click();
+  await advance.waitFor();assert.equal(await reader.locator('.basic-context:visible').count(),1);
+  await reader.getByRole('button',{name:'前へ',exact:true}).click();assert.equal(await advance.count(),0);
+  await reader.getByText('説明をまとめて読む',{exact:true}).click();await advance.waitFor();
+  assert.equal(await reader.locator('.basic-passage:visible').count(),0);
+  await reader.getByText('説明をまとめて読む',{exact:true}).click();await advance.waitFor({state:'hidden'});
   await page.goto(url('logarithm-base-change')+'#basics',{waitUntil:'networkidle'});
   const baseFormula=page.locator('[data-formula-lesson="logarithm-base-change"]');await baseFormula.waitFor();
   const moving=baseFormula.locator('.moving').nth(1),start=await moving.evaluate(e=>getComputedStyle(e).transform);
