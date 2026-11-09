@@ -21,7 +21,7 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
   check:m`$a>0$、$a\ne1$、$M,N>0$ です。真数の和 $M+N$ を同じように分けることはできません。`,
   steps:[
    {label:"真数を分けて見る",text:m`真数の積を $M$ と $N$ の二つに分けて見ます。`,formulas:[m`\log_a({\color{#176c82}{M}}\,{\color{#936114}{N}})`]},
-   {label:"それぞれの対数",text:m`二つの真数に、それぞれ同じ底の対数が対応します。`,formulas:[m`\log_a({\color{#176c82}{M}}\,{\color{#936114}{N}})=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`]},
+   {label:"それぞれの対数",text:m`真数の積が、同じ底の対数の和に対応します。`,formulas:[m`\log_a({\color{#176c82}{M}}\,{\color{#936114}{N}})=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`]},
    {label:"指数で理由を確かめる",text:m`$M=a^p$、$N=a^q$ なら、積では指数が $p+q$ になります。`,formulas:[m`MN=a^p a^q=a^{p+q}`,m`\log_a(MN)=p+q=\log_a M+\log_a N`]},
   ],
  },

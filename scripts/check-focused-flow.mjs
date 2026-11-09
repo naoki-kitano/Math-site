@@ -33,8 +33,12 @@ try{
   assert.deepEqual(await visible(),['basics']);assert.equal(await page.locator('.formula-progress:visible').count(),0);
   assert.equal(await page.locator('.focused-navigation').getByRole('button',{name:'例題 1へ',exact:true}).count(),0);
   const formula=page.locator('[data-formula-lesson="logarithm-laws"]');
-  assert.equal(await formula.locator('.start-check:visible').count(),0);
+  assert.equal(await formula.locator('.start-check:visible').count(),1);
+  const productTokens=formula.locator('.formula-moving .moving'),productStart=await productTokens.evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).transform));
+  assert.equal(productStart.length,2);
   await formula.getByRole('button',{name:'次へ',exact:true}).click();assert.equal(await formula.locator('.start-check:visible').count(),1);
+  assert.notDeepEqual(await productTokens.evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).transform)),productStart);
+  assert.equal(await formula.locator('path[marker-end]').count(),2);
   await formula.getByRole('button',{name:'次へ',exact:true}).click();assert.equal(await formula.locator('.start-check:visible').count(),1);
   await page.locator('.focused-navigation').getByRole('button',{name:'例題 1へ',exact:true}).click();assert.deepEqual(await visible(),['example-0']);
   const walkthrough=page.locator('#first-example .example-walkthrough');
