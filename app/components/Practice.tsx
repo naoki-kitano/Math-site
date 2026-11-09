@@ -11,18 +11,18 @@ import { useProgress } from "./Progress";
 import { matchesNumber, historyFor, type Outcome } from "../lib/progress";
 
 export type QueueItem={exercise:Exercise;reviewOf?:string};
-export function Practice({items,label,resume=false,onComplete}:{items:QueueItem[];label:string;resume?:boolean;onComplete?:()=>void}) {
+export function Practice({items,label,resume=false,onComplete,onExtra,onStop}:{items:QueueItem[];label:string;resume?:boolean;onComplete?:()=>void;onExtra?:()=>void;onStop?:()=>void}) {
   const {attempts,ready}=useProgress();
   if(!ready)return <p role="status">練習を読み込んでいます。</p>;
   const next=resume?items.findIndex(item=>!historyFor(item.reviewOf??item.exercise.id,attempts).length):0;
-  return <Session items={items} label={label} start={next<0?0:next} onComplete={onComplete}/>;
+  return <Session items={items} label={label} start={next<0?0:next} onComplete={onComplete} onExtra={onExtra} onStop={onStop}/>;
 }
-function Session({items,label,start,onComplete}:{items:QueueItem[];label:string;start:number;onComplete?:()=>void}) {
+function Session({items,label,start,onComplete,onExtra,onStop}:{items:QueueItem[];label:string;start:number;onComplete?:()=>void;onExtra?:()=>void;onStop?:()=>void}) {
   const [index,setIndex]=useState(start);
-  if(index>=items.length)return <div className="complete" role="status"><h3>ここまでの問題が終わりました</h3>{onComplete?<div className="actions"><button className="button" onClick={onComplete}>次へ</button><button className="button secondary" onClick={()=>setIndex(0)}>最初から解く</button></div>:<><p>もう一度確かめたい問題は、復習に残っています。</p><div className="actions"><Link className="button" href="/review">復習へ</Link><button className="button secondary" onClick={()=>setIndex(0)}>最初から解く</button></div></>}</div>;
-  return <Question key={items[index].exercise.id+"-"+index} item={items[index]} label={label} index={index} total={items.length} next={()=>setIndex(index+1)}/>;
+  if(index>=items.length)return <div className="complete" role="status"><h3>ここまでの問題が終わりました</h3>{onComplete?<div className="actions"><button className="button" onClick={onComplete}>次へ</button>{onExtra&&<button className="button secondary" onClick={onExtra}>別の問題を解く</button>}<button className="button secondary" onClick={()=>setIndex(0)}>最初から解く</button></div>:<><p>もう一度確かめたい問題は、復習に残っています。</p><div className="actions"><Link className="button" href="/review">復習へ</Link><button className="button secondary" onClick={()=>setIndex(0)}>最初から解く</button></div></>}</div>;
+  return <Question key={items[index].exercise.id+"-"+index} item={items[index]} label={label} index={index} total={items.length} next={()=>setIndex(index+1)} onStop={onStop}/>;
 }
-function Question({item,label,index,total,next}:{item:QueueItem;label:string;index:number;total:number;next:()=>void}) {
+function Question({item,label,index,total,next,onStop}:{item:QueueItem;label:string;index:number;total:number;next:()=>void;onStop?:()=>void}) {
   const {add}=useProgress(), q=item.exercise;
   const inputId=useId(),invalidId=useId();
   const hints=q.lesson==="rational"&&q.kind==="paper"?[...q.hints,"元の分母をゼロにする値も、忘れずに除きます。"]:q.hints;
@@ -73,7 +73,7 @@ function Question({item,label,index,total,next}:{item:QueueItem;label:string;ind
       {q.kind==="paper"&&paperDone&&!outcome&&feedbackComplete&&<><p>答えだけでなく、途中式・理由・必要な条件も比べてください。</p><div className="ratings"><button className="button" onClick={()=>record(hint||usedHelp?"assisted":"independent")}>{hint||usedHelp?"説明を使って解けた":"自力で解けた"}</button><button className="button secondary" onClick={()=>record("retry")}>もう一度解く</button></div><small>紙で解いた結果は自己評価として記録します。</small></>}
 
     </div>}
-    {outcome&&<div className="actions"><button className="button" onClick={next}>{index+1===total?"結果へ":"次の問題へ"} <span aria-hidden="true">→</span></button></div>}
+    {outcome&&<div className="actions"><button className="button" onClick={next}>{index+1===total?"結果へ":"次の問題へ"} <span aria-hidden="true">→</span></button>{onStop&&<button className="button secondary" onClick={onStop}>ここまでにする</button>}</div>}
     </div>
     {outcome!=="independent"&&<div className="question-help">{!helpOpen?<button className="button secondary" onClick={()=>{preview();setUsedHelp(true);setHelpOpen(true);}}>復習するところを探す</button>:<ReviewGuide exercise={q} reviewOf={item.reviewOf} onClose={()=>setHelpOpen(false)}/>}</div>}
   </article>;

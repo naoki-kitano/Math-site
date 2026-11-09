@@ -69,6 +69,7 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
   const hasPrep=preparationChecks(lesson.slug).length>0;
   const warmup=list("ready");
   const hasWarmup=!["数学B","数学C","中学数学"].includes(subject)&&warmup.length>0;
+  const hasExtra=subject!=="数学II"&&list("review").length>0;
   const tasks:LessonTask[]=[];
   if(hasPrep)tasks.push({id:"prepare",label:"必要な基礎",hash:"ready"});
   if(hasWarmup)tasks.push({id:"warmup",label:"計算・用語のウォームアップ",hash:"warmup"});
@@ -79,18 +80,18 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
   });
   if(!lesson.guidedAfterExamples&&list("guided").length)tasks.push({id:"guided-all",label:"一緒に解く",hash:"guided"});
   if(practiceItems.length)tasks.push({id:"practice",label:"自分で解く",hash:"practice"});
-  if(subject!=="数学II"&&list("review").length)tasks.push({id:"practice-extra",label:"別の問題",hash:"practice-extra"});
   tasks.push({id:"help",label:"復習",hash:"help"});
   const initial=tasks[0].id;
   const [task,setTask]=useState(initial),[visited,setVisited]=useState<Set<string>>(()=>new Set([initial]));
+  const [lastTask,setLastTask]=useState<string|null>(null);
   const chapterLessons=lessons.filter(l=>l.chapter===lesson.chapter),position=chapterLessons.findIndex(l=>l.slug===lesson.slug);
   const previous=chapterLessons[position-1],next=chapterLessons[position+1];
   const visit=(id:string)=>{setVisited(old=>old.has(id)?old:new Set([...old,id]));setTask(id);};
   const go=(id:string)=>{
-    const item=tasks.find(t=>t.id===id)??(id==="return"&&targetQuestion?.lesson===lesson.slug?{id,hash:"return-question"}:id==="target"&&target?{id,hash:"targeted-review"}:undefined);
+    const item=tasks.find(t=>t.id===id)??(id==="practice-extra"&&hasExtra?{id,hash:"practice-extra"}:id==="return"&&targetQuestion?.lesson===lesson.slug?{id,hash:"return-question"}:id==="target"&&target?{id,hash:"targeted-review"}:undefined);
     if(!item)return;
-    window.history.pushState(null,"",`#${item.hash}`);
-    visit(id);window.scrollTo({top:0,behavior:"auto"});
+    window.history.pushState({...window.history.state,mathcanvasFrom:task},"",`#${item.hash}`);
+    setLastTask(task);visit(id);window.scrollTo({top:0,behavior:"auto"});
   };
   useEffect(()=>{
     const sync=()=>{
@@ -99,9 +100,11 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
       if(hash==="ready")id=hasPrep?"prepare":hasWarmup?"warmup":"basics";
       if(hash==="examples")id="example-0";
       if(hash==="guided")id=tasks.find(t=>t.id.startsWith("guided"))?.id;
+      if(hash==="practice-extra"&&hasExtra)id="practice-extra";
       if(hash==="return-question"&&targetQuestion?.lesson===lesson.slug)id="return";
       if(hash==="targeted-review"&&target)id="target";
       if(lesson.supplements.some(s=>s.id===hash))id="help";
+      setLastTask(typeof window.history.state?.mathcanvasFrom==="string"?window.history.state.mathcanvasFrom:null);
       visit(id??initial);
     };
     sync();window.addEventListener("hashchange",sync);window.addEventListener("popstate",sync);
@@ -110,16 +113,15 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[lesson.slug,queryKey]);
   const show=(id:string)=>visited.has(id)||task===id;
-  const index=tasks.findIndex(t=>t.id===task),before=tasks[index-1],after=tasks[index+1];
+  const index=tasks.findIndex(t=>t.id===task),before=task==="help"&&lastTask==="practice-extra"?{id:"practice-extra",label:"別の問題",hash:"practice-extra"}:tasks[index-1],after=tasks[index+1];
   const exampleIndex=task.startsWith("example-")?Number(task.slice("example-".length)):-1;
   const exampleComplete=exampleIndex<0||(exampleCompletion[exampleIndex]??(distinctSteps(lesson.examples[exampleIndex]?.steps??[]).length<=1));
   const afterPrep=hasWarmup?"warmup":"basics";
   const originHref=origin?"/learn/"+origin.lesson+"?exercise="+encodeURIComponent(origin.id)+(originReview?"&reviewOf="+encodeURIComponent(originReview):"")+"#return-question":null;
-  return <main id="main"><section className="hero focused-hero"><div className="breadcrumb"><Link href={subjectPath(subject)}>{subject}</Link> / {lesson.chapter}</div><h1>{lesson.title}</h1><p><MathText text={lesson.description}/></p>
-    <details className="task-menu"><summary>ほかの内容を開く</summary><nav aria-label="学習内容">{tasks.map(t=><a key={t.id} href={`#${t.hash}`} aria-current={task===t.id?"step":undefined} onClick={e=>{e.preventDefault();e.currentTarget.closest("details")?.removeAttribute("open");go(t.id);}}>{t.label}</a>)}{targetQuestion?.lesson===lesson.slug&&<a href="#return-question" onClick={e=>{e.preventDefault();e.currentTarget.closest("details")?.removeAttribute("open");go("return");}}>元の問題</a>}{target&&<a href="#targeted-review" onClick={e=>{e.preventDefault();e.currentTarget.closest("details")?.removeAttribute("open");go("target");}}>必要な復習</a>}</nav></details>
-  </section>
+  return <main id="main"><section className="hero focused-hero"><div className="breadcrumb"><Link href={subjectPath(subject)}>{subject}</Link> / {lesson.chapter}</div><h1>{lesson.title}</h1><p><MathText text={lesson.description}/></p></section>
   <div className="wrap focused-layout"><div className="lesson-body">
     {originHref&&task!=="return"&&<div className="actions"><Link className="button secondary" href={originHref}>元の問題に戻る</Link></div>}
+    {!originHref&&targetQuestion?.lesson===lesson.slug&&task!=="return"&&<div className="actions"><button className="button secondary" onClick={()=>go("return")}>元の問題に戻る</button></div>}
     {show("return")&&<div className="task-pane" data-task-pane="return" hidden={task!=="return"}><ReturnQuestion slug={lesson.slug}/></div>}
     {show("target")&&<div className="task-pane" data-task-pane="target" hidden={task!=="target"}><TargetedReview slug={lesson.slug}/></div>}
     {hasPrep&&show("prepare")&&<section className="block task-pane" id="ready" data-task-pane="prepare" hidden={task!=="prepare"}><Preparation slug={lesson.slug} onComplete={()=>go(afterPrep)}/></section>}
@@ -139,10 +141,11 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
         {lesson.guidedAfterExamples&&pair.length>0&&show(guidedId)&&<section className="block task-pane" id={i===0?"guided":`guided-${i+1}`} data-task-pane={guidedId} hidden={task!==guidedId}><h2>一緒に解く</h2><Practice items={pair} label="一緒に解く" onComplete={afterExample&&tasks[tasks.findIndex(t=>t.id===guidedId)+1]?()=>go(tasks[tasks.findIndex(t=>t.id===guidedId)+1].id):undefined}/></section>}
       </Fragment>;
     })}
-    {!lesson.guidedAfterExamples&&list("guided").length>0&&show("guided-all")&&<section className="block task-pane" id="guided" data-task-pane="guided-all" hidden={task!=="guided-all"}><h2>一緒に解く</h2><Practice items={list("guided")} label="一緒に解く" onComplete={tasks.some(t=>t.id==="practice")?()=>go("practice"):undefined}/></section>}
-    {practiceItems.length>0&&show("practice")&&<section className="block task-pane" id="practice" data-task-pane="practice" hidden={task!=="practice"}><h2>自分で解く</h2>{lesson.practiceGroups&&<details className="supplement"><summary>練習する内容を選ぶ</summary><div className="page-tools" role="group" aria-label="確認する内容">{[{id:"all",title:"すべて"},...lesson.practiceGroups].map(g=><button className={"button "+(practiceGroup===g.id?"":"secondary")} aria-pressed={practiceGroup===g.id} key={g.id} onClick={e=>{setVisitedGroups(old=>new Set([...old,g.id]));setPracticeGroup(g.id);e.currentTarget.closest("details")?.removeAttribute("open");}}>{g.title}</button>)}</div></details>}{[...visitedGroups].map(group=><div key={group} hidden={practiceGroup!==group}><Practice items={practiceForGroup(lesson,group,lessonItems.filter(e=>e.stage==="practice")).map(exercise=>({exercise}))} label="自分で解く" resume/></div>)}</section>}
-    {subject!=="数学II"&&list("review").length>0&&show("practice-extra")&&<section className="block task-pane" id="practice-extra" data-task-pane="practice-extra" hidden={task!=="practice-extra"}><h2>別の問題</h2><Practice items={list("review")} label="追加練習"/></section>}
+    {!lesson.guidedAfterExamples&&list("guided").length>0&&show("guided-all")&&<section className="block task-pane" id="guided" data-task-pane="guided-all" hidden={task!=="guided-all"}><h2>一緒に解く</h2><Practice items={list("guided")} label="一緒に解く" onComplete={()=>go(tasks.some(t=>t.id==="practice")?"practice":"help")}/></section>}
+    {practiceItems.length>0&&show("practice")&&<section className="block task-pane" id="practice" data-task-pane="practice" hidden={task!=="practice"}><h2>自分で解く</h2>{lesson.practiceGroups&&<details className="supplement"><summary>練習する内容を選ぶ</summary><div className="page-tools" role="group" aria-label="確認する内容">{[{id:"all",title:"すべて"},...lesson.practiceGroups].map(g=><button className={"button "+(practiceGroup===g.id?"":"secondary")} aria-pressed={practiceGroup===g.id} key={g.id} onClick={e=>{setVisitedGroups(old=>new Set([...old,g.id]));setPracticeGroup(g.id);e.currentTarget.closest("details")?.removeAttribute("open");}}>{g.title}</button>)}</div></details>}{[...visitedGroups].map(group=><div key={group} hidden={practiceGroup!==group}><Practice items={practiceForGroup(lesson,group,lessonItems.filter(e=>e.stage==="practice")).map(exercise=>({exercise}))} label="自分で解く" resume onComplete={()=>go("help")} onExtra={hasExtra?()=>go("practice-extra"):undefined} onStop={()=>go("help")}/></div>)}</section>}
+    {hasExtra&&show("practice-extra")&&<section className="block task-pane" id="practice-extra" data-task-pane="practice-extra" hidden={task!=="practice-extra"}><h2>別の問題</h2><Practice items={list("review")} label="追加練習" onComplete={()=>go("help")}/></section>}
     {show("help")&&<div className="task-pane" data-task-pane="help" hidden={task!=="help"}><LessonHelp key={lesson.slug+":"+practiceGroup} lesson={lesson} items={practiceItems.map(item=>item.exercise)}/><nav className="actions" aria-label="学習ページの移動">{previous&&<Link className="button secondary" href={"/learn/"+previous.slug}>← {previous.title}</Link>}{next&&<Link className="button" href={"/learn/"+next.slug}>{next.title} →</Link>}</nav><Link className="text-link" href={subjectPath(subject)+"#"+chapters.find(c=>c.name===lesson.chapter)?.id}>{subject}の学習一覧へ戻る</Link></div>}
     {index>=0&&task!=="prepare"&&<nav className="actions focused-navigation" aria-label="前後の内容">{before&&<button className="button secondary" onClick={()=>go(before.id)}>前へ</button>}{after&&task!=="warmup"&&!task.startsWith("guided")&&task!=="practice"&&task!=="practice-extra"&&(task!=="basics"||!hasFormula||formulaComplete)&&exampleComplete&&<button className="button" onClick={()=>go(after.id)}>{after.label}へ</button>}</nav>}
+    {task==="practice-extra"&&<nav className="actions focused-navigation" aria-label="前後の内容"><button className="button secondary" onClick={()=>go("practice")}>前へ</button></nav>}
   </div></div></main>;
 }
