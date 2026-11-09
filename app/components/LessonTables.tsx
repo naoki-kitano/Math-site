@@ -57,6 +57,8 @@ export const lessonTables:Record<string,MathTableData[]>={
   ]}
  ]
 };
-export default function LessonTables({slug}:{slug:string}){
- return <>{(lessonTables[slug]??[]).map(t=><MathTable key={t.caption} {...t}/>)}</>;
+export default function LessonTables({slug,folded=false}:{slug:string;folded?:boolean}){
+ const tables=lessonTables[slug];if(!tables?.length)return null;
+ const content=<>{tables.map(t=><MathTable key={t.caption} {...t}/>)}</>;
+ return folded?<details className="supplement"><summary>表で確かめる</summary>{content}</details>:content;
 }

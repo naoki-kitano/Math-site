@@ -1,6 +1,7 @@
+import type {Transfer} from "../components/FormulaTransfer";
 const m=String.raw;
 
-type FormulaStep={label:string; text:string; formulas:string[]};
+type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer};
 type FormulaLesson={title:string; goal:string; check:string; steps:FormulaStep[]};
 
 // Each displayed line remains a true equation. Color identifies the particular
@@ -71,3 +72,72 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
   ],
  },
 };
+
+// Keep complete expressions visible; the moving copies show correspondence.
+formulaCorrespondence['logarithm-laws'].steps[1].motion={
+ source:m`\log_a({\color{#176c82}{M}}{\color{#936114}{N}})`,target:m`=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`,
+ parts:[{tex:m`\color{#176c82}{M}`,color:'#176c82'},{tex:m`\color{#936114}{N}`,color:'#936114'}]
+};
+formulaCorrespondence['m3-chain-rule'].steps[1].motion={
+ source:m`u={\color{#176c82}{2x+1}}`,target:m`3({\color{#176c82}{2x+1}})^2`,parts:[{tex:m`\color{#176c82}{2x+1}`,color:'#176c82'}]
+};
+formulaCorrespondence['m3-chain-rule'].steps[2].motion={
+ source:m`\dfrac{du}{dx}={\color{#936114}{2}}`,target:m`y'=3(2x+1)^2\cdot{\color{#936114}{2}}`,parts:[{tex:m`\color{#936114}{2}`,color:'#936114'}]
+};
+formulaCorrespondence['m3-substitution-integrals'].steps[1].motion={
+ source:m`x\,dx={\color{#936114}{\dfrac12\,dt}}`,target:m`\int\sqrt t\,{\color{#936114}{\dfrac12\,dt}}`,parts:[{tex:m`\color{#936114}{\dfrac12\,dt}`,color:'#936114'}]
+};
+formulaCorrespondence['m3-substitution-integrals'].steps[2].motion={
+ source:m`t={\color{#176c82}{x^2+1}}`,target:m`\dfrac13({\color{#176c82}{x^2+1}})^{\frac32}+C`,parts:[{tex:m`\color{#176c82}{x^2+1}`,color:'#176c82'}]
+};
+Object.assign(formulaCorrespondence,{
+ 'm3-quotient-derivative':{
+  title:'分母を残す項から、分母を微分する項を引く',goal:'分子と分母の役割を見ます。',check:m`$u,v$ は微分可能、$v\ne0$。分母は $v^2$、分子は $u'v-uv'$ です。`,steps:[
+   {label:'商を見る',text:m`$y=\dfrac uv$ の分子は $u$、分母は $v$ です。`,formulas:[m`y=\dfrac uv`]},
+   {label:'分母を残す',text:m`分子を微分する項では、分母 $v$ を残します。`,formulas:[],motion:{source:m`y=\dfrac u{\color{#176c82}{v}}`,target:m`y'=\dfrac{u'{\color{#176c82}{v}}-uv'}{v^2}`,parts:[{tex:m`\color{#176c82}{v}`,color:'#176c82'}]}},
+   {label:'分子を残す',text:m`分母を微分する項では、分子 $u$ を残します。この項全体を引きます。`,formulas:[],motion:{source:m`y=\dfrac{\color{#936114}{u}}v`,target:m`y'=\dfrac{u'v-{\color{#936114}{u}}v'}{v^2}`,parts:[{tex:m`\color{#936114}{u}`,color:'#936114'}]}}
+  ]
+ },
+ 'm3-endpoint-evaluation':{
+  title:'上端の値から、下端の値を引く',goal:'原始関数に両端を代入します。',check:m`被積分関数が区間全体で連続なとき、原始関数 $F$ を使って $F(b)-F(a)$ と計算できます。`,steps:[
+   {label:'原始関数',text:m`$\int_{-1}^2 x^2\,dx$ を求めます。原始関数は $F(x)=\dfrac{x^3}{3}$ です。`,formulas:[m`\left[\dfrac{x^3}{3}\right]_{-1}^2`]},
+   {label:'両端を代入',text:m`上端 $b=2$ と下端 $a=-1$ を、それぞれ同じ式に代入します。`,formulas:[],motion:{source:m`b={\color{#176c82}{2}},\quad a={\color{#936114}{-1}}`,target:m`\dfrac{{\color{#176c82}{2}}^3}{3}-\dfrac{({\color{#936114}{-1}})^3}{3}`,parts:[{tex:m`\color{#176c82}{2}`,color:'#176c82'},{tex:m`\color{#936114}{-1}`,color:'#936114'}]}},
+   {label:'下端の値を引く',text:m`下端の値は負です。括弧ごと引きます。`,formulas:[m`\dfrac83-\left(-\dfrac13\right)=3`]}
+  ]
+ },
+ 'm3-definite-substitution':{
+  title:'式と一緒に、積分の両端も変える',goal:'置換した変数で上下端を求めます。',check:m`この例では $0\le x\le1$ で $t=x^2+1$ と置き、$dt=2x\,dx$ を使います。`,steps:[
+   {label:'置換する',text:m`$\int_0^1 2x\sqrt{x^2+1}\,dx$ で、$t=x^2+1$ と置きます。`,formulas:[m`dt=2x\,dx`]},
+   {label:'両端の対応',text:m`$x=0$ は $t=1$、$x=1$ は $t=2$ に対応します。`,formulas:[],motion:{source:m`x=0\longmapsto t={\color{#936114}{1}},\quad x=1\longmapsto t={\color{#176c82}{2}}`,target:m`\int_{{\color{#936114}{1}}}^{{\color{#176c82}{2}}}\sqrt t\,dt`,parts:[{tex:m`\color{#936114}{1}`,color:'#936114'},{tex:m`\color{#176c82}{2}`,color:'#176c82'}]}},
+   {label:'新しい変数で計算',text:'式も両端も同じ変数になったので、そのまま計算します。',formulas:[m`\left[\dfrac23t^{\frac32}\right]_1^2`,m`=\dfrac23(2\sqrt2-1)`]}
+  ]
+ },
+ 'm3-parts-introduction':{
+  title:'微分する因子と、積分する因子を選ぶ',goal:'積の微分を逆に使います。',check:m`区間上で $u,v$ が連続な導関数を持つとき、積の微分を積分して部分積分の公式を得ます。`,steps:[
+   {label:'元の積分',text:m`$\int xe^x\,dx$ では、$x$ を微分し、$e^x$ を積分します。`,formulas:[m`u=x,\quad v'=e^x`,m`u'=1,\quad v=e^x`]},
+   {label:'積の項と残る積分',text:m`$uv$ から $\int u'v\,dx$ を引きます。残る積分は簡単になります。`,formulas:[],motion:{source:m`u={\color{#176c82}{x}},\quad v={\color{#936114}{e^x}}`,target:m`\int xe^x\,dx={\color{#176c82}{x}}{\color{#936114}{e^x}}-\int e^x\,dx`,parts:[{tex:m`\color{#176c82}{x}`,color:'#176c82'},{tex:m`\color{#936114}{e^x}`,color:'#936114'}]}},
+   {label:'残りを積分',text:'最後に微分して、元の被積分関数に戻ることを確かめます。',formulas:[m`xe^x-e^x+C`,m`(xe^x-e^x+C)'=xe^x`]}
+  ]
+ },
+ 'm3-moving-endpoints':{
+  title:'端を代入し、その端の導関数を掛ける',goal:'上下端それぞれに合成関数の微分を使います。',check:m`$f$ は必要な区間で連続、上下端は微分可能とします。下端からの項には減号が付きます。`,steps:[
+   {label:'動く上端',text:m`$G(x)=\int_0^{x^2}f(t)\,dt$ を微分します。上端は $x^2$ です。`,formulas:[m`G(x)=\int_0^{x^2}f(t)\,dt`]},
+   {label:'上端を代入',text:m`上端 $x^2$ を $f$ に代入し、その導関数 $2x$ を掛けます。`,formulas:[],motion:{source:m`G(x)=\int_0^{{\color{#176c82}{x^2}}}f(t)\,dt`,target:m`G'(x)=f({\color{#176c82}{x^2}})\cdot2x`,parts:[{tex:m`\color{#176c82}{x^2}`,color:'#176c82'}]}},
+   {label:'下端も動く場合',text:m`下端 $x$ からの項を引きます。`,formulas:[m`H(x)=\int_x^{x^2}f(t)\,dt`,m`H'(x)=f(x^2)\cdot2x-f(x)`]}
+  ]
+ }
+} satisfies Record<string,FormulaLesson>);
+formulaCorrespondence['m3-chain-rule'].steps[1].text=m`外側の $u^3$ を微分すると $3u^2$。$u$ に内側を戻します。`;
+formulaCorrespondence['m3-substitution-integrals'].steps[2].text=m`$\dfrac12\int\sqrt t\,dt=\dfrac13t^{\frac32}+C$ を求めてから、元の変数に戻します。`;
+formulaCorrespondence['m3-product-derivative'].steps=[
+ formulaCorrespondence['m3-product-derivative'].steps[0],
+ {label:'右を微分するとき',text:m`右の因子を微分する項では、左の $x$ を残します。`,formulas:[],motion:{source:m`y={\color{#176c82}{x}}e^x`,target:m`y'=(x)'e^x+{\color{#176c82}{x}}(e^x)'`,parts:[{tex:m`\color{#176c82}{x}`,color:'#176c82'}]}},
+ {label:'左を微分するとき',text:m`左の因子を微分する項では、右の $e^x$ を残します。二つの項を足します。`,formulas:[],motion:{source:m`y=x{\color{#936114}{e^x}}`,target:m`y'=(x)'{\color{#936114}{e^x}}+x(e^x)'`,parts:[{tex:m`\color{#936114}{e^x}`,color:'#936114'}]}},
+ {label:'微分を計算する',text:m`$(x)'=1$、$(e^x)'=e^x$ を入れます。`,formulas:[m`y'=1\cdot e^x+x\cdot e^x`,m`=e^x+xe^x`]}
+];
+
+// Bounds and fraction numerators are approached from the side to avoid crossing their operators.
+formulaCorrespondence['m3-definite-substitution'].steps[1].motion!.parts[0].targetEdge='left';
+formulaCorrespondence['m3-definite-substitution'].steps[1].motion!.parts[1].targetEdge='right';
+formulaCorrespondence['m3-quotient-derivative'].steps[2].motion!.parts[0].sourceEdge='right';
+formulaCorrespondence['m3-moving-endpoints'].steps[1].motion!.parts[0].sourceEdge='right';
