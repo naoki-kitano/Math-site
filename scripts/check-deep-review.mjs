@@ -40,7 +40,7 @@ try{
    await page.evaluate(()=>document.fonts.ready);
    // Numeric-only repairs need not use KaTeX_Math. Still verify that the bundled
    // variable font is available; a shorter explanation must not fail that check.
-   await page.evaluate(()=>document.fonts.load('16px KaTeX_Math','x'));
+   await page.evaluate(()=>Promise.all([document.fonts.load('16px KaTeX_Math','x'),document.fonts.load('16px KaTeX_Main','1')]));
    const state=await page.evaluate(()=>{
     const raw=[],walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     while(walker.nextNode()){const n=walker.currentNode;if(n.parentElement?.closest('script,style,.katex,title,desc'))continue;if(/\$|\\[a-zA-Z]+/.test(n.textContent))raw.push(n.textContent.slice(0,100));}
@@ -110,6 +110,7 @@ try{
   await guide().screenshot({path:`outputs/prerequisites/limit-working-${staticMode?'static':'dev'}-${width}.png`,style:'.topbar{visibility:hidden!important}'});
   await guide().getByRole('button',{name:'閉じる',exact:true}).click();
   await question().getByRole('button',{name:'解き終えたので照合する',exact:true}).click();
+  if(await question().getByText('解説をまとめて読む',{exact:true}).count())await question().getByText('解説をまとめて読む',{exact:true}).click();
   await question().getByRole('button',{name:'説明を使って解けた',exact:true}).click();
   assert.ok((await records()).some(a=>a.outcome==='assisted'));assert.ok((await records()).every(a=>a.outcome!=='independent'));
 
