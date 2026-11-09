@@ -16,12 +16,15 @@ function Target({check,trail,guide,reviewOf}:{check:PrerequisiteCheck;trail:Prer
  useEffect(()=>{document.getElementById("targeted-review")?.scrollIntoView();},[check.id]);
  return <section className="block targeted-review" id="targeted-review" aria-label="いま必要な復習">
   <p className="section-label">いま必要な復習</p><h2>{check.title}</h2>
+  <div hidden={checking}>
   <RepairCard repair={repair}/>
-  {deeper.length>0&&<div className="question-help">{checking?<DiagnosticSequence checks={deeper} exercise={guide} reviewOf={reviewOf} prefix={trail.map(c=>c.id)} onDone={()=>setChecking(false)}/>:<button className="button secondary" onClick={()=>setChecking(true)}>この説明の前に必要なところを確かめる</button>}</div>}
+  {deeper.length>0&&<div className="question-help"><button className="button secondary" onClick={()=>setChecking(true)}>この説明の前に必要なところを確かめる</button></div>}
   {items.length>0&&<><h3>この内容を使って解いてみよう</h3><Practice items={items} label="戻って確かめる練習"/></>}
   <div className="actions">
    {prior?<ReviewLessonLink slug={prior.lesson} exercise={guide} reviewOf={reviewOf} trail={trail.slice(0,-1).map(c=>c.id)}>ひとつ前へ：{prior.title}</ReviewLessonLink>:<RetryLink exercise={guide} reviewOf={reviewOf}/>}
   </div>
+  </div>
+  {checking&&<DiagnosticSequence checks={deeper} exercise={guide} reviewOf={reviewOf} prefix={trail.map(c=>c.id)} onDone={()=>setChecking(false)}/>}
  </section>;
 }
 export default function TargetedReview({slug}:{slug:string}){

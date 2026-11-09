@@ -22,23 +22,23 @@ function MovingBase({stage,reduce}:{stage:number;reduce:boolean}){
  </>;
 }
 
-export default function FormulaCorrespondence({slug}:{slug:string}){
+export default function FormulaCorrespondence({slug,onCompletionChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void}){
  const [stage,setStage]=useState(0),[reduce,setReduce]=useState(false);
  const data=formulaCorrespondence[slug];
  if(!data)return null;
  const current=data.steps[stage];
+ const go=(next:number)=>{setStage(next);onCompletionChange?.(next===data.steps.length-1);};
  return <section className="panel formula-correspondence" data-formula-lesson={slug} data-stage={stage}>
   <h3>{data.title}</h3>
-  <p className="formula-progress">{stage+1} / {data.steps.length}{" "}{current.label}</p>
   <div className="formula-correspondence-readout" aria-live="polite" aria-atomic="true">
    <p><MathText text={current.text}/></p>
    {slug==="logarithm-base-change"?<MovingBase stage={stage} reduce={reduce}/>:<div className="formula-correspondence-lines">{current.formulas.map((tex,i)=><Formula key={i} tex={tex} display/>)}</div>}
   </div>
   <div className="actions formula-correspondence-controls">
-   <button className="button secondary" onClick={()=>setStage(s=>s-1)} disabled={stage===0}>前へ</button>
-   <button className="button" onClick={()=>setStage(s=>s+1)} disabled={stage===data.steps.length-1}>次へ</button>
-   <button className="button secondary" onClick={()=>setStage(0)} disabled={stage===0}>初めに戻す</button>
+   {stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
+   {stage<data.steps.length-1&&<button className="button" onClick={()=>go(stage+1)}>次へ</button>}
   </div>
+  {(stage===data.steps.length-1||(slug==="logarithm-laws"&&stage>=1))&&<p className="start-check"><MathText text={data.check}/></p>}
   {slug==="logarithm-base-change"&&<label className="formula-reduced"><input type="checkbox" checked={reduce} onChange={e=>setReduce(e.target.checked)}/>動きを減らす</label>}
  </section>;
 }
