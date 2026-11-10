@@ -17,55 +17,64 @@ export const basicAngleCases = [
 ];
 const px=(x:number)=>210+130*x, py=(y:number)=>210-130*y;
 function Label({x,y,tex}:{x:number;y:number;tex:string}) {
-  return <foreignObject x={x-35} y={y-23} width="70" height="58"><div className="unit-math-label"><Formula tex={tex}/></div></foreignObject>;
+  return <foreignObject x={x-35} y={y-23} width="70" height="80"><div className="unit-math-label"><Formula tex={tex}/></div></foreignObject>;
 }
-export default function UnitCircleCoordinates() {
+export default function UnitCircleCoordinates({onCompletionChange}:{onCompletionChange?:(complete:boolean)=>void}) {
   const [selected,setSelected]=useState(0);
-  const [basic,setBasic]=useState<number|null>(0);
-  const [axis,setAxis]=useState<"sin"|"cos"|"tan">("sin");
+  const [basic,setBasic]=useState<number|null>(3);
+  const [stage,setStage]=useState(0);
+  const go=(next:number)=>{setStage(next);onCompletionChange?.(next===2);};
+  const axis=(["sin","cos","tan"] as const)[stage];
   const point=basic===null?coordinateCases[selected]:basicAngleCases[basic];
-  return <section className="unit-coordinates panel">
-    <h3>点の座標から、値を読む</h3>
-    <p>まず基本角を左から順に選び、点の高さと横の位置を見てみよう。</p>
-    <div className="unit-stages" role="group" aria-label="基本角を順に確かめる">
-      {basicAngleCases.map((p,i)=><button key={p.angle} aria-pressed={basic===i} onClick={()=>setBasic(i)}><MathText text={`$${p.angle}$`}/></button>)}
-    </div>
-    <p><MathText text={String.raw`$0\le\theta\le\frac\pi2$ では、角を大きくすると点が上へ、左へ移ります。$\sin\theta=y$ は増え、$\cos\theta=x$ は減ります。`}/></p>
-    <p>次に、ほかの象限でも座標の符号を確かめよう。</p>
-    <div className="unit-stages" role="group" aria-label="点の位置">
-      {coordinateCases.map((p,i)=><button key={p.label} aria-pressed={basic===null&&selected===i} onClick={()=>{setBasic(null);setSelected(i);}}>{p.label}</button>)}
-    </div>
+  const xColor="#936114", yColor="#176c82";
+  const coordinate=(tex:string,color:string)=>`{\\color{${color}}{${tex}}}`;
+  return <section className="unit-coordinates panel" data-stage={stage}>
+    <h3>{["正弦は縦の座標", "余弦は横の座標", "正接は縦と横の商"][stage]}</h3>
+    <p><MathText text={String.raw`半径 $1$ の円で、正の横軸から点 $P$ への角を $\theta$ とします。反時計回りが正です。`}/></p>
     <div className="unit-layout">
-      <svg className="unit-diagram" viewBox="0 0 420 430" role="img" aria-label="半径1の単位円。青が縦座標、オレンジが横座標。">
-        <circle cx="210" cy="210" r="130" fill="#f8fafb" stroke="#8195a9"/>
-        <line x1="25" y1="210" x2="390" y2="210" stroke="#8195a9"/>
-        <line x1="210" y1="25" x2="210" y2="395" stroke="#8195a9"/>
-        <Label x={385} y={237} tex="x"/><Label x={235} y={28} tex="y"/>
-        <Label x={190} y={242} tex="O"/>{point.x!==1&&<Label x={345} y={240} tex="1"/>}
-        <line x1="210" y1="210" x2={px(point.x)} y2={py(point.y)} stroke="#233d5b" strokeWidth="2"/>
-        <line x1={px(point.x)} y1={py(point.y)} x2={px(point.x)} y2="210" stroke="#8195a9" strokeDasharray="5 4"/>
-        <line x1={px(point.x)} y1={py(point.y)} x2="210" y2={py(point.y)} stroke="#8195a9" strokeDasharray="5 4"/>
-        <line x1="210" y1="210" x2={px(point.x)} y2="210" stroke="#c67c28" strokeWidth={axis==="sin"?3:6}/>
-        <line x1="210" y1="210" x2="210" y2={py(point.y)} stroke="#496fa8" strokeWidth={axis==="cos"?3:6}/>
-        <circle cx={px(point.x)} cy={py(point.y)} r="6" fill="#087c70"/>
-        <Label x={px(point.x)+(point.x<0?-30:30)} y={py(point.y)} tex="P"/>
-        {point.x!==0&&<Label x={px(point.x)} y={point.y<0?173:252} tex={point.xTex}/>}
-        {point.y!==0&&<Label x={point.x<0?247:173} y={py(point.y)} tex={point.yTex}/>}
-      </svg>
-      <div className="unit-explanation">
+      <div>
         {basic!==null&&<Formula tex={String.raw`\theta=${basicAngleCases[basic].angle}`} display/>}
-        <Formula tex={`P\\left(${point.xTex},${point.yTex}\\right)`} display/>
-        <div className="unit-stages" role="group" aria-label="求める三角関数">
-          {(["sin","cos","tan"] as const).map((value,i)=><button key={value} aria-pressed={axis===value} onClick={()=>setAxis(value)}>{["正弦","余弦","正接"][i]}</button>)}
-        </div>
-        <div aria-live="polite" aria-atomic="true">
-          {axis==="sin"?<><p>正弦は縦の座標。青い線の先を縦軸で読みます。</p><Formula tex={`\\sin\\theta=y=${point.yTex}`} display/></>:
-          axis==="cos"?<><p>余弦は横の座標。オレンジの線の先を横軸で読みます。</p><Formula tex={`\\cos\\theta=x=${point.xTex}`} display/></>:
-          <><p>正接は、縦の座標を横の座標で割ります。</p>{point.tan===null?<><Formula tex="x=0" display/><p>零では割れないので、正接は定義されません。</p></>:<Formula tex={`\\tan\\theta=\\dfrac{y}{x}=${point.tan}`} display/>}</>}
-        </div>
-        <p><MathText text="右は $x>0$、左は $x<0$。上は $y>0$、下は $y<0$ です。"/></p>
+        <svg className="unit-diagram" viewBox="0 0 420 430" role="img" aria-label="半径1の単位円。青緑が縦座標、黄土色が横座標。">
+          <circle cx="210" cy="210" r="130" fill="#f8fafb" stroke="#8195a9"/>
+          <line x1="25" y1="210" x2="390" y2="210" stroke="#8195a9"/>
+          <line x1="210" y1="25" x2="210" y2="395" stroke="#8195a9"/>
+          <Label x={385} y={237} tex="x"/><Label x={235} y={28} tex="y"/>
+          <Label x={190} y={242} tex="O"/>{point.x!==1&&<Label x={345} y={240} tex="1"/>}
+          <line x1="210" y1="210" x2={px(point.x)} y2={py(point.y)} stroke="#233d5b" strokeWidth="2"/>
+          <line x1={px(point.x)} y1={py(point.y)} x2={px(point.x)} y2="210" stroke="#8195a9" strokeDasharray="5 4"/>
+          <line x1={px(point.x)} y1={py(point.y)} x2="210" y2={py(point.y)} stroke="#8195a9" strokeDasharray="5 4"/>
+          <line x1="210" y1="210" x2={px(point.x)} y2="210" stroke={xColor} strokeWidth={axis==="sin"?2:6} opacity={axis==="sin"?.45:1}/>
+          <line x1="210" y1="210" x2="210" y2={py(point.y)} stroke={yColor} strokeWidth={axis==="cos"?2:6} opacity={axis==="cos"?.45:1}/>
+          <circle cx={px(point.x)} cy={py(point.y)} r="6" fill="#087c70"/>
+          <Label x={px(point.x)+(point.x<0?-30:30)} y={py(point.y)} tex="P"/>
+          {point.x!==0&&<Label x={px(point.x)} y={point.y<0?173:252} tex={coordinate(point.xTex,xColor)}/>}
+          {point.y!==0&&<Label x={point.x<0?247:173} y={py(point.y)} tex={coordinate(point.yTex,yColor)}/>}
+        </svg>
+      </div>
+      <div className="unit-explanation" aria-live="polite" aria-atomic="true">
+        {axis==="sin"?<><p>縦軸で、点の高さを読みます。</p><Formula tex={`\\sin\\theta=${coordinate("y",yColor)}=${coordinate(point.yTex,yColor)}`} display/></>:
+        axis==="cos"?<><p>横軸で、点の横の位置を読みます。</p><Formula tex={`\\cos\\theta=${coordinate("x",xColor)}=${coordinate(point.xTex,xColor)}`} display/></>:
+        <><p>縦の座標を横の座標で割ります。</p><Formula tex={`\\tan\\theta=\\dfrac{${coordinate("y",yColor)}}{${coordinate("x",xColor)}}\\quad(x\\ne0)`} display/>{point.tan===null?<><Formula tex="x=0" display/><p>零では割れないので、この点の正接は定義されません。</p></>:<Formula tex={`\\dfrac{${coordinate(point.yTex,yColor)}}{${coordinate(point.xTex,xColor)}}=${point.tan}`} display/>}</>}
       </div>
     </div>
-    <p className="meta"><MathText text="原点を中心とする半径 $1$ の円が単位円です。正の横軸を始線とし、点 $P$ を通る動径が表す角を $\theta$ とします。"/></p>
+    <div className="actions unit-controls">
+      {stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
+      {stage<2&&<button className="button" onClick={()=>go(stage+1)}>次へ</button>}
+    </div>
+    <details className="supplement unit-point-options">
+      <summary>別の点で確かめる</summary>
+      <label>点の選び方<select value={basic===null?"quadrants":"angles"} onChange={e=>setBasic(e.target.value==="angles"?3:null)}><option value="angles">基本角</option><option value="quadrants">座標の符号</option></select></label>
+      {basic!==null?<>
+        <div className="unit-stages" role="group" aria-label="基本角">
+          {basicAngleCases.map((p,i)=><button key={p.angle} aria-pressed={basic===i} onClick={()=>setBasic(i)}><MathText text={`$${p.angle}$`}/></button>)}
+        </div>
+        <p><MathText text={String.raw`$0\le\theta\le\frac\pi2$ では、角を大きくすると縦の座標は増え、横の座標は減ります。`}/></p>
+      </>:<>
+        <div className="unit-stages" role="group" aria-label="点の位置">
+          {coordinateCases.map((p,i)=><button key={p.label} aria-pressed={selected===i} onClick={()=>setSelected(i)}>{p.label}</button>)}
+        </div>
+        <p><MathText text="右は $x>0$、左は $x<0$。上は $y>0$、下は $y<0$ です。"/></p>
+      </>}
+    </details>
   </section>;
 }

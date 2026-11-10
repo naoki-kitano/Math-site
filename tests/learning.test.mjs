@@ -113,7 +113,7 @@ test('every math table caption uses the same typesetter as its cells',async()=>{
  }
 });
 test('each published lesson is complete and every exercise has a valid answer and repair',()=>{
-  assert.equal(lessons.length,466); assert.equal(exercises.filter(e=>!e.lesson.startsWith('m1-')&&!e.lesson.startsWith('ma-')&&!e.lesson.startsWith('mb-')&&!e.lesson.startsWith('mc-')&&!e.lesson.startsWith('jr-')).length,2751);
+  assert.equal(lessons.length,466); assert.equal(exercises.filter(e=>!e.lesson.startsWith('m1-')&&!e.lesson.startsWith('ma-')&&!e.lesson.startsWith('mb-')&&!e.lesson.startsWith('mc-')&&!e.lesson.startsWith('jr-')).length,2754);
   assert.equal(new Set(exercises.map(e=>e.id)).size,exercises.length);
   for(const l of lessons){
     assert.ok(l.examples.length>=2,l.slug);
@@ -121,7 +121,7 @@ test('each published lesson is complete and every exercise has a valid answer an
     for(const [stage,count] of [['ready',2],['guided',2],['practice',checkCount||6],['review',checkCount||2]]) {
       const actual=exercises.filter(e=>e.lesson===l.slug&&e.stage===stage).length;
       if(l.subject==='数学I'||l.subject==='数学III'||l.subject==='数学A'||l.subject==='数学B'||l.subject==='数学C'||l.subject==='中学数学'||(['図形と方程式','指数関数・対数関数','微分の考え','積分の考え'].includes(l.chapter)&&l.slug!=='points')||l.slug==='trig-synthesis')assert.ok(actual>=count,l.slug+' '+stage);
-      else assert.equal(actual,count,l.slug+' '+stage);
+      else assert.equal(actual,count+(l.slug==='trig-equations'?(stage==='practice'?1:stage==='review'?2:0):0),l.slug+' '+stage);
     }
   }
   for(const e of exercises){
@@ -638,7 +638,7 @@ test('all inline and display formulas render strictly with KaTeX',()=>{
     if(typeof value==='string'){
       const expressions=key==='tex'?[value]:[...value.matchAll(/\$([^$]+)\$/g)].map(m=>m[1]);
       if(key!=='tex')assert.equal((value.match(/\$/g)||[]).length,expressions.length*2,value);
-      for(const tex of expressions){assert.doesNotThrow(()=>katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false}),tex);count++;}
+      for(const tex of expressions){if(key!=='tex')assert.doesNotMatch(tex,/[\n\r\t]/,'Inline TeX contains a control character: '+JSON.stringify(tex));assert.doesNotThrow(()=>katex.renderToString(tex,{throwOnError:true,strict:'error',trust:false}),tex);count++;}
     }else if(Array.isArray(value))value.forEach(v=>walk(v,key));
     else if(value&&typeof value==='object')Object.entries(value).forEach(([k,v])=>walk(v,k));
   };
@@ -726,11 +726,7 @@ test('chapter three review fixes keep circle equations and verification conditio
 });
 test('trigonometry diagrams cover examples with strict math and correctly placed unit-circle points',async()=>{
   const require=createRequire(import.meta.url);
-  const source=readFileSync(new URL('../app/components/TrigDiagrams.tsx',import.meta.url),'utf8');
-  const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
-    .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
-    .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/, 'const CoordinateDiagram=()=>null;');
-  const {trigFigures}=await import(url(compiled));
+  const {trigFigures}=await import(displayModule(new URL('../app/components/TrigDiagrams.tsx',import.meta.url)));
   for(const l of lessons.filter(l=>l.chapter==='三角関数'))assert.equal(trigFigures[l.slug]?.length,l.examples.length,l.slug);
   const walk=value=>{
     if(typeof value==='string'){
@@ -770,12 +766,7 @@ test('trigonometry diagrams cover examples with strict math and correctly placed
   for(let i=0;i<=100;i++)assert.ok(Math.sin(sineRegion.from+(sineRegion.to-sineRegion.from)*i/100)>=.5-1e-12);
 });
 test('exponential and logarithmic figures respect their domains and answer coordinates',async()=>{
-  const require=createRequire(import.meta.url);
-  const source=readFileSync(new URL('../app/components/ExponentialDiagrams.tsx',import.meta.url),'utf8');
-  const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText
-    .replace('"react/jsx-runtime"',JSON.stringify(pathToFileURL(require.resolve('react/jsx-runtime')).href))
-    .replace(/import CoordinateDiagram from ["']\.\/CoordinateDiagram["'];?/, 'const CoordinateDiagram=()=>null;');
-  const {exponentialFigures}=await import(url(compiled));
+  const {exponentialFigures}=await import(displayModule(new URL('../app/components/ExponentialDiagrams.tsx',import.meta.url)));
   for(const [slug,list] of Object.entries(exponentialFigures))for(const [index,d] of Object.entries(list)){
     assert.ok(lessons.find(l=>l.slug===slug)?.examples[Number(index)]);
     const walk=value=>{
@@ -814,7 +805,10 @@ test('derivative figures match example points and preserve interval endpoints',a
 test('integral diagrams preserve positive heights, intersections, and area values',async()=>{
   const bounded=exercises.filter(e=>/between-(bounded|split)-/.test(e.id));
   assert.equal(bounded.length,12);
-  for(const e of bounded){assert.ok(e.hints[0].includes('指定された区間内'));assert.ok(e.hints[0].includes('交点がなければ指定区間全体'));}
+  for(const e of bounded){
+    if(e.hints[0].includes('上下関係が変わりません'))assert.ok(e.hints[0].includes('上の式から下の式'));
+    else {assert.ok(e.hints[0].includes('指定された区間内'));assert.ok(e.hints[0].includes('各区間全体'));}
+  }
   const require=createRequire(import.meta.url);
   const source=readFileSync(new URL('../app/components/IntegralDiagrams.tsx',import.meta.url),'utf8');
   const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX}}).outputText

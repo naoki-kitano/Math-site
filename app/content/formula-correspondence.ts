@@ -5,9 +5,14 @@ import {math3IntegralCorrespondence} from './math3-integral-correspondence';
 import {math3RiemannCorrespondence} from './math3-riemann-correspondence';
 import {math3SequenceCorrespondence} from './math3-sequence-correspondence';
 import {math3GeometryCorrespondence} from './math3-geometry-correspondence';
+import {math2AlgebraCorrespondence} from './math2-algebra-correspondence';
+import {math2GeometryCorrespondence} from './math2-geometry-correspondence';
+import {math2TrigCorrespondence} from './math2-trig-correspondence';
+import {math2ExplogCorrespondence} from './math2-explog-correspondence';
+import {math2CalculusCorrespondence} from './math2-calculus-correspondence';
 const m=String.raw;
 
-export type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer;diagram?:{kind:string;stage:number}};
+export type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer;diagram?:{kind:string;stage:number;animated?:boolean}};
 export type FormulaLesson={title:string; goal:string; check:string; steps:FormulaStep[]};
 
 // Each displayed line remains a true equation. Color identifies the particular
@@ -56,6 +61,11 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
  ...math3RiemannCorrespondence,
  ...math3SequenceCorrespondence,
  ...math3GeometryCorrespondence,
+ ...math2AlgebraCorrespondence,
+ ...math2GeometryCorrespondence,
+ ...math2TrigCorrespondence,
+ ...math2ExplogCorrespondence,
+ ...math2CalculusCorrespondence,
 };
 formulaCorrespondence['logarithm-laws'].steps[1].motion={
  source:m`\log_a({\color{#176c82}{M}}{\color{#936114}{N}})`,target:m`=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`,

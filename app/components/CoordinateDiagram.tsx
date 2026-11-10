@@ -1,9 +1,10 @@
 "use client";
 import { useId } from "react";
 import { MathText } from "./MathText";
+import Math2CoordinateDiagram from './Math2CoordinateDiagram';
 export type Curve = { label:string; value:(x:number)=>number; color?:string; dashed?:boolean; from?:number; to?:number };
-export type Dot = { x:number;y:number;label:string;open?:boolean };
-export type Segment = { from:[number,number];to:[number,number];label?:string;dashed?:boolean;color?:string;width?:number };
+export type Dot = { x:number;y:number;label:string;open?:boolean;labelOffset?:[number,number] };
+export type Segment = { from:[number,number];to:[number,number];label?:string;dashed?:boolean;color?:string;width?:number;labelOffset?:[number,number] };
 export type Circle = { x:number;y:number;r:number;label:string;dashed?:boolean;color?:string };
 export type Area = { from:number;to:number;upper:(x:number)=>number;lower:(x:number)=>number;label:string };
 export type Arc = { x:number;y:number;r:number;from:number;to:number;label:string;color?:string;width?:number };
@@ -12,9 +13,15 @@ export type CoordinateDiagramProps = {
  curves?:Curve[];points?:Dot[];segments?:Segment[];circles?:Circle[];areas?:Area[];arcs?:Arc[];tick?:number;
  xTicks?:{value:number;label:string}[];
  axisDescription?:string;
+ directLabels?:boolean;
+ compact?:boolean;
+ hideTickLabels?:boolean;
 };
 // Equal scale on both axes preserves distances, angles, and circles.
-export default function CoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
+export default function CoordinateDiagram(props:CoordinateDiagramProps){
+ return props.directLabels?<Math2CoordinateDiagram {...props}/>:<LegacyCoordinateDiagram {...props}/>;
+}
+function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
  const clip=useId().replace(/:/g,"");
  const width=640,height=440,padding=36;
  const scale=Math.min((width-2*padding)/(xRange[1]-xRange[0]),(height-2*padding)/(yRange[1]-yRange[0]));

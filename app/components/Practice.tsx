@@ -5,6 +5,7 @@ import Link from "./SiteLink";
 import { type Exercise } from "../content/lessons";
 import { MathText, Formula } from "./MathText";
 import ExampleSteps from "./ExampleSteps";
+import ExerciseAnswerDiagram from "./ExerciseAnswerDiagram";
 import {distinctSteps} from "../lib/step-heading";
 export {Steps} from "./StepList";
 import { useProgress } from "./Progress";
@@ -69,7 +70,7 @@ function Question({item,label,index,total,next,onStop}:{item:QueueItem;label:str
     {hint>0&&<div className="hint"><strong>ヒント</strong>{hints.slice(0,hint).map((h,i)=><p key={i}><MathText text={h}/></p>)}</div>}
     {revealed&&<div className="feedback" aria-live="polite">
       <h4>{outcome==="retry"?"途中式を確かめよう":outcome==="independent"?"自力でできました":outcome==="assisted"?"説明を使ってできました":"解答"}</h4>
-      <p><MathText text={q.answer}/></p><ExampleSteps steps={q.steps} onCompletionChange={setFeedbackComplete}/>
+      <p><MathText text={q.answer}/></p><ExerciseAnswerDiagram exercise={q}/><ExampleSteps steps={q.steps} onCompletionChange={setFeedbackComplete}/>
       {q.kind==="paper"&&paperDone&&!outcome&&feedbackComplete&&<><p>答えだけでなく、途中式・理由・必要な条件も比べてください。</p><div className="ratings"><button className="button" onClick={()=>record(hint||usedHelp?"assisted":"independent")}>{hint||usedHelp?"説明を使って解けた":"自力で解けた"}</button><button className="button secondary" onClick={()=>record("retry")}>もう一度解く</button></div><small>紙で解いた結果は自己評価として記録します。</small></>}
 
     </div>}

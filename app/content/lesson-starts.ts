@@ -20,8 +20,8 @@ export const lessonStarts: Record<string, LessonStart> = {
   },
   "trig-unit-circle": {
     goal: "単位円上の点の座標が分かれば、三角関数の値を読み取れます。",
-    steps: [String.raw`正弦 $\sin\theta$ は縦の座標を読む。`, String.raw`余弦 $\cos\theta$ は横の座標を読む。`, String.raw`正接 $\tan\theta$ は、横の座標が零でないことを確かめて、縦を横で割る。`],
-    check: "「真上」を選ぶと、正接を計算できない理由も分かります。",
+    steps: [],
+    check: "正接は、横の座標が零のとき定義されません。",
   },
   "trig-angle-change": {
     goal: "座標がまだ分からない角は、知っている鋭角の三角形と比べて求めます。",

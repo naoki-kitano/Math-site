@@ -26,13 +26,13 @@ export const integralFigures:Record<string,Record<number,Diagram>>={
  "integral-constant":{
   0:{title:"一点の条件で高さが決まる",description:"傾きだけなら縦の位置は自由です。点 $(0,3)$ を通る条件を加えると、一つの曲線に決まります。",xRange:[-2,2],yRange:[-1,6],
    curves:[{label:"条件を満たす $y=x^2+3$",value:x=>x*x+3},{label:"$y=x^2$ はこの点を通らない",value:x=>x*x,dashed:true,color:blue}],points:[{x:0,y:3,label:"指定点 $(0,3)$"}]},
-  1:{title:"点の条件は積分した式へ入れる",description:"点 $(1,2)$ を通るのは $C=3$ の曲線です。導関数に高さを代入するのではありません。",xRange:[-1,3],yRange:[-2,6],
+  1:{title:"点の条件は積分した式へ入れる",description:"積分した式へ横座標 $1$ と高さ $2$ を入れます。$1-2+C=2$ より $C=3$ です。",xRange:[-1,3],yRange:[-2,6],
    curves:[{label:"$y=x^2-2x+3$",value:x=>x*x-2*x+3},{label:"比較：$y=x^2-2x$",value:x=>x*x-2*x,dashed:true,color:blue}],points:[{x:1,y:2,label:"指定点 $(1,2)$"}]}
  },
  "definite-integrals":{
   0:{title:"軸より上の部分を足し合わせる",description:"この区間では高さが非負なので、定積分は三角形の面積と一致します。",xRange:[-.5,2.5],yRange:[-.5,4.5],
    curves:[{label:"$y=2x$",value:x=>2*x}],areas:[{from:0,to:2,upper:x=>2*x,lower:()=>0,label:"$\\int_0^2 2x\\,dx=4$"}],segments:[{from:[2,0],to:[2,4],label:"右端 $x=2$"}],points:[{x:0,y:0,label:"$(0,0)$"},{x:2,y:4,label:"$(2,4)$"}]},
-  1:{title:"軸の下では負として数える",description:"定積分は左右の面積の合計ではなく、符号付きの値の和です。下側の分を負として数えるので、結果は $-2$ です。",xRange:[-1.5,1.5],yRange:[-3.5,1.5],
+  1:{title:"軸の下では負として数える",description:"左の部分を $-\\frac94$、右の部分を $\\frac14$ として足すと、定積分は $-2$ になります。",xRange:[-1.5,1.5],yRange:[-3.5,1.5],
    curves:[{label:"$y=2x-1$",value:x=>2*x-1}],areas:[{from:-1,to:.5,upper:()=>0,lower:x=>2*x-1,label:"下側の寄与 $-\\frac{9}{4}$"},{from:.5,to:1,upper:x=>2*x-1,lower:()=>0,label:"上側の寄与 $\\frac{1}{4}$"}],segments:[{from:[-1,-3],to:[-1,0]},{from:[1,0],to:[1,1]}],points:[{x:.5,y:0,label:"零点 $(\\frac{1}{2},0)$"}]}
  },
  "area-with-axis":{
