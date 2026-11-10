@@ -23,7 +23,7 @@ try{
    for(let i=0;i<40;i++){
     if(!await pane.isVisible())return;
     const q=pane.locator('.question:visible').first();await q.waitFor();
-    const reveal=q.getByRole('button',{name:'解答から確かめる',exact:true});
+    const reveal=q.getByRole('button',{name:/^(解答から確かめる|解説を見る)$/});
     if(await reveal.count())await reveal.click();
     const full=q.locator('.example-walkthrough > details');
     if(await full.count()&&!await full.evaluate(e=>e.open)){await full.locator('summary').click();await settle();}
@@ -64,7 +64,7 @@ try{
   await next(guided).click();assert.deepEqual(await visible(),['practice']);
   assert.equal(await question.getAttribute('data-question-id'),id);assert.equal(await question.locator('.hint:visible').count(),1);
   assert.equal(await question.getByRole('button',{name:'ここまでにする',exact:true}).count(),0);
-  await question.getByRole('button',{name:'解答から確かめる',exact:true}).click();
+  await question.getByRole('button',{name:/^(解答から確かめる|解説を見る)$/}).click();
   await question.getByRole('button',{name:'ここまでにする',exact:true}).click();assert.deepEqual(await visible(),['help']);
   await helpBack().click();assert.deepEqual(await visible(),['practice']);
   await page.goto(url('m3-sequence-radical-limit')+'?exercise=m3-sequence-radical-limit-reciprocal-1-v1#return-question',{waitUntil:'networkidle'});

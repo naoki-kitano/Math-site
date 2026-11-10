@@ -69,7 +69,7 @@ try{
  await page.getByRole('link',{name:'元の問題に戻る',exact:true}).click();
  await page.waitForLoadState('networkidle');
  assert.equal(new URL(page.url()).searchParams.get('reviewOf'),id);
- await page.locator('#return-question .question').getByRole('button',{name:'解答から確かめる',exact:true}).click();
+ await page.locator('#return-question .question').getByRole('button',{name:/^(解答から確かめる|解説を見る)$/}).click();
  const variantRecords=await page.evaluate(()=>Object.values(localStorage).flatMap(v=>{try{return JSON.parse(v).attempts??[];}catch{return [];}}));
  assert.ok(variantRecords.filter(a=>a.exerciseId===variant).length>=2);
  assert.ok(variantRecords.filter(a=>a.exerciseId===variant).every(a=>a.reviewOf===id&&a.outcome==='seen'));

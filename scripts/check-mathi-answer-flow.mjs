@@ -20,7 +20,7 @@ try{
    await page.goto(`${base}/learn/${q.lesson}${staticMode?'.html':''}?exercise=${q.id}#return-question`,{waitUntil:'networkidle'});
    const question=page.locator(`[data-question-id="${q.id}"]`);await question.waitFor();
    assert.equal(await question.locator('.feedback > figure, .feedback > .m1-logic-lemma').count(),0,'No answer figure before revealing');
-   await question.getByRole('button',{name:'解答から確かめる',exact:true}).click();
+   await question.getByRole('button',{name:/^(解答から確かめる|解説を見る)$/}).click();
    await question.locator('.feedback > figure, .feedback > .m1-logic-lemma').first().waitFor();if(await question.locator('.m1-logic-lemma').count())await question.locator('.m1-logic-lemma summary').click();
    await page.evaluate(()=>document.fonts.ready);
    const issues=await question.evaluate(el=>{
