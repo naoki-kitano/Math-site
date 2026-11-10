@@ -11,9 +11,9 @@ export default function Preparation({slug,onComplete,onProgressChange}:{slug:str
  const params=useQuery(),origin=knownExercise(params.get("from"),exercises);
  if(!checks.length)return <p className="meta">下の説明と例題から始められます。途中で迷ったら、問題の「復習するところを探す」を使ってください。</p>;
  const check=checks[index];
- return <details className="supplement"><summary>始める前に、必要な基礎を確かめる</summary>
+ return <><h2>必要な基礎を確かめる</h2><div className="panel">
   <CheckCard key={check.id} check={check} onResult={value=>{setResult(value);onProgressChange?.((index+1)/checks.length);}}/>
   {result===false&&(origin?<ReviewLessonLink slug={check.lesson} exercise={origin}>{lessons.find(l=>l.slug===check.lesson)!.title}を復習する</ReviewLessonLink>:<Link className="text-link" href={"/learn/"+check.lesson+"#basics"}>{lessons.find(l=>l.slug===check.lesson)!.title}を復習する</Link>)}
   {result!==null&&(index+1<checks.length?<div className="actions"><button className="button secondary" onClick={()=>{setIndex(index+1);setResult(null);}}>次の確認へ</button></div>:<div className="actions">{onComplete?<button className="button" onClick={onComplete}>次へ</button>:<a className="button" href="#basics">説明へ進む</a>}</div>)}
- </details>;
+ </div></>;
 }
