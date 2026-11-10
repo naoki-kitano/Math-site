@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "katex/dist/katex.min.css";
 import "./learning.css";
 import "./appearance.css";
+import "./matha-learning.css";
 import { Header, Footer } from "./components/Shell";
 import { ProgressProvider } from "./components/Progress";
 import { sitePath } from "./lib/site-path";

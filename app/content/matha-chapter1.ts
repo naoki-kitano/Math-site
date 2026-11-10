@@ -7,7 +7,7 @@ const digitSets=[[1,2,3],[1,2,4],[2,3,5],[0,1,2],[0,2,3],[0,2,4],[1,3,4],[0,3,5]
 const topic=(slug:string,title:string,description:string,intro:string[],rule:string,skills:Skill[],section:string)=>countingTopic("ma-"+slug,title,description,intro,rule,skills,section);
 export const mathACountingTopics=[
  topic("listing","書き出し・表・樹形図","書く順序を決めて、すべての場合を調べます。",[
- "思い付く順に書くだけでは、抜けや重複があるか確かめにくくなります。最初の選択を一つに固定し、その中を調べ終えてから次へ進みます。",
+ "最初の選択を一つに固定し、その中を調べ終えてから次へ進むと、抜けや重複を防げます。",
  "二つのものを一つずつ選ぶ場合は、表の行を一つ目、列を二つ目にすると、一つの枠が一つの選び方になります。",
  "順番に選ぶ様子は樹形図でも表せます。枝を一つ進むたびに一つ選びます。カードを戻さないなら、使った数字は次の枝から除きます。",
  "二桁の整数では十の位に$0$を置けません。数字の順序を入れ替えると別の整数になることにも注意します。"
@@ -18,7 +18,7 @@ export const mathACountingTopics=[
  topic("sum-product","和の法則・積の法則","場合を分けて足すのか、選択を続けて掛けるのかを考えます。",[
  "ケーキかアイスを一つだけ選ぶなら、ケーキを選ぶ場合とアイスを選ぶ場合に分けられます。この二つは重ならないので、それぞれの個数を足します。これが和の法則です。",
  "パンと飲み物を一つずつ選ぶなら、パンを選んだ後に飲み物を選びます。どのパンにも同じ数の飲み物を付けられるとき、パンの種類数と飲み物の種類数を掛けます。これが積の法則です。",
- "「または」「かつ」という言葉だけで決めず、別の場合に分けたのか、一つの選択に次の選択が続くのかを確かめます。"
+ "重ならない場合を合わせるなら足します。選択を続けるとき、どの選択にも同じ数の候補が続くなら、その個数を掛けます。"
  ],"足す前には場合の重なり、掛ける前には各選択の先にある個数を確かめます。",[
  S("sum","重ならない場合に分ける","どれか一つだけを選ぶので、場合ごとの個数を足します。",twos.map(([a,b])=>menu(a,b,"sum"))),
  S("product","一つ決めてから次を選ぶ","どの最初の選択にも、同じ数の次の選択が続きます。",twos.map(([a,b])=>menu(a,b,"product")))
@@ -26,7 +26,7 @@ export const mathACountingTopics=[
  topic("changing-options","条件で変わる選び方","最初に選んだものによって、次に選べるものが変わる場合を数えます。",[
  "白パンには三種類、黒パンには二種類の飲み物を付けられるなら、どちらにも三種類付けられるわけではありません。パンごとに数え、その結果を足します。",
  "数字の条件がある問題では、条件を決める位から考えると整理しやすくなります。偶数なら一の位を先に決める方法が使えます。",
- "一の位を決めても、十の位の$0$や、使ったカードの再使用を除く必要があります。条件を一つ確認しただけで終えません。"
+ "一の位を決めても、十の位の$0$や、使ったカードの再使用を除く必要があります。"
  ],"場合ごとに、実際に残る選択肢を確かめます。",[
  S("unequal-options","場合ごとの個数を足す","どの枝でも同じ数を選べるとは限りません。",[[3,2],[2,1],[2,3],[3,1],[4,2],[2,4],[4,3],[3,5],[5,2]].map(([a,b])=>menu(a,b,"unequal"))),
  S("even-digits","偶数と先頭の条件を両方見る","一の位が偶数という条件に加えて、先頭の$0$と同じカードの再使用を除きます。",[[0,1,2,3],[0,1,2],[0,2,3],[0,2,4],[1,2,4],[0,4,5],[2,3,6],[0,2,6],[0,6,8]].map(ds=>digits(ds,true)))
@@ -42,7 +42,7 @@ export const mathACountingTopics=[
  topic("permutation","順列と階乗","一つずつ場所を決め、残りの選択肢を数えます。",[
  "異なるものを並べるときは、左から順に場所を埋めて考えます。一つ使うと、次に選べるものは一つ減ります。",
  m`$4\times3\times2\times1$ のような積を $4!$ と書き、「四の階乗」と読みます。正の整数 $n$ について $n!=n(n-1)\cdots1$ です。`,
- m`異なる $n$ 個から $r$ 個を選んで並べる数は $ {}_nP_r$ と書きます。整数 $0\le r\le n$ について $ {}_nP_r=\frac{n!}{(n-r)!}$。まず順に掛ける意味を確認してから、この式を使います。`,
+ m`異なる $n$ 個から $r$ 個を選んで並べる数は $ {}_nP_r$ と書きます。整数 $0\le r\le n$ について $ {}_nP_r=\frac{n!}{(n-r)!}$。分母は、並べない $n-r$ 個の順序を除いています。`,
  m`何も並べない並びを一通りと考え、$0!=1$ と約束します。すべて並べる場合にも式がつながります。`
  ],"順序が変われば別の並びです。使ったものを除きながら数えます。",[
  S("all-permutations","全員・全部を並べる","すべて使うと最後の選択肢は一つです。",nums.map(n=>perm(n,n,true))),
@@ -59,7 +59,7 @@ export const mathACountingTopics=[
  topic("restricted-permutation","条件のある順列","場所が決まるものや、一緒に並べるものから考えます。",[
  "二人が隣り合うなら、その二人を一つのまとまりとして並べます。ただし、まとまりの中にも二つの順序があります。",
  "一人を左端に置くなら、その場所を決めた後に残りを並べます。二人を両端に置くなら、左右の担当も決めます。",
- "「隣り合う」「左端」「両端」では、先に決めるものが違います。全部を並べた後で無理に条件を付け足す必要はありません。"
+ "「隣り合う」「左端」「両端」では、先に決めるものが違います。"
  ],"条件のある場所やまとまりを先に決め、残りと内部の順序を数えます。",[
  S("adjacent","まとまりの内部も並べる","二人をまとめた後も、その中の順序を数える必要があります。",nums.map(n=>adjacent(n))),
  S("left-end","一人の場所を固定する","左端は決まっているので、残りの人だけを並べます。",nums.map(n=>ends(n))),
@@ -118,6 +118,16 @@ export const mathACountingTopics=[
  ],"選び方を数える")
 ];
 
+// Only arithmetic used immediately in the lesson remains in the entry sequence.
+// Other readiness questions stay in the exercise bank and review families.
+const warmupFamilies:Record<string,string[]>={
+ "ma-sum-product":["prep-add","prep-multiply"],
+ "ma-changing-options":["prep-add"],"ma-set-count":["prep-add"],
+ "ma-permutation":["prep-multiply"],"ma-repeated-choice":["prep-multiply"],
+ "ma-restricted-permutation":["prep-multiply"]
+};
+for(const bank of mathACountingTopics)bank.lesson.warmupIds=(warmupFamilies[bank.lesson.slug]??[]).map(family=>`${bank.lesson.slug}-${family}-1-v1`);
+
 // Chapter check uses explicit family coverage and selected question IDs.
 const slug="ma-counting-check";
 const sections=["書き出しと数え方","並べ方","選び方と組分け"];
@@ -154,8 +164,8 @@ for(const s of source.skills){
  }
 }
 export const mathACheckLesson:Lesson={slug,title:"場合の数の章末確認",subject:"数学A",chapter:"場合の数",section:"章末確認",description:"何を一通りと数えるかを決め、条件に合う方法で数えます。",basicsTitle:"数える対象と条件を確かめる",
- introduction:["同じものとして数える範囲、順序や役割、使えるものの条件を先に確かめます。","途中式には、何を先に決めたか、何を重複として除いたかが分かるように書きます。"],
- rule:"式を選ぶ前に、何が違えば別の一通りになるかを確認します。",guidedAfterExamples:true,
+ introduction:["同じ人や物でも、順番・役割・席番号が変われば別に数える場合があります。何を一通りとするかを決めます。","重ならない場合に分けた個数は足します。選択を続けるときは、どの選択にも同じ数の候補が続くことを確かめて掛けます。同じ結果を何度も数えたときは、その重複を除きます。"],
+ rule:"順序を区別するか、何回ずつ同じ結果を数えるかで、式が決まります。",guidedAfterExamples:true,
  examples:source.lesson.examples.map((e,i)=>({...e,id:`example-${i+1}`,guidedIds:[`${slug}-${source.skills[i].id}-guided-v1`]})),practiceGroups,supplements};
 export const mathAChapter1Lessons=[...mathACountingTopics.map(t=>t.lesson),mathACheckLesson];
 export const mathAChapter1Exercises=[...mathACountingTopics.flatMap(t=>t.exercises),...mathACheckExercises];

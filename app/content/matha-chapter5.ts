@@ -73,7 +73,7 @@ export const mathAIntegerTopics=[
  T("euclidean-algorithm","ユークリッドの互除法","割る数と余りに置き換え、最大公約数を求めます。",[
  m`正の整数 $a,b$ について、整数 $q,r$ を用いて $a=bq+r,\ 0\leqq r<b$ と表します。$a,b$ の公約数は $r=a-bq$ も割ります。逆に $b,r$ の公約数は $a=bq+r$ も割ります。公約数が同じなので、最大公約数も変わりません。`,
  "大きい二数を、割る数と余りという小さい組に置き換えて繰り返します。余りは$0$以上の整数で、割り算を繰り返すたびに小さくなるので、いつか$0$になります。",
- "余りが$0$になったときの割る数が、最後の$0$でない数であり最大公約数です。最後に出た$0$を答えにしないよう注意します。"
+ "余りが $0$ なら割る数が割られる数を割り切るので、この二数の最大公約数は割る数です。公約数は途中で変わらないため、元の二数でも同じ最大公約数です。"
  ],"公約数を変えずに、小さい二数へ置き換えます。",[
  S("euclid-calculation","割り算を繰り返す","前の割る数を次に割られる数へ、余りを次の割る数へ移します。",euclidPairs.map(([a,b])=>i.euclid(a,b))),
  S("euclid-reason","公約数が変わらない理由を示す","元から余りへ、余りから元へという二方向を説明します。",euclidPairs.map(([a,b])=>i.invariant(a,b)))
@@ -129,6 +129,24 @@ export const mathAIntegerTopics=[
  S("stone-strategy","相手の二通りの手に備える","手番を渡すときの残りを三の倍数にそろえます。",[7,8,6,10,11,9,13,14,12].map(i.stones))
  ],sections[3])
 ];
+// Preparation stays available in records; only the operation used next is shown.
+const warmupByTopic:Record<string,string[]>={
+ "ma-divisors-primes":["division-prep"],
+ "ma-prime-factorization":["multiply-prep"],
+ "ma-gcd-lcm":["division-prep"],
+ "ma-quotient-remainder":["division-prep"],
+ "ma-parity-proofs":[],
+ "ma-remainder-classification":["division-prep"],
+ "ma-divisibility-digits":["division-prep"],
+ "ma-euclidean-algorithm":["division-prep"],
+ "ma-linear-diophantine":[],
+ "ma-integer-count-conditions":[],
+ "ma-terminating-recurring":["division-prep"],
+ "ma-binary-notation":["division-prep"],
+ "ma-coordinates-space":[],
+ "ma-mathematics-activities":["division-prep"]
+};
+for(const bank of mathAIntegerTopics) bank.lesson.warmupIds=warmupByTopic[bank.lesson.slug].map(id=>`${bank.lesson.slug}-${id}-1-v1`);
 mathAIntegerTopics.find(b=>b.lesson.slug==="ma-linear-diophantine")!.lesson.supplements.find(h=>h.id==="all-integer-solutions")!.text+="\n"+coprimeReason;
 addRepairExample(mathAIntegerTopics,"ma-divisors-primes","prime-judgment",i.prime(1));
 addRepairExample(mathAIntegerTopics,"ma-divisors-primes","prime-judgment",i.prime(21));

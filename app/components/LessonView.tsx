@@ -57,7 +57,7 @@ type LessonTask={id:string;label:string;hash:string};
 export default function LessonView({lesson}:{lesson:Lesson}) {
   const subject=subjectForChapter(lesson.chapter),start=lessonStarts[lesson.slug],hasFormula=Object.hasOwn(formulaCorrespondence,lesson.slug);
   const hasPacedVisual=["rational","trig-unit-circle","trig-angle-change","m1-parabola-translation","m1-linear-inequalities","m1-interval-extrema","m1-quadratic-inequality"].includes(lesson.slug);
-  const pacedBasics=["数学I","数学II","数学III"].includes(subject)&&!start;
+  const pacedBasics=["数学I","数学II","数学III","数学A"].includes(subject)&&!start;
   const [practiceGroup,setPracticeGroup]=useState(lesson.practiceGroups?.[0]?.id??"all");
   const [visitedGroups,setVisitedGroups]=useState<Set<string>>(()=>new Set([lesson.practiceGroups?.[0]?.id??"all"]));
   const [taskProgress,setTaskProgress]=useState<Record<string,number>>({});
@@ -155,10 +155,10 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
       {!hasFormula&&!hasPacedVisual&&<h2>{lesson.basicsTitle??(lesson.slug==="rational"?"約分できるのは、共通の因数":"点の座標を、式に入れてみる")}</h2>}
       {start?(!hasFormula&&!hasPacedVisual&&<div className="lesson-start"><p><MathText text={start.goal}/></p>{start.steps.length>0&&<ol>{start.steps.map((step,i)=><li key={i}><MathText text={step}/></li>)}</ol>}</div>):hasReader?<BasicReader key={lesson.slug} slug={lesson.slug} introduction={lesson.introduction} rule={lesson.rule} {...basicsFlow}/>:!hasFormula&&!hasPacedVisual&&lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}
       {lesson.slug==="trig-unit-circle"&&<UnitCircleCoordinates {...basicsFlow}/>}{lesson.slug==="trig-angle-change"&&<UnitCircleExplorer {...basicsFlow}/>}{lesson.slug==="m1-parabola-translation"&&<ParabolaExplorer {...basicsFlow}/>}
-      <ConceptExplorer slug={lesson.slug}/>{!hasFormula&&<VisualLessonExplorer slug={lesson.slug} {...(hasPacedVisual?basicsFlow:{})}/>}<FormulaCorrespondence key={lesson.slug} slug={lesson.slug} {...basicsFlow}/>
+      {!(subject==="数学A"&&hasFormula)&&<ConceptExplorer slug={lesson.slug}/>}{!hasFormula&&<VisualLessonExplorer slug={lesson.slug} {...(hasPacedVisual?basicsFlow:{})}/>}<FormulaCorrespondence key={lesson.slug} slug={lesson.slug} {...basicsFlow}/>
       {!hasFormula&&!hasPacedVisual&&!hasReader&&<LearningStepControls onPrevious={basicsFlow.onBack} onNext={basicsFlow.onContinue}/>}
       {start&&<>{!hasFormula&&!hasPacedVisual&&<p className="start-check"><MathText text={start.check}/></p>}<details className="supplement original-explanation"><summary>定義・公式とその根拠を読む</summary>{lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}<p><MathText text={lesson.rule}/></p></details></>}
-      {lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug} folded={["数学I","数学II","数学III"].includes(subject)}/><MathBSimulation slug={lesson.slug}/>{!start&&!pacedBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}
+      {lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug} folded={["数学I","数学II","数学III","数学A"].includes(subject)}/><MathBSimulation slug={lesson.slug}/>{!start&&!pacedBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}
     </section>}
     {lesson.examples.map((e,i)=>{
       const visualSteps=functionVisualSteps(lesson.slug,i);

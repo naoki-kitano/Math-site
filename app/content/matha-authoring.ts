@@ -10,12 +10,14 @@ export type Bank={lesson:Lesson;exercises:Exercise[];skills:Skill[]};
 export function addRepairExample(banks:Bank[],slug:string,family:string,example:Q){
  const help=banks.find(b=>b.lesson.slug===slug)?.lesson.supplements.find(h=>h.id===family);
  if(!help)throw Error("Missing repair example "+slug+family);
- help.text+="\n別の条件でも確かめる\n"+example.prompt+"\n"+workedText(example.working,example.answer);
+ if(slug.startsWith("ma-")){
+  (help.additionalExamples??=[]).push({title:"別の条件でも確かめる",text:workedText(example.prompt,example.working,example.answer)});
+ }else help.text+="\n別の条件でも確かめる\n"+example.prompt+"\n"+workedText(example.working,example.answer);
 }
 export function topic(chapter:string,slug:string,title:string,description:string,introduction:string[],rule:string,skills:Skill[],prep:Skill[],section:string):Bank{
  const exercises:Exercise[]=[];
  const add=(s:Skill,x:Q,i:number,stage:Exercise["stage"])=>{
-  exercises.push({id:`${slug}-${s.id}-${i+1}-v1`,lesson:slug,family:s.id,repair:s.id,stage,kind:"paper",prompt:x.prompt,answer:x.answer,hints:[x.hint],steps:[{title:s.title,text:x.working},{title:"答え",text:x.answer}]});
+  exercises.push({id:`${slug}-${s.id}-${i+1}-v1`,lesson:slug,family:s.id,repair:s.id,stage,kind:"paper",prompt:x.prompt,answer:x.answer,hints:[x.hint],steps:x.steps??[{title:s.title,text:x.working},{title:"答え",text:x.answer}],...(x.answerInSteps?{answerInSteps:true}:{})});
  };
  for(const s of skills){if(s.items.length<4)throw Error("Missing practice "+slug+s.id);s.items.forEach((x,i)=>add(s,x,i,i===0?"guided":i>=s.items.length-2?"review":"practice"));}
  for(const s of prep)s.items.forEach((x,i)=>add(s,x,i,i===0?"ready":"review"));
@@ -28,8 +30,8 @@ export function topic(chapter:string,slug:string,title:string,description:string
  const other=exercises.filter(e=>e.stage!=="practice");
  if(firstPractice>=0){other.splice(Math.min(firstPractice,other.length),0,...mixed);exercises.splice(0,exercises.length,...other);}
  return {skills,exercises,lesson:{slug,title,subject:"数学A",chapter,section,description,introduction,rule,basicsTitle:title,guidedAfterExamples:true,
-  examples:skills.map(s=>({id:s.id,title:s.title,prompt:s.sample.prompt,guidedIds:[`${slug}-${s.id}-1-v1`],steps:[{title:"",text:s.sample.hint},{title:s.title,text:s.sample.working},{title:"答え",text:s.sample.answer}]})),
-  supplements:[...skills,...prep].map(s=>({id:s.id,title:s.title,text:workedText(s.why,s.sample.prompt,s.sample.working,s.sample.answer),tex:"",check:s.items[0].prompt,answer:workedText(s.items[0].working,s.items[0].answer)}))}};
+  examples:skills.map(s=>({id:s.id,title:s.title,prompt:s.sample.prompt,guidedIds:[`${slug}-${s.id}-1-v1`],steps:s.sample.steps??[{title:"",text:s.sample.hint},{title:s.title,text:s.sample.working},{title:"答え",text:s.sample.answer}]})),
+  supplements:[...skills,...prep].map(s=>({id:s.id,title:s.title,text:workedText(s.why,s.sample.prompt,s.sample.working,s.sample.answer),tex:"",check:s.items[0].prompt,answer:workedText(s.items[0].working,s.items[0].answer),...(slug.startsWith("ma-")?{answerExerciseId:`${slug}-${s.id}-1-v1`}:{})}))}};
 }
 // Explicit family coverage: one practice and two distinct review questions per decision.
 // All supplied selections are IDs within that family, not the order of lesson cards.

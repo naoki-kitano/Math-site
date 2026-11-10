@@ -165,7 +165,18 @@ test('formula correspondence keeps every stage typeset and retains its lesson co
   for(const step of lesson.steps){
    if(step.diagram){
     const html=renderToStaticMarkup(React.createElement(Structure,{...step.diagram,reduce:true}));
-    assert.match(html,/<math /,`${slug}: diagram must contain its mathematical labels`);
+    const {kind,stage}=step.diagram;
+    const wordCoins=kind==='ma-probability-events'&&stage===0?{trials:2}:['ma-probability-complement','ma-probability-repeated'].includes(kind)&&stage<=1?{trials:3,heads:kind==='ma-probability-repeated'?2:undefined}:null;
+    if(wordCoins&&!html.includes('<math ')){
+     const {trials,heads}=wordCoins;
+     const expected=Array.from({length:2**trials},(_,mask)=>Array.from({length:trials},(_,i)=>(mask>>i)&1?'表':'裏').join('')).filter(row=>heads===undefined||[...row].filter(face=>face==='表').length===heads);
+     const shownExpected=kind==='ma-probability-repeated'&&stage===0?[Array.from({length:trials},(_,i)=>i<heads?'表':'裏').join('')]:expected;
+     const faces=[...html.matchAll(/<span\b[^>]*>(表|裏)<\/span>/g)].map(match=>match[1]);
+     assert.equal(faces.length%trials,0,slug+' complete coin rows');
+     const outcomes=Array.from({length:faces.length/trials},(_,i)=>faces.slice(i*trials,(i+1)*trials).join(''));
+     assert.equal(new Set(outcomes).size,outcomes.length,slug+' no duplicated outcomes');
+     assert.deepEqual(outcomes.sort(),shownExpected.sort(),slug+' outcomes agree with the current mathematical step');
+    }else assert.match(html,/<math /,`${slug}: diagram must contain its mathematical labels`);
     assert.doesNotMatch(html,/math-error|katex-error/,slug);
    }
    assert.doesNotMatch(renderToStaticMarkup(React.createElement(MathText,{text:step.text})),/math-error|katex-error/,slug);

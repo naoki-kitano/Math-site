@@ -3,7 +3,24 @@ import type {Q} from "./matha-authoring";
 import {root} from "./math1-trig-authoring";
 const rootCalculation=(n:number)=>{const raw=m`\sqrt{${n}}`,value=root(n);return raw===value?value:m`${raw}=${value}`;};
 export const geoAudit:{q:Q;kind:string;args:number[]}[]=[];
-const checked=(x:Q,kind:string,args:number[])=>{x.model={kind,args};geoAudit.push({q:x,kind,args});return x;};
+// Author each mathematical decision explicitly; the same steps travel with chapter review copies.
+const checked=(x:Q,kind:string,args:number[])=>{
+ const [a,b,c,d,e]=args;
+ const step=(title:string,text:string)=>({title,text});
+ const steps:Record<string,()=>ReturnType<typeof step>[]>={
+  angle:()=>[step("三つの内角をそろえる",m`三角形の内角の和は $180^\circ$。$\angle C$ は、分かっている二つの角を除いた残りです。`),step("残る角を求める",x.working)],
+  similar:()=>[step("頂点から辺へ",m`$A\leftrightarrow D$、$B\leftrightarrow E$、$C\leftrightarrow F$。二つの頂点をそろえると、$AB\leftrightarrow DE$、$BC\leftrightarrow EF$ です。`),step("対応する比をそろえる",m`同じ向きに測った倍率をそろえて、$\frac{DE}{AB}=\frac{EF}{BC}$。したがって $\frac{${c}}{${a}}=\frac{EF}{${b}}$。`),step("長さを求める",m`$EF=${b}\times\frac{${c}}{${a}}=${f(b*c,a)}$。`)],
+  parallel:()=>[step("部分から全体を作る",m`$AD=${a}$ と $DB=${b}$ をつなぐと、$AB=${a+b}$ です。`),step("相似の対応をそろえる",m`$DE\parallel BC$ による同位角と共通角から $\triangle ADE\sim\triangle ABC$。$AD\leftrightarrow AB$、$AE\leftrightarrow AC$ です。`),step("部分と全体の比を使う",m`$\frac{AE}{${c}}=\frac{${a}}{${a+b}}$ より、$AE=${f(a*c,a+b)}$。`)],
+  area:()=>[step(c?"底辺と高さを対応させる":"共通の高さを見つける",c?m`相似な三角形では、対応する底辺も高さも $${a}:${b}$ です。`:m`$BD,DC$ は同じ直線上。頂点 $A$ からの高さ $h$ を共通に使えます。`),step("面積の式で比べる",x.working)],
+  exists:()=>[step("最長辺と二辺の和",m`正の長さを順に並べると、最長辺は $${c}$。残り二辺の和は $${a}+${b}=${a+b}$ です。`),step("三角形になる条件",m`三角形になるには $${a+b}>${c}$ が必要十分です。`+(a+b===c?"今回は等しいので一直線になり、作れません。":a+b>c?"この不等式を満たすので、作れます。":"この不等式を満たさないので、作れません。"))],
+  bisector:()=>[step("二等分線の比",d?m`外角の二等分線より $BE:CE=AB:AC=${a}:${b}$。`:m`内角の二等分線より $BD:DC=AB:AC=${a}:${b}$。`),step(d?"差を元の辺に合わせる":"和を元の辺に合わせる",d?m`$E,B,C$ の順なので $CE=BE+BC$。比の差 $${b}-${a}=${b-a}$ が $BC=${c}$ に対応します。`:m`$B,D,C$ の順なので $BD+DC=BC$。比の和 $${a}+${b}=${a+b}$ が $BC=${c}$ に対応します。`),step("二つの長さ",x.answer)],
+  cevian:()=>[step("点の配置から定理を選ぶ",e?m`$D,E$ は辺の内部、$F$ は $B$ 側の外点で、三点は一直線です。メネラウスの定理を使えます。`:m`$D,E,F$ は各辺の内部で、$AD,BE,CF$ は一点で交わります。チェバの定理を使えます。`),step("三辺を同じ向きに巡る",m`$B\to C$、$C\to A$、$A\to B$ の順に、$\frac{BD}{DC}\cdot\frac{CE}{EA}\cdot\frac{AF}{FB}=1$。`),step("残る比を求める",m`$\frac{${a}}{${b}}\cdot\frac{${c}}{${d}}\cdot\frac{AF}{FB}=1$ から、$\frac{AF}{FB}=\frac{${b}\times${d}}{${a}\times${c}}=${f(b*d,a*c)}$。`),step("比で答える",x.answer+(e?m`$AF=AB+BF>BF$ とも一致します。`:""))],
+  tangent:()=>[step("半径で直角を作る",m`接点 $T$ と中心 $O$ を結ぶと $OT\perp PT$。直角三角形 $OTP$ の斜辺は $OP=${a}$ です。`),step("三平方の定理に対応させる",m`$PT^2+OT^2=OP^2$ なので、$PT^2=${a}^2-${b}^2=${a*a-b*b}$。`),step("正の長さを取る",x.answer)],
+  power:()=>[step(d?"起点からの全長を作る":"交点から測る",d?m`起点 $P$ から遠い交点 $B$ までは、$PB=PA+AB=${a}+${b}=${a+b}$。`:m`二つの弦の交点 $P$ から、それぞれ両端までの長さを測ります。`),step("二つの積を対応させる",e?m`接線の長さの二乗は、割線の二つの長さの積に等しく、$PT^2=PA\cdot PB=${a}\times${a+b}$。`:m`方べきの定理より $PA\cdot PB=PC\cdot PD$。与えられた長さを入れると、$${a}\times${d?a+b:b}=${c}\times PD$。`),step("残る長さ",e?m`$PT=${rootCalculation(a*(a+b))}$。長さなので正の平方根を取ります。`:m`$PD=\frac{${a*(d?a+b:b)}}{${c}}=${f(a*(d?a+b:b),c)}$。`)],
+  common:()=>[step("接点へ半径を引く","二本の半径はともに接線に垂直です。中心間の線分を斜辺とする直角三角形を作ります。"),step(d?"半径の和を対応させる":"半径の差を対応させる",d?m`中心が接線の反対側にあるので、一辺は半径の和 $${a}+${b}=${a+b}$。もう一辺は接点間の長さです。`:m`中心が接線の同じ側にあるので、一辺は半径の差 $|${a}-${b}|=${Math.abs(a-b)}$。もう一辺は接点間の長さです。`),step("三平方の定理で求める",m`斜辺は中心間距離 $${c}$ です。接点間の長さは $\sqrt{${c}^2-${d?a+b:Math.abs(a-b)}^2}=${root(c*c-(d?a+b:Math.abs(a-b))**2)}$。`)]
+ };
+ x.model={kind,args};x.steps=steps[kind]?.();x.answerInSteps=true;geoAudit.push({q:x,kind,args});return x;
+};
 export function angle(a:number,b:number):Q{return checked(q(m`三角形 $ABC$ で $\angle A=${a}^\circ,\angle B=${b}^\circ$。$\angle C$ と理由を答えなさい。`,m`$${180-a-b}^\circ$。三角形の内角の和は $180^\circ$ だからです。`,"分かっている二角の和を、内角の和から引きます。",m`$\angle C=180^\circ-(${a}^\circ+${b}^\circ)=${180-a-b}^\circ$。`,180-a-b),"angle",[a,b]);}
 export function crossing(a:number):Q{return q(m`交わる二直線の一つの角が $${a}^\circ$ です。その対頂角と、それに隣り合う角を求め、理由も書きなさい。`,m`対頂角 $${a}^\circ$、隣の角 $${180-a}^\circ$。対頂角は等しく、一直線の角は $180^\circ$ です。`,"隣の角との和が平角になることを使います。",m`隣角は $180^\circ-${a}^\circ=${180-a}^\circ$。元の角と向かい合う角も、その隣角の補角なので $${a}^\circ$ になり、対頂角が等しいと分かります。`);}
 export function similar(a:number,b:number,c:number):Q{return checked(q(m`$\triangle ABC\sim\triangle DEF$ で $AB=${a},BC=${b},DE=${c}$。$EF$ を求め、対応する辺も答えなさい。`,m`$AB$ と $DE$、$BC$ と $EF$ が対応し、$EF=${f(b*c,a)}$。`,"相似を表す頂点の順序を、同じ位置どうしで対応させます。",m`$A,B,C$ は順に $D,E,F$ に対応します。倍率は $\frac{DE}{AB}=\frac{${c}}{${a}}$。$EF=${b}\times\frac{${c}}{${a}}=${f(b*c,a)}$。`,b*c/a),"similar",[a,b,c]);}
@@ -106,7 +123,7 @@ export function circles(r:number,s:number,d:number):Q{
  const answer=d===0&&r===s?"一致します。交点は円周上のすべての点です。":d>sum?"離れていて、交点はありません。":d===sum?"外接し、接点は一つです。":d>diff?"二点で交わります。":d===diff?"内接し、接点は一つです。":"一方が他方の内部にあり、交点はありません。";
  return q(m`二円の半径は $${r},${s}$、中心間の距離は $${d}$ です。二円の位置関係と共有点について答えなさい。`,answer,
  "まず同じ円でないかを確かめ、次に中心間距離を半径の和・差と比べます。",
- m`半径の和は $${sum}$、差の絶対値は $${diff}$。`+(d===0&&r===s?"中心も半径も同じなので同じ円です。":m`中心間距離 $${d}$ をこの二つと比べます。`)+answer);
+ m`半径の和は $${sum}$、差の絶対値は $${diff}$。`+(d===0&&r===s?"中心も半径も同じです。":d>sum?m`$${d}>${sum}$ なので、二つの半径を合わせても中心間に届きません。`:d===sum?m`$${d}=${sum}$ で、半径の和が中心間距離に等しくなります。`:d>diff?m`$${diff}<${d}<${sum}$ で、半径差と半径和の間です。`:d===diff?m`$${d}=${diff}$ で、半径の差が中心間距離に等しくなります。`:m`$${d}<${diff}$ なので、小さい円は大きい円の内側に収まります。`)+answer);
 }
 export function commonTangent(r:number,s:number,d:number,inner=false):Q{
  const leg=inner?r+s:Math.abs(r-s),sq=d*d-leg*leg;

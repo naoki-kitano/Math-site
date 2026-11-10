@@ -1,0 +1,1790 @@
+{
+  "date": "2026-11-10",
+  "baselineCommit": "6a89e8c06e3d17071a19015d5c7ab31ab5186b31",
+  "backupBranch": "backup/before-matha-improvements-20261110",
+  "backupVerifiedAtRemote": true,
+  "scope": {
+    "lessons": 74,
+    "examples": 157,
+    "exercises": 2219,
+    "supplements": 432,
+    "correspondenceLessons": 69,
+    "correspondenceStages": 262,
+    "diagramStates": 195,
+    "motions": 2,
+    "changedExerciseSteps": 1350,
+    "changedExamples": 105,
+    "additionalExamples": 54,
+    "readyRetained": 148,
+    "readyShown": 45
+  },
+  "mathematicalReview": {
+    "reviewer": "independent read-only mathematical and pedagogical reviewer",
+    "requestedReviewer": "gpt-6-astra",
+    "reviewDateUTC": "2026-11-10T13:02:09.331478+00:00",
+    "repository": "/workspace/scratch/math-site",
+    "branch": "codex/matha-improvements-20261110",
+    "baselineCommit": "6a89e8c06e3d17071a19015d5c7ab31ab5186b31",
+    "headCommit": "6a89e8c06e3d17071a19015d5c7ab31ab5186b31",
+    "status": "approved_mathematical_content_for_exact_source_hashes",
+    "sourceManifestSHA256": "4e171fe4212fdf4e98bdadf58967c56929b5632934352f8c5a9168b5c29ee2d7",
+    "approvedSourceHashes": {
+      "app/components/LessonView.tsx": "7e440621533b85e21569d759a3c93fe98b56a58066339ebb9e27aa60dc2cdf6e",
+      "app/components/MathACountingDiagrams.tsx": "15f2c8403a2e9de30ecda7615a8e2fcbdda003e8b863bd4e370fb24ccd26690f",
+      "app/components/MathACountingStructure.tsx": "3a6649b4bdcab54e562fcf7f56dfb94f944f9fd35f5302ae4cbb6c4ff4d56d4d",
+      "app/components/MathAGeometryDiagrams.tsx": "6ca8d1ab28a6a1aaa74cafa2c138907ef24def7aef71e86fd357fc64a70b1c09",
+      "app/components/MathAGeometryStructure.tsx": "b2799e990961a73e9c95ef3ede76a232c68b99572629393493c84367f10f40e7",
+      "app/components/MathAIntegerStructure.tsx": "654eec88773a8db808048ad8379e9257a288a2d8d068a5eaeba69b79318ecf42",
+      "app/components/MathAProbabilityDiagrams.tsx": "08d12216c7d9434024f271e74614e1faea79ef5bb07b932d1bf14547275c6de7",
+      "app/components/MathAProbabilityStructure.tsx": "785a2f5aeaa79f1c47a78b4da159082cccbffdd54d261a1a55be8424be31b39d",
+      "app/components/MathASpaceDiagrams.tsx": "45e4b160efc44a8334b2b14fcfa63b52d5a73417cd2e647dd9daec4b70fe3e84",
+      "app/components/MathASpaceStructure.tsx": "269ae7465f56b57ca2c5ee20e88e2c8f8fa708af962310847df133f515b8c7dd",
+      "app/components/StructureDiagram.tsx": "0f9b7b5a81d8b1d2de849c466682a17efaa81e5bd7b35862341c8f106af17eaa",
+      "app/content/formula-correspondence.ts": "e53ae879fb2acb346d9eafb50f532f359ac9deb90838c9cb845b1f8840552857",
+      "app/content/lesson-starts.ts": "939b0f0e6e202a8239872e9823175496d5c5ee99d66ef1866d4034ee054fad9b",
+      "app/content/matha-authoring.ts": "236035e2b1ae3f55eb75b559694663ac82347adeffb9ce4e0f7c7217d05eb546",
+      "app/content/matha-chapter1.ts": "5154ac42da6dfca4d951da2485109d348fc9648f2421dd6eaa982f37bf28b62b",
+      "app/content/matha-chapter2.ts": "996ccd4f320147a91eaa2be5e318c6816de4b9c9706aad4faac599c2302b1910",
+      "app/content/matha-chapter3.ts": "18e6bec4b66be18394584d242afd31873493b70fb87f6dd86be788c71cefd812",
+      "app/content/matha-chapter4.ts": "9a40bbf836a56a7e6f0c0f732fa1fd320b240f29d066aa30482f4f2c42bc04cc",
+      "app/content/matha-chapter5.ts": "a1572867602035ef2ecbbcfe18dabb94f0da80e9f4458ef2cb07431d59f2d42d",
+      "app/content/matha-counting-authoring.ts": "f7deec896bd8418f59a2a7cd81d534d28b758d406389091585b4e81d7f5871aa",
+      "app/content/matha-counting-correspondence.ts": "2061f88ee4832d1c4d175849efd7ccd782efe01230caa5eb04fc726c605465bf",
+      "app/content/matha-counting-tables.ts": "b4fa71dc3e135a9ea92dfd0ace1650b126c0f7c1bc3a2bcdf3a8d2e0b8d696cb",
+      "app/content/matha-geometry-correspondence.ts": "41dfc183e13e60244bc6b21d26f53c57c486e26e4794059aca936dc5bafb5569",
+      "app/content/matha-geometry-figures.ts": "4a480c2efe3028d4adc2575515ca644a7ac18c5762fd4ebe0d797671a779dd88",
+      "app/content/matha-geometry-questions.ts": "f27e8a61d892ef79b8610a83b7ae438b0b4e835bb0e67709788350e552afa8fd",
+      "app/content/matha-integer-correspondence.ts": "82f1641b87cb970294b42fb950a140504409ca9ccd4193ff242a3f5e858543c4",
+      "app/content/matha-integer-questions.ts": "393449f16c8b28d51ae4189be23caf156dd43c2043f332a84d4ff92bf0ac9a44",
+      "app/content/matha-probability-correspondence.ts": "4c746a8b04670c647b3e65e69e3d4d84c3e422207bb88bee00f02ebafb3e961b",
+      "app/content/matha-probability-questions.ts": "d1040ae71137d502737b9cb6c391dffbd11696bca4538f31ac8ebcf2ab8166b6",
+      "app/content/matha-space-correspondence.ts": "1df564bde24828ed93fe6f8132924389cfd68d54d0cb7d3d23bb9f62a23dd469",
+      "app/content/matha-space-figures.ts": "c49165378df85df6dd79b3b9b2b00f29e61bb60704e9e2332abd55eece55d20a",
+      "app/content/matha-space-questions.ts": "ecdcc4c197c7b2ae0872984841fb2fbbb3765234da50d4c04cde2d8ef9b6f6fd",
+      "app/layout.tsx": "a278941b970becdd892b4d8106ff7fac2e55214cbfd77f42b6395c6dfffbbe1d",
+      "app/matha-learning.css": "e267d7dc010fde46dff245ca163de2b4a2f737e4a33717ba02a9991538bd9fce"
+    },
+    "instructionsRead": [
+      "AGENTS.md",
+      "MATHCANVAS_QA.md (opening records and gates)",
+      "skill://user/6acf1d689f9c8191a5a9c2b247c73584/math-creation-qa/SKILL.md"
+    ],
+    "coverage": {
+      "catalogue": {
+        "lessons": 74,
+        "examples": 157,
+        "exercises": 2219,
+        "supplements": 432
+      },
+      "independentlyRead": "All five new correspondence registries (69 lessons, 262 stages), all five new structure component mathematical models and coordinate definitions, all mathematical source changes relative to baseline in chapter text, question-generator branches, hints, solutions, construction proofs, supplement creation and chapter-check copying. Original nearby definitions and problem contexts were consulted; unchanged entire catalogue was not reread.",
+      "pedagogicalChecks": [
+        "Counting units, exhaustive disjoint cases and multiplicities",
+        "Probability denominators, equally likely outcomes, independence versus exclusivity, condition-positive requirement and replacement state",
+        "Triangle correspondence, hypotheses and converses, positive lengths, external-point order, circle arcs and tangent directions",
+        "Construction existence and preserved congruence/similarity arguments",
+        "Integer signs/remainders, coprimality, necessity and sufficiency for all integer solutions, realization of possible residues",
+        "Role of optional supplement examples and preservation of IDs and prerequisite question objects"
+      ],
+      "runtimeComparison": {
+        "lessons": 74,
+        "examples": 157,
+        "questions": 2219,
+        "supplements": 432,
+        "changedSteps": 1350,
+        "correspondenceLessons": 69,
+        "correspondenceSteps": 262,
+        "geometryStages": 49,
+        "rightAngleDotProductChecks": 18
+      },
+      "runtimeChangedPromptCount": 100,
+      "runtimeChangedAnswerCount": 132,
+      "runtimeChangedAnswerInterpretation": "Generator branches and grouped actual outputs checked: construction boilerplate removal, exact plane intersection/perpendicular edges, question-specific odd-square conclusions and unequal-choice reason. No numerical answer changes were found.",
+      "independentComputationalChecks": [
+        "All math A exercise IDs, family, repair, stage and kind agree with baseline",
+        "49 geometry stage models instantiated; 18 marked right angles verified by dot products",
+        "Parallel-triangle lengths and ratios; Ceva/Menelaus products; power-of-point circle membership and products; common-tangent leg/segment correspondence verified numerically"
+      ],
+      "scopeArtifact": "astra-runtime-check.json"
+    },
+    "findings": [
+      {
+        "id": "ASTRA-1",
+        "severity": "minor",
+        "file": "app/content/matha-integer-correspondence.ts",
+        "line": 10,
+        "issue": "The smaller factor cannot exceed the square root; the wording was about the candidate being searched.",
+        "minimumFix": "Replace 小さい方の因数 with 調べる因数.",
+        "status": "fixed_and_rechecked",
+        "fixedText": "調べる因数が $\\sqrt{12}$ を超えると、前の組を逆にしたものになります。"
+      }
+    ],
+    "openRequiredFindings": [],
+    "separateIntegrationNote": "ProbabilityPaths stage 2 shortened captions required syncing its existing HTML-product regression assertions. Main was notified; normal automated gates and UI verification belong to main.",
+    "notVerified": [
+      "Browser operation, actual screenshots, viewport fit, accessibility, bundled fonts and final published rendering are outside this reviewer assignment",
+      "All 2219 exercises were not independently recalculated one by one; parameterized mathematical branches and actual changed-output categories were reviewed",
+      "All unchanged problem/hint/working/supplement prose was not independently reread",
+      "Files edited after these hashes require a differential rereview"
+    ],
+    "sourceMutationsByReviewer": false,
+    "reviewArtifactsOnly": [
+      "astra-start-hashes.json",
+      "astra-independent-check.mjs",
+      "astra-independent-check.log",
+      "astra-runtime-check.json",
+      "astra-reviewed-snapshot/",
+      "astra-review.json",
+      "astra-differential-check.mjs",
+      "astra-differential-check.json",
+      "astra-space-differential.mjs",
+      "astra-space-differential.json",
+      "astra-review-final.json"
+    ],
+    "sourceManifestSerialization": "UTF-8 JSON with sorted keys, separators comma and colon, no whitespace",
+    "priorApproval": {
+      "artifact": "astra-review.json",
+      "sourceManifestSHA256": "cba6288dbc1843306a10e136afebefe63ac64472752750169c5697a8eee2a2f3",
+      "approvedSourceCount": 32
+    },
+    "approvedSourceCount": 34,
+    "finalDifferentialReview": {
+      "changedOrAdditionalSourceFiles": [
+        "app/components/LessonView.tsx",
+        "app/components/MathACountingDiagrams.tsx",
+        "app/components/MathAGeometryDiagrams.tsx",
+        "app/components/MathAGeometryStructure.tsx",
+        "app/components/MathAProbabilityStructure.tsx",
+        "app/components/MathASpaceDiagrams.tsx",
+        "app/content/matha-geometry-figures.ts",
+        "app/content/matha-space-figures.ts",
+        "app/matha-learning.css"
+      ],
+      "sourceContextAlsoRechecked": [
+        "app/content/lesson-starts.ts",
+        "app/components/ConceptExplorer.tsx",
+        "app/components/LessonTables.tsx",
+        "app/content/matha-chapter4.ts",
+        "app/content/matha-space-questions.ts"
+      ],
+      "findings": [],
+      "checks": [
+        "New probability span only groups existing MathText output as one grid item; all mathematical text, values and sets remain identical.",
+        "Only the redundant mathematics A conditional-probability ConceptExplorer is suppressed. It used discrete stages; the new guided structure preserves the sample-space restriction, conditional numerator and positive denominator. Continuous animations of other subjects are unaffected.",
+        "Folded mathematics A tables retain complete original table content inside details.",
+        "49 new geometry stages and 27 legacy figure states have identical mathematical payloads after excluding label offsets; correspondence and area C/E offsets and converse/common-tangent labels do not move geometric points.",
+        "The circle-permutation diagrams preserve both four-person cyclic orders, a quarter-turn correspondence, and the distinction between rotation equivalence and reflection.",
+        "GeometryDrawing optional className and space-only mobile max width preserve coordinates, equal x/y scale, edges, circles and right-angle indications.",
+        "All 19 legacy space example figure states retain identical non-caption model payloads; 8 changed captions retain the schematic-angle and hidden-edge/auxiliary-line qualification.",
+        "Removed space-caption statements remain in the corresponding problem, working and/or lesson context: lower/upper faces and vertical edges, nonintersection of AC/FH, EA perpendicular distance, foot C and angle GAC, midpoint positions and parallel-section reason.",
+        "All 69 correspondence lesson start conditions and goals match the new registry. No source mathematical generator or question changes occurred after prior approval."
+      ],
+      "independentCheckArtifacts": [
+        "astra-differential-check.mjs",
+        "astra-differential-check.json",
+        "astra-space-differential.mjs",
+        "astra-space-differential.json"
+      ],
+      "reviewBoundary": "Mathematical/pedagogical and source-model approval only. Parent owns actual final browser rendering, font/overlap/viewport checks, tests, publication and deployed artifact verification."
+    }
+  },
+  "standardRegression": {
+    "at": "2026-11-10T13:07:12.978473+00:00",
+    "status": "passed",
+    "scope": "Final approved-source standard regressions and runtime preservation. No application or test edits during this release check. Existing deep/focused checks were not repeated per parent instruction; their previous static/dev scopes remain in regression-report.json. Final changed-UI checks are performed by the separate QA owner.",
+    "tests": {
+      "passed": 175,
+      "failed": 0,
+      "durationMs": 95080.328451,
+      "log": "release-tests.log"
+    },
+    "types": {
+      "passed": true,
+      "log": "release-types.log"
+    },
+    "lint": {
+      "passed": true,
+      "log": "release-lint.log"
+    },
+    "prerequisiteAudit": {
+      "lessons": 466,
+      "questions": 11116,
+      "checks": 107,
+      "rules": 533,
+      "errors": [],
+      "log": "release-prerequisite-audit.log",
+      "coverage": "release-coverage.json",
+      "targets": "release-targets.json"
+    },
+    "runtimePreservation": {
+      "provisional": false,
+      "nonMathAExact": true,
+      "nonMathALessons": 392,
+      "nonMathAQuestions": 8897,
+      "counts": {
+        "lessons": 466,
+        "exercises": 11116,
+        "mathALessons": 74,
+        "mathAExistingQuestions": 2219,
+        "existingExamples": 157,
+        "existingSupplements": 432
+      },
+      "problems": [],
+      "newOrMissingIds": [],
+      "data": "release-runtime-comparison.json",
+      "log": "release-runtime-comparison.log",
+      "scope": "Every existing Math A lesson/question/example/supplement ID and non-display attribute, guided/practice-group mapping, diagnostic plan and target practice is preserved. Before/after lesson/exercise definitions for all other subjects match completely. This is not a claim of independent mathematical proof for every revised statement."
+    },
+    "sourceIntegrity": {
+      "snapshot": "release-source.json",
+      "changedDuringChecks": [],
+      "approvedAppSources": 34,
+      "approvalMismatch": [],
+      "approvalRecord": "../astra-review-final.json"
+    },
+    "ownedTests": {
+      "tests/matha-improvements.test.mjs": "13b7fa1924f5b6345ce5823a82a059545e3c23ba37a84012821a0c2388e56b3a",
+      "tests/matha-remaining.test.mjs": "d1c27594e0f435121adc52ba75df36016fa6110fc8e6edca39932de2b9456f09",
+      "tests/math-motion.test.mjs": "39c6c8270e2c93ebed8f9e66c5445e69d1f68ef11ba6d5daeebca70e1ee5aadd"
+    },
+    "diffCheckPassed": true
+  },
+  "sharedFlowRegression": {
+    "deepStatic": {
+      "staticMode": true,
+      "report": [
+        {
+          "width": 1100,
+          "firstInteractiveMs": 2605,
+          "depth": 5,
+          "wrongChoiceBranch": true,
+          "restoredParentAnswer": true,
+          "exactTargetPractice": true,
+          "reload": true,
+          "oneStepReturn": true,
+          "originalQuestionReturn": true,
+          "reviewAttribution": true,
+          "probesNotMastery": true,
+          "invalidPathsIgnored": true,
+          "errors": []
+        },
+        {
+          "width": 390,
+          "firstInteractiveMs": 1687,
+          "depth": 5,
+          "wrongChoiceBranch": true,
+          "restoredParentAnswer": true,
+          "exactTargetPractice": true,
+          "reload": true,
+          "oneStepReturn": true,
+          "originalQuestionReturn": true,
+          "reviewAttribution": true,
+          "probesNotMastery": true,
+          "invalidPathsIgnored": true,
+          "errors": []
+        }
+      ]
+    },
+    "focusedStatic": {
+      "isStatic": true,
+      "report": [
+        {
+          "width": 1100,
+          "oneTaskAtATime": true,
+          "noJumpMenu": true,
+          "linearWarmupAndExamples": true,
+          "hintPreserved": true,
+          "reviewPreserved": true,
+          "paperRatingAfterExplanation": true,
+          "assistancePreserved": true,
+          "optionalExtraPractice": true,
+          "browserHistory": true,
+          "exampleDeepLink": true,
+          "baseChangeMotion": true,
+          "fullReadingProgress": true
+        },
+        {
+          "width": 390,
+          "oneTaskAtATime": true,
+          "noJumpMenu": true,
+          "linearWarmupAndExamples": true,
+          "hintPreserved": true,
+          "reviewPreserved": true,
+          "paperRatingAfterExplanation": true,
+          "assistancePreserved": true,
+          "optionalExtraPractice": true,
+          "browserHistory": true,
+          "exampleDeepLink": true,
+          "baseChangeMotion": true,
+          "fullReadingProgress": true
+        }
+      ]
+    },
+    "staticScope": "1100px and390px on the frozen Pages artifact before the separately planned three UI fixes. No assertions changed in the browser harnesses.",
+    "deepDevFinal": {
+      "staticMode": false,
+      "report": [
+        {
+          "width": 1100,
+          "firstInteractiveMs": 3646,
+          "depth": 5,
+          "wrongChoiceBranch": true,
+          "restoredParentAnswer": true,
+          "exactTargetPractice": true,
+          "reload": true,
+          "oneStepReturn": true,
+          "originalQuestionReturn": true,
+          "reviewAttribution": true,
+          "probesNotMastery": true,
+          "invalidPathsIgnored": true,
+          "errors": []
+        },
+        {
+          "width": 390,
+          "firstInteractiveMs": 2102,
+          "depth": 5,
+          "wrongChoiceBranch": true,
+          "restoredParentAnswer": true,
+          "exactTargetPractice": true,
+          "reload": true,
+          "oneStepReturn": true,
+          "originalQuestionReturn": true,
+          "reviewAttribution": true,
+          "probesNotMastery": true,
+          "invalidPathsIgnored": true,
+          "errors": []
+        }
+      ]
+    },
+    "focusedDevFinal": {
+      "isStatic": false,
+      "report": [
+        {
+          "width": 1100,
+          "oneTaskAtATime": true,
+          "noJumpMenu": true,
+          "linearWarmupAndExamples": true,
+          "hintPreserved": true,
+          "reviewPreserved": true,
+          "paperRatingAfterExplanation": true,
+          "assistancePreserved": true,
+          "optionalExtraPractice": true,
+          "browserHistory": true,
+          "exampleDeepLink": true,
+          "baseChangeMotion": true,
+          "fullReadingProgress": true
+        },
+        {
+          "width": 390,
+          "oneTaskAtATime": true,
+          "noJumpMenu": true,
+          "linearWarmupAndExamples": true,
+          "hintPreserved": true,
+          "reviewPreserved": true,
+          "paperRatingAfterExplanation": true,
+          "assistancePreserved": true,
+          "optionalExtraPractice": true,
+          "browserHistory": true,
+          "exampleDeepLink": true,
+          "baseChangeMotion": true,
+          "fullReadingProgress": true
+        }
+      ]
+    },
+    "devFinalScope": {
+      "description": "Required learning/review regression after the Math A Concept guard/table fold and probability wrapper/geometry label fixes. Counting-circle and space-caption final edits are outside the visited routes.",
+      "widths": [
+        1100,
+        390
+      ],
+      "sameRecordedSourceHashes": true,
+      "sourceSnapshot": "dev-final-source.json"
+    }
+  },
+  "contentRendering": {
+    "scope": "数学A 全教材本文の共有 MathText/Formula + 実サイトCSS/fontによる静的描画。全問題の操作テストではない。",
+    "date": "2026-11-10T12:49:57.075Z",
+    "counts": {
+      "lessons": 74,
+      "exercises": 2219,
+      "displayFields": 22639,
+      "viewports": [
+        1100,
+        390,
+        320
+      ],
+      "renderedAuditPages": 222
+    },
+    "summary": {
+      "mathErrors": 0,
+      "rawTextIssues": 0,
+      "pageOverflowPages": [],
+      "leakFields": [],
+      "containedFormulaScrollCount": 0,
+      "verticalScrollers": [],
+      "fieldOverflows": [],
+      "fontFailures": [],
+      "networkFailures": []
+    },
+    "sourceIssues": [],
+    "limitations": [
+      "例題と設問解説は実UIのまとめ読み details 入れ子・showNumbers=false、補足は linked-repair/repair-exercise 入れ子まで再現。本文の静的全件描画であり全問の解答操作・学習履歴・分岐・アニメーションを全件操作した検査ではない。",
+      "実ページの例題表示を3ページ×指定画面幅で保存。スクリーンショットの目視確認は別途実施。",
+      "DOM上の数式エラー・生TeX・字幅・横漏れを検査。全数式の全ピクセルを目視した検査ではない。"
+    ]
+  },
+  "contentVersionScope": "Content render preceded the final figure-layout fixes. Lesson/exercise text was unchanged afterwards; changed figure captions and layouts were retested in the final figure and UI runs.",
+  "fullUI": {
+    "version": "First static candidate before targeted label/layout fixes",
+    "states": 3552,
+    "widths": [
+      320,
+      390,
+      1100
+    ],
+    "hardFailures": 0,
+    "scope": "All 69 basic correspondence lessons and all 157 examples, forward/back/return and representative disclosure states."
+  },
+  "finalBasicUI": {
+    "base": "http://127.0.0.1:3014/Math-site",
+    "staticMode": true,
+    "widths": [
+      320,
+      390,
+      1100
+    ],
+    "estimate": {
+      "correspondenceLessons": 69,
+      "correspondenceStages": 262,
+      "examples": 157,
+      "sourceExampleStages": 460,
+      "widths": [
+        320,
+        390,
+        1100
+      ],
+      "selectedCorrespondence": 69,
+      "selectedExamples": 0,
+      "mainStateEstimate": 786,
+      "navigationEstimate": 207
+    },
+    "checked": 1200,
+    "routes": 207,
+    "failures": [],
+    "sourceChanged": false,
+    "limitations": [
+      "The source runtime catalog selects Math A only; the actually delivered site is exercised without injecting app state.",
+      "Chromium emulation at 100% device scale; not physical mobile Safari.",
+      "Label overlap / size / boundary boxes and vertical fit are review candidates, not automatic mathematical or visual correctness judgments.",
+      "The result is not a recalculation of all exercises, a learning-record audit, or a claim that screenshots were visually inspected.",
+      "Animation end states are checked; intermediate motion timing remains a separate representative check."
+    ],
+    "automatedStatus": "needs-visual-review",
+    "candidateCategories": [
+      "labelOverlaps",
+      "viewportFit"
+    ],
+    "review": "See final visual dispositions; viewport candidates do not imply clipping or an internal scrollbar."
+  },
+  "finalTargetedExampleUI": {
+    "base": "http://127.0.0.1:3014/Math-site",
+    "staticMode": true,
+    "widths": [
+      320,
+      390,
+      1100
+    ],
+    "estimate": {
+      "correspondenceLessons": 69,
+      "correspondenceStages": 262,
+      "examples": 157,
+      "sourceExampleStages": 460,
+      "widths": [
+        320,
+        390,
+        1100
+      ],
+      "selectedCorrespondence": 0,
+      "selectedExamples": 27,
+      "mainStateEstimate": 240,
+      "navigationEstimate": 81
+    },
+    "checked": 426,
+    "routes": 81,
+    "failures": [],
+    "sourceChanged": false,
+    "limitations": [
+      "The source runtime catalog selects Math A only; the actually delivered site is exercised without injecting app state.",
+      "Chromium emulation at 100% device scale; not physical mobile Safari.",
+      "Label overlap / size / boundary boxes and vertical fit are review candidates, not automatic mathematical or visual correctness judgments.",
+      "The result is not a recalculation of all exercises, a learning-record audit, or a claim that screenshots were visually inspected.",
+      "Animation end states are checked; intermediate motion timing remains a separate representative check."
+    ],
+    "automatedStatus": "needs-visual-review",
+    "candidateCategories": [
+      "viewportFit"
+    ],
+    "review": "See final visual dispositions; viewport candidates do not imply clipping or an internal scrollbar."
+  },
+  "finalExampleFigures": {
+    "answerCount": 0,
+    "exampleStates": 51,
+    "ids": [
+      "ma-listing-example-1",
+      "ma-circular-permutation-example-0",
+      "ma-identical-permutation-example-1",
+      "ma-probability-tree-example-1",
+      "ma-parallel-ratios-example-0",
+      "ma-area-ratios-example-0",
+      "ma-triangle-sides-angles-example-1",
+      "ma-angle-bisector-example-0",
+      "ma-angle-bisector-example-1",
+      "ma-centroid-example-0",
+      "ma-incenter-circumcenter-example-0",
+      "ma-incenter-circumcenter-example-1",
+      "ma-incenter-circumcenter-example-2",
+      "ma-ceva-example-0",
+      "ma-menelaus-example-0",
+      "ma-geometry-converses-example-0",
+      "ma-inscribed-angle-example-0",
+      "ma-cyclic-quadrilateral-example-0",
+      "ma-circle-tangent-example-0",
+      "ma-circle-tangent-example-1",
+      "ma-tangent-chord-example-0",
+      "ma-tangent-chord-example-1",
+      "ma-power-of-point-example-0",
+      "ma-power-of-point-example-1",
+      "ma-power-of-point-example-2",
+      "ma-two-circles-example-0",
+      "ma-common-tangents-example-0",
+      "ma-common-tangents-example-1",
+      "ma-construction-bisectors-example-0",
+      "ma-construction-bisectors-example-1",
+      "ma-construction-perpendicular-example-0",
+      "ma-construction-perpendicular-example-1",
+      "ma-construction-division-example-0",
+      "ma-construction-division-example-1",
+      "ma-construction-tangents-example-0",
+      "ma-construction-tangents-example-1",
+      "ma-space-lines-example-0",
+      "ma-space-lines-example-1",
+      "ma-space-lines-planes-example-0",
+      "ma-space-lines-planes-example-1",
+      "ma-space-angle-distance-example-0",
+      "ma-space-angle-distance-example-1",
+      "ma-solid-sections-example-0",
+      "ma-solid-sections-example-1",
+      "ma-polyhedron-counts-example-0",
+      "ma-polyhedron-counts-example-1",
+      "ma-polyhedron-counts-example-2",
+      "ma-euclidean-algorithm-example-0",
+      "ma-coordinates-space-example-0",
+      "ma-coordinates-space-example-1",
+      "ma-mathematics-activities-example-0"
+    ],
+    "results": [
+      {
+        "width": 320,
+        "cases": 51,
+        "bars": [],
+        "outside": [],
+        "raw": [],
+        "clippedLabels": [],
+        "mathErrors": 0,
+        "pageOverflow": false,
+        "fonts": {
+          "main": true,
+          "math": true
+        },
+        "runtime": [],
+        "fontFailures": []
+      },
+      {
+        "width": 390,
+        "cases": 51,
+        "bars": [],
+        "outside": [],
+        "raw": [],
+        "clippedLabels": [],
+        "mathErrors": 0,
+        "pageOverflow": false,
+        "fonts": {
+          "main": true,
+          "math": true
+        },
+        "runtime": [],
+        "fontFailures": []
+      },
+      {
+        "width": 1100,
+        "cases": 51,
+        "bars": [],
+        "outside": [],
+        "raw": [],
+        "clippedLabels": [],
+        "mathErrors": 0,
+        "pageOverflow": false,
+        "fonts": {
+          "main": true,
+          "math": true
+        },
+        "runtime": [],
+        "fontFailures": []
+      }
+    ]
+  },
+  "sharedRenderingMotionTheme": {
+    "dateUTC": "2026-11-10T12:51:41.903941+00:00",
+    "task": "Math A improvements: final static shared rendering, existing motion, palette regression",
+    "base": "http://127.0.0.1:3014/Math-site",
+    "platform": "Linux Chromium headless /usr/bin/chromium, one browser sequentially",
+    "applicationChangesByThisAgent": false,
+    "sourceSnapshot": {
+      "path": "/workspace/scratch/matha-improvements-20261110/final-source-hashes.json",
+      "sha256": "6edad61c2a67d2f187eabb5f1705979b2c4823d53ae7d0b9fe5663321bf67f8a",
+      "files": 282,
+      "mismatches": []
+    },
+    "rendering": {
+      "log": "rendering.log",
+      "harness": "check-rendering-release.mjs",
+      "basedOn": "scripts/check-math-rendering.mjs with Linux browser, all seven subject index routes, HTTP/network gates",
+      "states": 20,
+      "widths": [
+        1100,
+        390
+      ],
+      "height": 900,
+      "routes": [
+        "/junior",
+        "/learn/m1-data-transformation",
+        "/learn/m1-data-variance",
+        "/learn/m1-variance-calculation",
+        "/math-a",
+        "/math-b",
+        "/math-c",
+        "/math-one",
+        "/math-three",
+        "/math-two"
+      ],
+      "passed": true,
+      "assertions": [
+        "rendered DOM text has no raw TeX outside KaTeX",
+        "no math-error/katex-error, runtime, requestfailed or HTTP >=400 errors",
+        "no page horizontal overflow",
+        "KaTeX_Math loaded and index regression cards contain actual KaTeX",
+        "three representative lesson hero formula colors inherit paragraph colors"
+      ],
+      "exportScan": {
+        "exportedHTML": 477,
+        "unprocessedMath": 0
+      },
+      "exportScanScope": "Parse final 477 exported HTML bodies with DOMParser; inspect text outside script/style/.katex/title/desc. This is a raw-TeX gate, not full-browser interaction coverage of 477 pages."
+    },
+    "motionAndPalette": {
+      "log": "motion-theme.log",
+      "details": "motion-theme-results.json",
+      "harness": "check-motion-theme.mjs",
+      "records": 11,
+      "passed": true,
+      "runtimeAndNetworkErrors": [],
+      "motionCases": "logarithm-base-change, logarithm-laws, m3-chain-rule at 1100 and 390px; real intermediate animation transform, final state, arrows for transfer diagrams; manual reduced motion all three; OS reduced motion at 390px all three",
+      "paletteCases": "ma-probability-count basics stage 1 at 1100 and 390px in cool and warm; nonempty semantic inline colors and diagram dimensions preserved; actual text/button contrast >=4.5",
+      "warmContrastRatios": {
+        "button": 5.456,
+        "body": 13.531
+      }
+    },
+    "visuallyInspected": [
+      "rendering/分散の計算方法-390.png",
+      "rendering/m1-data-variance-1100.png",
+      "motion/logarithm-laws-390.png",
+      "motion/m3-chain-rule-390.png",
+      "motion/logarithm-base-change-1100.png",
+      "themes/math-a-cool-390.png",
+      "themes/math-a-warm-390.png",
+      "themes/math-a-cool-1100.png",
+      "themes/math-a-warm-1100.png"
+    ],
+    "visualResult": "Readable fractions/subscripts/arrows; no overlaps or missing symbols in inspected representatives; probability subset meaning remains distinguishable across palettes.",
+    "findings": [],
+    "limitations": [
+      "Only three representative lesson heroes are live-browser checked here; all subject index pages are checked.",
+      "Existing animations are representative first-transfer/final-base regression, not all steps of all animations.",
+      "Math A full prose, new correspondence stages, examples and independent mathematical correctness belong to other designated reviewers; this report does not claim that coverage.",
+      "Theme storage/keyboard/all settings branches were previously checked and were not exhaustively repeated for this unchanged UI.",
+      "Viewport fit and stable navigation are owned by another agent; these clipped diagram screenshots are not whole-screen viewport evidence.",
+      "No physical device, Safari, screen reader or public deployment check in this report."
+    ]
+  },
+  "finalTableProbabilityLayout": {
+    "dateUTC": "2026-11-10T13:08:02.375093+00:00",
+    "base": "http://127.0.0.1:3014/Math-site",
+    "mode": "Final Pages static, Linux Chromium headless, one browser sequentially",
+    "applicationChanged": false,
+    "sourceHashes": {
+      "app/components/LessonView.tsx": "7e440621533b85e21569d759a3c93fe98b56a58066339ebb9e27aa60dc2cdf6e",
+      "app/components/LessonTables.tsx": "15095462a9cc1a3b52b4ed1c499aa30ede669e0a2bf57483b4bc135dc70b933f",
+      "app/components/MathAProbabilityStructure.tsx": "785a2f5aeaa79f1c47a78b4da159082cccbffdd54d261a1a55be8424be31b39d",
+      "app/content/matha-probability-correspondence.ts": "4c746a8b04670c647b3e65e69e3d4d84c3e422207bb88bee00f02ebafb3e961b",
+      "app/learning-viewport.css": "2f69b3b3df13a0658313268d1c8e9e88d5d3c1be0857da2c71bc8d0d22d212ba",
+      "app/matha-learning.css": "e267d7dc010fde46dff245ca163de2b4a2f737e4a33717ba02a9991538bd9fce"
+    },
+    "runtimeTables": {
+      "source": "lessonTables actual TSX export joined to lessons where subject is 数学A",
+      "slugs": [
+        "ma-binary-notation",
+        "ma-changing-options",
+        "ma-combination",
+        "ma-conditional-probability",
+        "ma-equally-likely",
+        "ma-events",
+        "ma-expected-value",
+        "ma-grouping",
+        "ma-listing",
+        "ma-mathematics-activities",
+        "ma-probability-tree",
+        "ma-remainder-classification",
+        "ma-set-count"
+      ],
+      "lessons": 13,
+      "widths": [
+        320,
+        390,
+        1100
+      ],
+      "records": 39,
+      "statesPerRecord": [
+        "initial closed, all tables contained in disclosure and not visible",
+        "actual summary click open, expected runtime table count visible",
+        "actual summary click closed, tables not visible"
+      ],
+      "validation": "Raw TeX, math-error, loaded KaTeX fonts actually used, page/visible math/table horizontal overflow, actual nested scroll bars, runtime/HTTP/network errors"
+    },
+    "dice": {
+      "slug": "ma-independent-trials",
+      "records": 6,
+      "stages": [
+        0,
+        1
+      ],
+      "widths": [
+        320,
+        390,
+        1100
+      ],
+      "assertions": [
+        "Six column headings and six row headings each render as a single item",
+        "36 cells align by measured centers with correct row and column headings",
+        "Stage 0 selects exactly rows 4,5,6: 18 cells",
+        "Stage 1 selects exactly rows 4,5,6 and columns 3,6: 6 cells"
+      ]
+    },
+    "posterior": {
+      "slug": "ma-posterior-probability",
+      "records": 6,
+      "stages": [
+        0,
+        1
+      ],
+      "widths": [
+        320,
+        390,
+        1100
+      ],
+      "assertions": [
+        "All four rows have exactly two direct items: full path name and formula",
+        "Path label and formula vertical centers align; columns and adjacent rows do not overlap",
+        "A/B path names render on a single line; formulas equal the expected path products",
+        "Both initial and conditioned presentations remain aligned"
+      ]
+    },
+    "conditionalExplorer": {
+      "slug": "ma-conditional-probability",
+      "records": 3,
+      "stagesPerWidth": 4,
+      "widths": [
+        320,
+        390,
+        1100
+      ],
+      "assertions": [
+        "Exactly one FormulaCorrespondence in basics",
+        "Legacy .concept-explorer absent in all four stages"
+      ]
+    },
+    "totalRecords": 54,
+    "errors": [],
+    "passed": true,
+    "visuallyInspected": [
+      "screens/dice-stage-0-320.png",
+      "screens/dice-stage-1-320.png",
+      "screens/table-ma-listing-320.png",
+      "screens/posterior-stage-0-320.png",
+      "screens/posterior-stage-1-320.png",
+      "screens/table-ma-listing-1100.png",
+      "screens/dice-stage-1-1100.png",
+      "screens/posterior-stage-0-390.png",
+      "screens/posterior-stage-1-1100.png"
+    ],
+    "visualResult": "All 36 grid cells and labels correspond correctly; path names and probability formulas share rows; representatives readable without missing symbols/overlap.",
+    "harnessCorrections": [
+      "Initial font check incorrectly required KaTeX_Math on a numeric-only page; changed to loaded KaTeX_* and awaited fonts after disclosure. No application change.",
+      "Initial name-line check compared glyph top positions and rejected normal 6px Japanese/KaTeX font-ascent difference; changed to positive shared vertical text band and retained row/column geometry checks. No application change."
+    ],
+    "limitations": [
+      "This follow-up covers exact changed table disclosure and probability grid alignment; all Math A stages/full prose/independent mathematics are covered by other assigned reviewers.",
+      "Locator screenshots hide fixed navigation for diagram inspection; whole-screen fit belongs to the height agent.",
+      "Physical phones, Safari and screen reader behavior are untested here."
+    ],
+    "artifacts": {
+      "results": "results.json",
+      "runLog": "run.log",
+      "script": "check-followup.mjs"
+    }
+  },
+  "builds": {
+    "normal": "passed",
+    "pages": "passed",
+    "htmlFiles": 477,
+    "localReferences": 9995
+  },
+  "testedApplicationAssetsSHA256": {
+    "chunks/Review-B1c3bBPJ.js": "2834f06a1b66f7819cd62f9e88e885e152ce6ae7955bd4bde8402b223a6c0799",
+    "chunks/Practice-prx9pWqg.js": "7ea9c39a482d53dc3cf218cdaf4df4a24c727bf2b3ed11b08fa54831630dd36e",
+    "chunks/LessonView-DP6JjjjI.js": "2eff30626882658e57d9791ae41b5bd245b932f1c7b5d099a9637ec32a0db96a",
+    "chunks/framework-CtKy94vV.js": "09ec4c7cf7c99302a685b5b13e7ce9480d3e09cc2259366972bde5cb84386539",
+    "chunks/SiteLink-CfqbyIPi.js": "95dbfeceddbcb3461490d4f329b112d4916db15667176af912ba607fcce34b48",
+    "chunks/Progress-ooGy6wNP.js": "201617611dfa2b07e1f3061fe9de588a5e775d5915b091584597f947df8ae1cb",
+    "chunks/Home-BpdALofp.js": "16b1b8a42e4ecb3debda0afcae756d90598d0f17599068e12323cb4ce176bcd6",
+    "chunks/AppearanceSettings-DMYwfu7M.js": "739f86fc9cf36601c5cd5852bfd171aff9895369a11b8be2949aeed92d15ed0d",
+    "chunks/rolldown-runtime-Cnxinyqe.js": "5db5ba82eef00d1dee7e86e663098c9427d01183a88d357437daff295aec3e75",
+    "css/index.y1tuBgnG.css": "19bb2e56acd4afc091bf06a089a5f45c5fb06f13866792c86ec94a6577e2c307"
+  },
+  "limitations": [
+    "Chromium on Linux at emulated viewport sizes; no physical mobile, Safari or screen-reader check.",
+    "All 2219 exercise texts rendered, but not all interactive branches of all exercises were exercised or independently recalculated.",
+    "At 320x568, long questions and necessary conditions can require body scrolling. The single primary action remains fixed, visible and clickable. No content clipping or inner scroll regions are used.",
+    "At 390px, some space-example content extends about 27–57px below the control ceiling and is readable with body scrolling. This is not a claim that every complete task fits in one viewport."
+  ],
+  "publication": {
+    "statusAtRecord": "pre-publication",
+    "policy": "After committing, compare GitHub tree with the tested local tree, verify Actions deployment, match public application assets, and inspect representative public pages. Store post-publication evidence separately to avoid rebuilding to document the deployment itself."
+  },
+  "artifactProvenance": {
+    "astra-review-final.json": {
+      "sha256": "dc6763084fab846f15cb4bc3e4e17f4f094584d01e3f08183a9c30df732a073b",
+      "bytes": 11936
+    },
+    "regressions/release-report.json": {
+      "sha256": "d0f342027d787daf1427aed751354e04beb306f785f7cf86db74c3bdc49ae784",
+      "bytes": 2319
+    },
+    "regressions/regression-report.json": {
+      "sha256": "b2cfb0d4367b45cc25b9c6abfa282fe949b4c6b67a227ad6ea20ff40b287a30a",
+      "bytes": 9204
+    },
+    "content-final/results.json": {
+      "sha256": "9a34327941198d138f4e3e83f1ebc15441b00d32a718bec6d905bc87609bcd69",
+      "bytes": 149015
+    },
+    "figures-release/results.json": {
+      "sha256": "65c0c5c7f607db2ce7da2d4ad21aed91997bacfd1ead322e6dd256ba93881a5d",
+      "bytes": 2901
+    },
+    "appearance-final/report.json": {
+      "sha256": "c536ecbaec79b42c64247bbd2c16157e27d087f29af99c1783f796bc1547c1b0",
+      "bytes": 3912
+    },
+    "appearance-followup/report.json": {
+      "sha256": "c50c48dcf16952a7dd29de9c6c4584325b052798c4fd6f316210d7b1573cbb91",
+      "bytes": 4777
+    },
+    "qa/ui-final-320/results.json": {
+      "sha256": "ec3942b2af31a3e037b0f8f8638b688f5a3280c503b17a8d591944aaf8d28b13",
+      "bytes": 3492584
+    },
+    "qa/ui-final-390/results.json": {
+      "sha256": "1ec8791587459dd36f868079eb75529af4317f1a2a076390ae26f401d287a06a",
+      "bytes": 3230200
+    },
+    "qa/ui-final-1100/results.json": {
+      "sha256": "ec03e84356543e36d05bd188ee3bd3dfac22c3263ce70b77a2d4f529610cd1d3",
+      "bytes": 3112805
+    },
+    "qa/ui-release-basics/results.json": {
+      "sha256": "ee80a16e4a482e23e629e6ff712082dc4bbbd644f7741b9c270bf5a51e7d2545",
+      "bytes": 3205380
+    },
+    "qa/ui-release-examples/results.json": {
+      "sha256": "9af419682443164be12ddf9dcee597c1907b0e66ab64d52e28e8632bb883ea5b",
+      "bytes": 2076239
+    },
+    "qa/ui-release-reading/results.json": {
+      "sha256": "1c7b9f64a820120070f29e567f8af3cf95a0152015f224765d1af2d8e8baf09f",
+      "bytes": 148579
+    },
+    "build-normal-release.log": {
+      "sha256": "f753142c200bff83b7e4db203484ce868dd49f4af8fb719bb9be396534406acd",
+      "bytes": 2048
+    },
+    "build-pages-release.log": {
+      "sha256": "c76948546fad724bdd3a11a32863c4a61a956c388e00f194a03404b7355fc614",
+      "bytes": 2250
+    },
+    "check-pages-release.log": {
+      "sha256": "a200983543a2ac359a029f5bf6aa0e1497fb4ec01ebd9b44110d23d087795a15",
+      "bytes": 55
+    },
+    "qa/ui-release-review.json": {
+      "sha256": "7f9cd3607862a2d9e75dd1f5fe14a1d070a81d02256fceb5a5feb216171859a9",
+      "bytes": 35382
+    }
+  },
+  "finalVisualDispositions": {
+    "status": "passed-with-documented-viewport-limits",
+    "checkedAtUTC": "2026-11-10T13:14:24.540943+00:00",
+    "artifact": "http://127.0.0.1:3014/Math-site",
+    "sourceHashMatch": {
+      "all282AppSourcesStableAcrossBothRunsAndReadingCheck": true,
+      "approved34AppFiles": true,
+      "release40FilesIncludingTestsAndScripts": true
+    },
+    "coverage": {
+      "initialBroadUIStates": 3552,
+      "releaseCorrespondenceStates": 1200,
+      "releaseAffectedExampleStates": 426,
+      "releaseUIStates": 1626,
+      "releaseReadingCases": 15,
+      "correspondenceLessons": 69,
+      "mainCorrespondenceStages": 262,
+      "affectedExampleLessons": 13,
+      "affectedExamples": 27,
+      "viewports": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          1100,
+          900
+        ]
+      ]
+    },
+    "hardFailures": 0,
+    "releaseLabelClippingCandidates": 0,
+    "releaseSmallLabelCandidates": 0,
+    "labelAdjudications": [
+      {
+        "case": "ma-congruence-similarity C / E",
+        "decision": "fixed",
+        "evidence": "No bounding overlap at any width; the 320 image shows distinct labels."
+      },
+      {
+        "case": "ma-geometry-converses example 0 B / F",
+        "decision": "fixed",
+        "evidence": "No bounding overlap at any width; the 320 page-scroll image shows a clear gap."
+      },
+      {
+        "case": "ma-common-tangents examples 0 and 1 P / U",
+        "decision": "fixed",
+        "evidence": "No bounding overlap at any width; the 320 images show separately placed center and tangent-point names."
+      },
+      {
+        "case": "ma-parallel-ratios stage 0 at 390/1100, 2 / D",
+        "decision": "false-positive",
+        "evidence": "Two remaining line-box overlap records, about 1px. Release screenshots show separately drawn glyphs with visible space; this is leading inside the text boxes."
+      }
+    ],
+    "layoutChecks": {
+      "circularPermutationTwoColumns": true,
+      "spaceFigureWidths": {
+        "320Viewport": 254,
+        "390Viewport": 260
+      },
+      "minimumMeasuredLabelKaTeXSizePx": 17.94,
+      "spaceLabelKaTeXSizePx": [
+        17.94,
+        18.36
+      ],
+      "all15ReadingCasesPrimaryVisibleAfterPageScroll": true,
+      "all15ReadingCasesFigureAndCaptionFitAfterPageScroll": true
+    },
+    "viewportLimits": [
+      {
+        "width": 320,
+        "height": 568,
+        "normalStates": 538,
+        "statesMeetingEightPixelClearance": 182,
+        "candidateGroups": [
+          {
+            "slug": "ma-solid-sections",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 448.22,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-solid-sections-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-angle-distance",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 359.44,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-angle-distance-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-solid-sections",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 357.84,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-solid-sections-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-lines",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 328.25,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-lines-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-division",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 0,
+            "excessPx": 314.38,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-division-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-lines-planes",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 300.25,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-lines-planes-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-angle-distance",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 298.66,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-angle-distance-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-geometry-converses",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 294.31,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-geometry-converses-0-320-2-return-from-next.png"
+          },
+          {
+            "slug": "ma-construction-division",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 294.03,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-division-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-probability-tree",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 277.45,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-probability-tree-1-320-2-return-from-next.png"
+          },
+          {
+            "slug": "ma-construction-bisectors",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 270.73,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-bisectors-0-320-2-return-from-next.png"
+          },
+          {
+            "slug": "ma-space-lines-planes",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 269.06,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-lines-planes-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-perpendicular",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 265.12,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-perpendicular-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-bisectors",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 263.83,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-bisectors-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-posterior-probability",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 248.38,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-posterior-probability--320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-perpendicular",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 240.84,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-perpendicular-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-tangents",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 234.84,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-tangents-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-tangents",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 234.84,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-construction-tangents-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-independent-trials",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 232.64,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-independent-trials--320-0-forward.png"
+          },
+          {
+            "slug": "ma-mathematics-activities",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 232.06,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-mathematics-activities--320-0-forward.png"
+          },
+          {
+            "slug": "ma-gcd-lcm",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 228.56,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-gcd-lcm--320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-lines",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 0,
+            "excessPx": 209.88,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-lines-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-remainder-classification",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 209.56,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-remainder-classification--320-0-forward.png"
+          },
+          {
+            "slug": "ma-probability-tree",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 206.38,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-probability-tree--320-0-forward.png"
+          },
+          {
+            "slug": "ma-repeated-trials",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 201.77,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-repeated-trials--320-0-forward.png"
+          },
+          {
+            "slug": "ma-conditional-probability",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 194.64,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-conditional-probability--320-0-forward.png"
+          },
+          {
+            "slug": "ma-probability-union",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 184.94,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-probability-union--320-0-forward.png"
+          },
+          {
+            "slug": "ma-probability-count",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 184.59,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-probability-count--320-0-forward.png"
+          },
+          {
+            "slug": "ma-common-tangents",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 180.28,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-common-tangents-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-common-tangents",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 180.28,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-common-tangents-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-polyhedron-counts",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 2,
+            "excessPx": 174.97,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-polyhedron-counts-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-divisibility-digits",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 165.47,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-divisibility-digits--320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-lines-planes",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 164.47,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-space-lines-planes--320-0-forward.png"
+          },
+          {
+            "slug": "ma-polyhedron-counts",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 4,
+            "excessPx": 164.47,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-polyhedron-counts--320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-bisectors",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 4,
+            "excessPx": 163.86,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-construction-bisectors--320-4-forward.png"
+          },
+          {
+            "slug": "ma-changing-options",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 163.67,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-changing-options--320-0-forward.png"
+          },
+          {
+            "slug": "ma-menelaus",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 157.7,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-menelaus--320-0-forward.png"
+          },
+          {
+            "slug": "ma-circular-permutation",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 156.97,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-circular-permutation-0-320-0-forward.png"
+          },
+          {
+            "slug": "ma-independent-exclusive",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 155.34,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-independent-exclusive--320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-division",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 148.11,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-construction-division--320-0-forward.png"
+          },
+          {
+            "slug": "ma-solid-sections",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 147.41,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-solid-sections--320-0-forward.png"
+          },
+          {
+            "slug": "ma-polyhedron-counts",
+            "kind": "example",
+            "exampleIndex": 2,
+            "stage": 1,
+            "excessPx": 146.97,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-polyhedron-counts-2-320-0-forward.png"
+          },
+          {
+            "slug": "ma-ceva",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 141.34,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-ceva--320-0-forward.png"
+          },
+          {
+            "slug": "ma-power-of-point",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 5,
+            "excessPx": 140.77,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-power-of-point--320-0-forward.png"
+          },
+          {
+            "slug": "ma-binary-notation",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 135.62,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-binary-notation--320-1-forward.png"
+          },
+          {
+            "slug": "ma-common-tangents",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 130.97,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-common-tangents--320-0-forward.png"
+          },
+          {
+            "slug": "ma-prime-factorization",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 130.58,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-prime-factorization--320-1-forward.png"
+          },
+          {
+            "slug": "ma-linear-diophantine",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 126.98,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-linear-diophantine--320-2-forward.png"
+          },
+          {
+            "slug": "ma-integer-count-conditions",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 126.78,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-integer-count-conditions--320-1-forward.png"
+          },
+          {
+            "slug": "ma-space-angle-distance",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 126.16,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-space-angle-distance--320-0-forward.png"
+          },
+          {
+            "slug": "ma-space-lines",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 0,
+            "excessPx": 123.3,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-space-lines--320-0-forward.png"
+          },
+          {
+            "slug": "ma-polyhedron-counts",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 121.09,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-polyhedron-counts-1-320-0-forward.png"
+          },
+          {
+            "slug": "ma-inscribed-angle",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 111.59,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-inscribed-angle--320-0-forward.png"
+          },
+          {
+            "slug": "ma-terminating-recurring",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 109.39,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-terminating-recurring--320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-perpendicular",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 105.28,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-construction-perpendicular--320-0-forward.png"
+          },
+          {
+            "slug": "ma-construction-tangents",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 105.28,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-construction-tangents--320-0-forward.png"
+          },
+          {
+            "slug": "ma-parallel-ratios",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 0,
+            "excessPx": 98.52,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-parallel-ratios--320-0-forward.png"
+          },
+          {
+            "slug": "ma-two-circles",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 0,
+            "excessPx": 98.52,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-two-circles--320-0-forward.png"
+          },
+          {
+            "slug": "ma-restricted-permutation",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 97.89,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-restricted-permutation--320-1-forward.png"
+          },
+          {
+            "slug": "ma-probability-multiplication",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 91.02,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-probability-multiplication--320-1-forward.png"
+          },
+          {
+            "slug": "ma-tangent-chord",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 89.09,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-tangent-chord--320-0-forward.png"
+          },
+          {
+            "slug": "ma-probability-complement",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 87.41,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-probability-complement--320-1-forward.png"
+          },
+          {
+            "slug": "ma-count-complement",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 86.38,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-count-complement--320-0-forward.png"
+          },
+          {
+            "slug": "ma-identical-permutation",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 4,
+            "excessPx": 82.23,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-identical-permutation--320-3-forward.png"
+          },
+          {
+            "slug": "ma-grouping",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 81.8,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-grouping--320-0-forward.png"
+          },
+          {
+            "slug": "ma-coordinates-space",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 71.59,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-coordinates-space--320-0-forward.png"
+          },
+          {
+            "slug": "ma-geometry-converses",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 70.53,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-geometry-converses--320-1-forward.png"
+          },
+          {
+            "slug": "ma-quotient-remainder",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 68.23,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-quotient-remainder--320-0-forward.png"
+          },
+          {
+            "slug": "ma-triangle-sides-angles",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 67.31,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-triangle-sides-angles--320-0-forward.png"
+          },
+          {
+            "slug": "ma-area-ratios",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 62.25,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-area-ratios--320-1-forward.png"
+          },
+          {
+            "slug": "ma-expected-value",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 59.41,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-expected-value--320-1-forward.png"
+          },
+          {
+            "slug": "ma-listing",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 49.7,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-listing--320-2-forward.png"
+          },
+          {
+            "slug": "ma-expected-profit",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 49.41,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-expected-profit--320-1-forward.png"
+          },
+          {
+            "slug": "ma-circular-permutation",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 3,
+            "excessPx": 49.16,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-circular-permutation--320-2-forward.png"
+          },
+          {
+            "slug": "ma-combination",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 0,
+            "excessPx": 46.41,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-combination--320-0-forward.png"
+          },
+          {
+            "slug": "ma-angle-bisector",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": 41.34,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-angle-bisector--320-0-forward.png"
+          },
+          {
+            "slug": "ma-divisors-primes",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 36.5,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-divisors-primes--320-1-forward.png"
+          },
+          {
+            "slug": "ma-euclidean-algorithm",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 31,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-euclidean-algorithm--320-1-forward.png"
+          },
+          {
+            "slug": "ma-replacement",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 29.97,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-replacement--320-1-forward.png"
+          },
+          {
+            "slug": "ma-events",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 13.81,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-events--320-1-forward.png"
+          },
+          {
+            "slug": "ma-geometry-converses",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 12.78,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-geometry-converses-1-320-2-return-from-next.png"
+          },
+          {
+            "slug": "ma-centroid",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 0,
+            "excessPx": 11.75,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-centroid--320-0-forward.png"
+          },
+          {
+            "slug": "ma-cyclic-quadrilateral",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 0,
+            "excessPx": 11.75,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-cyclic-quadrilateral--320-0-forward.png"
+          },
+          {
+            "slug": "ma-repeated-choice",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": -6,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-repeated-choice--320-2-forward.png"
+          },
+          {
+            "slug": "ma-sum-product",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 2,
+            "excessPx": -7.89,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-sum-product--320-2-forward.png"
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "normalStates": 538,
+        "statesMeetingEightPixelClearance": 523,
+        "candidateGroups": [
+          {
+            "slug": "ma-solid-sections",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": 56.69,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-solid-sections-0-390-1-forward.png"
+          },
+          {
+            "slug": "ma-space-lines",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 27.09,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-lines-1-390-1-forward.png"
+          },
+          {
+            "slug": "ma-solid-sections",
+            "kind": "example",
+            "exampleIndex": 1,
+            "stage": 1,
+            "excessPx": 27.09,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-solid-sections-1-390-1-forward.png"
+          },
+          {
+            "slug": "ma-independent-trials",
+            "kind": "correspondence",
+            "exampleIndex": null,
+            "stage": 1,
+            "excessPx": 3.05,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-basics/screenshots/correspondence-ma-independent-trials--390-1-back.png"
+          },
+          {
+            "slug": "ma-space-angle-distance",
+            "kind": "example",
+            "exampleIndex": 0,
+            "stage": 1,
+            "excessPx": -2.5,
+            "screenshot": "/workspace/scratch/matha-improvements-20261110/qa/ui-release-examples/screenshots/example-ma-space-angle-distance-0-390-1-forward.png"
+          }
+        ]
+      },
+      {
+        "width": 1100,
+        "height": 900,
+        "normalStates": 538,
+        "statesMeetingEightPixelClearance": 538,
+        "candidateGroups": []
+      }
+    ],
+    "interpretation": {
+      "320x568": "Many current questions and diagrams need normal vertical page scrolling. Text size and mathematical conditions were preserved; the primary control remains visible. The largest retained overflow is 448px for a long solid-section example. The tested diagrams and captions are fully readable after ordinary page scrolling, with no internal scroller or clipped label.",
+      "390x844": "No large overflow remains. Three long example groups retain up to 56.69px below the toolbar, mainly their final figure note; normal vertical scrolling is still necessary. Two additional low-clearance candidates are 3.05px and -2.5px relative to the toolbar and are not mathematical clipping errors.",
+      "1100x900": "All 538 normal checked states fit above the toolbar with 8px clearance. Optional full-explanation expansion is excluded."
+    },
+    "visuallyInspectedReleaseImages": [
+      "ui-release-reading/ma-congruence-similarity-basics-0-320-initial.png",
+      "ui-release-reading/ma-circular-permutation-0-1-390-initial.png",
+      "ui-release-reading/ma-geometry-converses-0-0-320-scrolled.png",
+      "ui-release-reading/ma-common-tangents-0-0-320-scrolled.png",
+      "ui-release-reading/ma-common-tangents-1-0-320-scrolled.png",
+      "ui-release-reading/ma-solid-sections-0-1-320-scrolled.png",
+      "ui-release-reading/ma-solid-sections-1-1-320-scrolled.png",
+      "ui-release-reading/ma-solid-sections-0-1-390-initial.png",
+      "ui-release-reading/ma-independent-trials-basics-1-390-initial.png",
+      "ui-release-basics/screenshots/correspondence-ma-parallel-ratios--390-0-forward.png"
+    ],
+    "reports": [
+      "ui-release-basics/results.json",
+      "ui-release-examples/results.json",
+      "ui-release-reading/results.json"
+    ],
+    "limitations": [
+      "Chromium viewport emulation; not physical Safari.",
+      "Actual UI and rendering verification, not independent recalculation of all 2219 exercises.",
+      "Unchanged examples are covered by the earlier 3552-state snapshot; release rechecking covers all basics and the 13 affected example lessons.",
+      "Not every screenshot or every pixel was manually inspected."
+    ]
+  }
+}

@@ -15,6 +15,11 @@ import {math1LogicCorrespondence} from "./math1-logic-correspondence";
 import {math1QuadraticCorrespondence} from "./math1-quadratic-correspondence";
 import {math1TrigCorrespondence} from "./math1-trig-correspondence";
 import {math1DataCorrespondence} from "./math1-data-correspondence";
+import {mathACountingCorrespondence} from "./matha-counting-correspondence";
+import {mathAProbabilityCorrespondence} from "./matha-probability-correspondence";
+import {mathAGeometryCorrespondence} from "./matha-geometry-correspondence";
+import {mathASpaceCorrespondence} from "./matha-space-correspondence";
+import {mathAIntegerCorrespondence} from "./matha-integer-correspondence";
 const m=String.raw;
 
 export type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer;diagram?:{kind:string;stage:number;animated?:boolean}};
@@ -58,6 +63,11 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
  ...math2TrigCorrespondence,
  ...math2ExplogCorrespondence,
  ...math2CalculusCorrespondence,
+ ...mathACountingCorrespondence,
+ ...mathAProbabilityCorrespondence,
+ ...mathAGeometryCorrespondence,
+ ...mathASpaceCorrespondence,
+ ...mathAIntegerCorrespondence,
 };
 formulaCorrespondence['logarithm-laws'].steps[1].motion={
  source:m`\log_a({\color{#176c82}{M}}{\color{#936114}{N}})`,target:m`=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`,

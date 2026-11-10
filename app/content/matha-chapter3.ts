@@ -158,6 +158,12 @@ export const mathAGeometryTopics=[
  S("internal-common","半径の和を一辺にする","内共通接線では二中心が反対側です。",[[2,1,5],[3,1,5],[2,2,5],[4,1,13],[3,2,13],[4,2,10],[5,3,17],[2,3,6],[3,3,10]].map(([r,s,d])=>g.commonTangent(r,s,d,true)))
  ],sections[2])
 ];
+// Retain every readiness question, and present only preparation relevant to this lesson.
+const ratioWarmup=new Set(['parallel-ratios','angle-bisector','centroid']);
+for(const bank of mathAGeometryTopics){
+ const needsRatio=ratioWarmup.has(bank.lesson.slug.slice(3));
+ bank.lesson.warmupIds=needsRatio?[`${bank.lesson.slug}-ratio-prep-1-v1`]:[];
+}
 addRepairExample(mathAGeometryTopics,"ma-congruence-similarity","congruence-condition",g.congruence(3,5,false));
 addRepairExample(mathAGeometryTopics,"ma-parallel-ratios","part-whole",g.partRatio(2,3,false));
 addRepairExample(mathAGeometryTopics,"ma-triangle-sides-angles","triangle-existence",g.triangleExists(2,3,4));

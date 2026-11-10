@@ -34,7 +34,7 @@ export const mathAProbabilityTopics=[
  m`確率は $0$ 以上 $1$ 以下です。起こり得ない事象の確率は $0$、必ず起こる事象の確率は $1$ です。`,
  m`全体のうち $A$ に含まれない結果を集めた事象を、$A$ の余事象 $\overline A$ といいます。両者は重ならず全体を覆うので、$P(A)+P(\overline A)=1$。`,
  "「少なくとも一回表」の反対は「一度も表が出ない」です。「ちょうど一回」の反対は$0$回または二回以上なので、反対の条件を言葉にしてから計算します。"
- ],"求める条件のちょうど反対を書き、全体の一から引きます。",[
+ ],"求める条件の反対を書き、全体の1から引きます。",[
  S("no-heads","表が一度も出ない列を除く","硬貨は公平で、各回の結果は独立なので、表・裏の各列は等確率です。",range(9,1).map(p.noHeads)),
  S("zero-one","起こらない・必ず起こるを調べる","さいころの目は一から六であり、それ以外の目は出ません。",[p.certain(7,true),...range(4,8).map(k=>p.certain(k,true)),...range(4,6).map(k=>p.certain(k,false))])
  ],sections[1]),
@@ -49,7 +49,7 @@ export const mathAProbabilityTopics=[
  T("probability-tree","樹形図と確率","一つの経路の確率を求めてから、必要な経路を合わせます。",[
  "枝には、その時点までの結果が分かった後の確率を書きます。同じ分岐から出る枝の確率を全部足すと一になります。",
  "一つの終点へ至る経路では枝の確率を掛けます。別々の終点は同時に起こらないので、求める終点の確率を足します。",
- m`赤二個・青一個から、毎回各玉を等確率で選び、戻して二回引くと、赤赤は $\frac23\times\frac23=\frac49$、赤青・青赤は各 $\frac29$、青青は $\frac19$。四経路あっても四分の一ずつではありません。`
+ m`赤二個・青一個から、毎回各玉を等確率で選び、戻して二回引くと、赤赤は $\frac23\times\frac23=\frac49$、赤青・青赤は各 $\frac29$、青青は $\frac19$。経路の数だけでは確率を求められません。`
  ],"一つの経路では掛け、重ならない経路を合わせるときは足します。",[
  S("tree-path","一つの経路の確率を求める","戻して引く一つの経路では、最初と次の枝を掛けます。",bags.map(([r,b])=>p.successive(r,b,true))),
  S("tree-union","必要な二経路を合わせる","赤青と青赤は別々の結果で、同時には起こりません。",bags.map(([r,b])=>p.successive(r,b,true,true)))
@@ -86,7 +86,7 @@ export const mathAProbabilityTopics=[
  S("conditional-denominator","条件後の全体を決める","全カードではなく、知らせてもらった条件に合うカードだけを残します。",[[6,2,1],[6,3,1],[6,5,0],[8,4,1],[8,6,0],[10,5,1],[10,7,0],[12,8,1],[12,9,0]].map(([n,k,l])=>p.conditional(n,k,!!l))),
  S("zero-condition","分母が0でないか調べる","条件に合う結果がなければ、その条件で割合は作れません。",range(9,4).map(n=>p.conditionImpossible(n,n+1)))
  ],sections[2]),
- T("probability-multiplication","確率の乗法定理","最初の確率と、その条件の下での次の確率を掛けます。",[
+ T("probability-multiplication","確率の乗法定理","事象の確率と、その条件の下での確率を掛けます。",[
  m`$P(A)>0$ のとき、条件付き確率の式 $P_A(B)=\frac{P(A\cap B)}{P(A)}$ の両辺に $P(A)$ を掛けると、$P(A\cap B)=P(A)P_A(B)$ です。`,
  "最初が赤、次が青という経路では、二つ目に使うのは「最初が赤だった後での青の割合」です。初めの袋での青の割合ではありません。",
  m`独立なら $P_A(B)=P(B)$ なので、乗法定理が $P(A\cap B)=P(A)P(B)$ に簡単になります。独立でなくても、条件付き確率なら掛けられます。`
@@ -132,6 +132,12 @@ addRepairExample(mathAProbabilityTopics,"ma-probability-union","disjoint",p.disj
 addRepairExample(mathAProbabilityTopics,"ma-independent-trials","dependence",p.dependence(3,2,false));
 addRepairExample(mathAProbabilityTopics,"ma-repeated-trials","binomial-condition",p.repeatAllowed(3,2,false));
 addRepairExample(mathAProbabilityTopics,"ma-independent-exclusive","exclusive-dependent",p.independenceEvents(7,1,true));
+// 今回使う分数操作だけを準備に出す。既存の問題・復習IDは保持する。
+for(const bank of mathAProbabilityTopics){
+ const slug=bank.lesson.slug;
+ const family=slug==="ma-events"?null:slug==="ma-probability-complement"?"fraction-complement":"fraction";
+ bank.lesson.warmupIds=family?[`${slug}-${family}-1-v1`]:[];
+}
 const check=chapterCheck("確率","ma-probability-check",mathAProbabilityTopics,sections,{
  "ma-repeated-trials-binomial-probability":[2,4,5,6,7,8],
  "ma-independent-exclusive-exclusive-dependent":[1,2,5,3,4],
