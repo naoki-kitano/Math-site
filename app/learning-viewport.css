@@ -1,0 +1,57 @@
+/* Keep the current learning action visible without shrinking body text. */
+.focused-hero h1{font-size:clamp(1.35rem,2.4vw,1.8rem);font-weight:500}
+.task-pane .actions.learning-step-controls{
+ position:fixed;z-index:9;inset:auto 0 0;max-width:none;width:100%;margin:0;
+ grid-template-columns:repeat(2,minmax(0,12rem));justify-content:center;
+ padding:12px 16px max(12px,env(safe-area-inset-bottom));
+ background:var(--paper,#f8faff);border-top:1px solid var(--line);
+}
+.focused-layout:has(.learning-step-controls){padding-bottom:110px}
+.focused-layout .lesson-progress{margin-bottom:14px;scroll-margin-top:80px}
+.focused-layout .example>h2{font-size:1.3rem;margin-bottom:8px}
+.focused-layout .example>p{margin-bottom:8px}
+.focused-layout .example .step{padding:8px 0}
+.walkthrough-visuals:empty{display:none}
+.example .focused-coordinate.panel{border:0;border-radius:0;padding:0;margin:8px 0;background:transparent}
+.focused-coordinate>h3{font-size:1rem;margin:0 0 5px}
+.focused-coordinate>p{margin:0 0 8px;line-height:1.65}
+.focused-coordinate>.coordinate-diagram{width:100%;max-width:360px;margin:auto}
+.focused-coordinate>figcaption{display:flex;flex-wrap:wrap;gap:3px 16px;align-items:baseline;line-height:1.6}
+.focused-coordinate>figcaption>p{margin:0;max-width:100%}
+.focused-coordinate>figcaption>.meta{flex-basis:100%}
+@media(min-width:760px){
+ .example-walkthrough:has(>.walkthrough-visuals .focused-coordinate){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 28px;align-items:start}
+ .example-walkthrough:has(.focused-coordinate)>.walkthrough-current{grid-column:1;grid-row:1}
+ .walkthrough-visuals:has(>.focused-coordinate),.walkthrough-visuals>.focused-coordinate{display:contents}
+ .walkthrough-visuals>.focused-coordinate>h3{grid-column:1;grid-row:2;margin:4px 0 0}
+ .walkthrough-visuals>.focused-coordinate>p{grid-column:1;grid-row:3}
+ .walkthrough-visuals>.focused-coordinate>.coordinate-diagram{grid-column:2;grid-row:1 / span 5}
+ .walkthrough-visuals>.focused-coordinate>figcaption{grid-column:1;grid-row:4}
+ .example-walkthrough:has(.focused-coordinate)>.supplement{grid-column:1 / -1;margin-bottom:0}
+}
+@media(max-width:759px){
+ .focused-layout .example{padding:16px}
+ .focused-coordinate>.coordinate-diagram{max-width:17rem}
+ .focused-coordinate>figcaption{font-size:.9rem}
+ .focused-coordinate .figure-key{width:16px;margin-right:6px}
+}
+@media print{
+ .task-pane .actions.learning-step-controls{display:none}
+ .focused-layout:has(.learning-step-controls){padding-bottom:0}
+}
+
+/* A separate graph turn avoids stacking the algebra and its visual check. */
+.example:has([data-visual-step])>h2{display:none}
+.example-walkthrough[data-visual-step] .focused-coordinate{margin:0}
+.example-walkthrough[data-visual-step]>.walkthrough-current>.focused-coordinate>h3{margin-bottom:6px}
+@media(min-width:760px){
+ .example-walkthrough[data-visual-step] .focused-coordinate{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:start}
+ .example-walkthrough[data-visual-step] .focused-coordinate>h3{grid-column:1;grid-row:1}
+ .example-walkthrough[data-visual-step] .focused-coordinate>p{grid-column:1;grid-row:2}
+ .example-walkthrough[data-visual-step] .focused-coordinate>svg{grid-column:2;grid-row:1 / span 4}
+ .example-walkthrough[data-visual-step] .focused-coordinate>figcaption{grid-column:1;grid-row:3}
+}
+@media(max-width:759px){
+ .example-walkthrough[data-visual-step] .focused-coordinate>.coordinate-diagram{max-height:clamp(160px,calc(100dvh - 395px),250px);width:auto;max-width:100%}
+ .example-walkthrough[data-visual-step] .focused-coordinate>figcaption{gap:4px 12px}
+}

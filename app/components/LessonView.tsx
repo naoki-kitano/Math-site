@@ -38,6 +38,7 @@ import { lessonStarts } from "../content/lesson-starts";
 import LessonDiagrams from "./LessonDiagrams";
 import LessonTables from "./LessonTables";
 import MathOneDiagrams from "./MathOneDiagrams";
+import {functionVisualSteps} from "./Math3FunctionDiagrams";
 
 function PointGraph() {
   const [point,setPoint]=useState<"on"|"off">("on");
@@ -98,8 +99,8 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
     const item=tasks.find(t=>t.id===id)??(id==="practice-extra"&&hasExtra?{id,hash:"practice-extra"}:id==="return"&&targetQuestion?.lesson===lesson.slug?{id,hash:"return-question"}:id==="target"&&target?{id,hash:"targeted-review"}:undefined);
     if(!item)return;
     window.history.pushState({...window.history.state,mathcanvasFrom:task},"",`#${item.hash}`);
-    setLastTask(task);visit(id);window.scrollTo({top:0,behavior:"auto"});
-    requestAnimationFrame(()=>{const pane=document.querySelector<HTMLElement>('.task-pane:not([hidden])'),heading=pane?.querySelector<HTMLElement>("h2,h3")??pane;if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}});
+    setLastTask(task);visit(id);
+    requestAnimationFrame(()=>{const pane=document.querySelector<HTMLElement>('.task-pane:not([hidden])'),heading=Array.from(pane?.querySelectorAll<HTMLElement>("h2,h3")??[]).find(element=>element.getClientRects().length>0)??pane;if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}});
   };
   useEffect(()=>{
     const sync=()=>{
@@ -120,6 +121,15 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
     // The task list is derived from the current lesson; query changes may select a review route.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[lesson.slug,queryKey]);
+  useEffect(()=>{
+    if(task===initial&&!window.location.hash)return;
+    const frame=requestAnimationFrame(()=>{
+      const anchor=document.querySelector<HTMLElement>(".lesson-progress")??document.querySelector<HTMLElement>(".task-pane:not([hidden])");
+      const topbar=document.querySelector<HTMLElement>(".topbar");
+      if(anchor)window.scrollTo({top:Math.max(0,anchor.getBoundingClientRect().top+window.scrollY-(topbar?.offsetHeight??66)-12),behavior:"instant"});
+    });
+    return()=>cancelAnimationFrame(frame);
+  },[task,initial]);
   const show=(id:string)=>visited.has(id)||task===id;
   const index=tasks.findIndex(t=>t.id===task),before=task==="help"&&lastTask==="practice-extra"?{id:"practice-extra",label:"別の問題",hash:"practice-extra"}:tasks[index-1];
   const exampleIndex=task.startsWith("example-")?Number(task.slice("example-".length)):-1;
@@ -148,9 +158,10 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
       {lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug} folded={["数学I","数学II","数学III"].includes(subject)}/><MathBSimulation slug={lesson.slug}/>{!start&&!pacedBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}
     </section>}
     {lesson.examples.map((e,i)=>{
+      const visualSteps=functionVisualSteps(lesson.slug,i);
       const id=`example-${i}`,guidedId=`guided-${i}`,pair=guided(i),afterExample=tasks[tasks.findIndex(t=>t.id===id)+1];
       return <Fragment key={e.id??i}>
-        {show(id)&&<section className="block task-pane" id={i===0?"examples":`example-${i+1}`} data-task-pane={id} hidden={task!==id}><article className="example" id={i===0?"first-example":undefined}><h2>{e.title}</h2><p><MathText text={e.prompt}/></p>{e.tex&&<Formula tex={e.tex} display/>}<ExampleSteps steps={e.steps} {...flowFor(id)} onStepChange={(step,complete)=>setExampleProgress(old=>({...old,[i]:{step,complete}}))}><LessonDiagrams slug={lesson.slug} index={i}/><MathOneDiagrams slug={lesson.slug} index={i} step={exampleProgress[i]?.step??0} complete={exampleProgress[i]?.complete??(distinctSteps(e.steps).length<=1)}/><MathACountingDiagrams slug={lesson.slug} index={i}/><MathAProbabilityDiagrams slug={lesson.slug} index={i}/><MathAGeometryDiagrams slug={lesson.slug} index={i}/><MathASpaceDiagrams slug={lesson.slug} index={i}/><MathAIntegerDiagrams slug={lesson.slug} index={i}/><MathBDiagrams slug={lesson.slug} index={i}/><MathCDiagrams slug={lesson.slug} index={i}/><JuniorDiagrams slug={lesson.slug} index={i}/></ExampleSteps></article></section>}
+        {show(id)&&<section className="block task-pane" id={i===0?"examples":`example-${i+1}`} data-task-pane={id} hidden={task!==id}><article className="example" id={i===0?"first-example":undefined}><h2>{e.title}</h2><p><MathText text={e.prompt}/></p>{e.tex&&<Formula tex={e.tex} display/>}<ExampleSteps steps={e.steps} visualSteps={visualSteps} {...flowFor(id)} onStepChange={(step,complete)=>setExampleProgress(old=>({...old,[i]:{step,complete}}))}>{!visualSteps.length&&<LessonDiagrams slug={lesson.slug} index={i}/>}<MathOneDiagrams slug={lesson.slug} index={i} step={exampleProgress[i]?.step??0} complete={exampleProgress[i]?.complete??(distinctSteps(e.steps).length<=1)}/><MathACountingDiagrams slug={lesson.slug} index={i}/><MathAProbabilityDiagrams slug={lesson.slug} index={i}/><MathAGeometryDiagrams slug={lesson.slug} index={i}/><MathASpaceDiagrams slug={lesson.slug} index={i}/><MathAIntegerDiagrams slug={lesson.slug} index={i}/><MathBDiagrams slug={lesson.slug} index={i}/><MathCDiagrams slug={lesson.slug} index={i}/><JuniorDiagrams slug={lesson.slug} index={i}/></ExampleSteps></article></section>}
         {lesson.guidedAfterExamples&&pair.length>0&&show(guidedId)&&<section className="block task-pane" id={i===0?"guided":`guided-${i+1}`} data-task-pane={guidedId} hidden={task!==guidedId}><h2>一緒に解く</h2><Practice items={pair} label="一緒に解く" onBack={flowFor(guidedId).onBack} onProgressChange={flowFor(guidedId).onProgressChange} onComplete={afterExample&&tasks[tasks.findIndex(t=>t.id===guidedId)+1]?()=>go(tasks[tasks.findIndex(t=>t.id===guidedId)+1].id):undefined}/></section>}
       </Fragment>;
     })}

@@ -33,3 +33,17 @@ export default function Math3FunctionDiagrams({slug,index}:{slug:string;index:nu
  const figure=math3Figures[slug]?.[index];
  return figure?<CoordinateDiagram {...figure}/>:null;
 }
+
+/** The graph gets its own turn, using the same next/back controls as the working. */
+export function functionVisualSteps(slug:string,index:number){
+ const figure=math3Figures[slug]?.[index];
+ if(!figure)return [];
+ if(slug==="m3-graph-equations"&&index===1){
+  const curves=figure.curves!.map((curve,i)=>({...curve,label:i===0?"$y=\\dfrac1x$":i===1?"":"$y=1$"}));
+  return [
+   <CoordinateDiagram key="compare" {...figure} axisLabels title="グラフの上下を比べる" description={"$\\dfrac1x>1$ は、緑のグラフが青い直線より上にある範囲です。"} curves={curves} points={figure.points!.map(point=>({...point,label:""}))} segments={[]}/>,
+   <CoordinateDiagram key="boundary" {...figure} axisLabels title="境界を確かめる" description="交点は $(1,1)$。$x=0$ は未定義、$x=1$ は等号になるため除きます。" curves={curves} points={[...figure.points!.map(point=>({...point,label:""})),{x:0,y:0,label:"",open:true},{x:1,y:0,label:"",open:true}]}/>,
+  ];
+ }
+ return [<CoordinateDiagram key="figure" {...figure} responsive/>];
+}

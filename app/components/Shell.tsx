@@ -1,6 +1,7 @@
 import Link from "./SiteLink";
+import AppearanceSettings from "./AppearanceSettings";
 export function Header() {
-  return <><a className="skip" href="#main">本文へ移動</a><header className="topbar"><div className="nav-inner"><Link className="brand" href="/">Math<span>Canvas</span></Link><nav className="nav-links" aria-label="メイン"><Link href="/">学ぶ</Link><Link href="/review">復習</Link><Link href="/record">記録</Link></nav></div></header></>;
+  return <><a className="skip" href="#main">本文へ移動</a><header className="topbar"><div className="nav-inner"><Link className="brand" href="/">Math<span>Canvas</span></Link><nav className="nav-links" aria-label="メイン"><Link href="/">学ぶ</Link><Link href="/review">復習</Link><Link href="/record">記録</Link><AppearanceSettings/></nav></div></header></>;
 }
 export function Footer() {
   return <footer><div className="footer-inner"><span>MathCanvas · 数学I・A・II・B・III・C・中学数学</span><span>学習記録はこのブラウザに保存されます。</span></div></footer>;

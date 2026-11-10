@@ -37,7 +37,14 @@ function Question({item,label,index,next,onStop,onBack,onProgressChange}:{item:Q
   const heading=useRef<HTMLHeadingElement>(null),recorded=useRef(false),previewed=useRef(false);
   const attemptId=useRef<string|null>(null);
   const sessionId=()=>attemptId.current??(attemptId.current=crypto.randomUUID());
-  useEffect(()=>{if(index>0)heading.current?.focus({preventScroll:true});},[index]);
+  useEffect(()=>{
+    if(index>0&&heading.current){
+      heading.current.focus({preventScroll:true});
+      const card=heading.current.closest(".question")??heading.current;
+      const topbar=document.querySelector<HTMLElement>(".topbar");
+      window.scrollTo({top:Math.max(0,card.getBoundingClientRect().top+window.scrollY-(topbar?.offsetHeight??66)-12),behavior:"instant"});
+    }
+  },[index]);
   const record=(result:Outcome)=>{
     if(recorded.current)return;
     recorded.current=true;
