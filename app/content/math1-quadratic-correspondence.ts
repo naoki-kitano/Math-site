@@ -20,7 +20,7 @@ export const math1QuadraticCorrespondence:Record<string,FormulaLesson>={
  ]},
  'm1-completing-square-coefficient':{title:'括弧の外の係数も保つ',goal:'',check:'',steps:[
   {label:'係数をくくる',text:m`$2x^2+8x+1$ を平方完成します。二次と一次の項から $2$ をくくると、括弧内の一次係数は $4$ です。`,formulas:[m`2x^2+8x+1=2(x^2+4x)+1`]},
-  {label:'括弧内の平方',text:m`$(x+2)^2=x^2+4x+4$。括弧内で増えた $4$ を、同じ括弧内で引きます。`,formulas:[],motion:{source:m`(x+2)^2=x^2+4x+{\color{#936114}{4}}`,target:m`2(x^2+4x)+1=2\{(x+2)^2-{\color{#936114}{4}}\}+1`,parts:[{tex:'4',color:ochre}]}},
+  {label:'括弧内の平方',text:m`$2(x^2+4x)+1$ の括弧内を平方の形にします。増えた $4$ を、同じ括弧内で引きます。`,formulas:[],motion:{source:m`(x+2)^2=x^2+4x+{\color{#936114}{4}}`,target:m`2\{(x+2)^2-{\color{#936114}{4}}\}+1`,parts:[{tex:'4',color:ochre}]}},
   {label:'外の係数を掛ける',text:m`外の $2$ は、平方の項にも補正 $-4$ にも掛かります。`,formulas:[],motion:{source:m`{\color{#176c82}{2}}\{(x+2)^2-4\}+1`,target:m`=2(x+2)^2+{\color{#176c82}{2}}(-4)+1`,parts:[{tex:'2',color:blue}]}},
   {label:'正の係数の結果',text:m`括弧の外では補正は $-8$。元の定数 $1$ と合わせます。`,formulas:[m`2(-4)+1=-7`,m`2x^2+8x+1=2(x+2)^2-7`]},
   {label:'外が負の場合',text:m`$-x^2+4x+3$ なら、$-(x^2-4x)+3$ とくくります。$(x-2)^2=x^2-4x+4$ なので、括弧内では同じ $4$ を引きます。`,formulas:[m`-x^2+4x+3=-\{(x-2)^2-4\}+3`]},

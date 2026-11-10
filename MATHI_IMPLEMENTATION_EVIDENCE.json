@@ -5184,5 +5184,266 @@
     "Synthetic figure SSR does not exercise client media-query adaptation; responsive coordinate behavior is verified in actual pages.",
     "No physical smartphone, Safari or screen-reader verification. SVG accessible description linkage was checked, not spoken output.",
     "Existing over500kB bundle warning remains. Mathematical approval does not approve rendering or publication."
-  ]
+  ],
+  "postPublicationRefinement": {
+    "recordedAt": "2026-11-10T07:00:55.389981+00:00",
+    "baselineCommit": "fbab80e47e4b897e8b11e24986b6c85964befcfd",
+    "scope": "One completing-square stage: retain original expression in prose and show only the resulting expression at the arrow destination, preventing a wrapped preceding line from intersecting the arrow at 320px. Original coefficients, constant and compensating term are preserved.",
+    "sourceFile": "app/content/math1-quadratic-correspondence.ts",
+    "sourceSha256": "31b21861d2b38eb22dd3493c7613893a9d03755d3e7bc585b463b06dd2bc5cdb",
+    "independentReview": {
+      "status": "approved-mathematical-content-and-pedagogy-for-mobile-arrow-delta",
+      "reviewer": "/root/mathi_astra_delta (independent gpt-6-astra)",
+      "reviewedAt": "2026-11-10T06:58:16.662758+00:00",
+      "repository": "/workspace/scratch/math-site",
+      "scope": {
+        "type": "One-file, one-stage explanation/target-expression delta from astra-label-delta.json; no repeat full audit",
+        "reviewedFiles": [
+          "app/content/math1-quadratic-correspondence.ts"
+        ],
+        "contextRead": [
+          "Completing-square-coefficient preceding and following stages",
+          "FormulaCorrespondence.tsx",
+          "FormulaTransfer.tsx"
+        ],
+        "approvalBoundary": "Mathematical identity, correction sign and scope, necessary conditions, and source-level pedagogical clarity only. No approval of actual arrow overlap, rendering, UI or publication."
+      },
+      "hashVerification": {
+        "manifest": "/workspace/scratch/mathi-implementation-20261110/source-freeze-mobile-arrow.json",
+        "matchedFiles": 94,
+        "unchangedFromPreviousApproval": 93,
+        "changedFiles": 1,
+        "reversePatchMatches": 1,
+        "method": "Independent current-file SHA256 verification followed by copying the changed file to a temporary directory, reversing mobile-arrow-delta.patch using patch --batch --fuzz=0 -R -p1, and matching the reconstructed SHA256 to astra-label-delta.json sourceHashes.",
+        "mismatches": []
+      },
+      "sourceHashes": {
+        "app/components/BasicReader.tsx": "35aae16e5b15f58e2d2cfd59d6677c823bdf3212b30543fd793821bc4f02d970",
+        "app/components/CoordinateDiagram.tsx": "4da502fbef03018befa3881be28e753773b8a97e368a0a9c13f708f520e2cbdf",
+        "app/components/ExampleSteps.tsx": "b51be0da489915bc76709dff3d3672b1b25167c6b9de7a8f259d6522ce620697",
+        "app/components/ExerciseAnswerDiagram.tsx": "1b161578f1a4bc97c97cf61caa91450397b1541d37109f43cddb58c1a288e186",
+        "app/components/FormulaCorrespondence.tsx": "f4f4d7f49ad9596ce7b632ef68412c453e940bc25e4587e7589d6762c36bb8b2",
+        "app/components/LessonHelp.tsx": "671110cb98da9b0708e5cfd96e3d59472ea5d8e4df5b1047e60d0a6930f23280",
+        "app/components/LessonView.tsx": "aad0a5736f3d93d5a5480553e76b9d6209507e2204e21f912660afca8aa2e50f",
+        "app/components/Math1AlgebraAnswerDiagram.tsx": "f88e5d136b5074d53bfb0ada4410f87a1b7db8f25ab2d20a3434c500c6d3b00d",
+        "app/components/Math1AlgebraDiagram.tsx": "dab20acf7e0cc39fea3323661ae690bffe9e35b7777dbba2655b408860bc53a3",
+        "app/components/Math1AlgebraNumberLine.tsx": "114eb548e580d99b5057074a0b4e3236cdfe16a7df2dcabb424b8a24bbbd5bc5",
+        "app/components/Math1DataAnswerDiagram.tsx": "a57a7ca9ded087fbfaaaf7cab902edc31338fdc8b8ee533efe7de5fe3a8ffa19",
+        "app/components/Math1DataDiagram.tsx": "bd2bc7a68d1b01efc868a1866e7aa27ac68c2ed8092eb2e23012c1ebdd9bf360",
+        "app/components/Math1DataPlot.tsx": "46b01b31f8fabd0df9ce3379076ea2e58ad0d1db6611f4f3f5f66c9193e71e0d",
+        "app/components/Math1LogicAnswerDiagram.tsx": "692b627d805773e9e8ebcb45fd275e488fecb072fd1624cc994960009218466f",
+        "app/components/Math1LogicDiagram.tsx": "56e66cd17fe25daf5f7f8ad926a04f1a3a43835bfb93df0653fec7d1de8277ea",
+        "app/components/Math1LogicExampleDiagram.tsx": "f56eebd7f5e95ee3ded41b0817966d77f5bb87c0a3e9c8773a8d7cfb61682f00",
+        "app/components/Math1QuadraticAnswerDiagram.tsx": "f7599074567f9db721c703de010e447d6ceabe9a81aedcb6d0a494eb4efb83ce",
+        "app/components/Math1QuadraticDiagram.tsx": "037ea1cc0cf59d948c76060222ada4dbbc0aa9f06202857857afdb49fb482f94",
+        "app/components/Math1TrigDiagram.tsx": "5e84c95b535e0211d3ba03fd59b04eb886ffef0377790148349b94eb0e026ef5",
+        "app/components/MathOneDataDiagrams.tsx": "4f7644914565931145e04347196d53ca672c27169c23f09543a8c5ef5ba803bc",
+        "app/components/MathOneDiagrams.tsx": "6da2229fdd6bd383e841fa94b5822f9a98623fa0131467d2c80d57189206b17a",
+        "app/components/MathOneQuadraticDiagrams.tsx": "6ac4b50e5029a5db15c045b6e934345688a7c4ca408c76e68529e03092684794",
+        "app/components/MathOneTrigDiagrams.tsx": "d7eda457deb3edad5295fb9b83ae9c112d237a0657ac13878c96b0aa219f821c",
+        "app/components/ParabolaExplorer.tsx": "96d2204d5bb4eb1b7dcc60b9b3cd1bef508d8db247a2cb27e8bcfe0bc310ab69",
+        "app/components/Practice.tsx": "dbbfa26876f25aa8d94bc4a8a9730742d7839dc99beac5689707555599f22eaf",
+        "app/components/RelationExplorer.tsx": "a24dbe43b4682fd9b0888c811506b84968fbba4bd3274916e7a1c0b9fe847046",
+        "app/components/ReviewGuide.tsx": "7162ebc16ad400d78c5e0c88b3ea6acfb93e5b0c4c9d0dce059bc693c8f95491",
+        "app/components/StructureDiagram.tsx": "57c7bbeee9ae0c5a6d6dd6b7fea0b1f0e17b320ff8725dde28130537f71a4d1a",
+        "app/components/VisualLessonExplorer.tsx": "aa1bd65cb817d0489054f8d60064f24309cf11ad32eabb56f8c17e4c2473d92a",
+        "app/content/formula-correspondence.ts": "0fba0b0e516a5358096292b7e8dea4c81f267703944de9f2cd784e48c1eab82d",
+        "app/content/lessons.ts": "9ca79b6833470998589fefdd2105e0df12fdf6f8870fbdede932ed6b63924d8f",
+        "app/content/math1-algebra-answer-cases.ts": "b6b8e7e2c9715f40c74cf42d2d420df4e04bbe64425ad8876606621aefe86cee",
+        "app/content/math1-algebra-correspondence.ts": "8b3787e14e4edb07b1777303b125ccfd7831e4e7e7db70e10052ea1fda97356b",
+        "app/content/math1-algebra-refinements.ts": "71725c846aa9e5f268b588ceae13ce2656eb04166453ca79006ed75abd604dcb",
+        "app/content/math1-authoring.ts": "fe0eec8703962f92c6d9f4cf43144ef1fd5a1d51bd3eebf67c80beb08f2628bc",
+        "app/content/math1-chapter-check.ts": "b0349693da3cc151a3cd4f2eb54cfeb23da2e431346c27d39abd65640ddae095",
+        "app/content/math1-chapter1.ts": "892d0f2904143acf757df0d4f04d2bc224390ad5f29bb0f6a344e98c00e747aa",
+        "app/content/math1-chapter2.ts": "9c5661c98ea48b0a507e225d17bbd0af31d7f2ed4aa8ecf3ff90a4129bcf37b3",
+        "app/content/math1-chapter3.ts": "3742d2788b6cbf4c41a4d8fb01a2b816e5cb8a78743025a8bb716932f5e8a45e",
+        "app/content/math1-chapter4.ts": "d2ff4030525efb96bee74f4d764499ee858c8dacdbd43d6fd09e7d3349afefc9",
+        "app/content/math1-chapter5.ts": "3d84e05ac01bec07b4b0c710ed57ab42d564e2eb26fc1320e6f215c1ce41f0d9",
+        "app/content/math1-completing-square.ts": "600dce6f4896abd93cd06bd4b60c6831e032752c7ff7fe25b8608de60ef3fa75",
+        "app/content/math1-data-answer-figures.ts": "0a0808986cb3e80dc20fe93f4ef538a3456105597d584aa92f9ed64dcc18b2cf",
+        "app/content/math1-data-authoring.ts": "4040ceea438993ba6d9ac3c9a9251b6e69fcf51e5ab9ac92d2c9ef48ab125610",
+        "app/content/math1-data-correspondence.ts": "ec8c9e2d2646ce87c2d83c2cde313c1c5205119dd6ee6e0e19ad824255c527c0",
+        "app/content/math1-data-distributions.ts": "93e4af20aaae85401891c71700a0d3c4129321c4326971a72a4886430335339f",
+        "app/content/math1-data-inference.ts": "6edd6ec7ac45f2f6c7698b945cd41a31fb6a73d27e3dfffdd5803a4d4697bb29",
+        "app/content/math1-data-reading-context.ts": "ac97199d8d68e2ce6e6deb76c847f5f5353f303114a70be2402864644fdd5db2",
+        "app/content/math1-data-relationships.ts": "997ea0220ac5055d1909f45f9d6c50a8ebd4553c8c9540310cd1f00295cd1180",
+        "app/content/math1-data-spread.ts": "ab91058e330991f63272adf8cac983ac3030dc7f9a7cfb4d1a58fc5fc49b1b88",
+        "app/content/math1-factoring.ts": "064d32ecd922538c578d57b1bd0869fe1a7c737cac84dfab722c7385c3729002",
+        "app/content/math1-function-foundations.ts": "e05f614c8b15dcd63c26bafec8656c640cb0a7b394a560775fc3f545b2cd5a07",
+        "app/content/math1-logic-authoring.ts": "46b0b000481b31a019ce887996554e5e114c417ae317aca4d6664aa4650867c8",
+        "app/content/math1-logic-correspondence.ts": "a613cdd7470c464b925bb00d5fa47dc5937a19778a855e89ee0a840ba1d70fc0",
+        "app/content/math1-logic-negation.ts": "6bb173ef397f699fa389dbc204263b5a0e3233823e65c32fd52fcf719bc544b4",
+        "app/content/math1-logic-presentation.ts": "f1ddc37d1734d8da74a4ba9d17d37f03bd94b5705906103a1b06863f0f28270d",
+        "app/content/math1-logic-proofs.ts": "3a28b065c33cd0f1ac8d9a0010c850eef04949c3a07bf7cff7738cf2a3edfefd",
+        "app/content/math1-logic-refinements.ts": "ebac0f5c4d01b211114b114e75873e31f5230f5a113714e61d69fee244baf54f",
+        "app/content/math1-logic-sets.ts": "17856172d1f02e63f49058b9deaa7fdf7f204616cd4b170997b4067f6d569f3d",
+        "app/content/math1-logic-statements.ts": "f69cbb89798cf41c254df554cacaa359f7a0904a72092ffc28a07dbed2372c8d",
+        "app/content/math1-quadratic-applications.ts": "6fe8cbd042df97272ab248be074ae4463e34f05e9d1b4313eaf1566ad0a4b20c",
+        "app/content/math1-quadratic-authoring.ts": "5dff356384bc06101356fdb12f71b769b22b8c76f7c072e45c12cd1c9ad9161e",
+        "app/content/math1-quadratic-correspondence.ts": "31b21861d2b38eb22dd3493c7613893a9d03755d3e7bc585b463b06dd2bc5cdb",
+        "app/content/math1-quadratic-equations.ts": "e146a8dd46be16d30b6279074fc47e5bb9955dd6ed901e7787aac9e66b7d0e10",
+        "app/content/math1-quadratic-graphs.ts": "a064e954b5dc84b9296183b0b037745f7d05b62fa443340159097b5aa31aedba",
+        "app/content/math1-quadratic-inequalities.ts": "8f3f396439efe81271ddc187835a0a6a4aaf4cc7baff83ff2c611006de2a3b3d",
+        "app/content/math1-quadratic-reading-context.ts": "98647aea1f17c15cc97a1ed5ad1c28982e8274922158877e0ca869262c519c04",
+        "app/content/math1-roots.ts": "661dbb0c746cf438d75d668f124787342445111ab098093c4a0f92eca1d2e4ed",
+        "app/content/math1-topic.ts": "70057c3a2d4c60a02d26d636ab53c7f8ee050430a28bbc6deada0e17d65931af",
+        "app/content/math1-triangle-choice.ts": "0d1bc4d957e39745523034006e96765bdf820120c214ddcd2f044524b713c650",
+        "app/content/math1-triangle-laws.ts": "517d77f563d76a8cc3703a1d970bf7776903405c410db4e31ef20cd1ad349636",
+        "app/content/math1-trig-applications.ts": "f3136ccecdbcdf678b83e18c7b2aa3340eda846ef75ef0959ecadecdf810f011",
+        "app/content/math1-trig-authoring.ts": "a03c6c78f739895451edcfd6fc0574ff9fa4001fba5ded8b10cfe752ca43c27b",
+        "app/content/math1-trig-correspondence.ts": "a14401f4b33ae3b97b4ff1fbc829cde141d2e141078c429f658bcf57ef48c746",
+        "app/content/math1-trig-extension.ts": "5bc3dd76cbf5b682db1ee6db0bcc4742bc2c2cf11792458d2539c75431b4776c",
+        "app/content/math1-trig-foundations.ts": "7444967a02fe16072ecc2a751d3c48795b2883d478aac2243e756e35b365a159",
+        "app/content/prerequisite-plans.ts": "bd3e0632205ae117ef0390fc9e38cccfbcad709ad64b1139de604868f62e73b8",
+        "app/content/prerequisite-repairs.ts": "bceb39deb4d3115d8f61d092489e1b1616c945f3b2405637ed39228557f14628",
+        "app/learning.css": "176f92a0fc069cecbcbc85e7c6f257ac4962df032b942a2525c2193793e6ae89",
+        "app/math1-algebra.css": "fbaf14211a454ddf1034c9e8d34dca788596e2ce2224595d3cf1361386e9dbfc",
+        "app/math1-data.css": "c53c8d012b6803a06fd7cb889569ed17d3b7f9676b356071cb9241867aa9f1c9",
+        "app/math1-logic.css": "7e132b7e1ce8bea264a09b146c57363b5ffad0c8b5e2f868263f0f724b5b7d0e",
+        "app/math1-quadratic.css": "a8adf79388202f068cc50a967c04494d01b36f0d668f13a7c0808aac0a9c0dcd",
+        "app/math1-trig.css": "b518a3a0d54622fee5fd72658b423243cd79e99031164865e9bd42cbcceb31c8",
+        "app/mathi-controls.css": "a07c21cb39fa7305605e13aea4fff9b463be5250de17049aeef75b8760d5e7ef",
+        "package.json": "e0110d3c8fa1765c8432a6bf67f0a9e025232b0dfee94c60895d65181b291743",
+        "scripts/check-formula-layout.mjs": "4a04d6b4d32529150b1344c025d252360a35d45ddc6d7e0d9e2280e576d683b7",
+        "scripts/check-mathi-answer-flow.mjs": "eb27c93ee775f70e6d162e771d4d699e5b5c232ddff08fbf723eeaab0a35ee6c",
+        "scripts/check-mathi-content.mjs": "4e5bcc14973c7e622e40d12c179b3f58737677f48946f5d64aa96fc1aadd4488",
+        "scripts/check-mathi-figures.mjs": "26b6433fcd402318865c9f7ba227e0b8d2cd63fe9fc375b6ff9c54d484c0db4c",
+        "tests/math-motion.test.mjs": "67ddbcdb96561950e2211721de7f9f79b50555e0bc04eb9b834375c76024e40d",
+        "tests/math1-drafts.test.mjs": "4236534264e8dc45bc4517ae2a1b6eeaf03252fe0e57259b74392c5a62820e42",
+        "tests/math1-quadratic.test.mjs": "cb63f2b23fe3bfef434c3a79da42d0883d02f00ee971fe95c4bdd6f272f3add2",
+        "tests/mathi-improvements.test.mjs": "2293c6d852169fdc8df39c4bc330f49c7ee47d5878e3b1dd87fdb826b3c64914"
+      },
+      "artifactHashes": {
+        "astra-label-delta.json": "b88b8104967c3da911d9a784d9f0d51778e3315348a5ad237b89bd8b416cb241",
+        "source-freeze-mobile-arrow.json": "c7d6ce7b8e46483a5fc3bc9aef99bbc4d53af80c706184f52b0087da85cf3598",
+        "mobile-arrow-delta.patch": "cb6543a6a3e1d64a67beb876c31c075b4d37aa3e03762ee28be9d670c157d469"
+      },
+      "assessment": {
+        "independentAlgebra": "Expanding (x+2)^2 gives x^2+4x+4; subtracting 4 inside the same braces gives x^2+4x. Multiplying by the retained outer 2 and adding the retained original 1 gives 2x^2+8x+1, exactly the original expression. The identity holds for every real x; no new denominator, root or domain condition is introduced.",
+        "correctionScope": "The target retains 2{(x+2)^2-4}+1, so the correction is -4 inside the braces and -8 after multiplication. The next stage still explicitly distributes the outer 2 to both the square and the correction and the following stage retains the final -7 constant.",
+        "sourceVersusTarget": "The source is the unchanged square-expansion identity; the target is the completed-square form of the original expression now explicitly named in the current prose. FormulaTransfer displays these in separate source/target blocks and adds no equality sign joining the entire source identity to the target expression. The colored 4 and arrow link the introduced constant to its compensating subtraction. The prose supplies the operation, so removing the repeated target left-hand side does not assert that (x+2)^2 alone equals the target.",
+        "pedagogy": "The same-stage text names 2(x^2+4x)+1, instructs completing the square inside its parentheses and subtracting the introduced 4 there. The preceding stage retains the complete original-to-factored equality. The square-expansion identity remains visible as the reason. This preserves the explanation and reduces target formula length without deleting mathematical information."
+      },
+      "findings": [],
+      "unresolvedFindings": [],
+      "unresolvedCount": 0,
+      "unresolvedMandatoryCount": 0,
+      "sourceEdits": false,
+      "committedOrPublished": false,
+      "instructionsApplied": [
+        "AGENTS.md",
+        "MATHCANVAS_QA.md",
+        "skill://user/6acf1d689f9c8191a5a9c2b247c73584/math-creation-qa/SKILL.md"
+      ],
+      "limits": [
+        "The reported mobile overlap and its actual resolution were not visually verified by this reviewer. Root owns exact final local/published rendering verification.",
+        "No test/lint/type/build/deployment execution by this reviewer.",
+        "Prior audit scope and limitations carry forward through verified source identity; no full re-audit claimed."
+      ]
+    },
+    "qa": {
+      "focusedTests": {
+        "passed": 16,
+        "failed": 0
+      },
+      "types": "passed",
+      "lint": "passed",
+      "normalBuild": "passed",
+      "pagesBuild": "passed",
+      "html": 477,
+      "localReferences": 9518,
+      "formulaStates": {
+        "states": 21,
+        "failures": []
+      },
+      "arrowPlacement": {
+        "states": 3,
+        "results": [
+          {
+            "width": 320,
+            "path": "M215.15625 49 L159.9375 117.78125",
+            "arrowEndY": 602.609375,
+            "targetFirstTop": 612.609375,
+            "targetLines": [
+              {
+                "top": 612.609375,
+                "bottom": 636.390625
+              },
+              {
+                "top": 612.609375,
+                "bottom": 635.390625
+              },
+              {
+                "top": 612.609375,
+                "bottom": 635.390625
+              },
+              {
+                "top": 612.609375,
+                "bottom": 635.390625
+              }
+            ],
+            "mathErrors": 0,
+            "overflow": false
+          },
+          {
+            "width": 390,
+            "path": "M250.15625 49 L194.9375 117.78125",
+            "arrowEndY": 529.828125,
+            "targetFirstTop": 539.828125,
+            "targetLines": [
+              {
+                "top": 539.828125,
+                "bottom": 563.609375
+              },
+              {
+                "top": 539.828125,
+                "bottom": 562.609375
+              },
+              {
+                "top": 539.828125,
+                "bottom": 562.609375
+              },
+              {
+                "top": 539.828125,
+                "bottom": 562.609375
+              }
+            ],
+            "mathErrors": 0,
+            "overflow": false
+          },
+          {
+            "width": 1100,
+            "path": "M409.25 54 L340.828125 123.1875",
+            "arrowEndY": 528.609375,
+            "targetFirstTop": 538.609375,
+            "targetLines": [
+              {
+                "top": 538.609375,
+                "bottom": 567.796875
+              },
+              {
+                "top": 538.609375,
+                "bottom": 566.796875
+              },
+              {
+                "top": 538.609375,
+                "bottom": 566.796875
+              },
+              {
+                "top": 538.609375,
+                "bottom": 566.796875
+              }
+            ],
+            "mathErrors": 0,
+            "overflow": false
+          }
+        ],
+        "failures": []
+      },
+      "cssSha256": "aa16312e0306f3cc25c7d99308c996ec13d88cbdcb13bfa8814adf48169068cc",
+      "cssUnchanged": true,
+      "visualInspection": "Root inspected the final 320px screenshot; the arrow terminates above the intended colored term without crossing another line."
+    },
+    "publication": "This record was fixed before publishing the one-stage follow-up; subsequent Actions and public URL checks are recorded separately."
+  }
 }
