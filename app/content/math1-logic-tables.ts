@@ -1,7 +1,7 @@
 import type {MathTableData} from "../components/MathTable";
 const m=String.raw;
 export const math1LogicTables:Record<string,MathTableData[]>={
- "m1-set-operations":[{caption:"全体集合の各要素を一つずつ確かめる",headers:[m`$U=\{1,2,3,4\}$`,m`$A=\{1,2\}$`,m`$B=\{2,3\}$`,m`$A\cap B$`,m`$A\cup B$`,m`$\overline A$`],rows:[
+ "m1-set-operations":[{caption:m`全体集合 $U=\{1,2,3,4\}$、$A=\{1,2\}$、$B=\{2,3\}$。各要素が入る集合を確かめる。`,headers:[m`$U$`,m`$A$`,m`$B$`,m`$A\cap B$`,m`$A\cup B$`,m`$\overline A$`],rows:[
  ["$1$","入る","入らない","入らない","入る","入らない"],
  ["$2$","入る","入る","入る","入る","入らない"],
  ["$3$","入らない","入る","入らない","入る","入る"],

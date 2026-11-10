@@ -32,7 +32,7 @@ export function addPrerequisiteScenarios(lessons:Lesson[],exercises:Exercise[]){
  const repair={
   id:"reciprocal-limit",title:"根号の差を含む分母",
   text:m`正の整数 $n$ について、$n\to\infty$ の極限を考えます。$n+1>0$ なので $\sqrt{n^2+n+1}>n$。分母に対応する和を掛けると、和と差の積で分母の根号が消えます。次に分母の一次式に合わせて分子・分母を $n$ で割ります。$n>0$ なので根号の中では $n^2$ で割ります。`,
-  tex:m`\begin{aligned}\frac1{\sqrt{n^2+n+1}-n}&=\frac{\sqrt{n^2+n+1}+n}{n+1}\\&=\frac{\sqrt{1+\frac1n+\frac1{n^2}}+1}{1+\frac1n}\longrightarrow2\end{aligned}`,
+  tex:m`\begin{aligned}&\frac1{\sqrt{n^2+n+1}-n}\\&=\frac{\sqrt{n^2+n+1}+n}{n+1}\\&=\frac{\sqrt{1+\frac1n+\frac1{n^2}}+1}{1+\frac1n}\\&\longrightarrow2\end{aligned}`,
   check:additions[1].prompt,
   answer:m`$n>0$、$2n+3>0$ なので元の分母は正です。対応する和を掛け、分子・分母を $n$ で割ると $\dfrac{\sqrt{1+\frac2n+\frac3{n^2}}+1}{2+\frac3n}$。分子も分母も $2$ へ近づくので、極限は $1$ です。`
  };

@@ -1,7 +1,7 @@
 import type {MathTableData} from "../components/MathTable";
 const m=String.raw;
 export const math3DefiniteTables:Record<string,MathTableData[]>={
- "m3-definite-substitution":[{caption:"両端と微小量の対応",headers:["置換","元の下端 → 新しい下端","元の上端 → 新しい上端","微小量"],rows:[
+ "m3-definite-substitution":[{caption:"両端と微小量の対応",compact:true,headers:["置換","元の下端 → 新しい下端","元の上端 → 新しい上端","微小量"],rows:[
  [m`$t=x^2$`,m`$x=0\ \to\ t=0$`,m`$x=1\ \to\ t=1$`,m`$dt=2x\,dx$`],
  [m`$t=1-x$`,m`$x=0\ \to\ t=1$`,m`$x=1\ \to\ t=0$`,m`$dt=-dx$`]]}],
  "m3-moving-endpoints":[{caption:"連続な被積分関数と微分可能な上下端",headers:["動く端","微分"],rows:[
