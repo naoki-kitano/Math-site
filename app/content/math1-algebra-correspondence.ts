@@ -62,7 +62,7 @@ export const math1AlgebraCorrespondence:Record<string,FormulaLesson>={
   step('radicals',2,'同じ根号をそろえる',m`$\sqrt{12}+\sqrt{27}$ も、まずそれぞれを整理します。`),
   step('radicals',3,'係数をまとめる',m`同じ $\sqrt3$ が掛かっているので、分配法則で係数を足せます。`),
  ]},
- 'm1-rationalizing':{title:'値を保って分母の根号を消す',goal:'同じ非零因数を掛けて有理化する。',check:m`$2>\sqrt3>0$ より、元の分母 $2+\sqrt3$ と掛ける式 $2-\sqrt3$ はともに正です。`,steps:[
+ 'm1-rationalizing':{title:'値を保って分母の根号を消す',goal:'$0$ でない同じ因数を掛けて有理化する。',check:m`$2>\sqrt3>0$ より、元の分母 $2+\sqrt3$ と掛ける式 $2-\sqrt3$ はともに正です。`,steps:[
   step('rationalize',0,'一を掛ける',m`$\dfrac1{2+\sqrt3}$ を有理化します。分子と分母に同じ $2-\sqrt3$ を掛けます。`),
   step('rationalize',1,'分母の積を見る',m`分母は和と差の積です。交差する二項は逆符号になります。`),
   step('rationalize',2,'分母を整理する',m`交差する二項の和は $0$。分母は $4-3=1$ です。`),

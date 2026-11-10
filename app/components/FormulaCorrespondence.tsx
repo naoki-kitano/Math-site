@@ -5,6 +5,7 @@ import {formulaCorrespondence} from "../content/formula-correspondence";
 
 import FormulaTransfer from "./FormulaTransfer";
 import StructureDiagram from "./StructureDiagram";
+import LearningStepControls from "./LearningStepControls";
 
 const m=String.raw;
 
@@ -25,12 +26,12 @@ function MovingBase({stage,reduce}:{stage:number;reduce:boolean}){
  </>;
 }
 
-export default function FormulaCorrespondence({slug,onCompletionChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void}){
+export default function FormulaCorrespondence({slug,onCompletionChange,onProgressChange,onContinue,onBack}:{slug:string;onCompletionChange?:(complete:boolean)=>void;onProgressChange?:(progress:number)=>void;onContinue?:()=>void;onBack?:()=>void}){
  const [stage,setStage]=useState(0),[reduce,setReduce]=useState(false);
  const data=formulaCorrespondence[slug];
  if(!data)return null;
  const current=data.steps[stage];
- const go=(next:number)=>{setStage(next);onCompletionChange?.(next===data.steps.length-1);};
+ const go=(next:number)=>{setStage(next);onCompletionChange?.(next===data.steps.length-1);onProgressChange?.(next/Math.max(1,data.steps.length-1));};
  return <section className="panel formula-correspondence" data-formula-lesson={slug} data-stage={stage}>
   <h3>{data.title}</h3>
   <div className="formula-correspondence-readout" aria-live="polite" aria-atomic="true">
@@ -38,10 +39,7 @@ export default function FormulaCorrespondence({slug,onCompletionChange}:{slug:st
    {current.diagram&&<div className="structure-diagram"><StructureDiagram kind={current.diagram.kind} stage={current.diagram.stage} reduce={reduce}/></div>}
    {slug==="logarithm-base-change"?<MovingBase stage={stage} reduce={reduce}/>:current.motion?<FormulaTransfer key={stage} motion={current.motion} reduce={reduce}/>:current.formulas.length>0?<div className="formula-correspondence-lines">{current.formulas.map((tex,i)=><Formula key={i} tex={tex} display/>)}</div>:null}
   </div>
-  <div className="actions formula-correspondence-controls">
-   {stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
-   {stage<data.steps.length-1&&<button className="button" onClick={()=>go(stage+1)}>次へ</button>}
-  </div>
+  <LearningStepControls className="formula-correspondence-controls" onPrevious={stage>0?()=>go(stage-1):onBack} onNext={stage<data.steps.length-1?()=>go(stage+1):onContinue}/>
   {data.check&&<p className="start-check"><MathText text={data.check}/></p>}
   {(slug==="logarithm-base-change"||data.steps.some(step=>step.motion||(step.diagram&&(step.diagram.animated??!/^m[12]-/.test(step.diagram.kind)))))&&<label className="formula-reduced"><input type="checkbox" checked={reduce} onChange={e=>setReduce(e.target.checked)}/>動きを減らす</label>}
  </section>;

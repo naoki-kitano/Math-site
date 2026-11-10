@@ -18,7 +18,7 @@ export const math2TrigCorrespondence:Record<string,FormulaLesson>={
    {label:'使う平方和',text:m`$\frac{\sin^2\theta}{1+\cos\theta}$ を簡単にします。単位円の式から、正弦と余弦の平方和は $1$ です。`,formulas:[m`\sin^2\theta+\cos^2\theta=1`]},
    {label:'分子を直す',text:m`平方和の関係を使い、分子を余弦の式に直します。`,formulas:[m`{\color{#176c82}{\sin^2\theta}}={\color{#176c82}{1-\cos^2\theta}}`,m`\frac{\sin^2\theta}{1+\cos\theta}=\frac{1-\cos^2\theta}{1+\cos\theta}`]},
    {label:'共通する因数',text:m`和と差の積にすると、分母と同じ因数が見えます。`,formulas:[m`\frac{(1-\cos\theta){\color{#936114}{(1+\cos\theta)}}}{{\color{#936114}{1+\cos\theta}}}`]},
-   {label:'同じ非零因数で割る',text:m`$1+\cos\theta\ne0$ なので、分子と分母をその因数で割れます。`,formulas:[m`\frac{\sin^2\theta}{1+\cos\theta}=1-\cos\theta`]}
+   {label:'0でない同じ因数で割る',text:m`$1+\cos\theta\ne0$ なので、分子と分母をその因数で割れます。`,formulas:[m`\frac{\sin^2\theta}{1+\cos\theta}=1-\cos\theta`]}
   ]
  },
  'trig-graphs':{

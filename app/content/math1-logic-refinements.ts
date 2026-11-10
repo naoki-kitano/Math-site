@@ -26,7 +26,7 @@ repair(truth,"true-reason","仮定から結論へ進む理由","代入・範囲�
 repair(negation,"compound","かつ・またはを否定する","「両方が成立する」の否定は、「少なくとも一方が成立しない」です。「少なくとも一方が成立する」の否定は、「両方とも成立しない」です。",[worked(find(negation,"compound-2")),worked(find(negation,"compound-3"))]);
 repair(negation,"quantifier","すべて・あるを否定する","数の範囲を変えず、全体と存在の言葉、および条件の両方を否定します。",[worked(find(negation,"quantifier-1")),worked(find(negation,"quantifier-2"))]);
 repair(direct,"consecutive","連続する整数・奇数を表す","連続する整数の間隔は一、連続する奇数の間隔は二です。指定された数の種類を先に確かめます。",[worked(find(direct,"consecutive-1")),worked(find(direct,"consecutive-3")),worked(find(direct,"consecutive-5"))]);
-split(contraProof,["compound-contra-2","compound-contra-5"],"nonzero-contra","両方が非零という結論の対偶",m`「$a\ne0$ かつ $b\ne0$」の否定は「$a=0$ または $b=0$」。いずれの場合も積がゼロになることを使います。`);
+split(contraProof,["compound-contra-2","compound-contra-5"],"nonzero-contra","両方が0でないという結論の対偶",m`「$a\ne0$ かつ $b\ne0$」の否定は「$a=0$ または $b=0$」。いずれの場合も積がゼロになることを使います。`);
 repair(contraProof,"compound-contra","またはの結論を否定して証明する","結論を否定すると、二つの条件が同時に成立する仮定になります。指定された和をその仮定のもとで調べます。",[worked(find(contraProof,"compound-contra-3")),worked(find(contraProof,"compound-contra-6"))]);
 
 // Distinct domains and operations must remain distinct during repair/review.
@@ -38,8 +38,8 @@ add(contradiction,"open-domain-extreme","範囲を保って極端な値を否定
 ]);
 // Retain the original positive-half example in this operation-specific repair.
 repair(contradiction,"open-domain-extreme","範囲を保って極端な値を否定する","仮定した最小・最大を破るだけでなく、作った数が指定範囲に残ることを示します。",[worked(find(contradiction,"contradiction-3")),worked(find(contradiction,"open-domain-extreme-new-1"))]);
-split(contradiction,["irrational-expression-5"],"irrational-reciprocal","逆数を取る前に非零を確認する","ゼロでない有理数の逆数は有理数です。仮定した値がゼロでないことを示してから使います。");
-add(contradiction,"irrational-reciprocal","逆数を取る前に非零を確認する",m`$\sqrt2,\sqrt3$ の無理数性はこのページの証明を使います。有理数と仮定した値が非零であることを先に確認します。`,[
+split(contradiction,["irrational-expression-5"],"irrational-reciprocal","逆数を取る前に0でないことを確認する","ゼロでない有理数の逆数は有理数です。仮定した値がゼロでないことを示してから使います。");
+add(contradiction,"irrational-reciprocal","逆数を取る前に0でないことを確認する",m`$\sqrt2,\sqrt3$ の無理数性はこのページの証明を使います。有理数と仮定した値が$0$ でないことを先に確認します。`,[
  w(m`$\sqrt3$ が無理数であることを用い、$\frac1{\sqrt3}$ が無理数であることを背理法で証明しなさい。`,m`$\frac1{\sqrt3}=r$ が有理数だと仮定する。$r>0$ より $r\ne0$。すると $\sqrt3=\frac1r$ は有理数となり矛盾する。よって無理数である。`,"逆数を取れる理由を先に書きます。",m`$r\ne0$ があるため $\frac1r$ が定義でき、有理数になります。`),
  w(m`$\sqrt2$ が無理数であることを用い、$\frac2{\sqrt2}$ が無理数であることを背理法で証明しなさい。`,m`$\frac2{\sqrt2}=r$ が有理数だと仮定する。$r>0$ なので $\sqrt2=\frac2r$ も有理数となり矛盾する。よって無理数である。`,"分子が二でも、ゼロでない有理数で割ると有理数です。",m`$r>0$ を確認してから $\sqrt2=\frac2r$ と直します。`),
 ]);
@@ -112,7 +112,7 @@ scaffold(contradiction,"irrational-root-1","root-plan","既約分数の条件と
  w(m`$\sqrt3=\frac ab$（$a,b$ は互いに素な正の整数）から $a=3k$（$k$ は整数）と分かりました。代入して得る $b^2$ の式と、$b$ も三の倍数なら何と矛盾するか答えなさい。`,m`$9k^2=3b^2$ より $b^2=3k^2$。$b$ も三の倍数なら $a,b$ は共通因数三をもち、互いに素に矛盾します。`,"二乗した等式へ代入して三で割ります。",m`$a^2=3b^2$ に $a=3k$ を代入します。`),
 ]);
 scaffold(contradiction,"irrational-expression-1","irrational-plan","既知の無理数へ戻す式を補う","有理数と仮定した式を、既知の無理数だけが片側に残る形へ直します。",
- w(m`$2\sqrt2=r$（$r$ は有理数）と仮定しました。$\sqrt2$ を $r$ で表し、何に矛盾するか答えなさい。`,m`$\sqrt2=\frac r2$。右辺は有理数なので、$\sqrt2$ の無理数性に矛盾します。`,"非零の整数二で割ります。",m`有理数を非零の整数で割った商は有理数です。`),[
+ w(m`$2\sqrt2=r$（$r$ は有理数）と仮定しました。$\sqrt2$ を $r$ で表し、何に矛盾するか答えなさい。`,m`$\sqrt2=\frac r2$。右辺は有理数なので、$\sqrt2$ の無理数性に矛盾します。`,"$0$ でない整数二で割ります。",m`有理数を$0$ でない整数で割った商は有理数です。`),[
  w(m`$1+\sqrt2=r$（$r$ は有理数）と仮定しました。$\sqrt2$ を $r$ で表し、何に矛盾するか答えなさい。`,m`$\sqrt2=r-1$。右辺は有理数なので、$\sqrt2$ の無理数性に矛盾します。`,"両辺から一を引きます。",m`有理数と整数の差は有理数です。`),
  w(m`$3-\sqrt2=r$（$r$ は有理数）と仮定しました。$\sqrt2$ を $r$ で表し、何に矛盾するか答えなさい。`,m`$\sqrt2=3-r$。右辺は有理数なので、$\sqrt2$ の無理数性に矛盾します。`,"根号の項を移し、三から有理数を引く形にします。",m`整数と有理数の差は有理数です。`),
 ]);

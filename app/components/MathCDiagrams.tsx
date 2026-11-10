@@ -25,7 +25,7 @@ export default function MathCDiagrams({slug,index}:{slug:string;index:number}){
  <circle cx="265" cy="95" r="4" fill="#14243f"/><circle cx="265" cy="215" r="4" fill="#14243f"/>
  <Label x={320} y={250} text="$x$"/><Label x={35} y={265} text="$y$"/><Label x={110} y={0} text="$z$"/>
  <Label x={280} y={57} text="$P(3,-2,3)$"/><Label x={275} y={220} text="$H(3,-2,0)$"/><Label x={289} y={143} text="$3$"/>
- </svg><figcaption><MathText text={m`例題の見取り図。$xy$ 平面へ下ろすと高さだけが零になります。投影図なので、紙面上の角度や長さは実際の値とは一致しません。`}/></figcaption></figure>;
+ </svg><figcaption><MathText text={m`例題の見取り図。$xy$ 平面へ下ろすと高さだけが $0$ になります。投影図なので、紙面上の角度や長さは実際の値とは一致しません。`}/></figcaption></figure>;
  if(slug==="mc-data-representation")return <figure className="math-b-figure math-c-figure"><svg viewBox="0 0 360 260" role="img" aria-label="例題の要望件数を降順に並べた棒と累積比率">
  <path d="M40 20 V200 H305 V20" fill="none" stroke="#8293a5"/>
  {[15,9,6].map((n,i)=><g key={i}><rect x={65+i*80} y={200-n*10} width="38" height={n*10} fill="#80c5b5"/><Label x={84+i*80} y={170-n*10} text={`$${n}$`}/></g>)}

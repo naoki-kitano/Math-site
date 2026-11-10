@@ -38,7 +38,7 @@ export const math2AlgebraCorrespondence:Record<string,FormulaLesson>={
   ]
  },
  'polynomial-division':{
-  title:'最高次を消して進む',goal:'商を選ぶ理由と、引く式の位置をそろえます。',check:m`割る式は零多項式でないものとします。余りは $0$、または割る式より低い次数です。`,
+  title:'最高次を消して進む',goal:'商を選ぶ理由と、引く式の位置をそろえます。',check:m`割る式はすべての係数が $0$ の多項式でないものとします。余りは $0$、または割る式より低い次数です。`,
   steps:[
    figure('商にxを書く',m`$x^2+3x+1$ を $x+1$ で割ります。先頭の $x^2$ を消すため、$x(x+1)$ を引きます。`,'division',0),
    figure('同じ次数を引く',m`$x^2$ が消え、次に残る最高次は $2x$ です。商に書いた $x$ は残します。`,'division',1,true),

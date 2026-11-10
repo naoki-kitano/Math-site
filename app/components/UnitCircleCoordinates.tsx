@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Formula, MathText } from "./MathText";
+import LearningStepControls from "./LearningStepControls";
 export const coordinateCases = [
   { label:"右上",x:.6,y:.8,xTex:String.raw`\dfrac35`,yTex:String.raw`\dfrac45`,tan:String.raw`\dfrac43` },
   { label:"左上",x:-.6,y:.8,xTex:String.raw`-\dfrac35`,yTex:String.raw`\dfrac45`,tan:String.raw`-\dfrac43` },
@@ -19,11 +20,11 @@ const px=(x:number)=>210+130*x, py=(y:number)=>210-130*y;
 function Label({x,y,tex}:{x:number;y:number;tex:string}) {
   return <foreignObject x={x-35} y={y-23} width="70" height="80"><div className="unit-math-label"><Formula tex={tex}/></div></foreignObject>;
 }
-export default function UnitCircleCoordinates({onCompletionChange}:{onCompletionChange?:(complete:boolean)=>void}) {
+export default function UnitCircleCoordinates({onCompletionChange,onContinue,onBack,onProgressChange}:{onCompletionChange?:(complete:boolean)=>void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}) {
   const [selected,setSelected]=useState(0);
   const [basic,setBasic]=useState<number|null>(3);
   const [stage,setStage]=useState(0);
-  const go=(next:number)=>{setStage(next);onCompletionChange?.(next===2);};
+  const go=(next:number)=>{setStage(next);onCompletionChange?.(next===2);onProgressChange?.(next/2);};
   const axis=(["sin","cos","tan"] as const)[stage];
   const point=basic===null?coordinateCases[selected]:basicAngleCases[basic];
   const xColor="#936114", yColor="#176c82";
@@ -54,13 +55,10 @@ export default function UnitCircleCoordinates({onCompletionChange}:{onCompletion
       <div className="unit-explanation" aria-live="polite" aria-atomic="true">
         {axis==="sin"?<><p>縦軸で、点の高さを読みます。</p><Formula tex={`\\sin\\theta=${coordinate("y",yColor)}=${coordinate(point.yTex,yColor)}`} display/></>:
         axis==="cos"?<><p>横軸で、点の横の位置を読みます。</p><Formula tex={`\\cos\\theta=${coordinate("x",xColor)}=${coordinate(point.xTex,xColor)}`} display/></>:
-        <><p>縦の座標を横の座標で割ります。</p><Formula tex={`\\tan\\theta=\\dfrac{${coordinate("y",yColor)}}{${coordinate("x",xColor)}}\\quad(x\\ne0)`} display/>{point.tan===null?<><Formula tex="x=0" display/><p>零では割れないので、この点の正接は定義されません。</p></>:<Formula tex={`\\dfrac{${coordinate(point.yTex,yColor)}}{${coordinate(point.xTex,xColor)}}=${point.tan}`} display/>}</>}
+        <><p>縦の座標を横の座標で割ります。</p><Formula tex={`\\tan\\theta=\\dfrac{${coordinate("y",yColor)}}{${coordinate("x",xColor)}}\\quad(x\\ne0)`} display/>{point.tan===null?<><Formula tex="x=0" display/><p><MathText text="$0$ では割れないので、この点の正接は定義されません。"/></p></>:<Formula tex={`\\dfrac{${coordinate(point.yTex,yColor)}}{${coordinate(point.xTex,xColor)}}=${point.tan}`} display/>}</>}
       </div>
     </div>
-    <div className="actions unit-controls">
-      {stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
-      {stage<2&&<button className="button" onClick={()=>go(stage+1)}>次へ</button>}
-    </div>
+    <LearningStepControls className="unit-controls" onPrevious={stage>0?()=>go(stage-1):onBack} onNext={stage<2?()=>go(stage+1):onContinue}/>
     <details className="supplement unit-point-options">
       <summary>別の点で確かめる</summary>
       <label>点の選び方<select value={basic===null?"quadrants":"angles"} onChange={e=>setBasic(e.target.value==="angles"?3:null)}><option value="angles">基本角</option><option value="quadrants">座標の符号</option></select></label>

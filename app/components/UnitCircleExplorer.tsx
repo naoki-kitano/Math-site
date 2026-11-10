@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { Formula, MathText } from "./MathText";
+import LearningStepControls from "./LearningStepControls";
 import { originalTriangle, rotateClockwise, type Point } from "../lib/unit-circle-motion";
 
 const motionQuery = "(prefers-reduced-motion: reduce)";
@@ -23,7 +24,7 @@ function MathLabel({ at, tex, width = 104 }: { at: Point; tex: string; width?: n
   return <foreignObject x={px(at[0]) - width / 2} y={py(at[1]) - 18} width={width} height="48"><div className="unit-math-label"><Formula tex={tex} /></div></foreignObject>;
 }
 
-export default function UnitCircleExplorer({onCompletionChange}:{onCompletionChange?:(complete:boolean)=>void}) {
+export default function UnitCircleExplorer({onCompletionChange,onContinue,onBack,onProgressChange}:{onCompletionChange?:(complete:boolean)=>void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}) {
   const [stage, setStage] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -64,10 +65,10 @@ export default function UnitCircleExplorer({onCompletionChange}:{onCompletionCha
 
   const position = (value: number) => { rotationRef.current = value; setRotation(value); };
   const chooseStage = (value: number) => {
-    setPlaying(false); setStage(value); position(value === 0 ? 0 : 180); onCompletionChange?.(value===2);
+    setPlaying(false); setStage(value); position(value === 0 ? 0 : 180); onCompletionChange?.(value===2); onProgressChange?.(value/2);
   };
   const replay = () => {
-    setStage(1); onCompletionChange?.(false);
+    setStage(1); onCompletionChange?.(false); onProgressChange?.(.5);
     if (reduced) { position(180); setPlaying(false); return; }
     if (rotationRef.current >= 180) position(0);
     setPlaying(true);
@@ -114,13 +115,9 @@ export default function UnitCircleExplorer({onCompletionChange}:{onCompletionCha
         {stage === 1 && intermediate && <p className="meta">回転中の青い辺は斜めです。この辺の長さを、点の縦座標とは区別します。</p>}
       </div>
     </div>
-    <div className="actions unit-controls">
-      {stage>0&&<button className="button secondary" onClick={()=>chooseStage(stage-1)}>前へ</button>}
-      {stage===0&&<button className="button" onClick={replay}>{reduced?"半回転後を見る":"時計回りに回す"}</button>}
-      {stage===1&&(rotation<180?<button className="button" onClick={playing?()=>setPlaying(false):replay}>{playing?"停止":reduced?"半回転後を見る":"再生を続ける"}</button>:<button className="button" onClick={()=>chooseStage(2)}>元の点の符号をみる</button>)}
-    </div>
+    <LearningStepControls className="unit-controls" onPrevious={stage>0?()=>chooseStage(stage-1):onBack} onNext={stage===0?replay:stage===1?(rotation<180?(playing?()=>setPlaying(false):replay):()=>chooseStage(2)):onContinue} nextLabel={playing?"停止":"次へ"}/>
     {!reduced&&stage===1&&rotation===180&&<details className="unit-replay"><summary>もう一度回す</summary><button className="button secondary" onClick={replay}>{reduced?"半回転後を見る":"時計回りに回す"}</button></details>}
-    {!reduced && stage===1 && <details className="unit-manual"><summary>途中の位置を手で動かす</summary><label className="unit-scrubber">回す途中を自分で確かめる<input aria-label="時計回りの回転量" type="range" min="0" max="180" step="1" value={rotation} aria-valuetext={`時計回りに${Math.round(rotation)}度。180度で半回転。`} onChange={e => { setPlaying(false); setStage(1); onCompletionChange?.(false); position(Number(e.target.value)); }} /><span>回転前 → 半回転後</span></label></details>}
+    {!reduced && stage===1 && <details className="unit-manual"><summary>途中の位置を手で動かす</summary><label className="unit-scrubber">回す途中を自分で確かめる<input aria-label="時計回りの回転量" type="range" min="0" max="180" step="1" value={rotation} aria-valuetext={`時計回りに${Math.round(rotation)}度。180度で半回転。`} onChange={e => { setPlaying(false); setStage(1); onCompletionChange?.(false); onProgressChange?.(.5); position(Number(e.target.value)); }} /><span>回転前 → 半回転後</span></label></details>}
     <label className="unit-reduced"><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => { setReduceMotion(e.target.checked); setPlaying(false); if (e.target.checked && stage === 1) position(180); }} />動きを減らす{systemReduced && "（端末の設定を使用）"}</label>
     <details className="supplement"><summary>長さが分かる根拠・回転と対称移動の違い</summary>
       <p><MathText text="正三角形を半分にすると、辺の比は $1:\sqrt3:2$。斜辺を $1$ にそろえると、短い辺は $\frac12$、長い辺は $\frac{\sqrt3}{2}$ です。$\frac{\pi}{3}$ の向かい側が長い辺です。" /></p>

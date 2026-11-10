@@ -11,7 +11,7 @@ export const lessonStarts: Record<string, LessonStart> = {
   "jr-linear-equation": {
     goal: "まず、文字のない項を消します。移項の符号を覚える前に、両辺へ同じ操作をしてみよう。",
     steps: [],
-    check: "等しさを保つには両辺を同じように変形します。掛けたり割ったりする数は、零でない数にします。",
+    check: "等しさを保つには両辺を同じように変形します。掛けたり割ったりする数は、$0$でない数にします。",
   },
   "m1-parabola-translation": {
     goal: "まず頂点を動かし、ほかの点も同じ量だけ動かします。",
@@ -21,7 +21,7 @@ export const lessonStarts: Record<string, LessonStart> = {
   "trig-unit-circle": {
     goal: "単位円上の点の座標が分かれば、三角関数の値を読み取れます。",
     steps: [],
-    check: "正接は、横の座標が零のとき定義されません。",
+    check: "正接は、横の座標が$0$のとき定義されません。",
   },
   "trig-angle-change": {
     goal: "座標がまだ分からない角は、知っている鋭角の三角形と比べて求めます。",
@@ -31,7 +31,7 @@ export const lessonStarts: Record<string, LessonStart> = {
   "m3-derivative-meaning": {
     goal: "まず、二点を結ぶ直線の傾きを求めます。一方の点を近づけると、傾きはどう変わるでしょう。",
     steps: [],
-    check: "最初から零で割ることはできません。微分係数は、平均変化率の極限が有限の値として存在するときに定義します。",
+    check: "最初から$0$で割ることはできません。微分係数は、平均変化率の極限が有限の値として存在するときに定義します。",
   },
   "ma-conditional-probability": {
     goal: "まず、知らされた条件に合う結果だけを残します。その中で割合を求めよう。",

@@ -93,8 +93,8 @@ test('all new visual introductions render through shared math components without
 test('coordinate reading and angle reduction use different actual lesson figures',async()=>{
  const {readFileSync}=await import('node:fs');
  const source=readFileSync(new URL('../app/components/LessonView.tsx',import.meta.url),'utf8');
- assert.ok(source.includes('lesson.slug==="trig-unit-circle"&&<UnitCircleCoordinates onCompletionChange={setFormulaComplete}/>'));
- assert.ok(source.includes('lesson.slug==="trig-angle-change"&&<UnitCircleExplorer onCompletionChange={setFormulaComplete}/>'));
+ assert.match(source,/lesson\.slug==="trig-unit-circle"&&<UnitCircleCoordinates(?:\s[^>]*)?\/>/);
+ assert.match(source,/lesson\.slug==="trig-angle-change"&&<UnitCircleExplorer(?:\s[^>]*)?\/>/);
  const {default:Component,coordinateCases,basicAngleCases}=await loadDisplay('UnitCircleCoordinates');
  for(const p of coordinateCases) {
   close(p.x*p.x+p.y*p.y,1);

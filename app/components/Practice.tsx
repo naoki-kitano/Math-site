@@ -1,36 +1,38 @@
 "use client";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useId, useRef, useState } from "react";
 import ReviewGuide from "./ReviewGuide";
 import Link from "./SiteLink";
 import { type Exercise } from "../content/lessons";
 import { MathText, Formula } from "./MathText";
 import ExampleSteps from "./ExampleSteps";
 import ExerciseAnswerDiagram from "./ExerciseAnswerDiagram";
-import {distinctSteps} from "../lib/step-heading";
+import LearningStepControls from "./LearningStepControls";
 export {Steps} from "./StepList";
 import { useProgress } from "./Progress";
 import { matchesNumber, historyFor, type Outcome } from "../lib/progress";
 
 export type QueueItem={exercise:Exercise;reviewOf?:string};
-export function Practice({items,label,resume=false,onComplete,onExtra,onStop}:{items:QueueItem[];label:string;resume?:boolean;onComplete?:()=>void;onExtra?:()=>void;onStop?:()=>void}) {
+export function Practice({items,label,resume=false,active=true,onComplete,onExtra,onStop,onBack,onProgressChange}:{items:QueueItem[];label:string;resume?:boolean;active?:boolean;onComplete?:()=>void;onExtra?:()=>void;onStop?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}) {
   const {attempts,ready}=useProgress();
   if(!ready)return <p role="status">練習を読み込んでいます。</p>;
   const next=resume?items.findIndex(item=>!historyFor(item.reviewOf??item.exercise.id,attempts).length):0;
-  return <Session items={items} label={label} start={next<0?0:next} onComplete={onComplete} onExtra={onExtra} onStop={onStop}/>;
+  return <Session items={items} label={label} start={next<0?0:next} active={active} onComplete={onComplete} onExtra={onExtra} onStop={onStop} onBack={onBack} onProgressChange={onProgressChange}/>;
 }
-function Session({items,label,start,onComplete,onExtra,onStop}:{items:QueueItem[];label:string;start:number;onComplete?:()=>void;onExtra?:()=>void;onStop?:()=>void}) {
-  const [index,setIndex]=useState(start);
+function Session({items,label,start,active,onComplete,onExtra,onStop,onBack,onProgressChange}:{items:QueueItem[];label:string;start:number;active:boolean;onComplete?:()=>void;onExtra?:()=>void;onStop?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}) {
+  const [index,setIndex]=useState(start),[questionProgress,setQuestionProgress]=useState(0);
+  const reportProgress=useEffectEvent((value:number)=>onProgressChange?.(value));
+  useEffect(()=>{if(active)reportProgress((index+questionProgress)/Math.max(1,items.length));},[active,index,questionProgress,items.length]);
   if(index>=items.length)return <div className="complete" role="status"><h3>ここまでの問題が終わりました</h3>{onComplete?<div className="actions"><button className="button" onClick={onComplete}>次へ</button>{onExtra&&<button className="button secondary" onClick={onExtra}>別の問題を解く</button>}<button className="button secondary" onClick={()=>setIndex(0)}>最初から解く</button></div>:<><p>もう一度確かめたい問題は、復習に残っています。</p><div className="actions"><Link className="button" href="/review">復習へ</Link><button className="button secondary" onClick={()=>setIndex(0)}>最初から解く</button></div></>}</div>;
-  return <Question key={items[index].exercise.id+"-"+index} item={items[index]} label={label} index={index} total={items.length} next={()=>setIndex(index+1)} onStop={onStop}/>;
+  const advance=()=>{onProgressChange?.((index+1)/items.length);if(index+1===items.length&&onComplete){onComplete();return;}setQuestionProgress(0);setIndex(index+1);};
+  return <Question key={items[index].exercise.id+"-"+index} item={items[index]} label={label} index={index} next={advance} onStop={onStop} onBack={onBack} onProgressChange={setQuestionProgress}/>;
 }
-function Question({item,label,index,total,next,onStop}:{item:QueueItem;label:string;index:number;total:number;next:()=>void;onStop?:()=>void}) {
+function Question({item,label,index,next,onStop,onBack,onProgressChange}:{item:QueueItem;label:string;index:number;next:()=>void;onStop?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}) {
   const {add}=useProgress(), q=item.exercise;
   const inputId=useId(),invalidId=useId();
   const hints=q.lesson==="rational"&&q.kind==="paper"?[...q.hints,"元の分母をゼロにする値も、忘れずに除きます。"]:q.hints;
   const [choice,setChoice]=useState<number|null>(null),[input,setInput]=useState(""),[hint,setHint]=useState(0);
   const [revealed,setRevealed]=useState(false),[paperDone,setPaperDone]=useState(false);
   const [helpOpen,setHelpOpen]=useState(false),[usedHelp,setUsedHelp]=useState(false);
-  const [feedbackComplete,setFeedbackComplete]=useState(()=>distinctSteps(q.steps).length<=1);
   const [outcome,setOutcome]=useState<Outcome|null>(null),[invalid,setInvalid]=useState("");
   const heading=useRef<HTMLHeadingElement>(null),recorded=useRef(false),previewed=useRef(false);
   const attemptId=useRef<string|null>(null);
@@ -62,19 +64,16 @@ function Question({item,label,index,total,next,onStop}:{item:QueueItem;label:str
     {q.kind==="number"&&<form onSubmit={e=>{e.preventDefault();if(!revealed)check();}}><label className="input-label" htmlFor={inputId}>答え</label><input autoComplete="off" className="numeric" id={inputId} value={input} disabled={revealed} onChange={e=>setInput(e.target.value)} aria-describedby={invalid?invalidId:undefined}/><span className="meta">負の数は「-」を付けて入力できます。</span></form>}
     {q.kind==="paper"&&!revealed&&<p className="meta">紙に途中式と答えを書いてから、解答と比べてください。</p>}
     {invalid&&<p id={invalidId} className="error-text" role="alert">{invalid}</p>}
-    {!revealed&&<div className="actions">
-      {q.kind==="paper"?<button className="button" onClick={()=>{preview();setPaperDone(true);setRevealed(true);}}>解き終えたので照合する</button>:<button className="button" onClick={check}>答えを確かめる</button>}
-      <button className="button secondary" disabled={hint>=hints.length} onClick={()=>{preview();setHint(hint+1);}}>ヒント{hint?"をもう一つ":""}</button>
+    {!revealed&&<><LearningStepControls onPrevious={onBack} onNext={q.kind==="paper"?()=>{preview();setPaperDone(true);setRevealed(true);}:check} nextLabel="答え合わせ"/><div className="actions">
+      <button className="text-link" disabled={hint>=hints.length} onClick={()=>{preview();setHint(hint+1);}}>ヒント{hint?"をもう一つ":""}</button>
       <button className="text-link" onClick={()=>{setRevealed(true);record("seen");}}>解答から確かめる</button>
-    </div>}
+    </div></>}
     {hint>0&&<div className="hint"><strong>ヒント</strong>{hints.slice(0,hint).map((h,i)=><p key={i}><MathText text={h}/></p>)}</div>}
     {revealed&&<div className="feedback" aria-live="polite">
       <h4>{outcome==="retry"?"途中式を確かめよう":outcome==="independent"?"自力でできました":outcome==="assisted"?"説明を使ってできました":"解答"}</h4>
-      {!q.answerInSteps&&<p><MathText text={q.answer}/></p>}<ExerciseAnswerDiagram exercise={q}/><ExampleSteps steps={q.steps} onCompletionChange={setFeedbackComplete}/>
-      {q.kind==="paper"&&paperDone&&!outcome&&feedbackComplete&&<><p>答えだけでなく、途中式・理由・必要な条件も比べてください。</p><div className="ratings"><button className="button" onClick={()=>record(hint||usedHelp?"assisted":"independent")}>{hint||usedHelp?"説明を使って解けた":"自力で解けた"}</button><button className="button secondary" onClick={()=>record("retry")}>もう一度解く</button></div><small>紙で解いた結果は自己評価として記録します。</small></>}
-
+      {!q.answerInSteps&&<p><MathText text={q.answer}/></p>}<ExerciseAnswerDiagram exercise={q}/><ExampleSteps steps={q.steps} onContinue={outcome?next:undefined} onBack={onBack} onProgressChange={onProgressChange} completionAction={q.kind==="paper"&&paperDone&&!outcome?{label:hint||usedHelp?"説明で解けた":"自力で解けた",onClick:()=>record(hint||usedHelp?"assisted":"independent"),secondaryLabel:"もう一度解く",onSecondary:()=>record("retry")}:undefined}/>
     </div>}
-    {outcome&&<div className="actions"><button className="button" onClick={next}>{index+1===total?"結果へ":"次の問題へ"} <span aria-hidden="true">→</span></button>{onStop&&<button className="button secondary" onClick={onStop}>ここまでにする</button>}</div>}
+    {outcome&&onStop&&<button className="text-link" onClick={onStop}>ここまでにする</button>}
     </div>
     {outcome!=="independent"&&<div className="question-help">{!helpOpen?<button className="button secondary" onClick={()=>{preview();setUsedHelp(true);setHelpOpen(true);}}>復習するところを探す</button>:<ReviewGuide exercise={q} reviewOf={item.reviewOf} onClose={()=>setHelpOpen(false)}/>}</div>}
   </article>;

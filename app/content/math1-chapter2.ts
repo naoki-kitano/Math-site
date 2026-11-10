@@ -45,7 +45,7 @@ const methodReasons:Record<string,string>={
  "open-domain-extreme":"背理法を選ぶ。極端な値を仮定して半分にすると、範囲内により小さい・大きい数を作れるから。",
  "irrational-root":"背理法を選ぶ。有理数と仮定すれば既約分数で表せ、共通因数をもつ矛盾を示せるから。",
  "irrational-expression":"背理法を選ぶ。有理数と仮定した式から、既知の無理数が有理数だと導けるから。",
- "irrational-reciprocal":"背理法を選ぶ。有理数と仮定し非零を確認して逆数を取ると、既知の無理数が有理数だと導けるから。",
+ "irrational-reciprocal":"背理法を選ぶ。有理数と仮定し$0$ でないことを確認して逆数を取ると、既知の無理数が有理数だと導けるから。",
 };
 math1Chapter2Topics.forEach(({lesson,exercises},i)=>{
  lesson.section=sectionTitles[sectionOf(i)];

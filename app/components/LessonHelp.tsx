@@ -15,7 +15,7 @@ export default function LessonHelp({lesson,items}:{lesson:Lesson;items:Exercise[
  const linked=lesson.supplements.find(s=>s.id===hash);
  useEffect(()=>{if(linked)document.getElementById(linked.id)?.scrollIntoView({block:"start"});},[linked]);
  return <section className="block" id="help"><p className="section-label">復習</p><h2>つまずいた問題から確かめる</h2>
-  {target?<ReviewGuide key={target.id} exercise={target} onClose={()=>setChosen(null)}/>:recent.length?<><p>もう一度確かめたい問題を選んでください。</p><div className="help-problems">{recent.map(q=><button className="help-problem" key={q.id} onClick={()=>choose(q)}><span><MathText text={q.prompt}/>{q.tex&&<Formula tex={q.tex} display/>}</span><span className="text-link">復習するところを探す →</span></button>)}</div></>:<div className="note"><p>問題が解けないときは、練習中の「復習するところを探す」から、一つずつ確かめられます。</p><a className="text-link" href="#practice">練習問題へ戻る →</a></div>}
+  {target?<ReviewGuide key={target.id} exercise={target} onClose={()=>setChosen(null)}/>:recent.length?<><div className="help-problems">{recent.map(q=><button className="help-problem" key={q.id} onClick={()=>choose(q)}><span><MathText text={q.prompt}/>{q.tex&&<Formula tex={q.tex} display/>}</span><span className="text-link">復習するところを探す →</span></button>)}</div></>:<div className="note"><p>問題が解けないときは、練習中の「復習するところを探す」から、一つずつ確かめられます。</p><a className="text-link" href="#practice">練習問題へ戻る →</a></div>}
   {linked&&<div id={linked.id} className="linked-repair"><RepairCard repair={linked}/></div>}
   <HelpLibrary key={lesson.slug} supplements={lesson.supplements} linkedId={linked?.id}/>
  </section>;

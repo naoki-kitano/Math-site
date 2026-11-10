@@ -33,7 +33,7 @@ export const integralFigures:Record<string,Record<number,Diagram>>={
   0:{title:"軸より上の部分を足し合わせる",description:"この区間では高さが非負なので、定積分は三角形の面積と一致します。",xRange:[-.5,2.5],yRange:[-.5,4.5],
    curves:[{label:"$y=2x$",value:x=>2*x}],areas:[{from:0,to:2,upper:x=>2*x,lower:()=>0,label:"$\\int_0^2 2x\\,dx=4$"}],segments:[{from:[2,0],to:[2,4],label:"右端 $x=2$"}],points:[{x:0,y:0,label:"$(0,0)$"},{x:2,y:4,label:"$(2,4)$"}]},
   1:{title:"軸の下では負として数える",description:"左の部分を $-\\frac94$、右の部分を $\\frac14$ として足すと、定積分は $-2$ になります。",xRange:[-1.5,1.5],yRange:[-3.5,1.5],
-   curves:[{label:"$y=2x-1$",value:x=>2*x-1}],areas:[{from:-1,to:.5,upper:()=>0,lower:x=>2*x-1,label:"下側の寄与 $-\\frac{9}{4}$"},{from:.5,to:1,upper:x=>2*x-1,lower:()=>0,label:"上側の寄与 $\\frac{1}{4}$"}],segments:[{from:[-1,-3],to:[-1,0]},{from:[1,0],to:[1,1]}],points:[{x:.5,y:0,label:"零点 $(\\frac{1}{2},0)$"}]}
+   curves:[{label:"$y=2x-1$",value:x=>2*x-1}],areas:[{from:-1,to:.5,upper:()=>0,lower:x=>2*x-1,label:"下側の寄与 $-\\frac{9}{4}$"},{from:.5,to:1,upper:x=>2*x-1,lower:()=>0,label:"上側の寄与 $\\frac{1}{4}$"}],segments:[{from:[-1,-3],to:[-1,0]},{from:[1,0],to:[1,1]}],points:[{x:.5,y:0,label:"$x$ 軸との交点 $(\\frac{1}{2},0)$"}]}
  },
  "area-with-axis":{
   0:{title:"非負の高さを積分する",description:"底辺は $2$、高さは $2$ の三角形です。積分で求めた面積 $2$ と一致します。",xRange:[-.5,2.5],yRange:[-.5,2.5],

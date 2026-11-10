@@ -39,7 +39,7 @@ export const conditionCases=[
  {domain:m`実数 $x$`,p:"x=0",q:"x^2=0",forward:true,backward:true,f:m`$0^2=0$。`,b:m`ゼロでない実数の二乗は正なので、$x^2=0$ なら $x=0$。`},
  {domain:m`実数 $x$`,p:"x>1",q:"x<3",forward:false,backward:false,f:m`$x=4$ は $x>1$ を満たすが $x<3$ を満たしません。`,b:m`$x=0$ は $x<3$ を満たすが $x>1$ を満たしません。`},
  {domain:m`整数 $n$`,p:m`n\text{ は偶数}`,q:m`n\text{ は }4\text{ の倍数}`,forward:false,backward:true,f:m`$n=2$ は偶数ですが $4$ の倍数ではありません。`,b:m`$n=4k=2(2k)$（$k$ は整数）なので偶数です。`},
- {domain:m`実数 $x$`,p:"x=1",q:"2x=2",forward:true,backward:true,f:m`$2\cdot1=2$。`,b:m`$2x=2$ の両辺を非零の数 $2$ で割ると $x=1$。`},
+ {domain:m`実数 $x$`,p:"x=1",q:"2x=2",forward:true,backward:true,f:m`$2\cdot1=2$。`,b:m`$2x=2$ の両辺を$0$ でない数 $2$ で割ると $x=1$。`},
 ];
 const relationName=(f:boolean,b:boolean)=>f?(b?"必要十分条件":"十分条件ですが、必要条件ではありません"):b?"必要条件ですが、十分条件ではありません":"必要条件でも十分条件でもありません";
 const named=(c:typeof conditionCases[number]):Worked=>{

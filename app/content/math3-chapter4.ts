@@ -597,7 +597,7 @@ const derivativeRepairSummaries: Record<string, string> = {
  "m3-chain-rule-functions": m`連鎖律で外側の導関数に内側の導関数を掛けます。$(e^{g(x)})'=e^{g(x)}g'(x)$、$(\log g(x))'=\frac{g'(x)}{g(x)}$（$g(x)>0$）。内側は微分可能とします。$\sin^2x$ の外側は二乗、$\sin(x^2)$ の外側は正弦です。`,
  "m3-simplify-before-derivative": m`分子の各項を割る、因数分解する、恒等式を使うなどで、基本公式を使える形に整理します。約分後も元の分母がゼロになる点は除きます。$\log(x^2)=2\log|x|$（$x\ne0$）であり、$2\log x$ と書けるのは $x>0$ です。`,
  "m3-logarithmic-differentiation": m`正の関数の対数を取ると、指数を係数に出せます。$y$ も $x$ の関数なので $(\log y)'=\frac{y'}{y}$。微分後は両辺に元の $y$ を掛けて、$y'$ を求めます。`,
- "m3-implicit-derivative": m`曲線を注目する点の近くで微分可能な $y=y(x)$ とみなせる部分では、両辺を $x$ で微分します。$(y^2)'=2yy'$、$(xy)'=y+xy'$ として $y'$ を集め、その係数が非零の場合に割ります。`,
+ "m3-implicit-derivative": m`曲線を注目する点の近くで微分可能な $y=y(x)$ とみなせる部分では、両辺を $x$ で微分します。$(y^2)'=2yy'$、$(xy)'=y+xy'$ として $y'$ を集め、その係数が$0$ でない場合に割ります。`,
  "m3-inverse-derivative": m`一対一の関数 $f$ が対応する点の近くで連続微分可能で、$f(a)=b,f'(a)\ne0$ なら、逆関数 $g$ に対し $g'(b)=\frac1{f'(a)}$。先に入力と出力 $a,b$ の対応を求めます。`,
  "m3-parametric-derivative": m`$x(t),y(t)$ が微分可能で、近くで $x'(t)$ が連続、注目点で $\frac{dx}{dt}\ne0$ なら、$\frac{dy}{dx}=\frac{\frac{dy}{dt}}{\frac{dx}{dt}}$。分子は縦、分母は横の変化率です。横の変化率が $0$ の点では、この比の公式で判断できません。`,
  "m3-second-derivative": m`第二次導関数 $f''$ は、導関数 $f'$ をもう一度微分したものです。一回目の結果を新しい関数として見て、その形に応じて積や合成関数の公式を使います。`,

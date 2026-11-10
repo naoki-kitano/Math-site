@@ -50,7 +50,6 @@ export function DiagnosticSequence({checks,exercise,reviewOf,onDone,prefix=[]}:{
   <p className="meta">{frames.length>1?"先に必要なところを確認":`短い確認 ${frame.index+1} / ${frame.checks.length}`}</p>
   <CheckCard key={trail.join(",")} check={current} initialResult={frame.result===null?undefined:{choice:frame.choice}} onResult={(result,choice)=>update({result,choice})}/>
   {frame.result===false&&<div className="review-recommendation">
-   <p>この計算・考え方を、途中式から復習できます。</p>
    <ReviewLessonLink slug={current.lesson} exercise={exercise} reviewOf={reviewOf} trail={trail}>{current.title}を復習する</ReviewLessonLink>
    {deeper.length>0&&<div className="actions"><button className="button secondary" onClick={()=>setFrames(old=>[...old,{checks:deeper,index:0,result:null,choice:null,prefix:trail}])}>先に必要なところを確かめる</button></div>}
   </div>}

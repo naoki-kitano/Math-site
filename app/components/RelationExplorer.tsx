@@ -1,14 +1,16 @@
 "use client";
 import {useEffect,useId,useState} from "react";
 import {Formula,MathText} from "./MathText";
+import LearningStepControls from "./LearningStepControls";
 import {quadraticSign,midpointOnSegment,dotProjection,squareRiemann} from "../lib/relation-models";
 const m=String.raw;
 const num=(v:number)=>String(Number(v.toFixed(3)));
 function Label({x,y,tex,width=90}:{x:number;y:number;tex:string;width?:number}){
  return <foreignObject x={x-width/2} y={y-19} width={width} height="82"><div className="relation-label"><Formula tex={tex}/></div></foreignObject>;
 }
-function FactorSigns({onCompletionChange}:{onCompletionChange?:(complete:boolean)=>void}){
+function FactorSigns({onCompletionChange,onContinue,onBack,onProgressChange}:{onCompletionChange?:(complete:boolean)=>void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}){
  const [x,setX]=useState(0),[stage,setStage]=useState(0),id=useId(),f=quadraticSign(x);
+ const go=(next:number)=>{setStage(next);onProgressChange?.(next/2);};
  useEffect(()=>{onCompletionChange?.(stage===2);},[stage,onCompletionChange]);
  const X=(t:number)=>64+(t+2)*68,Y=(t:number)=>207-t*31;
  const path=(a:number,b:number)=>Array.from({length:81},(_,i)=>{const t=a+(b-a)*i/80;return `${i?"L":"M"}${X(t)},${Y(quadraticSign(t).value)}`;}).join(" ");
@@ -16,16 +18,16 @@ function FactorSigns({onCompletionChange}:{onCompletionChange?:(complete:boolean
  return <section className="panel relation-explorer mathi-paced-visual" data-relation="signs" data-stage={stage}>
   <h3>二つの因数の符号を比べる</h3>
   <Formula tex="(x+1)(x-2)<0" display/>
-  <p><MathText text={m`$x=-1,2$ では積は零なので、解に含めません。`}/></p>
+  <p><MathText text={m`$x=-1,2$ では積は $0$ なので、解に含めません。`}/></p>
   <div className="mathi-current-reading" aria-live="polite">
-   {stage===0?<><p>因数が零になるところを境に、符号を調べる範囲を分けます。</p><Formula tex="x+1=0\ \Longleftrightarrow\ x=-1" display/><Formula tex="x-2=0\ \Longleftrightarrow\ x=2" display/></>:<p>積が負になるのは、二つの因数の符号が異なるときです。</p>}
+   {stage===0?<><p><MathText text="因数が $0$ になるところを境に、符号を調べる範囲を分けます。"/></p><Formula tex="x+1=0\ \Longleftrightarrow\ x=-1" display/><Formula tex="x-2=0\ \Longleftrightarrow\ x=2" display/></>:<p>積が負になるのは、二つの因数の符号が異なるときです。</p>}
   </div>
   {stage===1&&<table className="mathi-sign-table"><caption>二つの境目で区切った範囲</caption><thead><tr><th scope="col">式</th>{[m`x<-1`,m`-1<x<2`,m`2<x`].map(tex=><th key={tex} scope="col"><Formula tex={tex}/></th>)}</tr></thead><tbody>{[["x+1","-","+","+"],["x-2","-","-","+"],["(x+1)(x-2)","+","-","+"]].map(([label,...signs],row)=><tr key={label}><th scope="row">{row===2?"積":<Formula tex={label}/>}</th>{signs.map((value,i)=><td key={i} className={i===1?"mathi-negative-range":undefined}><Formula tex={value}/><span className="sr-only">{value==="+"?"正":"負"}</span></td>)}</tr>)}</tbody></table>}
   {stage===2&&<>
   <p><MathText text={m`$-1<x<2$ では $x+1>0$、$x-2<0$。積が負となり、グラフは横軸の下にあります。`}/></p>
   <Formula tex="-1<x<2" display/>
   <Formula tex="y=(x+1)(x-2)" display/>
-  <svg viewBox="0 0 480 325" role="img" aria-label="二つの零点の間では曲線が横軸の下にあり、外側では上にある">
+  <svg viewBox="0 0 480 325" role="img" aria-label="横軸との二つの交点の間では曲線が横軸の下にあり、外側では上にある">
    <path d={`M35,${Y(0)}H445 M${X(0)},30V298`} stroke="#8195a9" fill="none"/>
    {[[-2,-1],[-1,2],[2,3]].map(([a,b],i)=><path key={i} d={path(a,b)} fill="none" stroke={i===1?"#bb7020":"#087c70"} strokeWidth="3"/> )}
    <line x1={X(x)} x2={X(x)} y1={Y(0)} y2={Y(f.value)} stroke="#526d89" strokeDasharray="4 4"/>
@@ -33,14 +35,14 @@ function FactorSigns({onCompletionChange}:{onCompletionChange?:(complete:boolean
    {[-1,0,2].map(t=><Label key={t} x={X(t)} y={Y(0)-22} tex={String(t)} width={36}/>)}
    <Label x={446} y={Y(0)+22} tex="x" width={30}/><Label x={X(0)-22} y={28} tex="y" width={30}/>
   </svg>
-  <details className="mathi-visual-options"><summary>別の点で確かめる</summary>
+  </>}
+  <LearningStepControls className="unit-controls mathi-stage-controls" onPrevious={stage>0?()=>go(stage-1):onBack} onNext={stage<2?()=>go(stage+1):onContinue}/>
+  {stage===2&&<details className="mathi-visual-options"><summary>別の点で確かめる</summary>
   <label htmlFor={id}><MathText text={`$x=${num(x)}$`}/></label>
   <input id={id} className="relation-slider" aria-label="調べる横座標" type="range" min="-2" max="3" step=".1" value={x} onChange={e=>setX(Number(e.target.value))}/>
   <div className="relation-factors" aria-live="polite"><Formula tex={`x+1=${num(f.left)}${sign(f.left)}`}/><Formula tex={`x-2=${num(f.right)}${sign(f.right)}`}/></div>
-  <p aria-live="polite">{f.value===0?"一方の因数が零なので、積も零です。":f.value<0?"符号が異なるので積は負。グラフは横軸より下です。":"符号が同じなので積は正。グラフは横軸より上です。"}</p>
-  </details>
-  </>}
-  <div className="actions unit-controls mathi-stage-controls">{stage>0&&<button className="button secondary" onClick={()=>setStage(stage-1)}>前へ</button>}{stage<2&&<button className="button" onClick={()=>setStage(stage+1)}>次へ</button>}</div>
+  <p aria-live="polite"><MathText text={f.value===0?"一方の因数が $0$ なので、積も $0$ です。":f.value<0?"符号が異なるので積は負。グラフは横軸より下です。":"符号が同じなので積は正。グラフは横軸より上です。"}/></p>
+  </details>}
  </section>;
 }
 function MidpointLocus(){
@@ -91,7 +93,7 @@ function DotProjection(){
   </svg>
   <div className="relation-conclusion" aria-live="polite">
    <Formula tex={m`|\vec b|\cos\theta=4\cos${angle}^\circ=${value}`} display/>
-   <p>{angle===60?"垂線の足は右側。同じ向きなので、成分は正です。":angle===90?"垂線の足は始点に重なり、この方向の成分は零です。":"垂線の足は左側。反対向きなので、成分は負です。"}</p>
+   <p><MathText text={angle===60?"垂線の足は右側。同じ向きなので、成分は正です。":angle===90?"垂線の足は始点に重なり、この方向の成分は $0$ です。":"垂線の足は左側。反対向きなので、成分は負です。"}/></p>
    <Formula tex={m`\vec a\cdot\vec b=3\times(${value})=${dot}`} display/>
   </div>
  </section>;
@@ -120,8 +122,8 @@ function RiemannSum(){
   <span className="sr-only">長方形の幅 {width}</span>
  </section>;
 }
-export default function RelationExplorer({slug,onCompletionChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void}){
- if(slug==="m1-quadratic-inequality")return <FactorSigns onCompletionChange={onCompletionChange}/>;
+export default function RelationExplorer({slug,onCompletionChange,onContinue,onBack,onProgressChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}){
+ if(slug==="m1-quadratic-inequality")return <FactorSigns onCompletionChange={onCompletionChange} onContinue={onContinue} onBack={onBack} onProgressChange={onProgressChange}/>;
  if(slug==="locus-equations")return <MidpointLocus/>;
  if(slug==="mc-vector-dot")return <DotProjection/>;
  if(slug==="m3-riemann-sums")return <RiemannSum/>;
