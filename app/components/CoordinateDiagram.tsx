@@ -1,5 +1,6 @@
 "use client";
-import { useId, useSyncExternalStore } from "react";
+import { useContext, useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import {DiagramLayoutContext} from "./DiagramLayout";
 const narrowQuery="(max-width: 600px)";
 const subscribeViewport=(callback:()=>void)=>{const media=window.matchMedia(narrowQuery);media.addEventListener("change",callback);return()=>media.removeEventListener("change",callback);};
 import { MathText } from "./MathText";
@@ -19,23 +20,46 @@ export type CoordinateDiagramProps = {
  responsive?:boolean;
  compact?:boolean;
  hideTickLabels?:boolean;
+ axisLabels?:boolean;
 };
 // Equal scale on both axes preserves distances, angles, and circles.
 export default function CoordinateDiagram(props:CoordinateDiagramProps){
  return props.directLabels?<Math2CoordinateDiagram {...props}/>:<LegacyCoordinateDiagram {...props}/>;
 }
-function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,responsive=false,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
+function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,responsive=false,axisLabels=false,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
  const clip=useId().replace(/:/g,"");
- const small=useSyncExternalStore(subscribeViewport,()=>responsive&&window.matchMedia(narrowQuery).matches,()=>false);
- const width=small?320:640,padding=small?32:36;
- const height=small?Math.max(260,Math.min(480,Math.round((width-2*padding)*(yRange[1]-yRange[0])/(xRange[1]-xRange[0])+2*padding))):440;
+ const focused=useContext(DiagramLayoutContext),svgRef=useRef<SVGSVGElement>(null);
+ const [renderedWidth,setRenderedWidth]=useState(0);
+ useEffect(()=>{
+  const svg=svgRef.current;if(!focused||!svg)return;
+  const observer=new ResizeObserver(()=>setRenderedWidth(svg.getBoundingClientRect().width));
+  observer.observe(svg);return()=>observer.disconnect();
+ },[focused]);
+ const small=useSyncExternalStore(subscribeViewport,()=>(responsive||focused)&&window.matchMedia(narrowQuery).matches,()=>false);
+ const width=focused?(small?320:360):small?320:640,padding=focused?30:small?32:36;
+ const labelSize=focused?Math.max(18,14*width/(renderedWidth||width)):small?18:14;
+ const height=focused?280:small?Math.max(260,Math.min(480,Math.round((width-2*padding)*(yRange[1]-yRange[0])/(xRange[1]-xRange[0])+2*padding))):440;
  const scale=Math.min((width-2*padding)/(xRange[1]-xRange[0]),(height-2*padding)/(yRange[1]-yRange[0]));
  const plotWidth=(xRange[1]-xRange[0])*scale,plotHeight=(yRange[1]-yRange[0])*scale;
  const left=(width-plotWidth)/2,top=(height-plotHeight)/2;
  // SVG precision must be stable across the server and browser math libraries.
  const px=(x:number)=>Number((left+(x-xRange[0])*scale).toFixed(4)),py=(y:number)=>Number((top+(yRange[1]-y)*scale).toFixed(4));
  const ticks=(range:[number,number])=>Array.from({length:Math.max(0,Math.min(60,Math.floor(range[1]/tick)-Math.ceil(range[0]/tick)+1))},(_,i)=>(Math.ceil(range[0]/tick)+i)*tick);
- const labeledTicks=(range:[number,number])=>{const values=ticks(range),stride=small?Math.max(1,Math.ceil(values.length/7)):1;return values.filter((_,i)=>i%stride===0);};
+ const labeledTicks=(range:[number,number])=>{const values=ticks(range),stride=small||focused?Math.max(1,Math.ceil(values.length/(focused&&renderedWidth>0&&renderedWidth<260?5:7))):1;return values.filter((_,i)=>i%stride===0);};
+ // Numeric labels close to the origin may collide across the two axes.
+ // Keep the horizontal labels and omit only overlapping vertical tick text.
+ const xLabelY=Math.min(top+plotHeight+18,Math.max(top+16,py(0)+19));
+ const yLabelX=Math.min(left+plotWidth-5,Math.max(left-6,px(0)-8));
+ const xLabelBoxes=xTicks?xTicks.map(t=>({left:px(t.value)-28,right:px(t.value)+28,top:Math.min(top+plotHeight+2,Math.max(top,py(0)+5)),bottom:Math.min(top+plotHeight+2,Math.max(top,py(0)+5))+32})):labeledTicks(xRange).filter(x=>x!==0).map(x=>{
+  const half=String(Number(x.toFixed(2))).length*labelSize*.32;
+  return {left:px(x)-half,right:px(x)+half,top:xLabelY-labelSize,bottom:xLabelY+3};
+ });
+ const verticalLabels=labeledTicks(yRange).filter(y=>y!==0).filter(y=>{
+  if(!focused)return true;
+  const width=String(Number(y.toFixed(2))).length*labelSize*.64;
+  const bounds={left:yLabelX-width,right:yLabelX,top:py(y)+5-labelSize,bottom:py(y)+8};
+  return !xLabelBoxes.some(x=>bounds.left<x.right+2&&bounds.right>x.left-2&&bounds.top<x.bottom+2&&bounds.bottom>x.top-2);
+ });
  const path=(curve:Curve)=>{
   const from=Math.max(xRange[0],curve.from??xRange[0]),to=Math.min(xRange[1],curve.to??xRange[1]);
   let result="",previous:number|null=null;
@@ -53,9 +77,9 @@ function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],poin
   return [...xs.map(x=>[px(x),py(area.upper(x))]),...xs.reverse().map(x=>[px(x),py(area.lower(x))])]
    .map(([x,y])=>x.toFixed(2)+","+y.toFixed(2)).join(" ");
  };
- return <figure className={`panel math-figure${responsive?" responsive-coordinate":""}`}>
+ return <figure className={`panel math-figure legacy-coordinate${focused?" focused-coordinate":""}${responsive?" responsive-coordinate":""}`}>
   <h3>{title}</h3><p id={`${clip}-description`}><MathText text={description}/></p>
-  <svg className="coordinate-diagram" viewBox={"0 0 "+width+" "+height} role="img" aria-label={title} aria-describedby={`${clip}-description`}>
+  <svg ref={svgRef} className="coordinate-diagram" viewBox={"0 0 "+width+" "+height} role="img" aria-label={title} aria-describedby={`${clip}-description`}>
    <title>{title}</title>
    <defs><clipPath id={clip}><rect x={left} y={top} width={plotWidth} height={plotHeight}/></clipPath></defs>
    <g clipPath={"url(#"+clip+")"}>
@@ -70,11 +94,12 @@ function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],poin
     {segments.map((s,i)=><line key={i} x1={px(s.from[0])} y1={py(s.from[1])} x2={px(s.to[0])} y2={py(s.to[1])} stroke={s.color??"#42648b"} strokeWidth={s.width??2} strokeDasharray={s.dashed?"6 5":undefined}/>)}
     {points.map((p,i)=><circle key={i} cx={px(p.x)} cy={py(p.y)} r="4.5" fill={p.open?"white":"#0b1f3a"} stroke={p.open?"#0b1f3a":"white"} strokeWidth="1.5"/>)}
    </g>
-   {xTicks?xTicks.map(t=><foreignObject key={t.value} x={px(t.value)-28} y={Math.min(top+plotHeight+2,Math.max(top,py(0)+5))} width="56" height="32"><div style={{fontSize:small?18:13,lineHeight:1.2,textAlign:"center",color:"#43566b"}}><MathText text={t.label}/></div></foreignObject>):labeledTicks(xRange).filter(x=>x!==0).map(x=><text key={x} x={px(x)} y={Math.min(top+plotHeight+18,Math.max(top+16,py(0)+19))} textAnchor="middle" fontSize={small?18:14} fill="#43566b">{Number(x.toFixed(2))}</text>)}
-   {labeledTicks(yRange).filter(y=>y!==0).map(y=><text key={y} x={Math.min(left+plotWidth-5,Math.max(left-6,px(0)-8))} y={py(y)+5} textAnchor="end" fontSize={small?18:14} fill="#43566b">{Number(y.toFixed(2))}</text>)}
+   {xTicks?xTicks.map(t=><foreignObject key={t.value} x={px(t.value)-28} y={Math.min(top+plotHeight+2,Math.max(top,py(0)+5))} width="56" height="32"><div style={{fontSize:focused?labelSize:small?18:13,lineHeight:1.2,textAlign:"center",color:"#43566b"}}><MathText text={t.label}/></div></foreignObject>):labeledTicks(xRange).filter(x=>x!==0).map(x=><text key={x} x={px(x)} y={xLabelY} textAnchor="middle" fontSize={labelSize} fill="#43566b">{Number(x.toFixed(2))}</text>)}
+   {verticalLabels.map(y=><text key={y} x={yLabelX} y={py(y)+5} textAnchor="end" fontSize={labelSize} fill="#43566b">{Number(y.toFixed(2))}</text>)}
+   {axisLabels&&<><foreignObject x={Math.min(width-24,left+plotWidth+6)} y={py(0)-27} width="24" height="28"><div style={{fontSize:labelSize,lineHeight:1.1}}><MathText text="$x$"/></div></foreignObject><foreignObject x={px(0)+12} y="2" width="24" height="28"><div style={{fontSize:labelSize,lineHeight:1.1}}><MathText text="$y$"/></div></foreignObject></>}
   </svg>
-  <figcaption><p className="meta"><MathText text={axisDescription}/></p>
-   {curves.map((c,i)=><p key={"curve"+i}><span className="figure-key" style={{background:c.color??"#087c70"}}/><MathText text={c.label}/></p>)}
+  <figcaption><p className={axisLabels?"sr-only":"meta"}><MathText text={axisDescription}/></p>
+   {curves.filter(c=>c.label).map((c,i)=><p key={"curve"+i}><span className="figure-key" style={{background:c.color??"#087c70"}}/><MathText text={c.label}/></p>)}
    {circles.map((c,i)=><p key={"circle"+i}><MathText text={c.label}/></p>)}
    {arcs.map((a,i)=><p key={"arc"+i}><MathText text={a.label}/></p>)}
    {points.filter(p=>p.label).map((p,i)=><p key={"point"+i}><MathText text={p.label}/></p>)}

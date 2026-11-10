@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "katex/dist/katex.min.css";
 import "./learning.css";
+import "./appearance.css";
 import { Header, Footer } from "./components/Shell";
 import { ProgressProvider } from "./components/Progress";
 import { sitePath } from "./lib/site-path";
@@ -22,7 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>
+      <body suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{__html:'try{document.body.dataset.appearance=localStorage.getItem("mathcanvas.appearance.v1")==="warm"?"warm":"cool"}catch{document.body.dataset.appearance="cool"}'}}/>
         <ProgressProvider><Header />{children}<Footer /></ProgressProvider>
       </body>
     </html>
