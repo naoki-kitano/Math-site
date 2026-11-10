@@ -10,6 +10,11 @@ import {math2GeometryCorrespondence} from './math2-geometry-correspondence';
 import {math2TrigCorrespondence} from './math2-trig-correspondence';
 import {math2ExplogCorrespondence} from './math2-explog-correspondence';
 import {math2CalculusCorrespondence} from './math2-calculus-correspondence';
+import {math1AlgebraCorrespondence} from "./math1-algebra-correspondence";
+import {math1LogicCorrespondence} from "./math1-logic-correspondence";
+import {math1QuadraticCorrespondence} from "./math1-quadratic-correspondence";
+import {math1TrigCorrespondence} from "./math1-trig-correspondence";
+import {math1DataCorrespondence} from "./math1-data-correspondence";
 const m=String.raw;
 
 export type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer;diagram?:{kind:string;stage:number;animated?:boolean}};
@@ -37,30 +42,17 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
    {label:"指数で理由を確かめる",text:m`$M=a^p$、$N=a^q$ なら、積では指数が $p+q$ になります。`,formulas:[m`MN=a^p a^q=a^{p+q}`,m`\log_a(MN)=p+q=\log_a M+\log_a N`]},
   ],
  },
- "m1-completing-square":{
-  title:"平方を作り、増えた数を補う",goal:m`$x^2+6x+2$ の値を変えずに、平方の形に直します。`,
-  check:"同じ数を足して引いているので、どの実数を入れても式の値は変わりません。",
-  steps:[
-   {label:"係数を半分にする",text:m`一次の係数 $6$ の半分は $3$。平方の括弧に入れます。`,formulas:[m`x^2+{\color{#176c82}{6}}x+2`,m`(x+{\color{#176c82}{3}})^2=x^2+6x+9`]},
-   {label:"増えた数を補う",text:m`平方の中で増えた $9$ を引き、元の $2$ を残します。`,formulas:[m`x^2+6x+2=(x+3)^2-{\color{#936114}{9}}+2`]},
-   {label:"定数をまとめる",text:m`$-9+2=-7$ なので、平方完成は次のようになります。`,formulas:[m`x^2+6x+2=(x+3)^2-7`]},
-  ],
- },
- "m1-completing-square-coefficient":{
-  title:"外の係数を補正にも掛ける",goal:m`$2x^2+8x+1$ を平方完成します。`,
-  check:"括弧の中のすべての項に、外の係数を掛けます。",
-  steps:[
-   {label:"係数をくくる",text:m`二次と一次の項から $2$ をくくります。`,formulas:[m`2x^2+8x+1=2(x^2+4x)+1`]},
-   {label:"平方を作る",text:m`括弧の中に増える $4$ を、括弧の中で引きます。`,formulas:[m`2(x^2+4x)+1=2\{(x+2)^2-{\color{#936114}{4}}\}+1`]},
-   {label:"補正にも掛ける",text:m`括弧の中の $-4$ にも、外の $2$ が掛かります。`,formulas:[m`2\{(x+2)^2-{\color{#936114}{4}}\}+1=2(x+2)^2-{\color{#936114}{8}}+1`,m`=2(x+2)^2-7`]},
-  ],
- },
  ...math3FormulaCorrespondence,
  ...math3CalculusCorrespondence,
  ...math3IntegralCorrespondence,
  ...math3RiemannCorrespondence,
  ...math3SequenceCorrespondence,
  ...math3GeometryCorrespondence,
+ ...math1QuadraticCorrespondence,
+ ...math1TrigCorrespondence,
+ ...math1DataCorrespondence,
+ ...math1AlgebraCorrespondence,
+ ...math1LogicCorrespondence,
  ...math2AlgebraCorrespondence,
  ...math2GeometryCorrespondence,
  ...math2TrigCorrespondence,

@@ -1,6 +1,6 @@
 import {topic,type Skill,type Worked} from "./math1-topic";
 export const m=String.raw;
-export const w=(prompt:string,answer:string,hint:string,working:string):Worked=>[prompt,answer,hint,working];
+export const w=(prompt:string,answer:string,hint:string,working:string|string[]):Worked=>[prompt,answer,hint,Array.isArray(working)?working.join("\n\n"):working];
 export function num(n:number):string {
  if(Number.isInteger(n))return String(n);
  for(const d of [2,4,8,16])if(Number.isInteger(n*d))return `${n<0?"-":""}\\frac{${Math.abs(n*d)}}{${d}}`;
@@ -25,7 +25,7 @@ export function addRepairExamples(bank:ReturnType<typeof quadraticTopic>,family:
  for(const key of keys){
   const e=bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${family}-${key}-v1`);
   if(!e)throw new Error(`Missing repair example ${family}/${key}`);
-  supplement.text+="\n"+[e.prompt,...e.steps.map(s=>s.text),e.answer].filter((x,i,a)=>a.indexOf(x)===i).join("\n");
+  (supplement.additionalExamples??=[]).push({title:e.prompt,text:[...e.steps.map(s=>s.text),e.answer].filter((x,i,a)=>a.indexOf(x)===i).join("\n")});
  }
 }
 function square(n:number):Worked{return w(m`$(${num(n)})^2$ を計算しなさい。`,m`$${num(n*n)}$。`,"括弧の中の数を二つ掛け合わせます。",m`$(${num(n)})^2=(${num(n)})(${num(n)})=${num(n*n)}$。`);}
@@ -36,3 +36,16 @@ function readPoint(x:number,y:number):Worked{return w(m`点 $(${x},${y})$ の横
 export const coordinatePrep:Skill={id:"coordinate-order",title:"横座標と縦座標",why:"座標の組は順序をもちます。",sample:readPoint(2,-1),items:[readPoint(-1,3),readPoint(0,-2),readPoint(4,0)]};
 function boundary(x:number,lo:number,hi:number):Worked{return w(m`$${lo}\le x<${hi}$ に $x=${x}$ は含まれますか。`,x>=lo&&x<hi?"含まれます。":"含まれません。", "左の境界は等号を含み、右の境界は含みません。",m`$${lo}\le${x}$ と $${x}<${hi}$ の両方を調べます。`);}
 export const boundaryPrep:Skill={id:"interval-membership",title:"区間の端を確かめる",why:"不等式を両方満たすかを調べ、等号の有無を保ちます。",sample:boundary(2,0,2),items:[boundary(0,0,3),boundary(3,0,3),boundary(1,-1,2)]};
+
+/** Keep the original terms when substituting: absent terms stay absent. */
+export function substituted(a:number,b:number,c:number,x:number):string{
+ const input=`(${num(x)})`;
+ return [[a,`${input}^2`],[b,input],[c,""]].filter(([v])=>v!==0).map(([v,t],i)=>{const n=v as number;return `${n<0?"-":i?"+":""}${t?(Math.abs(n)===1?"":num(Math.abs(n))):num(Math.abs(n))}${t}`;}).join("")||"0";
+}
+export const linearFactor=(root:number)=>root===0?"x":`(x${signed(-root)})`;
+/** Only author-written blank lines create a new mathematical decision. */
+export function finalizeQuadraticTopic(bank:ReturnType<typeof quadraticTopic>){
+ const split=(steps:{title:string;text:string;tex?:string}[])=>steps.flatMap(step=>step.text.split("\n\n").map((text,i)=>({...step,title:i?"式をつなぐ":step.title,text,...(i?{tex:undefined}:{})})));
+ bank.exercises.forEach(e=>{e.steps=split(e.steps.filter((st,i)=>i===0||st.text!==e.answer));});
+ bank.lesson.examples.forEach(e=>{e.steps=split(e.steps);});
+}

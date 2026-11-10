@@ -33,7 +33,7 @@ export const ssaCases=[
 ];
 function ssa(t:typeof ssaCases[number]):Worked{
  const valid=t.candidates.filter(B=>t.A+B<180),angles=valid.map(B=>m`$(B,C)=(${B}^\circ,${180-t.A-B}^\circ)$`).join("、");
- return w(m`三角形 $ABC$ で $A=${t.A}^\circ,a=${t.a},b=${t.b}$。可能な角 $B,C$ の組をすべて求めなさい。`,`${angles}。${valid.length} 通りです。`,t.candidates.length===1?m`正弦定理で $\sin B$ を求めます。値が $1$ なら候補は直角一つで、残る角が正かを調べます。`:m`正弦定理で $\sin B$ を求め、鋭角と鈍角の候補の両方で $A+B<180^\circ$ を調べます。`,m`$\sin B=\frac{b\sin A}{a}=${t.s}$。候補は $B=${t.candidates.map(B=>`${B}^\\circ`).join(",")}$。`+t.candidates.map(B=>m`$B=${B}^\circ$ なら $C=180^\circ-${t.A}^\circ-${B}^\circ=${180-t.A-B}^\circ$ なので${t.A+B<180?"採用":"不採用"}。`).join("")+"残る組は辺の比と内角の条件を満たします。");
+ return w(m`三角形 $ABC$ で $A=${t.A}^\circ,a=${t.a},b=${t.b}$。可能な角 $B,C$ の組をすべて求めなさい。`,`${angles}。${valid.length} 通りです。`,t.candidates.length===1?m`正弦定理で $\sin B$ を求めます。値が $1$ なら候補は直角一つで、残る角が正かを調べます。`:m`正弦定理で $\sin B$ を求め、鋭角と鈍角の候補の両方で $A+B<180^\circ$ を調べます。`,[m`$\sin B=\frac{b\sin A}{a}=${t.s}$。`,...t.candidates.map(B=>m`$B=${B}^\circ$ の候補：$C=180^\circ-${t.A}^\circ-${B}^\circ=${180-t.A-B}^\circ$。${t.A+B<180?"残る内角が正なので採用します。":"残る内角が正でないので採用できません。"}`)].join("\n"));
 }
 export const triangleChoice=topic("m1-triangle-choice","定理の選択と三角形の決定",[
  m`まず分かっている辺と角を図へ入れます。辺とその対角の一組があれば正弦定理、二辺とはさむ角なら余弦定理、三辺から角を求めるなら余弦定理が使えます。直角や正三角形なら、より簡単な定義・性質も使えます。`,
@@ -50,11 +50,11 @@ regroupTrig(triangleChoice,["ssa-candidates-5","ssa-candidates-6"],"ssa-right-ca
 addPair(triangleChoice,"ssa-impossible","正弦の値から存在を判断",m`三角形の内角の正弦は $0$ より大きく $1$ 以下です。この範囲を超えたら、別の角を探す前に不成立と判断できます。`,[
  w(m`$A=30^\circ,a=1,b=3$ の三角形 $ABC$ は存在しますか。理由も答えなさい。`,m`存在しません。正弦定理では $\sin B=\frac32>1$ となるからです。`,"計算した正弦の値が取り得る範囲に入るか調べます。",m`$\sin B=\frac{3\sin30^\circ}{1}=\frac32$。正弦は $1$ を超えないため条件は両立しません。`),
  w(m`$A=30^\circ,a=2,b=5$ の三角形 $ABC$ は存在しますか。理由も答えなさい。`,m`存在しません。$\sin B=\frac54>1$ となるからです。`,"辺と対角の既知の組から、もう一つの角の正弦を調べます。",m`$\sin B=\frac{5\sin30^\circ}{2}=\frac54$。内角の正弦として不可能です。`),
-]);
+],true);
 addPair(triangleChoice,"triangle-length-condition","三辺が三角形を作れるか","三辺が正なら、最長辺が他の二辺の和より短いかを調べます。等号では一直線になり、三角形にはなりません。",[
  w(m`長さ $2,3,5$ の三辺で三角形を作れますか。理由も答えなさい。`,m`作れません。最長辺 $5$ が他の二辺の和 $2+3$ と等しく、一直線につぶれるからです。`,"最長辺と他の二辺の和を比較します。",m`$5=2+3$ で、必要な厳密不等式 $5<2+3$ を満たしません。`),
  w(m`長さ $3,4,6$ の三辺で三角形を作れますか。理由も答えなさい。`,m`作れます。三辺は正で、最長辺について $6<3+4$ を満たすからです。`,"最も長い辺を先に決めます。",m`$6<7$ なので三角形の成立条件を満たします。`),
-]);
+],true);
 appendTrigQuestion(triangleChoice,"ssa-impossible","possible-1",w(m`$A=30^\circ,a=1,b=2$ の三角形 $ABC$ は存在しますか。理由も答えなさい。`,m`存在します。$\sin B=1$ より $B=90^\circ$、$C=60^\circ>0^\circ$ となるからです。`,"正弦の範囲内であれば、角の候補と内角の和まで確かめます。",m`$\sin B=\frac{2\sin30^\circ}{1}=1$。候補 $B=90^\circ$ のとき $C=180^\circ-30^\circ-90^\circ=60^\circ$。三内角と辺の比が条件を満たすので存在します。`));
 const sineExistence=triangleChoice.lesson.supplements.find(s=>s.id==="ssa-impossible")!;
 appendTrigQuestion(triangleChoice,"ssa-impossible","possible-2",w(m`$A=30^\circ,a=b=2$ の三角形 $ABC$ は存在しますか。理由も答えなさい。`,m`存在します。$B=30^\circ,C=120^\circ$ が内角の条件と辺の比を満たすからです。`,"正弦の範囲内でも、内角の条件による確認を続けます。",m`$\sin B=\frac{2\sin30^\circ}{2}=\frac12$。$B=30^\circ$ なら $C=120^\circ$ で採用。もう一つの候補 $B=150^\circ$ は $C=0^\circ$ となり不採用です。`));
@@ -66,4 +66,4 @@ triangleChoice.exercises.find(e=>e.id==="m1-triangle-choice-ssa-impossible-extra
 addPair(triangleChoice,"ssa-angle-feasibility","角の条件で存在を確かめる",m`正弦が取り得る範囲内でも、三角形が存在するとは限りません。候補ごとに $C=180^\circ-A-B>0^\circ$ を調べます。`,[
  w(m`$A=120^\circ,a=b=1$ の三角形 $ABC$ は存在しますか。理由も答えなさい。`,m`存在しません。$B=60^\circ,120^\circ$ のどちらでも $C$ が正にならないからです。`,"正弦の値から候補を出し、残る内角が正かを一つずつ確かめます。",m`$\sin B=\frac{1\sin120^\circ}{1}=\frac{\sqrt3}{2}$。$B=60^\circ$ なら $C=0^\circ$、$B=120^\circ$ なら $C=-60^\circ$。どちらも内角として認められません。`),
  w(m`$A=120^\circ,a=\sqrt3,b=1$ の三角形 $ABC$ は存在しますか。理由も答えなさい。`,m`存在します。候補のうち $B=30^\circ,C=30^\circ$ が内角の条件を満たすからです。`,"鈍角の候補も出したうえで、残る角を確かめます。",m`$\sin B=\frac{\sin120^\circ}{\sqrt3}=\frac12$。$B=30^\circ$ なら $C=30^\circ>0^\circ$ で採用。$B=150^\circ$ なら $C=-90^\circ$ で不採用。一つ成立する組があるので存在します。`),
-]);
+],true);

@@ -56,5 +56,5 @@ const examples=[drafts[1],drafts[6]].map((d,i)=>{
 export const math1CheckLesson:Lesson={slug,title:"数と式の章末確認",subject:"数学I",chapter:"数と式",section:"章末確認",
   description:"式の形と条件を見て、必要な計算を選ぼう。",basicsTitle:"式の形と条件を確かめる",
   introduction:["式の値を求めるときは代入、積を和へ直すときは展開、和を積へ直すときは因数分解です。何を求める問いかを最初に確かめます。","平方根では非負の値と正負の平方根を区別します。不等式では負の数で割るときの向きと、端の値を含むかを確かめます。"],
-  rule:"答えを元の式や数量の条件に戻して確かめましょう。",examples,guidedAfterExamples:true,supplements,practiceGroups:groups,
+  rule:"答えを元の式や数量の条件に戻して確かめましょう。",warmupIds:[],examples,guidedAfterExamples:true,supplements,practiceGroups:groups,
 };

@@ -1,4 +1,4 @@
-import {m,w,skill,dataTopic,addDataCases,appendData,regroupData,sum,frac} from "./math1-data-authoring";
+import {m,w,skill,dataTopic,addDataCases,appendData,regroupData,sum,frac,staged} from "./math1-data-authoring";
 import type {Worked} from "./math1-topic";
 export type Pair=[number,number];
 export const scatterData:Pair[]=[[1,2],[2,1],[3,3],[4,3],[5,5]];
@@ -33,12 +33,18 @@ function correlation(pairs:Pair[]):Worked{
  const products=dx.map((x,i)=>m`(${frac(x,n)})\cdot(${frac(dy[i],n)})`).join("+");
  const squaresX=dx.map(x=>`(${frac(x,n)})^2`).join("+"),squaresY=dy.map(y=>`(${frac(y,n)})^2`).join("+");
  const r=xy===0?"0":Number.isInteger(Math.sqrt(product))?frac(xy,Math.sqrt(product)):m`\frac{${xy}}{\sqrt{${product}}}`;
- return w(m`対応する組 $(x,y)$ が $${pairs.map(p=>`(${p[0]},${p[1]})`).join(",")}$ です。相関係数を求めなさい。`,m`$r=${r}$。`,"各組の偏差を掛けたものの和を求め、二つの偏差の二乗和から作る分母で割ります。",m`$\bar x=${frac(sx,n)},\ \bar y=${frac(sy,n)}$。偏差の組は ${pairsWork}。同じ組を掛けて足すと $${products}=${frac(xy,n*n)}$。横の偏差の二乗和は $${squaresX}=${frac(xx,n*n)}$、縦は $${squaresY}=${frac(yy,n*n)}$。両方の二乗和が正なので、$r=\frac{${frac(xy,n*n)}}{\sqrt{${frac(xx,n*n)}\cdot${frac(yy,n*n)}}}=${r}$。`);
+ const steps=[
+  {title:'それぞれの平均',text:m`横の値の平均は $\bar x=${frac(sx,n)}$、縦は $\bar y=${frac(sy,n)}$ です。`},
+  {title:'同じ対象の偏差の組',text:m`各値からその平均を引くと、偏差の組は ${pairsWork}。同じ組を掛けるので、積の和は $${products}=${frac(xy,n*n)}$ です。`},
+  {title:'二種類の二乗和',text:m`横の偏差の二乗和は $${squaresX}=${frac(xx,n*n)}$。縦の偏差の二乗和は $${squaresY}=${frac(yy,n*n)}$。`},
+  {title:'積の和を分母で割る',text:m`両方の二乗和が正なので相関係数を定義できます。積の和を分子、二つの二乗和の積の平方根を分母にして、$r=\frac{${frac(xy,n*n)}}{\sqrt{${frac(xx,n*n)}\cdot${frac(yy,n*n)}}}=${r}$。`}
+ ];
+ return staged(w(m`対応する組 $(x,y)$ が ${pairs.map(p=>`$(${p[0]},${p[1]})$`).join('、')} です。相関係数を求めなさい。`,m`$r=${r}$。`,"同じ対象の偏差同士を掛けます。",steps.map(s=>s.text).join('\n')),steps);
 }
 const coefficients=skill("correlation-calculation","同じ組の偏差を掛ける",m`同じ組の偏差の積を全組について平均した値を $s_{xy}$ と書くと、相関係数は $r=\frac{s_{xy}}{s_xs_y}$。$s_x,s_y$ はそれぞれの標準偏差で、両方が正のときだけ定義します。分子と分母を同じ個数倍すると、「偏差の積の和」を「二つの偏差の二乗和の積の平方根」で割っても同じ値になります。`,correlation([[1,1],[2,3],[3,2]]),correlationCases.map(correlation));
 function applicability(sx:number,sy:number):Worked{return w(m`二つの変量の標準偏差は $s_x=${sx},s_y=${sy}$ です。相関係数は定義できますか。理由も述べなさい。`,sx*sy===0?"定義できません。分母が零になります。":"定義できます。両方の標準偏差が正です。","公式の分母を確かめます。",m`分母は $s_xs_y=${sx*sy}$。${sx*sy===0?`$0$ で割れないので、相関係数を $0$ と置くこともできません。`:"正なので相関係数を定義できます。数値を計算するには偏差の積の情報も必要です。"}`);}
 const defined=skill("correlation-domain","定義できる条件",m`片方が全て同じ値なら、その標準偏差は $0$。相関係数は分母が $0$ となり、定義できません。「相関係数が零」とは違います。`,applicability(0,2),[applicability(2,0),applicability(3,2),applicability(0,0),applicability(1,4),applicability(0,5),applicability(2,3)]);
-const interpretation=skill("correlation-strength","符号と直線的な強さ",m`$-1\le r\le1$。符号が傾向の向き、$|r|$ が直線的な関係の強さを表します。$r=0$ でも曲線的な関係まで否定することはできません。`,w(m`$A$ の相関係数は $-0.9$、$B$ は $0.4$。直線的な関係が強いのはどちらですか。`,m`$A$。負でも絶対値が大きいからです。`,"符号ではなく絶対値を比べます。",m`$|-0.9|=0.9>0.4$。$A$ は強い右下がり、$B$ はそれより弱い右上がりです。`),[
+const interpretation=skill("correlation-strength","符号と直線的な強さ",m`$-1\le r\le1$。符号が傾向の向き、$|r|$ が直線的な関係の強さを表します。`,w(m`$A$ の相関係数は $-0.9$、$B$ は $0.4$。直線的な関係が強いのはどちらですか。`,m`$A$。負でも絶対値が大きいからです。`,"符号ではなく絶対値を比べます。",m`$|-0.9|=0.9>0.4$。$A$ は強い右下がり、$B$ はそれより弱い右上がりです。`),[
  w(m`相関係数 $0.8$ と $-0.3$ では、直線的な関係が強いのはどちらですか。`,m`$0.8$ の方。`,"絶対値を比べます。",m`$|0.8|=0.8>|-0.3|=0.3$。正負では強さを決めません。`),
  w(m`相関係数 $-0.7$ と $0.7$ の直線的な関係の強さと向きを比べなさい。`,"強さは同じで、向きは反対です。","強さには絶対値、向きには符号を使います。",m`絶対値はどちらも $0.7$。前者は右下がり、後者は右上がりの傾向です。`),
  w(m`相関係数 $-0.95$ と $0.6$ では、直線的な関係が強いのはどちらですか。`,m`$-0.95$ の方。`,"負の数であっても絶対値を見ます。",m`$0.95>0.6$ なので、右下がりの関係の方が直線的には強いです。`),

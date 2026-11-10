@@ -5,14 +5,14 @@ const sign=(n:number)=>n<0?String(n):m`+${n}`;
 const term=(n:number,v:string)=>n===0?"":m`${n<0?"-":""}${Math.abs(n)===1&&v?"":Math.abs(n)}${v}`;
 const poly=(a:number,b:number,c:number)=>[term(a,"x^2"),term(b,"x"),term(c,"")].filter(Boolean).map((t,i)=>i&&t[0]!=="-"?"+"+t:t).join("");
 const lin=(a:number,b:number)=>term(a,"x")+(b?sign(b):"");
-function multiply(a:number,b:number):Worked{return [math(m`(${a})(${b})`)+" を計算しなさい。",math(String(a*b))+"。",m`符号を確かめてから ${math(String(Math.abs(a)))} と ${math(String(Math.abs(b)))} を掛けます。`,math(m`(${a})(${b})=${a*b}`)+"。負と負の積は正、異符号の積は負です。"]}
-const prepMultiply:Skill={id:"number-product",title:"符号を含む積",why:"因数の係数を扱う前に、数の積の符号を確かめます。",sample:multiply(-2,3),items:[multiply(-3,-4),multiply(2,-5),multiply(-4,-2)]};
+function multiply(a:number,b:number):Worked{return [math(m`(${a})(${b})`)+" を計算しなさい。",math(String(a*b))+"。",m`符号を確かめてから ${math(String(Math.abs(a)))} と ${math(String(Math.abs(b)))} を掛けます。`,math(m`(${a})(${b})=${a*b}`)+"。"+(a*b<0?"異符号の積なので負になります。":a<0&&b<0?"負と負の積なので正になります。":"同符号の積なので正になります。") ]}
+const prepMultiply:Skill={id:"number-product",title:"符号を含む積",why:"掛ける二数の符号から、積の符号を決めます。",sample:multiply(-2,3),items:[multiply(-3,-4),multiply(2,-5),multiply(-4,-2)]};
 function expand(a:number,b:number):Worked{return [math(m`${a}x(x${sign(b)})`)+" を展開しなさい。",math(poly(a,a*b,0))+"。",math(m`${a}x`)+" を括弧の両方の項に掛けます。",math(m`${a}x\cdot x+${a}x\cdot(${b})=${poly(a,a*b,0)}`)+"。"]}
 const prepExpand:Skill={id:"expand",title:"展開で確かめる",why:"積を各項に配ると元の和へ戻せます。",sample:expand(2,3),items:[expand(3,-2),expand(2,5),expand(4,-1)]};
 export {prepMultiply,prepExpand};
 function common(k:number,a:number,b:number):Worked {
   const input=poly(k*a,k*b,0),inside=lin(a,b),answer=m`${term(k,"x")}(${inside})`;
-  return [math(input)+" を因数分解しなさい。",math(answer)+"。",m`両方の項に共通する ${math(term(k,"x"))} を取り出します。`,m`${math(input+"="+term(k,"x")+m`\cdot(${term(a,"x")})+`+(k<0?m`(${term(k,"x")})`:term(k,"x"))+m`\cdot(${b})`)} なので ${math(answer)}。展開すると元の式に戻ります。式を ${math("x")} で割る方程式変形ではなく、分配法則を逆向きに使っています。`];
+  return [math(input)+" を因数分解しなさい。",math(answer)+"。",m`両方の項に共通する ${math(term(k,"x"))} を取り出します。`,m`${math(input+"="+term(k,"x")+m`\cdot(${term(a,"x")})+`+(k<0?m`(${term(k,"x")})`:term(k,"x"))+m`\cdot(${b})`)} なので ${math(answer)}。分配法則を逆向きに使いました。`];
 }
 function complete(k:number,a:number):Worked {
  const input=m`${term(k,"x^3")}${sign(-k*a*a)}x`,answer=m`${term(k,"x")}(x-${a})(x+${a})`;
@@ -48,7 +48,7 @@ export const quadratics=topic("m1-quadratic-factorization","二次式の因数�
 
 function grouped(a:number,b:number):Worked {
  const common=m`x${sign(a)}`,bx=term(b,"x"),input=m`${bx}(${common})+(${common})`,answer=m`(${common})(${bx}+1)`;
- return [math(input)+" を因数分解しなさい。",math(answer)+"。",math(m`(${common})`)+" 全体が両方の項にあります。",m`共通の括弧を ${math("A")} と見ると ${math(m`${bx}A+A=A(${bx}+1)`)}。${math(m`A=${common}`)} を戻して ${math(answer)}。展開して元に戻ります。`];
+ return [math(input)+" を因数分解しなさい。",math(answer)+"。",math(m`(${common})`)+" 全体が両方の項にあります。",m`${math(m`${bx}(${common})+1(${common})=${answer}`)}。共通の括弧に掛かる係数 ${math(bx)} と $1$ をまとめます。`];
 }
 function groupFour(a:number,b:number):Worked {
  const signedTerm=(n:number,v:string)=>n<0?term(n,v):"+"+term(n,v);

@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useId,useRef,useState} from "react";
-import {exercises,lessons,type Exercise,type Lesson} from "../content/lessons";
+import {exercises,lessons,exerciseById,type Exercise,type Lesson} from "../content/lessons";
 import {type ReviewCheck} from "../content/review-checks";
 import {prerequisitesOf,type PrerequisiteCheck} from "../content/prerequisite-checks";
 import {diagnosticChecksFor} from "../content/diagnostic-paths";
@@ -8,6 +8,7 @@ import {knownExercise,knownReviewOf} from "../content/foundation-links";
 import {useQuery} from "../lib/use-query";
 import {MathText,Formula} from "./MathText";
 import Link from "./SiteLink";
+import ExerciseAnswerDiagram from "./ExerciseAnswerDiagram";
 
 export function CheckCard({check,onResult,initialResult}:{check:ReviewCheck;onResult:(correct:boolean,choice:number|null)=>void;initialResult?:{choice:number|null}}){
  const [choice,setChoice]=useState<number|null>(initialResult?.choice??null),[done,setDone]=useState(!!initialResult);
@@ -20,7 +21,7 @@ export function CheckCard({check,onResult,initialResult}:{check:ReviewCheck;onRe
  </div>;
 }
 export function RepairCard({repair}:{repair:Lesson["supplements"][number]}){
- return <div className="repair-card"><h3>{repair.title}</h3><p className="math-paragraph"><MathText text={repair.text}/></p>{repair.tex&&<Formula tex={repair.tex} display/>}<div className="repair-exercise"><p><MathText text={repair.check}/></p><details><summary>答えと途中式を確かめる</summary><p className="math-paragraph"><MathText text={repair.answer}/></p></details></div></div>;
+ return <div className="repair-card"><h3>{repair.title}</h3><p className="math-paragraph"><MathText text={repair.text}/></p>{repair.tex&&<Formula tex={repair.tex} display/>}<div className="repair-exercise"><p><MathText text={repair.check}/></p><details><summary>答えと途中式を確かめる</summary><p className="math-paragraph"><MathText text={repair.answer}/></p>{repair.answerExerciseId&&exerciseById[repair.answerExerciseId]&&<ExerciseAnswerDiagram exercise={exerciseById[repair.answerExerciseId]}/>}</details></div>{!!repair.additionalExamples?.length&&<details className="repair-additional"><summary>別の例を読む</summary>{repair.additionalExamples.map((example,i)=><details className="supplement" key={i}><summary><MathText text={example.title}/></summary><p className="math-paragraph"><MathText text={example.text}/></p>{example.tex&&<Formula tex={example.tex} display/>}</details>)}</details>}</div>;
 }
 export function ReviewLessonLink({slug,exercise,reviewOf,children,onClick,trail}:{slug:string;exercise:Exercise;reviewOf?:string;children:React.ReactNode;onClick?:()=>void;trail?:string[]}){
  const params=useQuery();

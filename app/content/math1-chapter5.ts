@@ -83,6 +83,6 @@ const examples=[dataSpreadTopics[0],dataRelationshipTopics[1]].map((bank,n)=>{
  const e=bank.lesson.examples[0],q=bank.exercises.find(q=>q.id===e.guidedIds[0])!;
  return {...e,id:`example-${n+1}`,guidedIds:[copy(q,"guided",String(n+1))]};
 });
-export const math1DataCheckLesson:Lesson={slug,title:"データの分析の章末確認",chapter:"データの分析",subject:"数学I",section:"章末確認",basicsTitle:"数値を結論につなげる",description:"対象・分布・指標・仮定を確かめ、根拠に合う結論を述べよう。",introduction:["何のデータかを確かめ、知りたいことに合う図や指標を選びます。中心と散らばり、関連と原因は別のものです。","仮定の下での珍しさを調べても、仮定が真である確率や、その正しさの証明にはなりません。このページの調査・数値は教材用の仮想データです。"],rule:"計算だけで終わらず、その結果が何を表すか、どこまで言えるかを確かめます。",examples,guidedAfterExamples:true,supplements,practiceGroups:groups};
+export const math1DataCheckLesson:Lesson={slug,title:"データの分析の章末確認",chapter:"データの分析",subject:"数学I",section:"章末確認",basicsTitle:"数値を結論につなげる",description:"対象・分布・指標・仮定を確かめ、根拠に合う結論を述べよう。",introduction:["何のデータかを確かめ、知りたいことに合う図や指標を選びます。中心と散らばり、関連と原因は別のものです。","仮定の下での珍しさを調べても、仮定が真である確率や、その正しさの証明にはなりません。このページの調査・数値は教材用の仮想データです。"],rule:"計算だけで終わらず、その結果が何を表すか、どこまで言えるかを確かめます。",examples,guidedAfterExamples:true,supplements,practiceGroups:groups,warmupIds:[]};
 export const math1Chapter5Lessons=[...math1Chapter5Topics.map(t=>t.lesson),math1DataCheckLesson];
 export const math1Chapter5Exercises=[...math1Chapter5Topics.flatMap(t=>t.exercises),...math1DataCheckExercises];

@@ -1,3 +1,8 @@
+import Math1AlgebraDiagram from "./Math1AlgebraDiagram";
+import Math1LogicDiagram from "./Math1LogicDiagram";
+import Math1QuadraticDiagram from "./Math1QuadraticDiagram";
+import Math1TrigDiagram from "./Math1TrigDiagram";
+import Math1DataDiagram from "./Math1DataDiagram";
 import Math3StructureDiagram from "./Math3StructureDiagram";
 import Math2AlgebraDiagram from "./Math2AlgebraDiagram";
 import Math2GeometryDiagram from "./Math2GeometryDiagram";
@@ -7,6 +12,11 @@ import Math2CalculusDiagram from "./Math2CalculusDiagram";
 
 export default function StructureDiagram(props:{kind:string;stage:number;reduce:boolean}){
  const {kind}=props;
+ if(kind.startsWith("m1-data-"))return <Math1DataDiagram {...props}/>;
+ if(kind.startsWith("m1-trig-"))return <Math1TrigDiagram {...props}/>;
+ if(kind.startsWith("m1-quadratic-"))return <Math1QuadraticDiagram {...props}/>;
+ if(kind.startsWith("m1-logic-"))return <Math1LogicDiagram {...props}/>;
+ if(kind.startsWith("m1-algebra-"))return <Math1AlgebraDiagram {...props}/>;
  if(kind.startsWith("m2-algebra-"))return <Math2AlgebraDiagram {...props}/>;
  if(kind.startsWith("m2-geometry-"))return <Math2GeometryDiagram {...props}/>;
  if(kind.startsWith("m2-trig-"))return <Math2TrigDiagram {...props}/>;

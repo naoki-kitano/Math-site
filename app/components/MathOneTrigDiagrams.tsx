@@ -1,12 +1,11 @@
 "use client";
-import {Formula,MathText} from "./MathText";
+import Math1TrigDiagram,{Math1TrigPlane,Math1TrigSpaceDiagram,type Math1TrigPlaneProps} from "./Math1TrigDiagram";
 import CoordinateDiagram,{type CoordinateDiagramProps as Diagram} from "./CoordinateDiagram";
 type Point={x:number;y:number;label:string;labelOffset?:[number,number]};
 type Edge={from:number;to:number;label?:string;dashed?:boolean;teal?:boolean;labelOffset?:[number,number]};
 export type TrigFigure={title:string;description:string;points:Point[];edges:Edge[];right?:[number,number,number][];circle?:{x:number;y:number;r:number}};
 const m=String.raw;
 // Round only screen coordinates so server and browser agree on SVG attributes.
-const screen=(value:number)=>Number(value.toFixed(4));
 const tri=(title:string,description:string,b:number,c:number,A:number,labels:[string,string,string],sides:[string,string,string],right?:[number,number,number][]):TrigFigure=>({
  title,description,points:[{x:0,y:0,label:labels[0]},{x:c,y:0,label:labels[1]},{x:b*Math.cos(A*Math.PI/180),y:b*Math.sin(A*Math.PI/180),label:labels[2]}],
  edges:[{from:1,to:2,label:sides[0],teal:true},{from:2,to:0,label:sides[1]},{from:0,to:1,label:sides[2]}],right,
@@ -62,7 +61,7 @@ const semicircle=(title:string,description:string,angles:number[],r=1):Diagram=>
  title,description,xRange:[-1.4*r,1.4*r],yRange:[-.2*r,1.4*r],
  arcs:[{x:0,y:0,r,from:0,to:Math.PI,label:m`$x^2+y^2=${r*r}$`}],
  points:angles.map(a=>({x:r*Math.cos(a*Math.PI/180),y:r*Math.sin(a*Math.PI/180),label:Number.isInteger(a)?m`$\theta=${a}^\circ$`:m`$P$`})),
- segments:angles.flatMap(a=>[{from:[0,0] as [number,number],to:[r*Math.cos(a*Math.PI/180),r*Math.sin(a*Math.PI/180)] as [number,number],label:Number.isInteger(a)?m`$\theta=${a}^\circ$`:m`$OP$`},{from:[r*Math.cos(a*Math.PI/180),0] as [number,number],to:[r*Math.cos(a*Math.PI/180),r*Math.sin(a*Math.PI/180)] as [number,number],dashed:true,label:""}]),
+ segments:angles.flatMap(a=>[{from:[0,0] as [number,number],to:[r*Math.cos(a*Math.PI/180),r*Math.sin(a*Math.PI/180)] as [number,number],label:Number.isInteger(a)?"":m`$OP$`},{from:[r*Math.cos(a*Math.PI/180),0] as [number,number],to:[r*Math.cos(a*Math.PI/180),r*Math.sin(a*Math.PI/180)] as [number,number],dashed:true,label:""}]),
  axisDescription:"横軸は横座標 $x$、縦軸は縦座標 $y$。角は正の横軸から反時計回りに測ります。",
 });
 export const mathOneTrigCoordinateFigures:Record<string,(Diagram|undefined)[]>={
@@ -70,21 +69,55 @@ export const mathOneTrigCoordinateFigures:Record<string,(Diagram|undefined)[]>={
  "m1-trig-relations":[semicircle("符号は角の範囲から",m`$\sin\theta=\frac35$、$\theta$ は鈍角なので左上の点です。$\cos\theta=-\frac45$。`,[180-Math.asin(3/5)*180/Math.PI]),semicircle("二つの鋭角を入れ替える",m`$30^\circ$ の横座標は、$60^\circ$ の縦座標と同じです。$\sin(90^\circ-30^\circ)=\cos30^\circ$。`,[30,60]),semicircle("左右対称なら横の符号だけ反転",m`$30^\circ$ と $150^\circ$ の高さは等しく、横座標は反対符号です。`,[30,150])],
  "m1-equal-sines":[semicircle("同じ高さの二点",m`$\sin\theta=\frac12$ の点は二つ。$\theta=30^\circ,150^\circ$ です。`,[30,150]),semicircle("同じ横座標の点は一つ",m`$\cos\theta=-\frac12$ に対応する上半円上の点は $\theta=120^\circ$ の一点です。`,[120])],
 };
-export default function MathOneTrigDiagrams({slug,index}:{slug:string;index:number}){
- const f=mathOneTrigFigures[slug]?.[index],c=mathOneTrigCoordinateFigures[slug]?.[index];
- if(c)return <CoordinateDiagram {...c}/>;
- if(!f)return null;
- const xs=f.points.map(p=>p.x),ys=f.points.map(p=>p.y);
- if(f.circle){xs.push(f.circle.x-f.circle.r,f.circle.x+f.circle.r);ys.push(f.circle.y-f.circle.r,f.circle.y+f.circle.r);}
- const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys),cx=(minX+maxX)/2,cy=(minY+maxY)/2;
- const scale=Math.min(470/(maxX-minX||1),260/(maxY-minY||1));
- const point=(p:{x:number;y:number})=>({x:screen(320+(p.x-cx)*scale),y:screen(185-(p.y-cy)*scale)});
- const ps=f.points.map(point);
- return <figure className="panel math-figure trig-figure"><h4>{f.title}</h4><p><MathText text={f.description}/></p>
- <svg className="coordinate-diagram" viewBox="0 0 640 380" role="img" aria-label={f.title}><title>{f.title}</title>
- {f.circle&&<circle cx={point(f.circle).x} cy={point(f.circle).y} r={screen(f.circle.r*scale)} fill="none" stroke="#a5b9c7" strokeWidth="2"/>}
- {f.edges.map((e,i)=>{const a=ps[e.from],b=ps[e.to],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1;return <g key={i}><line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={e.teal?"#087c70":"#526d89"} strokeWidth={e.teal?3:2} strokeDasharray={e.dashed?"6 5":undefined}/>{e.label&&<foreignObject x={screen((a.x+b.x)/2+(e.labelOffset?.[0]??dy/len*17)-48)} y={screen((a.y+b.y)/2+(e.labelOffset?.[1]??-dx/len*17)-30)} width="96" height="60"><div className="diagram-label"><Formula tex={e.label}/></div></foreignObject>}</g>})}
- {f.right?.map(([i,j,k],n)=>{const a=ps[i],o=ps[j],b=ps[k],la=Math.hypot(a.x-o.x,a.y-o.y),lb=Math.hypot(b.x-o.x,b.y-o.y),u={x:(a.x-o.x)/la*12,y:(a.y-o.y)/la*12},v={x:(b.x-o.x)/lb*12,y:(b.y-o.y)/lb*12};return <polyline key={n} points={`${screen(o.x+u.x)},${screen(o.y+u.y)} ${screen(o.x+u.x+v.x)},${screen(o.y+u.y+v.y)} ${screen(o.x+v.x)},${screen(o.y+v.y)}`} fill="none" stroke="#526d89" strokeWidth="1.5"/>})}
- {ps.map((p,i)=>{const dx=p.x===320&&p.y===185?-1:p.x-320,dy=p.y-185,len=Math.hypot(dx,dy)||1;return <g key={i}><circle cx={p.x} cy={p.y} r="3.5" fill="#0b1f3a"/><foreignObject x={screen(p.x+(f.points[i].labelOffset?.[0]??dx/len*25)-68)} y={screen(p.y+(f.points[i].labelOffset?.[1]??dy/len*25)-30)} width="136" height="60"><div className="diagram-label"><Formula tex={f.points[i].label}/></div></foreignObject></g>})}
- </svg></figure>;
+const startingNotes:Record<string,string[]>={
+ "m1-right-triangle":[m`直角は $C$。まずその向かいの辺を探します。`,m`$AB=5,BC=3$。求める長さは $AC=x$ です。`],
+ "m1-trig-meaning":[m`$A$ を基準に、向かい・隣・斜辺を読みます。`,m`左の三辺をすべて $2$ 倍したものが右です。`],
+ "m1-special-angles":[m`$30^\circ$ の向かいと、斜辺でない隣の辺を使います。`,m`$45^\circ$ の向かいと斜辺を使います。`],
+ "m1-trig-sides-angles":[m`$30^\circ$ の向かいは $4$、斜辺は $x$ です。`,m`鋭角 $A$ の隣と斜辺の比が $\frac12$ です。`],
+ "m1-sine-law":[m`$a$ と $A$、$b$ と $B$ が向かい合う組です。`,m`$a=2,A=30^\circ,B=90^\circ$。求める辺は $b$ です。`],
+ "m1-sine-circumcircle":[m`$BC=6$、$\angle BAC=30^\circ$。求めるのは半径 $R$ です。`,m`半径は $3$、$\angle BAC=60^\circ$。求めるのは弦 $BC=a$ です。`],
+ "m1-cosine-law-side":[m`$3,4$ の二辺にはさまれる角が $60^\circ$ です。`,m`$2,2$ の二辺にはさまれる角が $120^\circ$ です。`],
+ "m1-cosine-law-angle":[m`$A$ の向かいが $4$、$A$ をはさむ二辺が $3,3$ です。`,m`$A$ の向かいが $\sqrt3$、$A$ をはさむ二辺が $1,1$ です。`],
+ "m1-triangle-choice":[m`$a=2$ と対角 $A=30^\circ$ の組を、$b$ と $B=60^\circ$ へ結びます。`,m`$A=30^\circ,a=1,b=\sqrt2$。長さ $BC=1$ を満たす位置を調べます。`],
+ "m1-triangle-area":[m`$AB=3,AC=4,A=60^\circ$。底辺を $AB$ とすると高さは $CH=h$ です。`,m`$AB=6,AC=4,A=150^\circ$。高さは辺の延長上へ下ろした $CH=h$ です。`],
+ "m1-measurement":[m`水平距離は $10\,\mathrm{m}$、仰角は $45^\circ$。目の水平線から上が $h$、目の高さは $1.5\,\mathrm{m}$ です。`,m`$AB=8\,\mathrm{m},A=B=45^\circ$。求める長さは $AC$ です。`,m`対角線 $AC=8$ に対する二つの高さは $3,4$ です。`],
+};
+/** Pure stage selection: keep given geometry, then reveal only the derived labels. */
+export function mathOneTrigFigureAt(slug:string,index:number,step?:number,complete?:boolean):TrigFigure|undefined{
+ const source=mathOneTrigFigures[slug]?.[index];if(!source)return;
+ const f:TrigFigure={...source,points:source.points.map(p=>({...p})),edges:source.edges.map(e=>({...e}))};
+ const full=complete??step===undefined;
+ if(!full)f.description=startingNotes[slug]?.[index]??f.description;
+ if(slug==='m1-right-triangle'){
+  if(index===0){f.edges.forEach(e=>{e.label=undefined;});f.description=full?m`直角 $C$ の向かいが斜辺です。$A$ の向かいは $BC$、残る隣は $AC$ です。`:startingNotes[slug][index];}
+  else f.edges[1].label=full?'4':'x';
+ }
+ if(slug==='m1-trig-sides-angles'){f.edges[index===0?1:0].label=undefined;}
+ if(slug==='m1-sine-law'&&index===1)f.edges[2].label=undefined;
+ if(slug==='m1-triangle-choice'&&index===0)f.edges[2].label=undefined;
+ if(slug==='m1-special-angles'&&index===0)f.description=full?m`$\tan30^\circ=\frac{\text{向かい}}{\text{隣}}=\frac1{\sqrt3}$。`:startingNotes[slug][index];
+ if(slug==='m1-triangle-area'&&index===0){
+  const C=f.points[2];f.points.push({x:C.x,y:0,label:'H',labelOffset:[0,22]});f.edges.push({from:3,to:2,label:'h',teal:true,labelOffset:[25,0]});f.right=[[1,3,2]];
+ }
+ if(slug==='m1-measurement'&&index===1&&!full)f.points[2].label='C';
+ return f;
+}
+export default function MathOneTrigDiagrams({slug,index,step,complete}:{slug:string;index:number;step?:number;complete?:boolean}){
+ if(slug==='m1-trigonometry-check'){slug=index===0?'m1-triangle-choice':'m1-space-triangles';index=0;}
+ const full=complete??step===undefined;
+ if(slug==='m1-space-triangles')return index===0?<Math1TrigSpaceDiagram stage={full?2:(step??0)} height={12}/>:<Math1TrigDiagram kind="m1-trig-pyramid" stage={full?2:(step??0)} reduce/>;
+ if(slug==='m1-trig-meaning'&&index===1)return <Math1TrigDiagram kind="m1-trig-similarity" stage={0} reduce/>;
+ if(slug==='m1-equal-sines')return <Math1TrigDiagram kind="m1-trig-equal" stage={index===0?(full?1:0):(full?2:4)} reduce/>;
+ if(slug==='m1-trig-relations'&&index===1)return <Math1TrigDiagram kind="m1-trig-complement" stage={full?1:0} reduce/>;
+ if(slug==='m1-trig-coordinates'&&index===0)return <Math1TrigDiagram kind="m1-trig-coordinates" stage={0} reduce/>;
+ const coordinate=mathOneTrigCoordinateFigures[slug]?.[index];
+ if(coordinate){
+  const c={...coordinate};
+  if(slug==='m1-trig-coordinates'&&index===1){c.title='上端の縦座標から正弦を読む';c.description=full?m`単位円の上端は $(0,1)$。$\sin90^\circ=1$ です。`:m`$90^\circ$ の点は単位円の上端です。正弦には縦座標を使います。`;}
+  if(slug==='m1-trig-relations'&&index===0){c.description=full?m`鈍角なので横座標は負です。`:m`$\sin\theta=\frac35$、$\theta$ は鈍角なので点は左上にあります。`;}
+  return <CoordinateDiagram responsive {...c}/>;
+ }
+ const f=mathOneTrigFigureAt(slug,index,step,complete);if(!f)return null;
+ const props:Math1TrigPlaneProps={title:f.title,points:f.points.map(p=>({...p,dx:p.labelOffset?.[0]===undefined?undefined:p.labelOffset[0]/2,dy:p.labelOffset?.[1]===undefined?undefined:p.labelOffset[1]/2})),edges:f.edges.map(e=>({a:e.from,b:e.to,label:e.label,dash:e.dashed,color:e.teal?'#176c82':undefined,dx:e.labelOffset?.[0]===undefined?undefined:e.labelOffset[0]/2,dy:e.labelOffset?.[1]===undefined?undefined:e.labelOffset[1]/2})),right:f.right,circle:f.circle};
+ return <section className="math1-trig-example"><h4>{f.title}</h4><Math1TrigPlane {...props} note={f.description}/></section>;
 }

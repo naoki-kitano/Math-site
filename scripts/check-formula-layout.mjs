@@ -19,9 +19,12 @@ try{
   for(const slug of Object.keys(formulaCorrespondence).filter(slug=>!slugFilter||slugFilter.includes(slug))){
    await page.goto(`${base}/learn/${slug}${staticMode?'.html':''}#basics`,{waitUntil:'domcontentloaded'});
    const panel=page.locator('[data-formula-lesson]');await panel.waitFor();
+   await page.waitForFunction(()=>{const b=document.querySelector('[data-formula-lesson] button');return b&&Object.keys(b).some(k=>k.startsWith('__reactProps$'));});
    await page.evaluate(()=>document.fonts.ready);
    for(let stage=0;stage<formulaCorrespondence[slug].steps.length;stage++){
     if(stage)await panel.getByRole('button',{name:'次へ',exact:true}).click();
+    await page.waitForFunction(expected=>Number(document.querySelector('[data-formula-lesson]')?.getAttribute('data-stage'))===expected,stage);
+    assert.equal(await panel.getAttribute('data-stage'),String(stage),slug+' stage');
     await page.evaluate(()=>document.fonts.ready);
     await page.waitForTimeout(100);
     const issues=await panel.evaluate(panel=>{

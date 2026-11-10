@@ -14,16 +14,20 @@ export type Exercise = {
   family: string; prompt: string; tex?: string; kind: "choice" | "number" | "paper";
   options?: string[]; correct?: number; answer: string; hints: string[]; steps: Step[];
   repair: string;
+  /** The complete proof is revealed in steps; keep answer for records and exports. */
+  answerInSteps?: boolean;
 };
 export type Lesson = {
   subject?: "数学I" | "数学II" | "数学III" | "数学A" | "数学B" | "数学C" | "中学数学";
   section?:string;
   practiceGroups?:{id:string;title:string;exerciseIds:string[]}[];
   guidedAfterExamples?: boolean;
+  /** Existing ready-question IDs to show by default. An empty list skips warmup. */
+  warmupIds?: string[];
   prerequisites?: {slug:string;label:string}[];
   slug: string; title: string; chapter: string; description: string; basicsTitle?: string;
   introduction: string[]; rule: string; ruleTex?: string; examples: Example[];
-  supplements: { id: string; title: string; text: string; tex: string; check: string; answer: string }[];
+  supplements: { id: string; title: string; text: string; tex: string; check: string; answer: string; answerExerciseId?:string; additionalExamples?: {title:string;text:string;tex?:string}[] }[];
 };
 
 export const lessons: Lesson[] = [

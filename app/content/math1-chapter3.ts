@@ -1,12 +1,14 @@
 import {functionFoundationTopics} from "./math1-function-foundations";
 import {completingSquareTopics} from "./math1-completing-square";
-import {quadraticGraphTopics} from "./math1-quadratic-graphs";
+import {quadraticGraphTopics,quadraticGraphCases} from "./math1-quadratic-graphs";
 import {quadraticEquationTopics} from "./math1-quadratic-equations";
 import {quadraticInequalityTopics} from "./math1-quadratic-inequalities";
 import {quadraticApplicationTopics} from "./math1-quadratic-applications";
+import {finalizeQuadraticTopic} from "./math1-quadratic-authoring";
 import type {Exercise,Lesson} from "./lessons";
 // Chapter content independently reviewed; public deployment remains a separate step.
 export const math1Chapter3Topics=[...functionFoundationTopics,...completingSquareTopics,...quadraticGraphTopics,...quadraticEquationTopics,...quadraticInequalityTopics,...quadraticApplicationTopics];
+math1Chapter3Topics.forEach(finalizeQuadraticTopic);
 const slug="m1-quadratics-check";
 const titles=["式とグラフ","平方完成・関数の決定","最大値・最小値","方程式・不等式","数量の表現"];
 const groupOf=(i:number)=>i<5?0:i<9?1:i<11?2:i<17?3:4;
@@ -41,7 +43,7 @@ const reviewOnly=new Set(["m1-function-values-signed-square-3-v1","m1-function-v
 const methodReasons:Record<string,string>={
  "quadratic-formula":"解の公式を選ぶ。整数の積に因数分解しにくい形でも、係数から実数解をまとめて求められるから。",
  "formula-no-real":"判別式を調べる方法を選ぶ。平方完成した式の右辺が実数の平方になり得るかを、その符号から判断できるから。",
- "formula-double":"判別式と解の公式を使う方法を選ぶ。判別式がゼロなら、正負の項がなくなって一つの値が求まるから。",
+ "formula-double":"判別式と解の公式を使う方法を選ぶ。判別式がゼロなら、平方根がゼロになり、一つの値が求まるから。",
  "discriminant-count":"判別式を調べる方法を選ぶ。個々の解を求めなくても、符号から異なる実数解の個数が分かるから。",
  "intercept-count":"判別式を調べる方法を選ぶ。縦座標がゼロとなる方程式の異なる実数解が、共有点に一対一に対応するから。",
 };
@@ -61,10 +63,10 @@ math1Chapter3Topics.forEach(({lesson,exercises},i)=>{
   math1QuadraticCoverage.push({lesson:lesson.slug,family,checkFamily,sourceIds:selected.map(e=>e.id)});
   if(seen.has(fingerprint))continue;seen.set(fingerprint,checkFamily);
   const repair=lesson.supplements.find(s=>s.id===family)!;
-  supplements.push({...repair,id:checkFamily,title:lesson.title+"："+repair.title,...(reason?{text:choosePrompt(selected[0].prompt)+"\n方法の一例："+reason+"\n"+selected[0].steps.map(s=>s.text).join("\n")+"\n"+selected[0].answer+"\n正しい別の解き方でも構いません。\n"+repair.text,check:choosePrompt(repair.check),answer:"方法の一例："+reason+"\n"+repair.answer}:{})});
+  supplements.push({...repair,id:checkFamily,title:lesson.title+"："+repair.title,...(reason?{text:repair.text,additionalExamples:[{title:choosePrompt(selected[0].prompt),text:"方法の一例："+reason+"\n"+selected[0].steps.map(s=>s.text).join("\n")+"\n"+selected[0].answer},...(repair.additionalExamples??[])],check:choosePrompt(repair.check),answer:"方法の一例："+reason+"\n"+repair.answer}:{})});
   selected.forEach((e,n)=>{
    const stage=reviewOnly.has(e.id)?"review":"practice",id=`${slug}-${checkFamily}-${n+1}-v1`;
-   const choice=reason?{prompt:choosePrompt(e.prompt),answer:"方法の一例："+reason+"\n"+e.answer,steps:[{title:"方法を選ぶ",text:reason},...e.steps,{title:"別の解き方",text:"正しい別の解法でも構いません。必要な条件とすべての解・個数を確認します。"}]}:{};
+   const choice=reason?{prompt:choosePrompt(e.prompt),answer:"方法の一例："+reason+"\n"+e.answer,steps:[{title:"方法を選ぶ",text:reason},...e.steps]}:{};
    math1QuadraticCheckExercises.push({...e,...choice,id,lesson:slug,stage,family:checkFamily,repair:checkFamily});
    if(stage==="practice")groups[groupOf(i)].exerciseIds.push(id);
   });
@@ -83,3 +85,42 @@ const examples=[5,10].map((i,n)=>{
 export const math1QuadraticCheckLesson:Lesson={slug,title:"二次関数の章末確認",chapter:"二次関数",subject:"数学I",section:"章末確認",basicsTitle:"式・点・範囲をつなぐ",description:"定義域と問いを確かめ、式とグラフを使って答えよう。",introduction:["点の座標、関数値、方程式の解、不等式の範囲はそれぞれ違う対象です。何を答える問題かを最初に確かめます。","平方完成で頂点を読み、定義域に含まれるかを確認します。方程式ではすべての解、不等式では境界の等号を残します。数量の問題は単位と入力の条件まで戻って答えます。"],rule:"求める対象と、使える入力の範囲を確認します。",examples,guidedAfterExamples:true,supplements,practiceGroups:groups};
 export const math1Chapter3Lessons=[...math1Chapter3Topics.map(t=>t.lesson),math1QuadraticCheckLesson];
 export const math1Chapter3Exercises=[...math1Chapter3Topics.flatMap(t=>t.exercises),...math1QuadraticCheckExercises];
+
+/** Exact authored question IDs, including the chapter copies. */
+export const math1QuadraticAnswerCases=Object.fromEntries(math1Chapter3Exercises.flatMap(e=>{
+ const figure=quadraticGraphCases.find(g=>g.prompt===e.prompt);
+ return figure?[[e.id,{a:figure.a,h:figure.h,k:figure.k}]]:[];
+})) as Record<string,{a:number;h:number;k:number}>;
+
+for(const lesson of math1Chapter3Lessons){
+ for(const supplement of lesson.supplements){
+  const matches=math1Chapter3Exercises.filter(e=>e.prompt===supplement.check&&math1QuadraticAnswerCases[e.id]);
+  const exercise=matches.find(e=>e.lesson===lesson.slug)??matches[0];
+  if(exercise)supplement.answerExerciseId=exercise.id;
+ }
+}
+
+// Choose only preparation used in the next mathematical decision. Other ready
+// questions remain available through their IDs and repair/review paths.
+const quadraticWarmupIds:Record<string,string[]>={
+ "m1-function-values":["m1-function-values-signed-square-1-v1","m1-function-values-linear-substitution-1-v1"],
+ "m1-graph-points":["m1-graph-points-coordinate-order-1-v1","m1-graph-points-linear-substitution-1-v1"],
+ "m1-domain-range":["m1-domain-range-interval-membership-1-v1"],
+ "m1-basic-parabola":["m1-basic-parabola-signed-square-1-v1"],
+ "m1-parabola-translation":["m1-parabola-translation-coordinate-order-1-v1"],
+ "m1-completing-square":["m1-completing-square-expand-square-1-v1"],
+ "m1-completing-square-coefficient":["m1-completing-square-coefficient-factor-leading-1-v1"],
+ "m1-quadratic-graph":["m1-quadratic-graph-vertex-form-reading-1-v1"],
+ "m1-determine-quadratic":["m1-determine-quadratic-vertex-form-reading-1-v1"],
+ "m1-parabola-extrema":["m1-parabola-extrema-vertex-form-reading-1-v1"],
+ "m1-interval-extrema":["m1-interval-extrema-vertex-form-reading-1-v1","m1-interval-extrema-interval-membership-1-v1"],
+ "m1-quadratic-factor-equation":["m1-quadratic-factor-equation-zero-product-1-v1"],
+ "m1-quadratic-formula":["m1-quadratic-formula-signed-square-1-v1"],
+ "m1-equation-graph":["m1-equation-graph-zero-product-1-v1"],
+ "m1-quadratic-inequality":["m1-quadratic-inequality-graph-sign-1-v1","m1-quadratic-inequality-interval-membership-1-v1"],
+ "m1-quadratic-inequality-boundaries":[],
+ "m1-graph-intersections":[],
+ "m1-quadratic-model":[],
+ "m1-quadratics-check":[]
+};
+for(const lesson of math1Chapter3Lessons)lesson.warmupIds=quadraticWarmupIds[lesson.slug];

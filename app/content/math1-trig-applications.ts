@@ -7,7 +7,7 @@ function area(b:number,c:number,A:30|60|90|120|150):Worked{
 }
 function areaHeight(base:number,side:number,A:30|90|150):Worked{
  const h=A===90?String(side):fraction(side,2),s=fraction(base*side,A===90?2:4);
- return w(m`三角形 $ABC$ で $AB=${base},AC=${side},A=${A}^\circ$。$AB$ を底辺とした高さ $h$ と面積 $S$ を求めなさい。`,m`$h=${h},\ S=${s}$。`,"高さは底辺の直線までの垂直な距離です。斜めの辺をそのまま高さにしません。",m`$C$ から直線 $AB$ へ垂線を下ろすと $h=AC\sin A=${side}\cdot(${specialValues[A][0]})=${h}$。${A===150?"足は辺の延長上にあり、補角の正弦を使っても同じ高さです。":""}$S=\frac12\cdot${base}\cdot(${h})=${s}$。`);
+ return w(m`三角形 $ABC$ で $AB=${base},AC=${side},A=${A}^\circ$。$AB$ を底辺とした高さ $h$ と面積 $S$ を求めなさい。`,m`$h=${h},\ S=${s}$。`,A===90?m`底辺に垂直な $AC$ が、そのまま高さです。`:m`$C$ から底辺の直線に下ろした垂線が高さです。`,m`$C$ から直線 $AB$ へ垂線を下ろすと $h=AC\sin A=${side}\cdot(${specialValues[A][0]})=${h}$。${A===150?"足は辺の延長上にあり、補角の正弦を使っても同じ高さです。":""}$S=\frac12\cdot${base}\cdot(${h})=${s}$。`);
 }
 export const triangleArea=topic("m1-triangle-area","三角形の面積",[
  m`三角形 $ABC$ で $AB=c,AC=b$ とすると、この二辺の間の角は $A$ です。底辺 $AB$ に対する高さは $b\sin A$ なので、面積は $S=\frac12bc\sin A$。三辺のうち任意の二辺と、その間の角で同様に表せます。`,
@@ -51,11 +51,11 @@ repairCases(measurement,"survey-height",["2","3"]);
 repairCases(measurement,"survey-triangle",["2","4"]);
 function cuboid(a:number,b:number,h:number):Worked{
  const d2=a*a+b*b,n=d2+h*h;
- return w(m`直方体 $ABCD\text{-}EFGH$ で、$E,F,G,H$ は順に $A,B,C,D$ の真上にあります。$AB=${a},BC=${b},CG=${h}$ のとき、底面の対角線 $AC$ と空間の対角線 $AG$ を求めなさい。`,m`$AC=${root(d2)},\ AG=${root(n)}$。`,"底面で一つの直角三角形を解き、その対角線と高さを含む直角三角形を取り出します。",m`底面で $AC^2=${a}^2+${b}^2=${d2}$。$CG$ は底面に垂直なので $\angle ACG=90^\circ$。断面の三角形 $ACG$ で $AG^2=AC^2+CG^2=${d2}+${h*h}=${n}$。どちらも正の根をとります。`);
+ return w(m`直方体 $ABCD\text{-}EFGH$ で、$E,F,G,H$ は順に $A,B,C,D$ の真上にあります。$AB=${a},BC=${b},CG=${h}$ のとき、底面の対角線 $AC$ と空間の対角線 $AG$ を求めなさい。`,m`$AC=${root(d2)},\ AG=${root(n)}$。`,"底面で一つの直角三角形を解き、その対角線と高さを含む直角三角形を取り出します。",m`底面で $AC^2=${a}^2+${b}^2=${d2}$。$CG$ は底面に垂直なので $\angle ACG=90^\circ$。断面の三角形 $ACG$ で $AG^2=AC^2+CG^2=${d2}+${h*h}=${n}$。長さは正なので $AC=${root(d2)},AG=${root(n)}$。`);
 }
 function pyramid(side:number,h:number):Worked{
  const half=side/2,slant2=half*half+h*h,edge2=side*side/2+h*h;
- return w(m`正方形 $ABCD$ を底面とする四角錐で、一辺は $${side}$。頂点 $V$ は底面の中心 $O$ の真上にあり、$VO=${h}$ です。辺 $AB$ の中点を $M$ として、側面の高さ $VM$ と側辺 $VA$ を求めなさい。`,m`$VM=${root(slant2)},\ VA=${root(edge2)}$。`,"側面の高さには辺の中点、側辺には底面の頂点を結ぶ断面を使います。",m`$OM=${half}$。$O$ は底面の対角線 $AC$ の中点なので、$OA=\frac{AC}{2}$。三平方の定理より $OA^2=\frac{${side}^2+${side}^2}{4}=${side*side/2}$。$VO$ は底面に垂直なので、三角形 $VOM,VOA$ は $O$ で直角です。$VM^2=${h}^2+${half}^2=${slant2}$、$VA^2=${h}^2+${side*side/2}=${edge2}$。$VM$ と $VA$ は違う線分です。`);
+ return w(m`正方形 $ABCD$ を底面とする四角錐で、一辺は $${side}$。頂点 $V$ は底面の中心 $O$ の真上にあり、$VO=${h}$ です。辺 $AB$ の中点を $M$ として、側面の高さ $VM$ と側辺 $VA$ を求めなさい。`,m`$VM=${root(slant2)},\ VA=${root(edge2)}$。`,"側面の高さには辺の中点、側辺には底面の頂点を結ぶ断面を使います。",m`$OM=${half}$。$O$ は底面の対角線 $AC$ の中点なので、$OA=\frac{AC}{2}$。三平方の定理より $OA^2=\frac{${side}^2+${side}^2}{4}=${side*side/2}$。$VO$ は底面に垂直なので、三角形 $VOM,VOA$ は $O$ で直角です。$VM^2=${h}^2+${half}^2=${slant2}$、$VA^2=${h}^2+${side*side/2}=${edge2}$。長さは正なので $VM=${root(slant2)},VA=${root(edge2)}$。`);
 }
 export const spaceTriangles=topic("m1-space-triangles","空間図形の中の三角形",[
  m`立体の図は紙の上に斜めに描くため、直角も鋭角に見えることがあります。見た目の角度ではなく、底面や高さの条件から、同じ平面上の三角形を取り出します。`,
@@ -69,5 +69,18 @@ export const spaceTriangles=topic("m1-space-triangles","空間図形の中の三
 addPair(spaceTriangles,"line-plane-angle","対角線と底面のなす角",m`直方体 $ABCD\text{-}EFGH$ で上の頂点は下の同じ順の頂点の真上です。$AG$ を底面へ写すと $AC$ なので、求める角は断面の $\angle GAC$。`,[
  w(m`直方体 $ABCD\text{-}EFGH$ で上の頂点は下の同じ順の頂点の真上です。$AB=3,BC=4,CG=5$ のとき、$AG$ と底面 $ABCD$ のなす角 $\theta$ を求めなさい。`,m`$\theta=45^\circ$。`,"底面への垂直な投影を探し、断面の直角三角形で正接を考えます。",m`$AC=\sqrt{3^2+4^2}=5$。$AG$ の底面への投影は $AC$ なので $\theta=\angle GAC$。$\tan\theta=\frac{CG}{AC}=1$、$0^\circ<\theta<90^\circ$ より $\theta=45^\circ$。`),
  w(m`直方体 $ABCD\text{-}EFGH$ で上の頂点は下の同じ順の頂点の真上です。$AB=3,BC=4,CG=5\sqrt3$ のとき、$AG$ と底面 $ABCD$ のなす角 $\theta$ を求めなさい。`,m`$\theta=60^\circ$。`,"立体の図の見た目ではなく、底面の対角線と高さの比を使います。",m`$AC=5$、$\theta=\angle GAC$。$\tan\theta=\frac{5\sqrt3}{5}=\sqrt3$。鋭角の範囲で $\theta=60^\circ$。`),
-]);
+],true);
+triangleArea.lesson.warmupIds=[];
+spaceTriangles.lesson.warmupIds=["m1-space-triangles-positive-length-1-v1"];
 export const trigApplicationTopics=[triangleArea,measurement,spaceTriangles];
+
+spaceTriangles.lesson.examples[0].steps=[
+ {title:"底面の三角形",text:m`底面が長方形なので $\angle ABC=90^\circ$。まず三角形 $ABC$ の斜辺 $AC$ を求めます。`},
+ {title:"共通の辺を求める",text:m`三平方の定理より $AC^2=3^2+4^2=25$。長さは正なので $AC=5$。`},
+ {title:"断面の三角形",text:m`$CG$ は底面に垂直なので $CG\perp AC$。三角形 $ACG$ で $AG^2=5^2+12^2=169$。したがって $AG=13$。`},
+];
+spaceTriangles.lesson.examples[1].steps=[
+ {title:"中点へ向かう断面",text:m`$M$ は一辺 $6$ の正方形の辺の中点なので $OM=3$。$VO$ は底面に垂直で、三角形 $VOM$ は $O$ で直角です。`},
+ {title:"側面の高さ",text:m`$VM^2=VO^2+OM^2=4^2+3^2=25$。長さは正なので $VM=5$。`},
+ {title:"頂点へ向かう断面",text:m`底面の対角線の半分は $OA=3\sqrt2$。同じ高さ $VO=4$ を使い、三角形 $VOA$ で $VA^2=4^2+(3\sqrt2)^2=34$。したがって $VA=\sqrt{34}$。`},
+];

@@ -1,11 +1,11 @@
 import {trigTopic as topic,m,w,fraction,anglePrep,ratioPrep,lengthPrep,specialValues,repairCases,appendTrigQuestion,regroupTrig,type SpecialAngle} from "./math1-trig-authoring";
 import {addPair,type Worked} from "./math1-topic";
-function coordinateRatio(x:number,y:number,r:number):Worked{return w(m`原点 $O$ を中心とする半径 $${r}$ の上半円上に点 $P(${x},${y})$ があります。正の横軸から $OP$ までの角を $\theta$ として、三つの三角比を求めなさい。`,m`$\sin\theta=${fraction(y,r)},\ \cos\theta=${fraction(x,r)},\ \tan\theta=${fraction(y,x)}$。`,"正弦は縦座標を半径で割り、余弦は横座標を半径で割ります。正接の分母は横座標です。",m`$\sin\theta=\frac{${y}}{${r}}=${fraction(y,r)},\ \cos\theta=\frac{${x}}{${r}}=${fraction(x,r)},\ \tan\theta=\frac{${y}}{${x}}=${fraction(y,x)}$。座標の負号を長さに置き換えて消してはいけません。`);}
+function coordinateRatio(x:number,y:number,r:number):Worked{return w(m`原点 $O$ を中心とする半径 $${r}$ の上半円上に点 $P(${x},${y})$ があります。正の横軸から反時計回りに $OP$ まで測った角を $\theta$ として、三つの三角比を求めなさい。`,m`$\sin\theta=${fraction(y,r)},\ \cos\theta=${fraction(x,r)},\ \tan\theta=${fraction(y,x)}$。`,m`$x=${x},y=${y},r=${r}$ を、三角比の定義に対応させます。`,[m`$\sin\theta=\frac yr=${fraction(y,r)}$。`,m`$\cos\theta=\frac xr=${fraction(x,r)}$。`,m`$x=${x}\ne0$ なので $\tan\theta=\frac yx=${fraction(y,x)}$。`,...(x<0?[m`横座標 $x$ は負なので、余弦と正接も負です。`]:[])].join("\n"));}
 function boundaryRatio(a:0|90|180,kind:0|1|2):Worked{
  const cmd=["\\sin","\\cos","\\tan"][kind],value=specialValues[a][kind],point={0:"(1,0)",90:"(0,1)",180:"(-1,0)"}[a];
  const prompt=kind===2?m`$${cmd}${a}^\circ$ は定義されますか。理由を答え、定義される場合は値も求めなさい。`:m`$${cmd}${a}^\circ$ の値を求めなさい。`;
  const answer=value===null?m`$\tan90^\circ$ は定義されません。横座標が $0$ で、$0$ で割れないためです。`:kind===2?m`定義されます。単位円上の横座標は $${a===0?1:-1}\ne0$ なので、$${cmd}${a}^\circ=${value}$。`:m`$${cmd}${a}^\circ=${value}$。`;
- return w(prompt,answer,"単位円上の点の座標へ戻ります。正接では分母がゼロでないか確かめます。",m`角 $${a}^\circ$ に対応する点は $${point}$。`+(value===null?m`$\tan\theta=\frac yx$ の分母が $0$ になります。`:kind===2?m`横座標は $0$ でないので $\tan\theta=\frac yx$ を使えて、$${cmd}${a}^\circ=${value}$。`:m`$${kind===0?"\\sin\\theta=y":"\\cos\\theta=x"}$ の定義から $${cmd}${a}^\circ=${value}$。`));
+ return w(prompt,answer,kind===0?"単位円の点の縦座標を読みます。":kind===1?"単位円の点の横座標を読みます。":m`$\tan\theta=\frac yx$ の分母が $0$ でないか確かめます。`,m`角 $${a}^\circ$ に対応する点は $${point}$。`+(value===null?m`$\tan\theta=\frac yx$ の分母が $0$ なので、$\tan90^\circ$ は定義されません。`:kind===2?m`横座標は $0$ でないので $\tan\theta=\frac yx$ を使えて、$${cmd}${a}^\circ=${value}$。`:m`$${kind===0?"\\sin\\theta=y":"\\cos\\theta=x"}$ の定義から $${cmd}${a}^\circ=${value}$。`));
 }
 export const trigCoordinates=topic("m1-trig-coordinates","座標で広げる三角比",[
  m`直角三角形の鋭角だけでなく、$0^\circ\le\theta\le180^\circ$ へ広げます。原点 $O$ を中心とする半径 $r>0$ の上半円上の点を $P(x,y)$ とし、正の横軸から反時計回りに測った角を $\theta$ とします。`,
@@ -43,12 +43,12 @@ repairCases(trigRelations,"complement-ratio",["2","4"]);
 repairCases(trigRelations,"supplement-ratio",["1","3"]);
 addPair(trigRelations,"identity-domain","正接の関係を使える条件",m`$\tan\theta=\frac{\sin\theta}{\cos\theta}$ は $\cos\theta\ne0$ が条件です。式の見た目だけでなく分母を確かめます。`,[
  w(m`$\theta=90^\circ$ に $\tan\theta=\frac{\sin\theta}{\cos\theta}$ を使って正接の値を求められますか。理由も答えなさい。`,m`求められません。$\cos90^\circ=0$ で、右辺も正接も定義されません。`,"分母に来る値を確かめます。",m`$\sin90^\circ=1,\cos90^\circ=0$。$0$ で割ることはできないので適用できません。`),
- w(m`$\theta=180^\circ$ に $\tan\theta=\frac{\sin\theta}{\cos\theta}$ を使えますか。使えるなら値も答えなさい。`,m`使えます。$\cos180^\circ=-1\ne0$ なので $\tan180^\circ=0$。`,"三角形の内角かどうかではなく、この恒等式の条件を確かめます。",m`$\frac{\sin180^\circ}{\cos180^\circ}=\frac0{-1}=0$。`),
-]);
+ w(m`$\theta=180^\circ$ に $\tan\theta=\frac{\sin\theta}{\cos\theta}$ を使えますか。使えるなら値も答えなさい。`,m`使えます。$\cos180^\circ=-1\ne0$ なので $\tan180^\circ=0$。`,"三角形の内角かどうかではなく、この恒等式の条件を確かめます。",m`$\cos180^\circ=-1\ne0$ なので使えます。$\tan180^\circ=\frac{\sin180^\circ}{\cos180^\circ}=\frac0{-1}=0$。`),
+],true);
 function sineAngles(a:0|30|45|60|90,domain:"closed"|"interior"|"obtuse"):Worked{
  const candidates=[a,180-a].filter((v,i,arr)=>arr.indexOf(v)===i).filter(v=>domain==="closed"||domain==="interior"&&v>0&&v<180||domain==="obtuse"&&v>90&&v<180);
  const range=domain==="closed"?m`0^\circ\le\theta\le180^\circ`:domain==="interior"?m`0^\circ<\theta<180^\circ`:m`90^\circ<\theta<180^\circ`;
- return w(m`$${range}$ で $\sin\theta=${specialValues[a][0]}$ を満たす $\theta$ をすべて求めなさい。`,candidates.length?m`$\theta=${candidates.map(v=>`${v}^\\circ`).join(",")}$。`:"該当する角はありません。","半径1の単位円上で同じ高さの点を探し、指定範囲と重複を確認します。",(a===90?m`単位円で $y=1$ となる点は $x^2+1=1$ より $(0,1)$ だけです。したがって候補は $90^\circ$ だけです。`:a===0?m`単位円で $y=0$ となる点は $(1,0),(-1,0)$ の二つだけなので、候補は $0^\circ,180^\circ$ です。`:m`半径1の単位円で $${a}^\circ$ と $${180-a}^\circ$ の異なる二点は同じ高さです。水平線と円の交点は高々二つなので、これらが全候補です。`)+m`範囲 $${range}$ を満たすものだけを残します。`);
+ return w(m`$${range}$ で $\sin\theta=${specialValues[a][0]}$ を満たす $\theta$ をすべて求めなさい。`,candidates.length?m`$\theta=${candidates.map(v=>`${v}^\\circ`).join(",")}$。`:"該当する角はありません。","半径1の単位円上で同じ高さの点を探し、指定範囲と重複を確認します。",(a===90?m`単位円で $y=1$ となる点は $x^2+1=1$ より $(0,1)$ だけです。したがって候補は $90^\circ$ だけです。`:a===0?m`単位円で $y=0$ となる点は $(1,0),(-1,0)$ の二つだけなので、候補は $0^\circ,180^\circ$ です。`:m`半径1の単位円で $${a}^\circ$ と $${180-a}^\circ$ の異なる二点は同じ高さです。水平線と円の交点は高々二つなので、これらが全候補です。`)+(candidates.length?m`範囲 $${range}$ に入る全解は $\theta=${candidates.map(v=>`${v}^\\circ`).join(",")}$ です。`:m`候補 $0^\circ,180^\circ$ はともに範囲 $${range}$ の外なので、解はありません。`));
 }
 function cosineAngle(a:SpecialAngle):Worked{return w(m`$0^\circ\le\theta\le180^\circ$ で $\cos\theta=${specialValues[a][1]}$ を満たす角をすべて求めなさい。`,m`$\theta=${a}^\circ$。`,"単位円では余弦は横座標です。同じ高さの点を探す正弦とは区別します。",m`上半円では横座標が $1$ から $-1$ へ一方向に減るので、指定の横座標の点は一つ。$\cos${a}^\circ=${specialValues[a][1]}$ より答えは $${a}^\circ$ だけです。`);}
 export const equalSines=topic("m1-equal-sines","同じ正弦をもつ角",[
@@ -62,6 +62,9 @@ export const equalSines=topic("m1-equal-sines","同じ正弦をもつ角",[
 ],[anglePrep,ratioPrep]);
 repairCases(equalSines,"sine-all-angles",["3","4","5","6"]);
 export const trigExtensionTopics=[trigCoordinates,trigRelations,equalSines];
+trigCoordinates.lesson.warmupIds=["m1-trig-coordinates-reduce-ratio-1-v1"];
+trigRelations.lesson.warmupIds=["m1-trig-relations-reduce-ratio-1-v1"];
+equalSines.lesson.warmupIds=[];
 regroupTrig(trigCoordinates,["endpoint-ratios-4","endpoint-ratios-8","endpoint-ratios-9"],"endpoint-tangent-domain","正接の分母を確かめる",m`単位円上で $\tan\theta=\frac yx$ を使うには $x\ne0$ が必要です。軸上でも、定義される場合とされない場合を分けます。`);
 appendTrigQuestion(equalSines,"unit-sine-angle","extra-1",w(m`単位円の上半分で、縦座標が $1$ になる点はどこですか。正の横軸から測る角 $\theta$（$0^\circ\le\theta\le180^\circ$）もすべて答えなさい。`,m`点 $(0,1)$ のみで、$\theta=90^\circ$ のみです。`,"円の式に縦座標を代入し、横座標が何通りあるか確かめます。",m`$x^2+1^2=1$ より $x=0$。したがって上半円の頂点一つだけで、角も $90^\circ$ のみです。`));
 regroupTrig(equalSines,["sine-all-angles-4","unit-sine-angle-extra-1"],"unit-sine-angle","正弦が1となる点は一つ",m`半径1の単位円で高さ $1$ の点は頂点 $(0,1)$ だけです。二つの異なる候補を探す必要はありません。`);
@@ -69,8 +72,8 @@ regroupTrig(equalSines,["sine-all-angles-5","sine-all-angles-6"],"zero-sine-endp
 addPair(trigRelations,"recover-sine","余弦から正弦を求める",m`$0^\circ<\theta<180^\circ$ では正弦は正です。$\sin^2\theta=1-\cos^2\theta$ から正の平方根を選びます。余弦が負でも二乗は正です。`,[
  w(m`$0^\circ<\theta<180^\circ$、$\cos\theta=-\frac35$ のとき、$\sin\theta$ を求めなさい。`,m`$\sin\theta=\frac45$。`,"余弦の負号も含めて二乗してから、正弦の符号を決めます。",m`$\sin^2\theta=1-\left(-\frac35\right)^2=\frac{16}{25}$。$0^\circ<\theta<180^\circ$ では、上半円上の点の縦座標は正なので $\sin\theta=\frac45$。`),
  w(m`$0^\circ<\theta<180^\circ$、$\cos\theta=\frac5{13}$ のとき、$\sin\theta$ を求めなさい。`,m`$\sin\theta=\frac{12}{13}$。`,"正弦の二乗を求め、角の範囲から正の根を選びます。",m`$\sin^2\theta=1-\frac{25}{169}=\frac{144}{169}$。正弦は正なので $\sin\theta=\frac{12}{13}$。`),
-]);
+],true);
 addPair(trigRelations,"tangent-squared","正接から余弦の二乗へ",m`$\cos\theta\ne0$ で $\sin^2\theta+\cos^2\theta=1$ を $\cos^2\theta$ で割ると、$1+\tan^2\theta=\frac1{\cos^2\theta}$。したがって $\cos^2\theta=\frac1{1+\tan^2\theta}$ です。`,[
  w(m`$0^\circ<\theta<90^\circ$、$\tan\theta=2$ のとき、$\cos^2\theta$ を求めなさい。`,m`$\cos^2\theta=\frac15$。`,"求めるのは余弦そのものではなく二乗です。逆数の関係を整理します。",m`鋭角なので $\cos\theta\ne0$。$1+\tan^2\theta=1+4=5=\frac1{\cos^2\theta}$ から $\cos^2\theta=\frac15$。`),
  w(m`$90^\circ<\theta<180^\circ$、$\tan\theta=-3$ のとき、$\cos^2\theta$ を求めなさい。`,m`$\cos^2\theta=\frac1{10}$。`,"正接が負でも、その二乗は正です。",m`鈍角なので $\cos\theta\ne0$。$1+(-3)^2=10=\frac1{\cos^2\theta}$ より $\cos^2\theta=\frac1{10}$。余弦自体が負であることと、その二乗が正であることを区別します。`),
-]);
+],true);

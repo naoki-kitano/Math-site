@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "./mathi-controls.css";
+@import "./math1-data.css";
+@import "./math1-trig.css";
+@import "./math1-quadratic.css";
+@import "./math1-logic.css";
+@import "./math1-algebra.css";
 .relation-explorer>svg{display:block;width:100%;max-width:540px;margin:16px auto}.relation-label{font-size:20px;line-height:1.35;text-align:center}.relation-slider{display:block;width:100%;margin:8px 0 20px;min-height:36px;accent-color:#087c70}.relation-factors{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}.relation-conclusion{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.relation-explorer .formula.display{font-size:.95rem}@media(max-width:600px){.relation-label{font-size:23px}.relation-explorer.panel{padding:16px}.relation-explorer .graph-controls{gap:6px}.relation-explorer .graph-controls button{padding:6px 10px}}
 .rotation-controls .button .formula,.walkthrough-actions .button .formula{color:inherit}
 .rotation-stages{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.rotation-stages button{border:1px solid #adbfcc;background:#fff;border-radius:7px;padding:8px 12px;color:var(--ink);min-height:44px}.rotation-stages button[aria-pressed=true]{background:var(--navy);color:white}.rotation-stages button .formula{color:inherit}.rotation-board{display:block;max-width:650px;width:100%;margin:12px auto}.rotation-math-label{font-size:19px;line-height:1.35;text-align:center;color:var(--ink)}.rotation-operation{border-left:3px solid #087c70;background:#eff7f4;padding:10px 16px}.rotation-operation .katex-display{margin:0}.rotation-instruction{max-width:44em;margin-bottom:14px}.rotation-calculation{margin-top:18px;padding-top:12px;border-top:1px solid var(--line)}.rotation-original .formula{color:#718293}.rotation-controls>.text-link{border:0;background:none;font-size:.9rem}.complex-rotation .rotation-controls{margin-top:10px}
@@ -151,3 +157,7 @@
 
 /* Keep sign-table symbols at their normal size; reduce only column gutters. */
 @media(max-width:600px){.compact-sign-table .arraycolsep{width:.25em!important}}
+
+.repair-additional{margin-top:20px}.repair-additional>summary{cursor:pointer;font-weight:700}
+
+.feedback .responsive-coordinate,.structure-diagram>.responsive-coordinate{border:0;border-radius:0;padding:12px 0;background:transparent}

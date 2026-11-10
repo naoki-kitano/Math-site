@@ -97,14 +97,16 @@ function polynomial(source){
  const a=sum();assert.equal(i,tokens.length);return [...a].filter(([,v])=>v!==0).sort(([a],[b])=>a.localeCompare(b));
 }
 test('every factoring answer expands to the full original polynomial',()=>{
+ const exampleFactors={'m1-common-factors':['3x(2x+3)','2x(x-2)(x+2)'],'m1-quadratic-factorization':['(x+2)(x+3)','(2x+1)(x+3)'],'m1-grouping':['(x+1)(2x+1)','(x+3)(y+2)']};
  let count=0;
  for(const d of drafts.filter(d=>['m1-common-factors','m1-quadratic-factorization','m1-grouping'].includes(d.lesson.slug))){
   for(const e of d.exercises.filter(e=>!['number-product'].includes(e.family))){
    const p=e.prompt.match(/\$([^$]+)\$/)[1],a=e.answer.match(/\$([^$]+)\$/)[1];
    assert.deepEqual(polynomial(a),polynomial(p),e.id);count++;
   }
-  for(const example of d.lesson.examples){
-   const p=example.prompt.match(/\$([^$]+)\$/)[1],a=example.steps.at(-1).text.match(/\$([^$]+)\$/)[1];
+  for(const [index,example]of d.lesson.examples.entries()){
+   const p=example.prompt.match(/\$([^$]+)\$/)[1],a=exampleFactors[d.lesson.slug][index];
+   assert.ok(example.steps.some(s=>s.text.includes(a)||s.tex?.includes(a)),example.title+' retains the factored result');
    assert.deepEqual(polynomial(a),polynomial(p),example.title);count++;
   }
  }

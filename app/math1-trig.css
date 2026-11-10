@@ -1,0 +1,6 @@
+.math1-trig-figure{margin:1rem auto;max-width:400px;width:100%;color:#0b1f3a}
+.math1-trig-figure>svg{display:block;width:100%;height:auto;overflow:visible}
+.math1-trig-label{height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1.2;white-space:nowrap}
+.math1-trig-label .formula{margin:0;max-width:none;overflow:visible;color:inherit}
+.math1-trig-label .katex{font-size:1em}
+.math1-trig-figure figcaption{font-size:.87rem;line-height:1.65;margin-top:.25rem;text-align:center}

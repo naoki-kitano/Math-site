@@ -20,7 +20,7 @@ export const rootMeaning=topic("m1-square-roots","平方根と根号の意味",[
  m`$\sqrt{(-3)^2}=\sqrt9=3$。二乗と根号を外して単に $-3$ としてはいけません。根号の値は非負だからです。一般に $\sqrt{x^2}$ は $x$ の符号を除いた大きさで、後の絶対値のページで $|x|$ と表します。`,
 ],"平方根をすべて求める問いと、根号の値を求める問いを区別します。",[
  {id:"principal",title:"根号は非負の値",why:"根号の中を計算した後、非負の平方根を選びます。",sample:principal(-3),items:[-2,4,-5,0,-1,6,-4].map(principal)},
- {id:"all-roots",title:"平方根をすべて挙げる",why:"正の数の平方根は正負二つ、ゼロの平方根は一つです。",sample:allRoots(3),items:[2,5,0,4,1,6,7].map(allRoots)},
+ {id:"all-roots",title:"平方根をすべて挙げる",why:"二乗して元の数になる値を、正負とも確かめます。",sample:allRoots(3),items:[2,5,0,4,1,6,7].map(allRoots)},
  {id:"real-domain",title:"実数として定義されるか",why:"実数の二乗は非負なので、実数の平方根を考えるには根号の中が非負であることが必要です。",sample:domains[0],items:[domains[1],domains[2],domains[3]]},
 ],P);
 
@@ -43,7 +43,7 @@ export const radicals=topic("m1-radical-calculation","根号の整理と四則�
 ],"平方因子を取り出してから、同じ根号の項をまとめます。",[
  {id:"simplify",title:"平方因子を根号の外へ",why:"根号の中を平方数と残りの数の積に分けます。",sample:simplify(2,3),items:[[3,2],[2,5],[4,3],[3,5],[5,2],[2,7],[4,2]].map(v=>simplify(v[0],v[1]))},
  {id:"sum",title:"同じ根号をまとめる",why:"各根号を整理すると、同じ根号を含む項の係数を足せます。",sample:sumRoots(2,3,3),items:[[2,3,2],[2,4,3],[3,4,2],[2,3,5],[3,5,3],[2,5,2],[4,5,2]].map(v=>sumRoots(v[0],v[1],v[2]))},
- {id:"product",title:"根号の積と商",why:"根号の中が非負、割り算の分母が正という条件で積・商を計算します。",sample:products[0],items:products.slice(1)},
+ {id:"product",title:"根号の積",why:"被開平数がともに非負なので、根号の中を掛けます。",sample:products[0],items:products.slice(1)},
 ],[prepMultiply,{id:"sum-invalid",title:"和に積の規則は使えない",why:"和の根号は、中の和を先に計算します。",sample:sumInvalid,items:[sumInvalid,[m`$\sqrt{4+5}=\sqrt4+\sqrt5$ は正しいですか。`,m`正しくありません。左辺は $3$、右辺は $2+\sqrt5>4$。`,"両辺を別々に計算します。",m`$\sqrt9=3$、$\sqrt5>2$ より右辺は $4$ より大きくなります。`],[m`$\sqrt{1+3}=\sqrt1+\sqrt3$ は正しいですか。`,m`正しくありません。左辺は $2$、右辺は $1+\sqrt3>2$。`,"根号の中をまず足します。",m`$\sqrt4=2$、$\sqrt3>1$ なので右辺は $2$ より大きくなります。`]]}]);
 
 function rational(d:number,n=1,k=1):Worked{
@@ -103,7 +103,7 @@ radicals.lesson.supplements.push(...squareBank.lesson.supplements);
 
 function absolute(a:number,b:number):Worked{return w(m`|${a}-${b<0?m`(${b})`:b}|`,String(Math.abs(a-b)),"まず絶対値の中を計算し、原点からの距離に直します。",m`|${a}-${b<0?m`(${b})`:b}|=|${a-b}|=${Math.abs(a-b)}`)}
 function distance(a:number,r:number):Worked{return [t(m`|x${a<0?m`+${-a}`:m`-${a}`}|=${r}`)+" を満たす実数をすべて求めなさい。",t(r===0?m`x=${a}`:m`x=${a-r},\ ${a+r}`)+"。",m`数直線で ${t(String(a))} から距離 ${t(String(r))} の点を探します。`,r===0?m`距離がゼロなので ${t(m`x=${a}`)} だけです。`:m`中心 ${t(String(a))} から左右へ ${t(String(r))} 進むので、${t(m`${a}-${r}=${a-r}`)} と ${t(m`${a}+${r}=${a+r}`)}。両方を元の式に入れると距離は ${t(String(r))} です。`]}
-function interval(a:number,r:number,closed:boolean):Worked {const rel=closed?"\\le":"<";return [t(m`|x${a<0?m`+${-a}`:m`-${a}`}|${rel}${r}`)+" を満たす範囲を求めなさい。",t(m`${a-r}${rel} x${rel}${a+r}`)+"。",m`中心 ${t(String(a))} から距離 ${t(String(r))} ${closed?"以下":"未満"}の点を数直線で考えます。`,m`${t(String(a-r))} と ${t(String(a+r))} の間です。距離がちょうど ${t(String(r))} の両端は${closed?"含みます":"含みません"}。`]}
+function interval(a:number,r:number,closed:boolean):Worked {const rel=closed?"\\le":"<";return [t(m`|x${a<0?m`+${-a}`:m`-${a}`}|${rel}${r}`)+" を満たす範囲を求めなさい。",t(m`${a-r}${rel} x${rel}${a+r}`)+"。",m`中心 ${t(String(a))} から距離 ${t(String(r))} ${closed?"以下":"未満"}の点を数直線で考えます。`,m`中心 ${t(String(a))} から左右へ ${t(String(r))} の境界は ${t(m`${a}-${r}=${a-r}`)} と ${t(m`${a}+${r}=${a+r}`)}。距離がちょうど ${t(String(r))} の両端は${closed?"含みます":"含みません"}。`]}
 export const absoluteValues=topic("m1-absolute-distance","絶対値と数直線上の距離",[
  m`実数 $a$ の絶対値 $|a|$ は、数直線上で原点から $a$ までの距離です。$|3|=3$、$|-3|=3$、$|0|=0$。距離なので負にはなりません。`,
  m`$a\ge0$ なら $|a|=a$、$a<0$ なら $|a|=-a$。負の数の符号を反対にすると非負になるからです。$\sqrt{x^2}=|x|$ も、二乗が $x^2$ になる非負の値を選んでいると分かります。`,
@@ -118,3 +118,8 @@ addPair(absoluteValues,"zero-distance","距離ゼロは中心だけ","距離が�
 ]);
 const zeroDistance=absoluteValues.exercises.find(e=>e.id.endsWith("-distance-4-v1"))!;
 zeroDistance.family=zeroDistance.repair="zero-distance";
+
+// The check uses the same operation with different numbers from the worked case.
+const sumCheck=radicals.lesson.supplements.find(s=>s.id==="sum-invalid")!;
+sumCheck.check=m`$\sqrt{36+64}=\sqrt{36}+\sqrt{64}$ は正しいですか。両辺を計算して確かめなさい。`;
+sumCheck.answer=m`左辺は $\sqrt{100}=10$、右辺は $6+8=14$。一致しないので、この等式は成り立ちません。`;

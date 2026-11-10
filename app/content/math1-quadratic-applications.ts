@@ -1,10 +1,10 @@
-import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,vertexForm,signed,substitutionPrep,boundaryPrep,coordinatePrep} from "./math1-quadratic-authoring";
+import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,vertexForm,linearFactor,substitutionPrep,boundaryPrep,coordinatePrep} from "./math1-quadratic-authoring";
 import {addPair,type Worked} from "./math1-topic";
 export const intersectionCases:{f:number[];g:number[];xs:number[];ys:number[]}[]=[];
 function intersections(p:number,q:number,slope:number,constant:number,otherQuadratic=false):Worked{
  const g=[otherQuadratic?1:0,slope,constant],f=[g[0]+1,slope-p-q,constant+p*q],xs=[...new Set([p,q])].sort((a,b)=>a-b),ys=xs.map(x=>g[0]*x*x+g[1]*x+g[2]);
  intersectionCases.push({f,g,xs,ys});
- return w(m`$y=${poly(f[0],f[1],f[2])}$ と $y=${poly(g[0],g[1],g[2])}$ の共有点を求めなさい。`,xs.map((x,i)=>m`$(${x},${ys[i]})$`).join("、")+"。","同じ点では横座標も縦座標も同じなので、二つの右辺を等しくします。",m`右辺を等しくして整理すると $${poly(1,-p-q,p*q)}=0$、つまり $(x${signed(-p)})(x${signed(-q)})=0$。$x=${xs.join(",")}$ を $y=${poly(g[0],g[1],g[2])}$ に代入すると、対応する $y$ は順に $${ys.join(",")}$。両方の式で同じ高さになることを確かめます。`);
+ return w(m`$y=${poly(f[0],f[1],f[2])}$ と $y=${poly(g[0],g[1],g[2])}$ の共有点を求めなさい。`,xs.map((x,i)=>m`$(${x},${ys[i]})$`).join("、")+"。","同じ点では横座標も縦座標も同じなので、二つの右辺を等しくします。",[m`共有点では二つの高さが等しいので、$${poly(f[0],f[1],f[2])}=${poly(g[0],g[1],g[2])}$。`,m`両辺の同類項をまとめると $${poly(1,-p-q,p*q)}=0$、つまり $${linearFactor(p)}${linearFactor(q)}=0$。したがって $x=${xs.join(",")}$。`,m`$y=${poly(g[0],g[1],g[2])}$ へ戻すと、${xs.map((x,i)=>m`$x=${x}$ のとき $y=${ys[i]}$`).join("、")}。どの点も二つの元の式を満たします。`]);
 }
 export const sharedPoints=topic("m1-graph-intersections","二つのグラフの共有点",[
  m`二つのグラフの共有点は、二つの式を同時に満たす点です。同じ横座標で縦座標も等しいため、右辺同士を等しくして横座標を求めます。`,
@@ -20,12 +20,18 @@ addPair(sharedPoints,"no-shared-point","共有点がないことを式で確か�
 ]);
 addPair(sharedPoints,"cancel-quadratic","二次の項が消える共有点計算","右辺を等しくして整理した後の次数で、解く方法を決めます。",[
  w(m`$y=x^2+x$ と $y=x^2+2$ の共有点を求めなさい。`,m`$(2,6)$。`,"両辺の二次の項を引いてみます。",m`$x^2+x=x^2+2$ より $x=2$。どちらの式でも $y=6$ です。`),
- w(m`$y=2x^2-x$ と $y=2x^2+3$ の共有点を求めなさい。`,m`$(-3,21)$。`,"同じ二次の項が消えるので、残る一次方程式を解きます。",m`$-x=3$ より $x=-3$。$y=2(-3)^2+3=21$。`),
+ w(m`$y=2x^2-x$ と $y=2x^2+3$ の共有点を求めなさい。`,m`$(-3,21)$。`,"同じ二次の項が消えるので、残る一次方程式を解きます。",[m`同じ高さなので $2x^2-x=2x^2+3$。両辺から $2x^2$ を引くと $-x=3$、よって $x=-3$。`,m`$y=2(-3)^2+3=21$。`]),
 ]);
 
 function rectangle(L:number,maximum:boolean):Worked{
  const formula=poly(-1,L,0),h=L/2,area=L*L/4;
- return w(m`周の長さが $${2*L}\,\mathrm{cm}$ の長方形で、一辺を $x\,\mathrm{cm}$ とします。${maximum?"面積が最大になる辺の長さと最大面積を求めなさい。":"面積を表す関数と、実数の変数 $x$ の定義域を求めなさい。"}辺の長さは正とします。`,maximum?m`二辺はともに $${num(h)}\,\mathrm{cm}$、最大面積は $${num(area)}\,\mathrm{cm}^2$。`:m`$S=${formula}$、$0<x<${L}$。`,maximum?"周の長さから他方の辺を表し、面積を平方完成します。頂点が実際の長方形になるかも確認します。":"向かい合う辺が二本ずつあることから、二辺の和を求めます。",m`他方の辺を $y\,\mathrm{cm}$ とすると $2x+2y=${2*L}$、よって $y=${L}-x$。二辺の長さは正なので $x>0$ かつ $${L}-x>0$、よって $0<x<${L}$。面積を $S\,\mathrm{cm}^2$ とすると、$S=x(${L}-x)=${formula}$。`+(maximum?m`平方完成すると $S=${vertexForm(-1,h,area)}$。$x=${num(h)}$ は定義域に入り、平方がゼロなので最大面積は $${num(area)}\,\mathrm{cm}^2$。他方の辺も $${num(h)}\,\mathrm{cm}$ です。`:"両端では辺の一方がゼロとなり長方形ではないため、端を含めません。"));
+ return w(m`周の長さが $${2*L}\,\mathrm{cm}$ の長方形で、一辺を $x\,\mathrm{cm}$ とします。${maximum?"面積が最大になる辺の長さと最大面積を求めなさい。":"面積を表す関数と、実数の変数 $x$ の定義域を求めなさい。"}辺の長さは正とします。`,maximum?m`二辺はともに $${num(h)}\,\mathrm{cm}$、最大面積は $${num(area)}\,\mathrm{cm}^2$。`:m`$S=${formula}$、$0<x<${L}$。`,maximum?"周の長さから他方の辺を表し、面積を平方完成します。頂点が実際の長方形になるかも確認します。":"向かい合う辺が二本ずつあることから、二辺の和を求めます。",m`他方の辺を $y\,\mathrm{cm}$ とすると $2x+2y=${2*L}$、よって $y=${L}-x$。
+
+二辺の長さは正なので $x>0$ かつ $${L}-x>0$、よって $0<x<${L}$。
+
+面積を $S\,\mathrm{cm}^2$ とすると、$S=x(${L}-x)=${formula}$。`+(maximum?m`
+
+平方完成すると $S=${vertexForm(-1,h,area)}$。$x=${num(h)}$ は定義域に入り、平方がゼロなので最大面積は $${num(area)}\,\mathrm{cm}^2$。他方の辺も $${num(h)}\,\mathrm{cm}$ です。`:"両端では辺の一方がゼロとなり長方形ではないため、端を含めません。"));
 }
 function heightModel(h:number,k:number,last:number):Worked{
  const b=2*h,c=k-h*h;

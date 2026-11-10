@@ -1,4 +1,6 @@
-import {Formula,MathText} from "./MathText";
+import Math1LogicExampleDiagram from "./Math1LogicExampleDiagram";
+import Math1AlgebraNumberLine from "./Math1AlgebraNumberLine";
+import {MathText} from "./MathText";
 import MathOneQuadraticDiagrams from "./MathOneQuadraticDiagrams";
 import MathOneTrigDiagrams from "./MathOneTrigDiagrams";
 type Row={from:number;to:number;openFrom?:boolean;openTo?:boolean;label:string};
@@ -20,13 +22,9 @@ export const mathOneNumberLines:Record<string,Figure[]>={
  ],
 };
 import MathOneDataDiagrams from "./MathOneDataDiagrams";
-export default function MathOneDiagrams({slug,index}:{slug:string;index:number}) {
+export default function MathOneDiagrams({slug,index,step,complete}:{slug:string;index:number;step?:number;complete?:boolean}) {
  const f=mathOneNumberLines[slug]?.[index];
- if(!f)return <><MathOneQuadraticDiagrams slug={slug} index={index}/><MathOneTrigDiagrams slug={slug} index={index}/><MathOneDataDiagrams slug={slug} index={index}/></>;
- const px=(x:number)=>36+568*(x-f.min)/(f.max-f.min);
- const height=62+f.rows.length*44;
- return <figure className="panel"><h3>{f.title}</h3><p><MathText text={f.description}/></p><svg viewBox={`0 0 640 ${height}`} style={{width:"100%",height:"auto"}} role="img" aria-label={f.title}><title>{f.title+"。横の位置が数の大小を表します。"}</title>
-  {f.rows.map((r,i)=>{const y=26+i*44;return <g key={i}><line x1="24" x2="616" y1={y} y2={y} stroke="#9caebc"/><line x1={px(r.from)} x2={px(r.to)} y1={y} y2={y} stroke="#087c70" strokeWidth="5"/>{[r.from,r.to].map((x,j)=>x===f.min||x===f.max?<path key={j} d={x===f.min?`M ${px(x)+9} ${y-6} L ${px(x)} ${y} L ${px(x)+9} ${y+6}`:`M ${px(x)-9} ${y-6} L ${px(x)} ${y} L ${px(x)-9} ${y+6}`} fill="none" stroke="#087c70" strokeWidth="3"/>:<circle key={j} cx={px(x)} cy={y} r="6" fill={(j?r.openTo:r.openFrom)?"white":"#087c70"} stroke="#087c70" strokeWidth="2"/>)}</g>})}
-  {f.marks.map(x=><g key={x}><line x1={px(x)} x2={px(x)} y1="10" y2={height-36} stroke="#9caebc" strokeDasharray="3 4"/><foreignObject x={px(x)-35} y={height-32} width="70" height="30"><div style={{textAlign:"center"}}><Formula tex={String(x)}/></div></foreignObject></g>)}
- </svg><figcaption>{f.rows.map((r,i)=><p key={i}><MathText text={r.label}/></p>)}</figcaption></figure>;
+ if(!f)return <><Math1LogicExampleDiagram slug={slug} index={index} step={step} complete={complete}/><MathOneQuadraticDiagrams slug={slug} index={index} step={step} complete={complete}/><MathOneTrigDiagrams slug={slug} index={index} step={step} complete={complete}/><MathOneDataDiagrams slug={slug} index={index} step={step} complete={complete}/></>;
+ if(step!==undefined&&!complete)return null;
+ return <figure className="panel"><h3>{f.title}</h3><p><MathText text={f.description}/></p><Math1AlgebraNumberLine min={f.min} max={f.max} marks={f.marks} rows={f.rows.map(r=>({label:r.label,ranges:[{from:r.from===f.min?null:r.from,to:r.to===f.max?null:r.to,openFrom:r.openFrom,openTo:r.openTo}]}))}/></figure>;
 }

@@ -15,7 +15,16 @@ export function root(n:number):string{
 }
 export function trigTopic(slug:string,title:string,intro:string[],rule:string,skills:Skill[],prep:Skill[]){
  const bank=topic(slug,title,intro,rule,skills,prep);bank.lesson.chapter="図形と計量";
- bank.exercises.forEach(e=>{e.steps=e.steps.slice(0,1);});return bank;
+ bank.exercises.forEach(e=>{e.steps=e.steps.slice(0,1);});
+ // These two setup skills state their final equation separately from the reason.
+ const separateAnswer=new Set(["sine-pairing","cosine-setup"]);
+ for(const example of bank.lesson.examples)if(!separateAnswer.has(example.id))example.steps=example.steps.slice(0,2);
+ for(const skill of [...skills,...prep]){
+  const repair=bank.lesson.supplements.find(s=>s.id===skill.id)!;
+  repair.text=[skill.why,skill.sample[0],skill.sample[3],...(separateAnswer.has(skill.id)?[skill.sample[1]]:[])].join("\n");
+  repair.answer=[skill.items[0][3],...(separateAnswer.has(skill.id)?[skill.items[0][1]]:[])].join("\n");
+ }
+ return bank;
 }
 export function repairCases(bank:ReturnType<typeof trigTopic>,family:string,keys:string[]){
  const s=bank.lesson.supplements.find(s=>s.id===family);
@@ -23,7 +32,8 @@ export function repairCases(bank:ReturnType<typeof trigTopic>,family:string,keys
  for(const key of keys){
   const e=bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${family}-${key}-v1`);
   if(!e)throw new Error("Missing trig repair example "+key);
-  s.text+="\n"+[e.prompt,...e.steps.map(s=>s.text),e.answer].join("\n");
+  if(e.prompt===s.check||s.text.includes(e.prompt))continue;
+  (s.additionalExamples??=[]).push({title:"別の条件で確かめる",text:[e.prompt,...e.steps.map(s=>s.text)].join("\n")});
  }
 }
 export function appendTrigQuestion(bank:ReturnType<typeof trigTopic>,family:string,key:string,q:Worked,stage:"practice"|"review"="review"){
@@ -35,7 +45,18 @@ export function regroupTrig(bank:ReturnType<typeof trigTopic>,keys:string[],fami
   if(!q)throw new Error("Missing regroup question "+key);
   q.family=family;q.repair=family;return q;
  });
- bank.lesson.supplements.push({id:family,title,text:why+"\n"+qs.map(q=>[q.prompt,...q.steps.map(s=>s.text),q.answer].join("\n")).join("\n"),tex:"",check:qs.at(-1)!.prompt,answer:qs.at(-1)!.steps.map(s=>s.text).join("\n")+"\n"+qs.at(-1)!.answer});
+ const first=qs[0],last=qs.at(-1)!;
+ bank.lesson.supplements.push({id:family,title,text:[why,first.prompt,...first.steps.map(s=>s.text)].join("\n"),tex:"",check:last.prompt,answer:last.steps.map(s=>s.text).join("\n"),additionalExamples:qs.slice(1,-1).map(q=>({title:"別の条件で確かめる",text:[q.prompt,...q.steps.map(s=>s.text)].join("\n")}))});
+}
+/** Retain the old supplement for direct links while making retries match the operation. */
+export function splitTrigOperation(bank:ReturnType<typeof trigTopic>,old:string,parts:{id:string;title:string;why:string;keys:number[]}[]){
+ for(const part of parts){
+  const items=part.keys.map(key=>bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${old}-${key}-v1`)!);
+  if(items.some(e=>!e)||items.length<2)throw Error("Missing trig operation alternate "+part.id);
+  for(const e of items){e.family=part.id;e.repair=part.id;}
+  const sample=items[0],check=items[1];
+  bank.lesson.supplements.push({id:part.id,title:part.title,text:[part.why,sample.prompt,...sample.steps.map(s=>s.text)].join("\n"),tex:"",check:check.prompt,answer:check.steps.map(s=>s.text).join("\n")});
+ }
 }
 function angleSum(a:number,b:number):Worked{return w(m`三角形の二つの内角が $${a}^\circ,${b}^\circ$ です。残りの角を求めなさい。`,m`$${180-a-b}^\circ$。`,"三つの内角の和を使います。",m`$180^\circ-${a}^\circ-${b}^\circ=${180-a-b}^\circ$。`);}
 export const anglePrep:Skill={id:"angle-sum",title:"三角形の内角の和",why:m`三角形の三つの内角の和は $180^\circ$。各内角は正です。`,sample:angleSum(40,60),items:[angleSum(30,90),angleSum(45,60),angleSum(60,90)]};

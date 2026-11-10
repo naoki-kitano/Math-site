@@ -1,19 +1,19 @@
-import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,signed,squarePrep,substitutionPrep} from "./math1-quadratic-authoring";
+import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,signed,linearFactor,squarePrep,substitutionPrep} from "./math1-quadratic-authoring";
 import {addPair,type Worked,type Skill} from "./math1-topic";
 export const rootCases:{p:number;q:number;a:number;expression:string}[]=[];
 function factorSolve(p:number,q:number,a=1):Worked{
  const expr=poly(a,-a*(p+q),a*p*q);rootCases.push({p,q,a,expression:expr});
- const product=p===q?m`(x${signed(-p)})^2`:m`(x${signed(-p)})(x${signed(-q)})`;
+ const product=p===q?m`(x${signed(-p)})^2`:`${linearFactor(p)}${linearFactor(q)}`;
  const division=a===1?"":m`両辺を $${num(a)}$ で割ると $${product}=0$。`;
- const condition=p===q?m`平方がゼロなので $x${signed(-p)}=0$。同じ解は一回だけ書きます。`:m`積がゼロなので $x${signed(-p)}=0$ または $x${signed(-q)}=0$。両方の可能性を残します。`;
+ const condition=p===q?m`平方がゼロなので $x${p===0?"":signed(-p)}=0$。`:m`積がゼロなので $x${p===0?"":signed(-p)}=0$ または $x${q===0?"":signed(-q)}=0$。`;
  return w(m`$${expr}=0$ を解きなさい。`,m`$x=${[...new Set([p,q])].sort((a,b)=>a-b).map(num).join(",")}$。`,"左辺を因数分解し、積がゼロになる条件を調べます。",m`$${a===1?"":num(a)}${product}=0$。`+division+condition);
 }
 function squareSolve(h:number,c:number):Worked{
  const left=h===0?"x^2":`(x${signed(-h)})^2`,r=Math.sqrt(c);
  const answer=c<0?"実数解はありません。":c===0?m`$x=${num(h)}$。`:Number.isInteger(r)?m`$x=${num(h-r)},${num(h+r)}$。`:m`$x=${h===0?"":num(h)}\pm\sqrt{${c}}$。`;
- return w(m`$${left}=${c}$ を実数の範囲で解きなさい。`,answer,c<0?"実数の平方は負になりません。":c===0?"平方がゼロなら中身もゼロです。":"平方根の正負両方を残してから、移項します。",c<0?m`左辺は非負、右辺は $${c}<0$ なので等しくなりません。`:c===0?m`$x${h===0?"":signed(-h)}=0$。`:m`$x${h===0?"":signed(-h)}=\pm${Number.isInteger(r)?num(r):m`\sqrt{${c}}`}$。正負どちらも二乗すると $${c}$ になります。`);
+ return w(m`$${left}=${c}$ を実数の範囲で解きなさい。`,answer,c<0?"実数の平方は負になりません。":c===0?"平方がゼロなら中身もゼロです。":h===0?"正負の二つの数が同じ平方になります。":"平方根の正負両方を残し、括弧の中から $x$ を求めます。",c<0?m`左辺は非負、右辺は $${c}<0$ なので等しくなりません。`:c===0?m`$x${h===0?"":signed(-h)}=0$。`:m`$x${h===0?"":signed(-h)}=\pm${Number.isInteger(r)?num(r):m`\sqrt{${c}}`}$。正負どちらも二乗すると $${c}$ になります。`);
 }
-const zeroProduct=(p:number,q:number):Worked=>w(m`$(x${signed(-p)})(x${signed(-q)})=0$ から、それぞれの因数について成り立つ条件を書きなさい。`,m`$x${signed(-p)}=0$ または $x${signed(-q)}=0$。`,"両方がゼロとは限りません。少なくとも一方がゼロです。","二つともゼロでなければ積もゼロではないため、少なくとも一方がゼロです。");
+const zeroProduct=(p:number,q:number):Worked=>w(m`$${linearFactor(p)}${linearFactor(q)}=0$ から、それぞれの因数について成り立つ条件を書きなさい。`,m`$x${p===0?"":signed(-p)}=0$ または $x${q===0?"":signed(-q)}=0$。`,"両方がゼロとは限りません。少なくとも一方がゼロです。","二つともゼロでなければ積もゼロではないため、少なくとも一方がゼロです。");
 const zeroPrep:Skill={id:"zero-product",title:"積がゼロになる条件",why:"少なくとも一方がゼロという、またはの条件に分けます。",sample:zeroProduct(1,-2),items:[zeroProduct(2,-3),zeroProduct(0,4),zeroProduct(-1,3)]};
 export const factorEquation=topic("m1-quadratic-factor-equation","因数分解・平方根と二次方程式",[
  m`二次方程式は $ax^2+bx+c=0$（$a\ne0$）の形に整理できる方程式です。ここでは実数の解をすべて求めます。`,
@@ -43,11 +43,15 @@ function formula(a:number,b:number,c:number):Worked{
   simplified=den===1?numerator:m`\frac{${numerator}}{${den}}`;
  }
  const answer=D<0?"実数解はありません。":D===0?m`$x=${num(-b/(2*a))}$。`:m`$x=${simplified}$。`;
- return w(m`$${poly(a,b,c)}=0$ を解の公式で解きなさい。`,answer,"係数を符号ごと読み、判別式を計算してから公式へ入れます。",m`$a=${a},b=${b},c=${c}$、$D=(${b})^2-4\cdot(${a})\cdot(${c})=${D}$。${D<0?"根号内が負であり、実数解はありません。":D===0?m`$x=\frac{-(${b})}{2\cdot(${a})}=${num(-b/(2*a))}$。`:m`$x=\frac{-(${b})\pm\sqrt{${D}}}{2\cdot(${a})}$。${factor>1?m`$\sqrt{${D}}=${factor}\sqrt{${D/(factor*factor)}}$ と整理します。`:""}${reduction>1?"分子全体と分母の共通因数を約分して":"符号と分母を整理して"} $x=${simplified}$。${a<0?"分母を正に直すと正負の対応が入れ替わりますが、両方の解は同じです。":""}`}`);
+ return w(m`$${poly(a,b,c)}=0$ を解の公式で解きなさい。`,answer,"係数を符号ごと読み、判別式を計算します。",[
+ m`$ax^2+bx+c=0$ と比べて $a=${a},b=${b},c=${c}$。判別式は $D=(${b})^2-4\cdot(${a})\cdot(${c})=${D}$。`,
+ D<0?m`$D<0$ なので実数の平方根がなく、実数解はありません。`:D===0?m`$\sqrt D=0$ なので、$+\sqrt D$ と $-\sqrt D$ は同じ値です。$x=\frac{-(${b})}{2\cdot(${a})}=${num(-b/(2*a))}$。`:m`$x=\frac{-b\pm\sqrt D}{2a}$ に同じ係数を入れると、$x=\frac{-(${b})\pm\sqrt{${D}}}{2\cdot(${a})}$。`,
+ ...(D>0?[m`${factor>1?m`$\sqrt{${D}}=${factor}\sqrt{${D/(factor*factor)}}$。`:""}${reduction>1?"分子全体と分母を共通因数で割ると":"符号と分母を整理すると"} $x=${simplified}$。${a<0?"分母の符号を直すと正負の対応は入れ替わりますが、二つの解は同じです。":""}`]:[])
+ ]);
 }
 function countRoots(a:number,b:number,c:number):Worked{
  const D=b*b-4*a*c,n=D>0?2:D===0?1:0;
- return w(m`$${poly(a,b,c)}=0$ の異なる実数解の個数を判別式で調べなさい。`,m`$${n}$ 個。`,"判別式の正・ゼロ・負だけで個数が分かり、解まで求める必要はありません。",m`$D=(${b})^2-4\cdot(${a})\cdot(${c})=${D}$。${D>0?"正負の平方根から異なる二つの解が得られます。":D===0?"正負の項がゼロになり、一つの解（重解）です。":"根号内が負になり、実数解はありません。"}`);
+ return w(m`$${poly(a,b,c)}=0$ の異なる実数解の個数を判別式で調べなさい。`,m`$${n}$ 個。`,"判別式の正・ゼロ・負だけで個数が分かり、解まで求める必要はありません。",m`$D=(${b})^2-4\cdot(${a})\cdot(${c})=${D}$。${D>0?"正負の平方根から異なる二つの解が得られます。":D===0?m`$\sqrt D=0$ なので、正負どちらも同じ一つの解（重解）です。`:"根号内が負になり、実数解はありません。"}`);
 }
 export const formulaEquation=topic("m1-quadratic-formula","解の公式と実数解の個数",[
  m`$ax^2+bx+c=0$（$a\ne0$）を $a$ で割って平方完成すると、$(x+\frac b{2a})^2=\frac{b^2-4ac}{4a^2}$。分母 $4a^2$ は正なので、右辺の符号は $b^2-4ac$ で決まります。`,
@@ -58,9 +62,16 @@ export const formulaEquation=topic("m1-quadratic-formula","解の公式と実数
  {id:"discriminant-count",title:"判別式の符号で個数を決める",why:"平方に等しい数が正・ゼロ・負のどれかを調べます。",sample:countRoots(1,-4,4),items:[countRoots(1,2,-1),countRoots(1,2,1),countRoots(1,0,2),countRoots(-1,2,-1),countRoots(2,1,-1),countRoots(2,0,3)]},
 ],[squarePrep,substitutionPrep]);
 addPair(formulaEquation,"formula-no-real","公式と実数の範囲","根号内が負なら実数の平方根がなく、実数解はありません。",[formula(1,2,3),formula(2,2,2)]);
-addPair(formulaEquation,"formula-double","重解を一つの値として書く","判別式ゼロでは正負の項がなくなり、解は一つの値です。",[formula(1,-4,4),formula(2,4,2)]);
-function intercept(p:number,q:number):Worked{return w(m`$y=${poly(1,-p-q,p*q)}$ と $x$ 軸の共有点を求めなさい。`,[...new Set([p,q])].sort((a,b)=>a-b).map(x=>m`$(${x},0)$`).join("、")+"。",m`$x$ 軸上では $y=0$。方程式を解き、縦座標ゼロを添えます。`,factorSolve(p,q)[3]+" 解は横座標であり、点を答えるには縦座標も必要です。");}
-function interceptCount(a:number,b:number,c:number):Worked{return w(m`$y=${poly(a,b,c)}$ と $x$ 軸の共有点の個数を、判別式で説明しなさい。`,countRoots(a,b,c)[3]+" 異なる実数解一つが一つの共有点に対応するため、共有点は "+countRoots(a,b,c)[1],m`$y=0$ の方程式の異なる実数解一つが、一つの共有点に対応します。`,countRoots(a,b,c)[3]);}
+addPair(formulaEquation,"formula-double","重解を一つの値として書く",m`判別式がゼロなら $\sqrt D=0$ で、二つの符号から同じ値が得られます。`,[formula(1,-4,4),formula(2,4,2)]);
+function intercept(p:number,q:number):Worked{
+ const expression=poly(1,-p-q,p*q),roots=[...new Set([p,q])].sort((a,b)=>a-b),answer=roots.map(x=>m`$(${x},0)$`).join("、")+"。";
+ return w(m`$y=${expression}$ と $x$ 軸の共有点を求めなさい。`,answer,m`$x$ 軸上では $y=0$ です。`,[
+ m`$x$ 軸上では $y=0$ なので、$${expression}=0$ を解きます。`,factorSolve(p,q)[3],m`$x=${roots.join(",")}$ と $y=0$ を組にすると、共有点は ${answer}`]);
+}
+function interceptCount(a:number,b:number,c:number):Worked{
+ const D=b*b-4*a*c,n=D>0?2:D===0?1:0;
+ return w(m`$y=${poly(a,b,c)}$ と $x$ 軸の共有点の個数を、判別式で説明しなさい。`,m`$D${D>0?">":D===0?"=":"<"}0$ なので共有点は $${n}$ 個。`,m`$y=0$ の方程式の異なる実数解一つが、一つの共有点に対応します。`,[m`$x$ 軸上では $y=0$。方程式 $${poly(a,b,c)}=0$ の異なる実数解の個数を求めます。`,countRoots(a,b,c)[3],"異なる実数解を横座標、ゼロを縦座標とする点が、一つずつの共有点です。"]);
+}
 export const equationGraph=topic("m1-equation-graph","二次方程式とグラフ",[
  m`$y=f(x)$ と $x$ 軸の共有点では $y=0$。したがって $f(x)=0$ の実数解は、共有点の横座標を表します。方程式の解と点の座標は答えの種類が違います。`,
  m`$y=x^2-x-2$ なら $(x-2)(x+1)=0$ より $x=-1,2$。共有点は $(-1,0),(2,0)$。実数解が二つなら二点で交わり、重解なら一点で接します。実数解がなければ共有点がありません。`,

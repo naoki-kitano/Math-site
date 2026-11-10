@@ -22,7 +22,7 @@ export default function LessonHelp({lesson,items}:{lesson:Lesson;items:Exercise[
 }
 function HelpLibrary({supplements,linkedId}:{supplements:Lesson["supplements"];linkedId?:string}){
  const [search,setSearch]=useState(""),[page,setPage]=useState(0),id=useId();
- const list=supplements.filter(s=>s.id!==linkedId&&(!search.trim()||(s.title+" "+s.text).includes(search.trim()))),pages=Math.max(1,Math.ceil(list.length/5)),current=Math.min(page,pages-1);
+ const list=supplements.filter(s=>s.id!==linkedId&&(!search.trim()||([s.title,s.text,...(s.additionalExamples??[]).map(e=>e.title+" "+e.text)].join(" ")).includes(search.trim()))),pages=Math.max(1,Math.ceil(list.length/5)),current=Math.min(page,pages-1);
  return <details className="help-library"><summary>説明を探して読む</summary><label className="input-label" htmlFor={id}>言葉で探す</label><input id={id} className="help-search" type="search" value={search} onChange={e=>{setSearch(e.target.value);setPage(0);}} placeholder="例：分母、角度"/><p className="meta" role="status">{list.length}件{list.length>5?` · ${current+1} / ${pages}ページ`:""}</p>
   {list.slice(current*5,current*5+5).map(s=><details className="supplement" key={s.id} id={s.id}><summary>{s.title}</summary><RepairCard repair={s}/></details>)}
   {pages>1&&<nav className="actions" aria-label="補足のページ"><button className="button secondary" disabled={current===0} onClick={()=>setPage(current-1)}>前へ</button><button className="button secondary" disabled={current===pages-1} onClick={()=>setPage(current+1)}>次へ</button></nav>}

@@ -4,6 +4,7 @@ import {expansion,identities} from "./math1-expansion";
 import {factors,quadratics,grouping} from "./math1-factoring";
 import {rootMeaning,radicals,rationalizing,absoluteValues} from "./math1-roots";
 import {inequalities,simultaneous,modeling} from "./math1-inequalities";
+import {refineMath1Algebra} from "./math1-algebra-refinements";
 const m = String.raw;
 
 const numbers = defineMathOneLesson({
@@ -124,3 +125,5 @@ const substitution = defineMathOneLesson({
 });
 
 export const math1Chapter1Drafts = [numbers,substitution,terms,collecting,expansion,identities,factors,quadratics,grouping,rootMeaning,radicals,rationalizing,absoluteValues,inequalities,simultaneous,modeling];
+
+refineMath1Algebra(math1Chapter1Drafts);

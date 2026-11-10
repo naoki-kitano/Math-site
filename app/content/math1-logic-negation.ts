@@ -9,7 +9,7 @@ export const boundaryNegations=[
  [m`x\ne-2`,"x=-2","等しくないという条件を満たさないのは、等しい場合です。"],
  ["x>0",m`x\le0`,"負の数だけでなく、ゼロも入れます。"],
 ];
-const negateBoundary=(c:string[]):Worked=>w(m`$x$ を実数とする。条件 ${math(c[0])} の否定を書きなさい。`,math(c[1])+"。",c[2],`${c[2]} 元の条件と否定で実数全体を分け、重なりも抜けもないようにします。`);
+const negateBoundary=(c:string[]):Worked=>w(m`$x$ を実数とする。条件 ${math(c[0])} の否定を書きなさい。`,math(c[1])+"。",c[2],c[2]);
 export const compoundNegations=[
  {p:"x>0",q:"y>0",np:m`x\le0`,nq:m`y\le0`,and:true},
  {p:"x=0",q:"y=0",np:m`x\ne0`,nq:m`y\ne0`,and:true},
@@ -63,7 +63,8 @@ const transform=(c:typeof transformations[number]):Worked=>{
 };
 function equivalent(original:boolean,reverse:boolean,ask:"contra"|"inverse"):Worked {
  const target=ask==="contra"?"対偶":"裏",result=ask==="contra"?original:reverse;
- return w(m`命題 $p\Rightarrow q$ は${original?"真":"偽"}、逆 $q\Rightarrow p$ は${reverse?"真":"偽"}です。${target}の真偽と、その根拠を答えなさい。`,`${target}は${result?"真":"偽"}です。${ask==="contra"?"元の命題と対偶":"逆と裏"}の真偽は一致するからです。`,`${ask==="contra"?"対偶は元の命題":"裏は逆"}と組にして考えます。`,m`$p\Rightarrow q$ と $\neg q\Rightarrow\neg p$ が同値です。同じことを逆にも使うと、$q\Rightarrow p$ と $\neg p\Rightarrow\neg q$ が同値です。したがって${target}は${result?"真":"偽"}です。`);
+ const pair=ask==='contra'?m`$p\Rightarrow q$ と $\neg q\Rightarrow\neg p$`:m`$q\Rightarrow p$ と $\neg p\Rightarrow\neg q$`;
+ return w(m`命題 $p\Rightarrow q$ は${original?"真":"偽"}、逆 $q\Rightarrow p$ は${reverse?"真":"偽"}です。${target}の真偽と、その根拠を答えなさい。`,`${target}は${result?"真":"偽"}です。${ask==="contra"?"元の命題と対偶":"逆と裏"}の真偽は一致するからです。`,`${ask==="contra"?"対偶は元の命題":"裏は逆"}と組にして考えます。`,`${pair} は互いに対偶なので、真偽が一致します。`);
 }
 export const contrapositive=logicTopic("m1-converse-contrapositive","逆・裏・対偶",[
  m`命題 $p\Rightarrow q$ に対し、逆は $q\Rightarrow p$、裏は $\neg p\Rightarrow\neg q$、対偶は $\neg q\Rightarrow\neg p$ です。$\neg p$ は $p$ の否定を表します。対偶では順序の交換と否定の両方が必要です。`,
