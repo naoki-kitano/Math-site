@@ -26,15 +26,15 @@ export function spaceFigure(slug:string,index:number):GeoFigure|null{
  }
  if(["ma-space-lines","ma-space-lines-planes","ma-space-angle-distance","ma-solid-sections"].includes(slug)){
   const points={...cube},es=boxEdges.map(e=>[...e]),ds=hidden.map(e=>[...e]);
-  let caption="下の面は $ABCD$、上の面は $EFGH$。破線は奥にある辺です。見取図の角度は実際の角度を表しません。";
-  if(slug==="ma-space-lines"&&index===1){ds.push(["A","C"],["F","H"]);caption+=" $AC$ と $FH$ は同じ点で交わりません。";}
+  const caption="破線は奥の辺・補助線です。図の角度は実際とは限りません。";
+  if(slug==="ma-space-lines"&&index===1){ds.push(["A","C"],["F","H"]);}
   if(slug==="ma-space-angle-distance"){
-   if(index===0){es.push(["E","B"]);caption+=" $EB$ は点までの斜めの距離、$EA$ は面までの垂直距離です。";}
-   else {es.push(["A","G"]);ds.push(["A","C"]);caption+=" $G$ の垂線の足は $C$。底面との角は $\\angle GAC$ です。";}
+   if(index===0){es.push(["E","B"]);}
+   else {es.push(["A","G"]);ds.push(["A","C"]);}
   }
   if(slug==="ma-solid-sections"){
-   if(index===0){points.P=[2.5,0];points.Q=[1,1];points.R=[0,2.5];es.push(["P","Q"],["Q","R"],["R","P"]);caption+=" 中点 $P,Q,R$ を、各面の中で結びます。";}
-   else {points.P=[0,2.5];points.Q=[5,2.5];points.R=[7,4.5];points.S=[2,4.5];es.push(["P","Q"],["Q","R"],["R","S"],["S","P"]);caption+=" 同じ高さで底面に平行な切り口は正方形です。";}
+   if(index===0){points.P=[2.5,0];points.Q=[1,1];points.R=[0,2.5];es.push(["P","Q"],["Q","R"],["R","P"]);}
+   else {points.P=[0,2.5];points.Q=[5,2.5];points.R=[7,4.5];points.S=[2,4.5];es.push(["P","Q"],["Q","R"],["R","S"],["S","P"]);}
   }
   return {points,edges:es,dashed:ds,caption};
  }

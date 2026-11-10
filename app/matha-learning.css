@@ -1,0 +1,19 @@
+/* Keep a diagram inside the current task without adding another card around it. */
+.focused-layout .math-a-figure{margin:12px 0;padding:0;border:0;background:transparent}
+.focused-layout .math-a-figure>svg{width:100%;max-width:340px;height:auto}
+.focused-layout .math-a-figure figcaption{margin-top:8px;line-height:1.65}
+.focused-layout .math-a-figure p:last-child{margin-bottom:0}
+.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-readout,
+.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-lines{min-height:0}
+.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-lines{padding:4px 8px}
+.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-lines .katex-display{margin:4px 0}
+.formula-correspondence[data-formula-lesson^="ma-"] .start-check{margin:12px 0 0;padding:8px 10px}
+@media(max-width:600px){
+ .focused-layout .math-a-space-figure>svg{max-width:260px}
+}
+@media(min-width:760px){
+ .example-walkthrough:has(>.walkthrough-visuals>.math-a-figure){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 28px;align-items:start}
+ .example-walkthrough:has(>.walkthrough-visuals>.math-a-figure)>.walkthrough-current{grid-column:1;grid-row:1}
+ .example-walkthrough:has(>.walkthrough-visuals>.math-a-figure)>.walkthrough-visuals{grid-column:2;grid-row:1}
+ .example-walkthrough:has(>.walkthrough-visuals>.math-a-figure)>.supplement{grid-column:1 / -1}
+}

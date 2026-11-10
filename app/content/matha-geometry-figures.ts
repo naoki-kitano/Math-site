@@ -1,12 +1,12 @@
 export type Point=[number,number];
-export type GeoFigure={caption:string;points:Record<string,Point>;edges:string[][];dashed?:string[][];circles?:{center:Point;radius:number}[];labels?:Record<string,string>;rightAngles?:string[][];arrows?:string[][]};
+export type GeoFigure={caption:string;points:Record<string,Point>;edges:string[][];dashed?:string[][];circles?:{center:Point;radius:number}[];labels?:Record<string,string>;labelOffsets?:Record<string,Point>;rightAngles?:string[][];arrows?:string[][]};
 const mix=(a:Point,b:Point,t:number):Point=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
 const tri=(ab:number,ac:number,bc:number)=>{const x=(ab*ab-ac*ac+bc*bc)/(2*bc);return {A:[x,Math.sqrt(ab*ab-x*x)] as Point,B:[0,0] as Point,C:[bc,0] as Point};};
 const edges=[["A","B"],["B","C"],["C","A"]];
 const circlePoint=(deg:number):Point=>[4*Math.cos(deg*Math.PI/180),4*Math.sin(deg*Math.PI/180)];
 export function geometryFigure(slug:string,index:number):GeoFigure|null{
  if(slug==="ma-incenter-circumcenter"){
-  if(index===0)return {caption:"内心から辺への距離は、三本の垂線で測ります。図は半径一の内接円です。",points:{A:[0,3],B:[0,0],C:[4,0],I:[1,1],J:[1,0],K:[0,1],L:[1.6,1.8]},edges,dashed:[["I","J"],["I","K"],["I","L"]],circles:[{center:[1,1],radius:1}]};
+  if(index===0)return {caption:"内心から辺への距離は、三本の垂線で測ります。図は半径一の内接円です。",points:{A:[0,3],B:[0,0],C:[4,0],I:[1,1],J:[1,0],K:[0,1],L:[1.6,1.8]},labelOffsets:{I:[20,0],J:[0,22],K:[-22,0],L:[20,-10],B:[-12,16],C:[12,16]},edges,dashed:[["I","J"],["I","K"],["I","L"]],circles:[{center:[1,1],radius:1}]};
   if(index===1){const pt=(a:number)=>circlePoint(a).map(v=>v/2) as Point;return {caption:"外心から測るのは頂点までの距離です。三本とも長さ二の半径です。",points:{A:pt(80),B:pt(200),C:pt(330),O:[0,0]},edges,dashed:[["O","A"],["O","B"],["O","C"]],circles:[{center:[0,0],radius:2}]};}
   return {caption:"斜辺三の直角三角形。外心は斜辺の中点で、半径は $\\frac32$ です。",points:{A:[0,1.8],B:[0,0],C:[2.4,0],O:[1.2,.9]},edges,circles:[{center:[1.2,.9],radius:1.5}],rightAngles:[["B","A","C"]]};
  }
@@ -22,7 +22,7 @@ export function geometryFigure(slug:string,index:number):GeoFigure|null{
  if(slug==="ma-angle-bisector"){
   const pts=tri(6,9,10);
   if(index===0)return {caption:"内側は $BD+DC=BC$。二つの三角形の面積比を比べます。",points:{...pts,D:[4,0]},edges:[...edges,["A","D"]]};
-  if(index===1)return {caption:"外側は $CE-BE=BC$。$E$ は $B$ 側の延長上にあります。",points:{...pts,E:[-20,0]},edges:[...edges,["A","E"],["E","B"]]};
+  if(index===1)return {caption:"外側は $CE-BE=BC$。$E$ は $B$ 側の延長上にあります。",points:{...pts,E:[-20,0]},labelOffsets:{A:[0,-22],B:[0,22],C:[12,18],E:[-12,18]},edges:[...edges,["A","E"],["E","B"]]};
  }
  if(slug==="ma-centroid"&&index===0){
   const A:Point=[0,3],B:Point=[-2,0],C:Point=[2,0],D:Point=[0,0],E=mix(A,C,.5),G:Point=[0,1];
@@ -33,11 +33,11 @@ export function geometryFigure(slug:string,index:number):GeoFigure|null{
   const A:Point=[2,6],B:Point=[0,0],C:Point=[10,0];
   const converse=slug==="ma-geometry-converses";
   const D=mix(B,C,converse?1/3:2/5),E=mix(C,A,converse?1/4:3/7),F=mix(A,B,converse?6/7:2/3);
-  return {caption:"$D,E,F$ は三辺の内部。比を $BD:DC,CE:EA,AF:FB$ の順に読みます。",points:{A,B,C,D,E,F},edges:[...edges,["A","D"],["B","E"],["C","F"]]};
+  return {caption:"$D,E,F$ は三辺の内部。比を $BD:DC,CE:EA,AF:FB$ の順に読みます。",points:{A,B,C,D,E,F},labelOffsets:converse?{B:[-20,16],F:[-20,-15]}:undefined,edges:[...edges,["A","D"],["B","E"],["C","F"]]};
  }
  if(slug==="ma-menelaus"&&index===0){
   const A:Point=[0,6],B:Point=[0,0],C:Point=[9,0],D=mix(B,C,1/3),E=mix(C,A,1/4),F:Point=[0,-1.2],G:Point=[9,2.4];
-  return {caption:"$D,E,F$ は一直線。$CG\\parallel AB$ を引くと、二組の相似が見つかります。",points:{A,B,C,D,E,F,G},edges:[...edges,["B","F"],["F","G"]],dashed:[["C","G"]]};
+  return {caption:"$D,E,F$ は一直線。$CG\\parallel AB$ を引くと、二組の相似が見つかります。",points:{A,B,C,D,E,F,G},labelOffsets:{B:[-22,-10],F:[-22,18],E:[-2,-24],G:[18,-4],D:[0,22]},edges:[...edges,["B","F"],["F","G"]],dashed:[["C","G"]]};
  }
  if(slug==="ma-inscribed-angle"&&index===0){
   const A=circlePoint(20),B=circlePoint(70),C=circlePoint(220),O:Point=[0,0];
@@ -62,7 +62,7 @@ export function geometryFigure(slug:string,index:number):GeoFigure|null{
    // Circle x²+y²-4x-y-12=0: intersections on axes (-2,0),(6,0),(0,-3),(0,4).
    return {caption:"すべての線分を交点 $P$ から測ります。$2\\times6=3\\times4$。",points:{P:[0,0],A:[-2,0],B:[6,0],C:[0,-3],D:[0,4]},edges:[["A","B"],["C","D"]],circles:[{center:[2,.5],radius:Math.sqrt(16.25)}]};
   }
-  if(index===1)return {caption:"二本の割線でも、同じ点 $P$ から測ります。$PA\\cdot PB=3\\times8=PC\\cdot PD=2\\times12$。",points:{P:[0,0],A:[3,0],B:[8,0],C:[0,2],D:[0,12]},edges:[["P","B"],["P","D"]],circles:[{center:[5.5,7],radius:Math.sqrt(55.25)}]};
+  if(index===1)return {caption:"二本の割線でも、同じ点 $P$ から測ります。$PA\\cdot PB=3\\times8=PC\\cdot PD=2\\times12$。",points:{P:[0,0],A:[3,0],B:[8,0],C:[0,2],D:[0,12]},labelOffsets:{P:[-22,16],C:[-22,-3],A:[0,22],B:[13,17],D:[-15,-24]},edges:[["P","B"],["P","D"]],circles:[{center:[5.5,7],radius:Math.sqrt(55.25)}]};
   // Circle through x=3,8; tangent from origin has length sqrt24.
   const O:Point=[5.5,0],P:Point=[0,0],A:Point=[3,0],B:Point=[8,0],tx=24/5.5,T:Point=[tx,Math.sqrt(24-tx*tx)];
   return {caption:"$PA=3,AB=5$ から $PB=8$ を作ります。接線なら $PT^2=3\\times8$ です。",points:{O,P,A,B,T},edges:[["P","B"],["P","T"]],dashed:[["O","T"]],circles:[{center:O,radius:2.5}]};
@@ -71,7 +71,7 @@ export function geometryFigure(slug:string,index:number):GeoFigure|null{
  if(slug==="ma-common-tangents"){
   const inner=index===1,r=inner?2:4,s=1,d=5,leg=inner?r+s:r-s;
   const u:Point=[leg/d,Math.sqrt(1-(leg/d)**2)],O:Point=[0,0],P:Point=[d,0],T:Point=[r*u[0],r*u[1]],U:Point=[d+(inner?-1:1)*s*u[0],(inner?-1:1)*s*u[1]];
-  return {caption:inner?"内共通接線：中心は反対側なので、垂直方向は半径の和です。":"外共通接線：中心は同じ側なので、垂直方向は半径の差です。",points:{O,P,T,U},edges:[["O","P"],["O","T"],["P","U"],["T","U"]],circles:[{center:O,radius:r},{center:P,radius:s}],rightAngles:[["T","O","U"],["U","P","T"]]};
+  return {caption:inner?"内共通接線：中心は反対側なので、垂直方向は半径の和です。":"外共通接線：中心は同じ側なので、垂直方向は半径の差です。",points:{O,P,T,U},labelOffsets:inner?{P:[18,-17],U:[16,18]}:{P:[18,17],U:[22,-15]},edges:[["O","P"],["O","T"],["P","U"],["T","U"]],circles:[{center:O,radius:r},{center:P,radius:s}],rightAngles:[["T","O","U"],["U","P","T"]]};
  }
  return null;
 }

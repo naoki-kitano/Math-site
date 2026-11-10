@@ -147,13 +147,15 @@ test('mixed practice alternates decisions and repairs include changed conditions
   assert.notEqual(qs[0].family,qs[1].family,bank.lesson.slug);
  }
  for(const [slug,family,needed] of [
-  ['ma-independent-trials','dependence','独立ではありません'],
-  ['ma-parallel-ratios','part-whole','決められません'],
-  ['ma-divisors-primes','prime-judgment','素数ではありません'],
-  ['ma-linear-diophantine','all-integer-solutions','au+bv=1'],
-  ['ma-coordinates-space','coordinate-axis','原点']]){
-  const text=lessons.find(l=>l.slug===slug).supplements.find(s=>s.id===family).text;
-  assert.ok(text.includes(needed),slug);
+  ['ma-independent-trials','dependence',['戻しません','独立ではありません',String.raw`\frac{1}{2}`,String.raw`\frac{3}{4}`]],
+  ['ma-parallel-ratios','part-whole',['平行であるかは分かりません','決められません']],
+  ['ma-divisors-primes','prime-judgment',['$1$ は素数ですか','素数ではありません','正の約数が一つ']],
+  ['ma-divisors-primes','prime-judgment',['$21$ は素数ですか',String.raw`21=3\times7`,'素数ではありません']],
+  ['ma-linear-diophantine','all-integer-solutions',['au+bv=1','互いに素']],
+  ['ma-coordinates-space','coordinate-axis',['$(0,0,0)$','三つすべての座標軸']]]){
+  const help=lessons.find(l=>l.slug===slug).supplements.find(s=>s.id===family);
+  const passages=[help.text,...(help.additionalExamples??[]).map(example=>example.text)];
+  assert.ok(passages.some(text=>needed.every(part=>text.includes(part))),slug+' must retain the changed condition and its conclusion in the same example');
  }
 });
 test('subject descriptions and browser metadata describe the completed subjects',()=>{

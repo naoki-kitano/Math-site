@@ -2,7 +2,7 @@ import {m,q,f} from "./matha-authoring";
 import type {Q} from "./matha-authoring";
 export type Construction="bisect-segment"|"bisect-angle"|"perpendicular"|"parallel"|"divide"|"ratio"|"tangent-point"|"tangent-outside";
 export function construct(kind:Construction,n:number,orientation:string):Q{
- const start="紙に図を描き、目盛りを使わない定規とコンパスで作図しなさい。円弧と補助線を残し、成り立つ理由も書きなさい。";
+ const start="目盛りのない定規とコンパスを使い、円弧と補助線、根拠を残しなさい。";
  const prompt={
   "bisect-segment":m`${orientation}に線分 $AB$ を描きます。垂直二等分線を作図しなさい。`,
   "bisect-angle":m`${orientation}の角 $AOB$ を描きます。内角の二等分線を作図しなさい。`,
@@ -14,14 +14,14 @@ export function construct(kind:Construction,n:number,orientation:string):Q{
   "tangent-outside":m`円の外で${orientation}にある点 $P$ を一つ取り、$P$ からの二本の接線を作図しなさい。`
  }[kind];
  const working={
-  "bisect-segment":m`$A,B$ を中心とし、$AB$ の半分より大きい同じ半径で二つの円を描きます。二交点 $P,Q$ を結びます。$PA=PB,QA=QB$ なので、二点を通る直線 $PQ$ は線分の垂直二等分線です。理由は、$PQ$ と $AB$ の交点を $M$ とすると、三辺相等から $\triangle APQ\equiv\triangle BPQ$、さらに二辺とその間の角から $\triangle APM\equiv\triangle BPM$。よって $AM=BM$、隣り合う等しい角は直角になります。`,
-  "bisect-angle":m`頂点 $O$ を中心とする円弧で二辺上に $P,Q$ を取ります。$P,Q$ を中心とする同じ半径の円弧を角内部で交わらせ、交点 $R$ と $O$ を結びます。$OP=OQ,PR=QR,OR$ 共通より $\triangle OPR\equiv\triangle OQR$。よって $\angle POR=\angle ROQ$ です。$R$ は頂点と違う点を選びます。`,
-  "perpendicular":m`$P$ を中心とし、直線と二点 $A,B$ で交わる円を描きます。$PA=PB$ なので、$AB$ の垂直二等分線は $P$ を通ります。$A,B$ を中心とする等半径の円弧の二交点を結んで、その線を作図します。`,
+  "bisect-segment":m`$A,B$ を中心に、$AB$ の半分より大きい同じ半径の二円を描きます。二交点を $P,Q$ として結び、$AB$ との交点を $M$ とします。$PA=PB$、$QA=QB$、$PQ$ 共通より $\triangle APQ\equiv\triangle BPQ$。対応する角 $\angle APM=\angle BPM$ と $AP=BP$、$PM$ 共通から、$\triangle APM\equiv\triangle BPM$。よって $AM=BM$、$\angle AMP=\angle BMP$ です。二つの角の和は $180^\circ$ なので、それぞれ $90^\circ$。直線 $PQ$ が垂直二等分線です。`,
+  "bisect-angle":m`頂点 $O$ を中心とする円弧で二辺上に $P,Q$ を取ります。$P,Q$ を中心とする同じ半径の円弧を角内部で交わらせます。$O$ と異なる交点を $R$ とし、半直線 $OR$ を引きます。$OP=OQ,PR=QR,OR$ 共通より $\triangle OPR\equiv\triangle OQR$。よって $\angle POR=\angle ROQ$ です。`,
+  "perpendicular":m`$P$ を中心とし、直線と二点 $A,B$ で交わる円を描きます。$PA=PB$ なので、$AB$ の垂直二等分線は $P$ を通ります。$A,B$ を中心に、$AB$ の半分より大きい同じ半径で円弧を描き、二交点を結んで垂直二等分線を作ります。`,
   "parallel":m`まず $P$ から元の直線への垂線を作ります。その垂線上で $P$ から等距離の二点 $A,B$ を円で取り、$AB$ の垂直二等分線を作ります。これは $P$ を通り、最初の垂線に垂直です。同じ平面で同じ直線に垂直な二直線なので、元の直線に平行です。`,
-  "divide":m`$A$ から、直線 $AB$ 上にない半直線を引き、コンパスの幅を変えずに同じ長さずつ $P_1,\ldots,P_{${n}}$ を順に取ります。$P_{${n}}B$ を結び、途中の各点からこの線に平行な線を作図します。途中の点 $P_j$（$${n===2?"j=1":`j=1,\\ldots,${n-1}`}$）から引いた平行線と $AB$ の交点を $Q_j$ とします。$\triangle AP_jQ_j\sim\triangle AP_{${n}}B$ より $AQ_j:AB=AP_j:AP_{${n}}=j:${n}$。したがって交点は $AB$ の等分点です。平行線は垂線を二回作って引き、目測にしません。`,
+  "divide":m`$A$ から、直線 $AB$ 上にない半直線を引き、コンパスの幅を変えずに同じ長さずつ $P_1,\ldots,P_{${n}}$ を順に取ります。$P_{${n}}B$ を結び、途中の各点からこの線に平行な線を作図します。途中の点 $P_j$（$${n===2?"j=1":`j=1,\\ldots,${n-1}`}$）から引いた平行線と $AB$ の交点を $Q_j$ とします。$\triangle AP_jQ_j\sim\triangle AP_{${n}}B$ より $AQ_j:AB=AP_j:AP_{${n}}=j:${n}$。したがって交点は $AB$ の等分点です。平行線は垂線を二回作って引きます。`,
   "ratio":m`$A$ から、直線 $AB$ 上にない半直線を引き、同じ長さずつ $${n+2}$ 個の区間をコンパスで取ります。最後の点を $C$、$${n}$ 番目の点を $D$ とします。$CB$ を結び、$D$ からそれに平行な線を作図し、$AB$ との交点を $P$ とします。$DP\parallel CB$ より $\triangle ADP\sim\triangle ACB$。$AP:AB=AD:AC=${n}:${n+2}$ なので、残りの $PB$ は比で $2$、$AP:PB=${n}:2$ です。平行線は垂線を二回作って引きます。`,
   "tangent-point":m`中心 $O$ と $T$ を結びます。$T$ を中心とする円で直線 $OT$ 上に等距離の二点を取り、その二点の垂直二等分線を作図します。これは $T$ を通り $OT$ に垂直なので、元の円の接線です。`,
-  "tangent-outside":m`中心 $O$ と $P$ を結び、$OP$ の垂直二等分線で中点 $M$ を作ります。中心 $M$、半径 $MO$ の円を描き、元の円との二交点を $T,U$ とします。$PT,PU$ を引きます。直径 $OP$ に対する円周角は直角なので $OT\perp PT,OU\perp PU$。よって二本とも接線です。$P$ が円内ではこの作図で接点は得られません。`
+  "tangent-outside":m`中心 $O$ と $P$ を結び、$OP$ の垂直二等分線で中点 $M$ を作ります。中心 $M$、半径 $MO$ の円を描き、元の円との二交点を $T,U$ とします。$PT,PU$ を引きます。直径 $OP$ に対する円周角は直角なので $OT\perp PT,OU\perp PU$。よって二本とも接線です。`
  }[kind];
  const hint={
   "bisect-segment":"両端から同じ距離にある点を、二つ作ります。",
@@ -43,7 +43,20 @@ export function construct(kind:Construction,n:number,orientation:string):Q{
   "tangent-point":m`$T$ を通り半径 $OT$ に垂直な直線。円への接線の条件を満たします。`,
   "tangent-outside":m`直径 $OP$ の円と元の円との交点 $T,U$ を使った $PT,PU$。直径に対する円周角が直角なので、どちらも半径に垂直な接線です。`
  }[kind];
- return q(start+prompt,"円弧・補助線を残した作図と、次の根拠："+answer,hint,working);
+ const sentences=working.split("。").filter(Boolean).map(text=>text+"。");
+ // Each grouping is authored for this construction; all proof sentences are retained.
+ const groups:Record<Construction,{title:string;parts:number[]}[]>={
+  "bisect-segment":[{title:"等距離の二点を作る",parts:[0,1]},{title:"合同な三角形を対応させる",parts:[2,3]},{title:"中点と直角を確かめる",parts:[4,5,6]}],
+  "bisect-angle":[{title:"二辺に等距離の点を取る",parts:[0]},{title:"円弧の交点を取る",parts:[1,2]},{title:"合同から角を対応させる",parts:[3,4]}],
+  "perpendicular":[{title:"直線上に等距離の二点を取る",parts:[0]},{title:"垂直二等分線を作る",parts:[2]},{title:"指定の点を通る理由",parts:[1]}],
+  "parallel":[{title:"元の直線への垂線",parts:[0]},{title:"同じ点でもう一度垂線",parts:[1,2]},{title:"平行になる理由",parts:[3]}],
+  "divide":[{title:"等しい区間を並べる",parts:[0]},{title:"平行線で位置を移す",parts:[1,2,5]},{title:"部分と全体を対応させる",parts:[3,4]}],
+  "ratio":[{title:"比の和を全体にする",parts:[0,1]},{title:"平行線で位置を移す",parts:[2,5]},{title:"相似な三角形を対応させる",parts:[3]},{title:"残りの部分の比",parts:[4]}],
+  "tangent-point":[{title:"接点で半径を引く",parts:[0]},{title:"接点を通る垂線",parts:[1]},{title:"接線の条件",parts:[2]}],
+  "tangent-outside":[{title:"補助円の直径を決める",parts:[0]},{title:"二つの接点を取る",parts:[1,2]},{title:"直角を接線の条件へ",parts:[3,4]}]
+ };
+ const steps=groups[kind].map(({title,parts})=>({title,text:parts.map(i=>sentences[i]).join("")}));
+ return {...q(prompt+start,answer,hint,working),steps,answerInSteps:true};
 }
 export const cubeVertices:Record<string,[number,number,number]>={A:[0,0,0],B:[1,0,0],C:[1,1,0],D:[0,1,0],E:[0,0,1],F:[1,0,1],G:[1,1,1],H:[0,1,1]};
 export const cubeIntro=m`直方体の下の面を $ABCD$、上の面を $EFGH$ とし、上下を結ぶ辺を $AE,BF,CG,DH$ とします。辺を含む直線は、両方向へ延長して考えます。`;
@@ -76,22 +89,29 @@ export function lines(a:string,b:string):Q{
  const av=cubeVertices[a[0]],bv=cubeVertices[b[0]],u=sub(cubeVertices[a[1]],av),v=sub(cubeVertices[b[1]],bv),normal=cross(u,v),parallel=normal.every(x=>x===0),samePlane=dot(sub(bv,av),normal)===0;
  const result=parallel?"平行":samePlane?"交わる":"ねじれの位置";
  const reason=lineReasons[`${a}/${b}`]??(parallel?"直方体の対応する辺（または対応する面の同じ向きの対角線）で、延長しても交わりません。":samePlane?"同じ平面上にあり、平行でないため延長した直線は一点で交わります。":"平行ではなく、延長しても交わりません。同じ平面上にない二直線です。");
- return q(cubeIntro+m`直線 $${a}$ と $${b}$ の位置関係を、理由とともに答えなさい。`,result+"。"+reason,"共有点を持つかを調べ、平行でも交わる関係でもない場合にねじれと判断します。",reason+" 見取図上で線が重なるかどうかだけでは判断しません。");
+ return q(cubeIntro+m`直線 $${a}$ と $${b}$ の位置関係を、理由とともに答えなさい。`,result+"。"+reason,"共有点を持つかを調べ、平行でも交わる関係でもない場合にねじれと判断します。",reason);
 }
 export function linePlane(edge:string,face:string,relation:string,reason:string):Q{
  return q(cubeIntro+m`直線 $${edge}$ と平面 $${face}$ の位置関係を答え、理由も説明しなさい。`,relation+"。"+reason,
- "線が面に含まれるか、交点がないか、一点で交わるかを先に分けます。垂直なら面内の二本との直角を確かめます。",reason+" 平面に含まれる直線を、その平面に平行という答えにはしません。");
+ relation==="垂直"?"交点を通る面内の二本の辺と、直線との角を調べます。":relation==="含まれる"?"直線を決める二点が、その平面内にあるか確かめます。":relation==="平行"?"面内の平行な辺を探し、平面との交点がないことを確かめます。":"面との交点を探し、その点で面内の辺との角を調べます。",reason);
 }
 export function planes(face:string,other:string,perp:boolean):Q{
+ const shared=[...face].filter(point=>other.includes(point)),vertex=shared[0];
+ const side=(polygon:string)=>{
+  const i=polygon.indexOf(vertex);
+  return vertex+[polygon[(i+1)%polygon.length],polygon[(i+polygon.length-1)%polygon.length]].find(point=>!shared.includes(point))!;
+ };
+ const edge=shared.join(""),first=perp?side(face):"",second=perp?side(other):"";
+ const reason=perp?m`交線は $${edge}$ です。点 $${vertex}$ から、平面 $${face}$ 内では $${first}$、平面 $${other}$ 内では $${second}$ を取ります。両方とも交線に垂直なので、この二辺の角が二面の角です。直方体の辺 $${first},${second}$ は垂直だから、二面も垂直です。`:
+ m`$${face}$ と $${other}$ は直方体の向かい合う二面です。面を広げても交わらないので平行です。`;
  return q(cubeIntro+m`平面 $${face}$ と平面 $${other}$ は平行ですか、垂直ですか。理由も答えなさい。`,
- perp?"垂直です。交線にそれぞれの面内で垂直な二直線が、直角をつくるからです。":"平行です。直方体の向かい合う二面で、交線を持たないからです。",
- perp?"交線を探し、その交線に垂直な線を各面内に取ります。":"直方体の向かい合う面かどうかを確かめます。",
- perp?"直方体の隣り合う二面です。交線となる辺の一端で、各面内のもう一方の辺を取ると、どちらも交線に垂直で互いにも直角です。この二線の角が二面の角です。":"直方体の向かい合う面は、面を広げても交わりません。見取図の斜めの角度は、実際の二面の角ではありません。");
+ (perp?"垂直です。":"平行です。")+reason,
+ perp?m`交線 $${edge}$ の点 $${vertex}$ から、各面内で交線に垂直な辺を取ります。`:"直方体の向かい合う面かどうかを確かめます。",reason);
 }
 export function spaceDistance(a:number,h:number):Q{
  return q(cubeIntro+m`$AB=${a},AE=${h}$ です。点 $E$ から点 $B$ までの距離と、点 $E$ から底面 $ABCD$ までの距離を求めなさい。`,
  m`$EB=${Math.sqrt(a*a+h*h)}$、底面までの距離は $${h}$。`,
- "点までの斜めの距離と、面への垂直な距離を分けます。",
+ "面までの距離には垂線 $EA$、点までの距離には直角三角形 $EAB$ を使います。",
  m`側面 $ABFE$ の直角三角形で $EB=\sqrt{${a}^2+${h}^2}=${Math.sqrt(a*a+h*h)}$。底面への垂線は $EA$ なので、面までの距離は $EA=${h}$ です。`);
 }
 export function projection(top:string,bottom:string,foot:string):Q{

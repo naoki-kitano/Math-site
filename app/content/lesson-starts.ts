@@ -7,7 +7,7 @@ export type LessonStart = { goal: string; steps: string[]; check: string };
 export const lessonStarts: Record<string, LessonStart> = {
   ...relationStarts,
   ...Object.fromEntries(Object.entries(formulaCorrespondence).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
-  ...Object.fromEntries(Object.entries(visualLessons).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
+  ...Object.fromEntries(Object.entries(visualLessons).filter(([slug])=>!slug.startsWith("ma-")||!formulaCorrespondence[slug]).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
   "jr-linear-equation": {
     goal: "まず、文字のない項を消します。移項の符号を覚える前に、両辺へ同じ操作をしてみよう。",
     steps: [],
@@ -32,11 +32,6 @@ export const lessonStarts: Record<string, LessonStart> = {
     goal: "まず、二点を結ぶ直線の傾きを求めます。一方の点を近づけると、傾きはどう変わるでしょう。",
     steps: [],
     check: "最初から$0$で割ることはできません。微分係数は、平均変化率の極限が有限の値として存在するときに定義します。",
-  },
-  "ma-conditional-probability": {
-    goal: "まず、知らされた条件に合う結果だけを残します。その中で割合を求めよう。",
-    steps: [],
-    check: "条件の確率が正であることが必要です。枚数の比で求められるのは、各カードを等確率で選んでいるからです。",
   },
   "mb-arithmetic-sum": {
     goal: "まず、和をもう一度、逆順に書きます。上下の対応する項を足すと何がそろうでしょう。",
