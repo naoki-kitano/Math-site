@@ -1,25 +1,23 @@
 "use client";
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import type { Step } from "../content/lessons";
 import { Steps } from "./StepList";
-import {MathText} from "./MathText";
-import {stepHeading,distinctSteps} from "../lib/step-heading";
+import {distinctSteps} from "../lib/step-heading";
+import LearningStepControls from "./LearningStepControls";
 
-/** Keep every reason and condition available, revealing one move at a time. */
-export default function ExampleSteps({ steps: sourceSteps,onCompletionChange,onStepChange }: { steps: Step[];onCompletionChange?:(complete:boolean)=>void;onStepChange?:(step:number,complete:boolean)=>void }) {
-  const steps=distinctSteps(sourceSteps);
-  const [count, setCount] = useState(1);
-  const id = useId();
-  const details=useRef<HTMLDetailsElement>(null);
-  if (!steps.length) return null;
-  const report=(next:number,open:boolean)=>{const complete=next===steps.length||open;onCompletionChange?.(complete);onStepChange?.(next-1,complete);};
-  const go=(next:number)=>{setCount(next);report(next,!!details.current?.open);};
-  return <div className="example-walkthrough">
-    <div id={id} aria-live="polite" aria-atomic="true"><Steps steps={[steps[count-1]]} showNumbers={false}/></div>
-    {steps.length > 1 && <div className="actions walkthrough-actions">
-      {count < steps.length&&<button className="button" aria-label="次の手順" aria-controls={id} onClick={() => go(Math.min(count + 1, steps.length))}><MathText text={stepHeading(steps[count].title)?`次：${stepHeading(steps[count].title)}`:"続きを表示"}/></button>}
-      {count>1&&<button className="button secondary" onClick={() => go(count-1)}>前へ</button>}
-    </div>}
-    <details ref={details} className="supplement" onToggle={e=>report(count,e.currentTarget.open)}><summary>解説をまとめて読む</summary><Steps steps={steps} showNumbers={false}/></details>
-  </div>;
+export type CompletionAction={label:string;onClick:()=>void;secondaryLabel?:string;onSecondary?:()=>void};
+/** One control continues the explanation, then the next learning task. */
+export default function ExampleSteps({steps:sourceSteps,onCompletionChange,onStepChange,onProgressChange,onContinue,onBack,completionAction,children}:{steps:Step[];onCompletionChange?:(complete:boolean)=>void;onStepChange?:(step:number,complete:boolean)=>void;onProgressChange?:(progress:number)=>void;onContinue?:()=>void;onBack?:()=>void;completionAction?:CompletionAction;children?:ReactNode}){
+ const steps=distinctSteps(sourceSteps),[count,setCount]=useState(1),[expanded,setExpanded]=useState(false);
+ const id=useId(),details=useRef<HTMLDetailsElement>(null);
+ const complete=count>=steps.length||expanded;
+ const report=(next:number,open:boolean)=>{const done=next>=steps.length||open;onCompletionChange?.(done);onStepChange?.(Math.max(0,next-1),done);onProgressChange?.(done?1:(next-1)/Math.max(1,steps.length-1));};
+ const go=(next:number)=>{setCount(next);report(next,!!details.current?.open);};
+ const action=complete?completionAction:undefined;
+ return <div className="example-walkthrough">
+  {!!steps.length&&<div id={id} aria-live="polite" aria-atomic="true"><Steps steps={[steps[count-1]]} showNumbers={false}/></div>}
+  {children}
+  <LearningStepControls className="walkthrough-actions" onPrevious={action?action.onSecondary:count>1?()=>go(count-1):onBack} previousLabel={action?.secondaryLabel} onNext={action?action.onClick:complete?onContinue:()=>go(count+1)} nextLabel={action?.label}/>
+  {!!steps.length&&<details ref={details} className="supplement" onToggle={e=>{setExpanded(e.currentTarget.open);report(count,e.currentTarget.open);}}><summary>解説をまとめて読む</summary><Steps steps={steps} showNumbers={false}/></details>}
+ </div>;
 }

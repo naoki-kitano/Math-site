@@ -31,7 +31,7 @@ const readouts: Record<Kind, string[]> = {
   conditional: ["どのカードも選ばれる確率は同じです。", "選ばれた番号が2以上と分かりました。1を除いた五枚を新しい全体にします。", "残った五枚のうち、偶数は三枚です。最初の六枚では割りません。"],
   sum: ["同じ和をもう一行書きます。二行あるので、合計は元の和の二倍です。", "下の行だけ順序を逆にします。足す順序を変えても和は同じです。", "各組の和は十四。それが五組です。最後に二で割り、一行分の和に戻します。"],
   vector: ["青緑が一つ目、橙が二つ目の移動です。", "橙の矢印は、同じ向きと長さを保ったまま動きます。", "紺の矢印は、最初の始点から最後の終点へ向かいます。これが二つの移動の和です。"],
-  derivative: ["固定した点と、もう一つの点を結ぶ割線を見ます。", "横の差を零に近づけます。途中では差は零でないので、傾きを割り算で求められます。", "接線を表示しています。横の差を零にした割り算の値ではなく、傾きの極限です。"],
+  derivative: ["固定した点と、もう一つの点を結ぶ割線を見ます。", "横の差を $0$ に近づけます。途中では差は $0$ でないので、傾きを割り算で求められます。", "接線を表示しています。横の差を $0$ にした割り算の値ではなく、傾きの極限です。"],
 };
 function Label({ x, y, tex, width = 110 }: { x: number; y: number; tex: string; width?: number }) {
   return <foreignObject x={x - width / 2} y={y - 18} width={width} height="40"><div className="unit-math-label"><Formula tex={tex} /></div></foreignObject>;
@@ -158,13 +158,13 @@ function Explorer({ kind }: { kind: Kind }) {
     <p>{kind === "conditional" ? "「次の段階を見る」を押し、分母になる全体を確かめよう。" : "「変化を再生」を押し、動くものと変わらないものを追ってみよう。"}</p>
     <div className="unit-stages" role="group" aria-label="図の段階">{stages[kind].map((title, i) => <button key={title} aria-pressed={progress === i} onClick={() => move(i)}>{title}</button>)}</div>
     <svg viewBox="0 0 500 355" className="concept-diagram" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
-      <title id={`${id}-title`}>{titles[kind]}</title><desc id={`${id}-desc`}>{readouts[kind][stage]}</desc>
+      <title id={`${id}-title`}>{titles[kind]}</title><desc id={`${id}-desc`}>{readouts[kind][stage].replaceAll("$0$","0")}</desc>
       <Drawing kind={kind} progress={progress} id={id} side={side} />
     </svg>
     <div className="actions unit-controls"><button className="button" disabled={(reduced || kind === "conditional") && progress === 2} onClick={playing ? () => setPlaying(false) : play}>{playing ? "停止" : reduced || kind === "conditional" ? "次の段階を見る" : progress > 0 && progress < 2 ? "再生を続ける" : "変化を再生"}</button><button className="button secondary" onClick={() => move(0)}>リセット</button></div>
     {kind !== "conditional" && <label className="unit-reduced"><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => { setManualReduced(e.target.checked); move(Math.ceil(progress)); }} />動きを減らす{systemReduced && "（端末の設定を使用）"}</label>}
     {kind === "derivative" && <div className="graph-controls" role="group" aria-label="点を近づける側">{[1, -1].map(s => <button key={s} aria-pressed={side === s} onClick={() => { setSide(s); move(0); }}>{s === 1 ? "右から近づける" : "左から近づける"}</button>)}</div>}
-    <div className="translation-readout"><p aria-live="polite">{readouts[kind][stage]}</p><Formula tex={tex} display /></div>
+    <div className="translation-readout"><p aria-live="polite"><MathText text={readouts[kind][stage]}/></p><Formula tex={tex} display /></div>
     {kind === "equation" && <p><MathText text={progress === 2 ? "元の式へ代入すると $2\\cdot3+3=9$。左右が一致します。箱の図はこの正の解の例を表し、等式の操作自体は負の解の場合にも使えます。" : "小さい長方形一つを $1$ とします。大きい箱一つが、求めたい量 $x$ です。"} /></p>}
     {kind === "conditional" && <p><MathText text="$A$ は「2以上」、$B$ は「偶数」です。灰色のカードは、条件を知ったあとの全体に含めません。" /></p>}
     {kind === "sum" && <details className="supplement"><summary>何項でも同じになる理由</summary><p><MathText text="等差数列では $a_k=a_1+(k-1)d$、$a_{n+1-k}=a_1+(n-k)d$。足すと $2a_1+(n-1)d=a_1+a_n$ です。どの組も同じで、組の個数は $n$。だから $2S_n=n(a_1+a_n)$ となります。" /></p></details>}

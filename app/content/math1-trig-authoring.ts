@@ -62,8 +62,8 @@ function angleSum(a:number,b:number):Worked{return w(m`三角形の二つの内�
 export const anglePrep:Skill={id:"angle-sum",title:"三角形の内角の和",why:m`三角形の三つの内角の和は $180^\circ$。各内角は正です。`,sample:angleSum(40,60),items:[angleSum(30,90),angleSum(45,60),angleSum(60,90)]};
 function positiveRoot(n:number):Worked{return w(m`長さ $x$ が $x^2=${n*n}$ を満たします。$x$ を求めなさい。`,m`$x=${n}$。`,"方程式の解のうち、長さの条件を満たすものを選びます。",m`方程式だけなら $x=\pm${n}$。長さは正なので $x=${n}$。`);}
 export const lengthPrep:Skill={id:"positive-length",title:"長さには正の解を選ぶ",why:"辺の長さは正なので、二乗から戻すとき負の解は採用しません。",sample:positiveRoot(4),items:[positiveRoot(5),positiveRoot(3),positiveRoot(6)]};
-function ratio(n:number,d:number):Worked{return w(m`$\frac{${n}}{${d}}$ を約分しなさい。`,m`$${fraction(n,d)}$。`,"分子と分母を同じ非零の数で割ります。",m`分子と分母の共通の因数を取り除くと $${fraction(n,d)}$ です。値は変わりません。`);}
-export const ratioPrep:Skill={id:"reduce-ratio",title:"比を分数で表す",why:"比を表す分数も、分子と分母を同じ非零の数で割って整理できます。",sample:ratio(6,10),items:[ratio(8,12),ratio(9,15),ratio(10,16)]};
+function ratio(n:number,d:number):Worked{return w(m`$\frac{${n}}{${d}}$ を約分しなさい。`,m`$${fraction(n,d)}$。`,"分子と分母を$0$ でない同じ数で割ります。",m`分子と分母の共通の因数を取り除くと $${fraction(n,d)}$ です。値は変わりません。`);}
+export const ratioPrep:Skill={id:"reduce-ratio",title:"比を分数で表す",why:"比を表す分数も、分子と分母を$0$ でない同じ数で割って整理できます。",sample:ratio(6,10),items:[ratio(8,12),ratio(9,15),ratio(10,16)]};
 function proportion(n:number,d:number,v:number):Worked{return w(m`$\frac{x}{${d}}=${fraction(n,v)}$ を解きなさい。`,m`$x=${fraction(n*d,v)}$。`,"両辺に分母の数を掛けます。",m`両辺に $${d}$ を掛けて $x=${d}\cdot${fraction(n,v)}=${fraction(n*d,v)}$。`);}
 export const proportionPrep:Skill={id:"solve-ratio",title:"分数を含む等式を解く",why:"未知数の位置を確かめ、等式の両辺に同じ数を掛けます。",sample:proportion(1,8,2),items:[proportion(3,10,5),proportion(2,12,3),proportion(1,9,3)]};
 export type SpecialAngle=0|30|45|60|90|120|135|150|180;

@@ -31,7 +31,7 @@ export const math3ReadingContext:Record<string,string>={
  'm3-concavity-inflection':m`候補点の近くで二回微分可能な関数を扱います。`,
  'm3-antiderivative-constant':m`一つの区間で $F'=f$ を考えます。$C$ は任意の定数です。`,
  'm3-power-integrals':m`分数指数はここでは $x>0$。$\dfrac1x$ は $0$ を含まない一つの区間で積分します。`,
- 'm3-trig-basic-integrals':m`角は弧度法。$\cos^2x$ が分母にある場合は、零にならない区間で扱います。`,
+ 'm3-trig-basic-integrals':m`角は弧度法。$\cos^2x$ が分母にある場合は、$0$にならない区間で扱います。`,
  'm3-linear-inner-integrals':m`$F'=f$、$a\ne0$。内側 $ax+b$ の微分は定数 $a$ です。`,
  'm3-reverse-chain-integrals':m`内側の式 $g(x)$ と $g'(x)$ をそろえます。調整できるのは定数倍です。`,
  'm3-log-derivative-integrals':m`$f$ は微分可能で、$f(x)\ne0$ となる一つの区間を考えます。`,

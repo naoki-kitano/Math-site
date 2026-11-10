@@ -24,9 +24,9 @@ export function factorCount(n:number,square=false):Q{
  const fs=factors(n),count=fs.reduce((x,[,e])=>x*(e+1),1),need=fs.filter(([,e])=>e%2).reduce((x,[p])=>x*p,1),v=square?need:count;
  return checked(q(m`$${n}$ を素因数分解し、${square?"掛けると平方数になる最小の正の整数":"正の約数の個数"}を求めなさい。`,
  m`$${n}=${factorTex(n)}$。${square?"掛ける数":"約数の個数"}は $${v}$${square?"":"個"}。`,
- square?"まず素因数分解し、奇数になっている指数を探します。平方数では各指数が偶数になるためです。":"まず小さい素数で順に割って素因数分解します。約数では各指数を零から元の指数まで選べるので、その選び方を数えます。",
+ square?"まず素因数分解し、奇数になっている指数を探します。平方数では各指数が偶数になるためです。":"まず小さい素数で順に割って素因数分解します。約数では各指数を$0$から元の指数まで選べるので、その選び方を数えます。",
  m`まず $${n}=${factorTex(n)}$。`+(square?need===1?m`指数はすべて偶数なので、すでに平方数です。掛ける正の整数の最小値は $1$ で、$${n}\times1=${n}=${Math.sqrt(n)}^2$ です。`:m`奇数の指数を一つずつ増やすには $${need}$ を掛けます。余分な素因数を加えないので最小です。$${n}\times${need}=${n*need}=${Math.sqrt(n*need)}^2$。`:
- m`指数の選び方は $${fs.map(([,e])=>`(${e}+1)`).join("\\times")}=${count}$ 通り。指数零（その素数を使わない選択）も含めます。`),v),square?"square-factor":"factor-count",[n]);
+ m`指数の選び方は $${fs.map(([,e])=>`(${e}+1)`).join("\\times")}=${count}$ 通り。指数$0$（その素数を使わない選択）も含めます。`),v),square?"square-factor":"factor-count",[n]);
 }
 export function gcdLcm(a:number,b:number,context:"plain"|"cut"|"period"="plain"):Q{
  const d=gcd(a,b),l=a*b/d;
@@ -39,8 +39,8 @@ export function gcdLcm(a:number,b:number,context:"plain"|"cut"|"period"="plain")
 }
 export function division(a:number,b:number):Q{
  const quo=Math.floor(a/b),r=a-b*quo;
- return checked(q(m`整数 $${a}$ を正の整数 $${b}$ で割る商と余りを求めなさい。余りは零以上、割る数未満とします。`,m`商 $${quo}$、余り $${r}$。`,
- "割られる数を超えない最大の倍数を探します。差が零以上、割る数未満になるためです。",
+ return checked(q(m`整数 $${a}$ を正の整数 $${b}$ で割る商と余りを求めなさい。余りは$0$以上、割る数未満とします。`,m`商 $${quo}$、余り $${r}$。`,
+ "割られる数を超えない最大の倍数を探します。差が$0$以上、割る数未満になるためです。",
  m`$${b*quo}\leqq ${a}<${b*(quo+1)}$ なので、$${b}$ の倍数は $${b}\times(${quo})=${b*quo}$ を選びます。$${a}=${b}\times(${quo})+${r}$。$0\leqq ${r}<${b}$ なので、この商と余りです。`,r),"division",[a,b]);
 }
 export function parity(a:number,b:number,product=false,diff=false):Q{
@@ -62,7 +62,7 @@ export function squareClassification(d:number):Q{
  const residues=range(d),vals=[...new Set(residues.map(r=>r*r%d))].sort((a,b)=>a-b);
  return q(m`整数の平方を $${d}$ で割った余りとして可能なものをすべて答え、余りによる場合分けで説明しなさい。`,
  m`$${vals.join(",")}$。元の余り $${residues.join(",")}$ を全部調べると、平方の余りは順に $${residues.map(r=>r*r%d).join(",")}$ で、これ以外はありません。`,
- "元の整数を割った余りを、零から順に全部調べます。",
+ "元の整数を割った余りを、$0$から順に全部調べます。",
  residues.map(r=>m`整数 $k$ に対して $n=${poly([[d,"k"],[r,""]])}$ なら $n^2=${d}(${squareInner(r,d)})+${r*r%d}$。`).join("\n")+"\n"+m`元の余りは $${residues.join(",")}$ のいずれかなので、これで全場合です。$n=0,1,\ldots,${d-1}$ で得られた余りは実際に生じます。`);
 }
 export function oddSquare(k:number):Q{
@@ -83,8 +83,8 @@ export function euclid(a:number,b:number):Q{
  const steps:string[]=[];let x=a,y=b;
  while(y){const z=x%y;steps.push(m`$${x}=${y}\times${Math.floor(x/y)}+${z}$`);x=y;y=z;}
  return checked(q(m`$${a}$ と $${b}$ の最大公約数を、ユークリッドの互除法で求めなさい。`,m`$${x}$。`,
- "まず大きい数を小さい数で割ります。その後、割る数と余りを次の二数にします。余りが零になったときの割る数が答えです。",
- steps.join("、")+m`。余りが零になったので、最後の零でない数 $${x}$ が最大公約数です。`,x),"euclid",[a,b]);
+ "まず大きい数を小さい数で割ります。その後、割る数と余りを次の二数にします。余りが$0$になったときの割る数が答えです。",
+ steps.join("、")+m`。余りが$0$になったので、最後の$0$でない数 $${x}$ が最大公約数です。`,x),"euclid",[a,b]);
 }
 export function invariant(a:number,b:number):Q{
  const quo=Math.floor(a/b),r=a%b;
@@ -108,7 +108,7 @@ export function integerSolutions(a:number,b:number,c:number,no=false):Q{
 export function countSolutions(a:number,b:number,c:number,positive=false):Q{
  const lower=positive?1:0,upper=Math.floor((c-a*lower)/b);
  const pairs=range(Math.floor(c/b)+1).flatMap(y=>{const x=(c-b*y)/a;return Number.isInteger(x)&&x>=(positive?1:0)&&y>=(positive?1:0)?[[x,y]]:[];});
- return checked(q(m`$${a}x+${b}y=${c}$ を満たす${positive?"正の整数":"非負整数"} $x,y$ の組をすべて求めなさい。${positive?"どちらも零は含めません。":"零個も認めます。"}`,
+ return checked(q(m`$${a}x+${b}y=${c}$ を満たす${positive?"正の整数":"非負整数"} $x,y$ の組をすべて求めなさい。${positive?"どちらも$0$は含めません。":"$0$個も認めます。"}`,
  pairs.length?pairs.map(([x,y])=>`$(${x},${y})$`).join("、")+"。":"該当する組はありません。",
  "二つの個数の範囲を決め、一方を変えながら他方が整数かを調べます。",
  m`$x\geqq${lower}$ より、$y$ は $${lower}$ 以上 $${upper}$ 以下の整数です。$x=\frac{${c}-${b}y}{${a}}$ が${positive?"正の整数":"非負整数"}になるものだけを残します。`+(a===2&&b===3?m`分子が偶数になるには、$y$ は${c%2?"奇数":"偶数"}です。`:"")+pairs.map(([x,y])=>m`$y=${y}$ では $x=${x}$。`).join(" ")+(pairs.length?"この範囲をすべて調べたので、他の組はありません。":"正の整数となる組はありません。"),pairs.length),"count-solutions",[a,b,c,+positive]);
@@ -119,7 +119,7 @@ export function decimal(a:number,b:number):Q{
  const reduced=d===1?m`$\frac{${a}}{${b}}$ は既約です。`:m`約分すると $\frac{${a}}{${b}}=${f(a,b)}$ です。`;
  const reason=den===1?"既約分母は一で、整数なので有限小数です。":finite?
  (factorTex(den)===String(den)?m`分母は素数 $${den}$ です。`:m`既約分母は $${den}=${factorTex(den)}$。`)+m`分子と分母に $${multiplier}$ を掛けると $\frac{${a/d*multiplier}}{${power}}$。分母が十の累乗になるので有限小数です。`:
- m`既約分母 $${den}$ に二・五以外の素因数があり、十の累乗を分母にできません。割り算の余りは有限種類で、零で終わらなければ同じ余りから同じ計算が続くので循環します。`;
+ m`既約分母 $${den}$ に二・五以外の素因数があり、十の累乗を分母にできません。割り算の余りは有限種類で、$0$で終わらなければ同じ余りから同じ計算が続くので循環します。`;
  return checked(q(m`$\frac{${a}}{${b}}$ は有限小数で表せますか。約分してから理由を説明しなさい。`,finite?"有限小数です。既約分母に二・五以外の素因数を含まないからです。":"有限小数では表せず、循環小数になります。既約分母に二・五以外の素因数が残るからです。",
  "最初に約分します。約分前の分母だけでは判定できません。",reduced+reason,+finite),"decimal",[a,b]);
 }
@@ -135,9 +135,9 @@ export function binary(n:number,toBinary=false):Q{
  while(a){steps.push(m`$${a}=2\times${Math.floor(a/2)}+${a%2}$`);a=Math.floor(a/2);}
  return checked(q(toBinary?m`十進法の $${n}$ を二進法で表しなさい。`:m`二進法の $${bits}_{(2)}$ を十進法で表しなさい。`,
  toBinary?m`$${bits}_{(2)}$。`:m`$${n}$。`,
- toBinary?"商が零になるまで二で割り、余りを最後から逆順に読みます。":"右端から、一・二・四・八という桁の重みを掛けます。",
+ toBinary?"商が$0$になるまで二で割り、余りを最後から逆順に読みます。":"右端から、一・二・四・八という桁の重みを掛けます。",
  toBinary?steps.join("、")+m`。最初の余りが一の位なので、逆順に読んで $${bits}_{(2)}$。`:
- m`$${bits}_{(2)}=${terms}=${n}$。零の桁も位置を保って計算します。`,n),toBinary?"binary-encode":"binary-decode",[n]);
+ m`$${bits}_{(2)}=${terms}=${n}$。$0$の桁も位置を保って計算します。`,n),toBinary?"binary-encode":"binary-decode",[n]);
 }
 export function binaryAdd(a:number,b:number):Q{
  const bitsA=a.toString(2),bitsB=b.toString(2),steps:string[]=[];let carry=0;
@@ -148,15 +148,15 @@ export function binaryAdd(a:number,b:number):Q{
  }
  return checked(q(m`二進法で $${a.toString(2)}_{(2)}+${b.toString(2)}_{(2)}$ を計算し、繰り上がりの理由も書きなさい。`,
  m`$${(a+b).toString(2)}_{(2)}$。同じ位が二個になると、一つ上の位の一個に繰り上がります。`,
- "一と一で、今の位は零、次の位に一を送ります。",
+ "一と一で、今の位は$0$、次の位に一を送ります。",
  steps.join(" ")+m`結果は $${(a+b).toString(2)}_{(2)}$。十進法で確認すると $${a}+${b}=${a+b}$ です。`,a+b),"binary-add",[a,b]);
 }
 export function coordinate(x:number,y:number,z:number,axes=false):Q{
  const vals=[x,y,z],planes=vals.flatMap((v,i)=>v===0?[["yz","xz","xy"][i]]:[]),ax=vals.flatMap((_,i)=>vals.every((v,j)=>i===j||v===0)?[["x","y","z"][i]]:[]);
  return q(m`空間の直交座標で点 $(${x},${y},${z})$ が属する${axes?"座標軸":"座標平面"}をすべて答えなさい。`,
  (axes?ax:planes).length?(axes?ax:planes).map(v=>`$${v}$ ${axes?"軸":"平面"}`).join("、")+"。":"どれにも属しません。",
- axes?"軸上なら、残る二つの座標が零です。":"座標平面では、それに垂直な方向の座標が零です。",
- m`$x=${x},y=${y},z=${z}$ です。`+(planes.length===3?`原点なので、三つすべての${axes?"座標軸":"座標平面"}に属します。`:axes?(ax.length?m`残る二成分が零なので $${ax[0]}$ 軸上です。非零の成分があるため、ほかの座標軸には属しません。`:m`零の成分は $${planes.length}$ 個です。二つそろわないので、どの座標軸にも属しません。`):planes.length?vals.flatMap((v,i)=>v===0?[m`$${["x","y","z"][i]}=0$ なので $${["yz","xz","xy"][i]}$ 平面上です。`]:[]).join("")+"残る成分は零でないので、ほかの座標平面には属しません。":"零の成分がないので、どの座標平面にも属しません。"));
+ axes?"軸上なら、残る二つの座標が$0$です。":"座標平面では、それに垂直な方向の座標が$0$です。",
+ m`$x=${x},y=${y},z=${z}$ です。`+(planes.length===3?`原点なので、三つすべての${axes?"座標軸":"座標平面"}に属します。`:axes?(ax.length?m`残る二成分が$0$なので $${ax[0]}$ 軸上です。$0$ でない成分があるため、ほかの座標軸には属しません。`:m`$0$の成分は $${planes.length}$ 個です。二つそろわないので、どの座標軸にも属しません。`):planes.length?vals.flatMap((v,i)=>v===0?[m`$${["x","y","z"][i]}=0$ なので $${["yz","xz","xy"][i]}$ 平面上です。`]:[]).join("")+"残る成分は$0$でないので、ほかの座標平面には属しません。":"$0$の成分がないので、どの座標平面にも属しません。"));
 }
 export function tiling(a:number,b:number):Q{
  const d=gcd(a,b),count=a*b/(d*d);

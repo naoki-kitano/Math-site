@@ -12,7 +12,7 @@ function polar(n:number,inverse=false){
  q(m`極座標 $(r,\theta)=\left(${2*n},\frac\pi3\right)$ を直交座標で表しなさい。`,m`$(x,y)=(${n},${n===1?"":n}\sqrt3)$。`,"横は余弦、縦は正弦を掛けます。",m`$x=${2*n}\cos\frac\pi3=${n}$、$y=${2*n}\sin\frac\pi3=${n===1?"":n}\sqrt3$。`);
 }
 function polarEquation(n:number,circle=false){
- return circle?q(m`$r\geqq0$ とします。極方程式 $r=${2*n}\cos\theta$ の表す曲線を直交座標の式で表し、原点が含まれるか答えなさい。`,m`$(x-${n})^2+y^2=${n*n}$。原点も含まれます。`,"両辺に距離を掛け、二乗の和と横座標に置き換えます。零で割らないようにします。",m`$r^2=${2*n}r\cos\theta$ より $x^2+y^2=${2*n}x$。原点以外では $r>0$ なので逆に割って元へ戻せます。原点も $r=0,\theta=\frac\pi2$ で元の式を満たします。`):
+ return circle?q(m`$r\geqq0$ とします。極方程式 $r=${2*n}\cos\theta$ の表す曲線を直交座標の式で表し、原点が含まれるか答えなさい。`,m`$(x-${n})^2+y^2=${n*n}$。原点も含まれます。`,m`両辺に距離を掛け、二乗の和と横座標に置き換えます。$0$ で割らないようにします。`,m`$r^2=${2*n}r\cos\theta$ より $x^2+y^2=${2*n}x$。原点以外では $r>0$ なので逆に割って元へ戻せます。原点も $r=0,\theta=\frac\pi2$ で元の式を満たします。`):
  q(m`極方程式 $r\cos\theta=${n}$ を直交座標で表し、その図形を答えなさい。ただし $r\geqq0$。`,m`直線 $x=${n}$。`,"距離と余弦の積は横座標です。",m`$x=r\cos\theta$ より $x=${n}$。直線上の任意の点に距離と偏角を対応させれば、元の式を満たします。`);
 }
 export const curveBanks=[

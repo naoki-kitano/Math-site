@@ -54,19 +54,19 @@ function rational(d:number,n=1,k=1):Worked{
  const multiplied=m`\frac{${n}\cdot\sqrt{${d}}}{${k===1?"":k}\sqrt{${d}}\cdot\sqrt{${d}}}`;
  const combined=m`\frac{${n===1?"":n}\sqrt{${d}}}{${k*d}}`;
  const calculation=[input,multiplied,combined,...(combined===answer?[]:[answer])].join("=");
- return [t(input)+" の分母を有理化しなさい。",t(answer)+"。",m`分子・分母に同じ非零の数 ${t(m`\sqrt{${d}}`)} を掛け、係数を約分します。`,t(calculation)+m`。元の分母と掛ける ${t(m`\sqrt{${d}}`)} は正なので、値を保つ変形です。`];
+ return [t(input)+" の分母を有理化しなさい。",t(answer)+"。",m`分子・分母に$0$ でない同じ数 ${t(m`\sqrt{${d}}`)} を掛け、係数を約分します。`,t(calculation)+m`。元の分母と掛ける ${t(m`\sqrt{${d}}`)} は正なので、値を保つ変形です。`];
 }
 function conjugate(a:number,d:number,s:number):Worked {
  const denom=m`${a}${s===1?"+":"-"}\sqrt{${d}}`,conj=m`${a}${s===1?"-":"+"}\sqrt{${d}}`,base=a*a-d;
  const answer=base===1?conj:m`\frac{${conj}}{${base}}`;
- return [t(m`\frac1{${denom}}`)+" の分母を有理化しなさい。",t(answer)+"。","根号の項の符号を反対にした式を、分子と分母の両方に掛けます。",t(m`\frac1{${denom}}=\frac{${conj}}{(${denom})(${conj})}=\frac{${conj}}{${a*a}-${d}}=${answer}`)+m`。二つの因数の積は ${t(m`${base}\ne0`)} なので、元の分母と掛ける式はどちらも非零です。`];
+ return [t(m`\frac1{${denom}}`)+" の分母を有理化しなさい。",t(answer)+"。","根号の項の符号を反対にした式を、分子と分母の両方に掛けます。",t(m`\frac1{${denom}}=\frac{${conj}}{(${denom})(${conj})}=\frac{${conj}}{${a*a}-${d}}=${answer}`)+m`。二つの因数の積は ${t(m`${base}\ne0`)} なので、元の分母と掛ける式はどちらも$0$ ではありません。`];
 }
 export const rationalizing=topic("m1-rationalizing","分母の有理化",[
- m`分母にある根号をなくす変形を有理化といいます。分数の値を保つには、分子と分母に同じ非零の数を掛けます。$\dfrac1{\sqrt2}=\dfrac{\sqrt2}{2}$ です。分母だけに掛けると値が変わります。`,
+ m`分母にある根号をなくす変形を有理化といいます。分数の値を保つには、分子と分母に$0$ でない同じ数を掛けます。$\dfrac1{\sqrt2}=\dfrac{\sqrt2}{2}$ です。分母だけに掛けると値が変わります。`,
  m`二項の分母では和と差の積を使います。$(a+b)(a-b)=a^2-b^2$ なので、$2+\sqrt3$ には $2-\sqrt3$ を掛けます。積は $4-3=1$ です。`,
  m`元の分母も、掛ける式もゼロでないことが必要です。ここで使う $a\pm\sqrt d$ は、$a^2-d\ne0$ なのでどちらもゼロではありません。有理化後は係数の約分も確かめます。`,
-],"分子と分母に同じ非零の数を掛け、値を保ちます。",[
- {id:"single",title:"一項の分母を有理化",why:"分子・分母に同じ非零の根号を掛けます。係数を約分できる場合は最後に簡単にします。",sample:rational(2),items:[rational(3),rational(5,2),rational(2,2),rational(3,3,2),rational(7,2),rational(5,5,2),rational(2,3,2)]},
+],"分子と分母に$0$ でない同じ数を掛け、値を保ちます。",[
+ {id:"single",title:"一項の分母を有理化",why:"分子・分母に$0$ でない同じ根号を掛けます。係数を約分できる場合は最後に簡単にします。",sample:rational(2),items:[rational(3),rational(5,2),rational(2,2),rational(3,3,2),rational(7,2),rational(5,5,2),rational(2,3,2)]},
  {id:"conjugate",title:"二項の分母は和と差の積",why:"根号の項の符号を反対にした式を掛けます。分母の積がゼロでないことも確かめます。",sample:conjugate(2,3,1),items:[[3,5,1],[3,7,-1],[2,2,1],[4,7,-1],[3,2,1],[4,5,1],[2,3,-1]].map(v=>conjugate(v[0],v[1],v[2]))},
 ],P);
 

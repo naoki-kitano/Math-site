@@ -24,7 +24,7 @@ export const limitFigures:Record<string,Record<number,Diagram>>={
  },
  "m3-intermediate-value":{
   0:{title:"負の値から正の値へ",description:"$f(x)=x^3+x-1$ は $[0,1]$ で連続です。端の値が $-1$ と $1$ なので、途中で高さ $0$ を通ります。",xRange:[-.3,1.3],yRange:[-1.5,1.5],tick:.5,curves:[{label:"$y=x^3+x-1$、$0\\le x\\le1$",value:x=>x*x*x+x-1,from:0,to:1}],points:[{x:0,y:-1,label:"$f(0)=-1$"},{x:1,y:1,label:"$f(1)=1$"}]},
-  1:{title:"連続性がなければ、途中で零を通るとは限らない",description:"$y=\\frac{1}{x}$ は $x=0$ で定義されません。両端の符号が違っても、この区間には中間値の定理を適用できません。",xRange:[-2,2],yRange:[-3,3],curves:[{label:"$y=\\frac{1}{x}$：$x<0$",value:x=>1/x,to:-.02},{label:"$x>0$ の枝",value:x=>1/x,from:.02}],points:[{x:-1,y:-1,label:"$(-1,-1)$"},{x:1,y:1,label:"$(1,1)$"}]}
+  1:{title:"連続性がなければ、途中で0を通るとは限らない",description:"$y=\\frac{1}{x}$ は $x=0$ で定義されません。両端の符号が違っても、この区間には中間値の定理を適用できません。",xRange:[-2,2],yRange:[-3,3],curves:[{label:"$y=\\frac{1}{x}$：$x<0$",value:x=>1/x,to:-.02},{label:"$x>0$ の枝",value:x=>1/x,from:.02}],points:[{x:-1,y:-1,label:"$(-1,-1)$"},{x:1,y:1,label:"$(1,1)$"}]}
  }
 };
 export default function Math3LimitDiagrams({slug,index}:{slug:string;index:number}){

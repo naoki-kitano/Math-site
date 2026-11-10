@@ -47,7 +47,7 @@ export function digits(ds:number[],even=false):Q{
  const vals=rows.flat(),v=vals.length;
  return q(m`数字 $${ds.join(",")}$ のカードが各 $1$ 枚あります。$2$ 枚を使ってできる二桁の${even?"偶数":"整数"}をすべて書き、その個数も答えなさい。`,
  m`$${vals.join(",")}$ の $${v}$ 個。`,
- even?"十の位を固定して書き出し、一の位が偶数になるものを残します。十の位は零にできず、同じカードも二度使えません。":"十の位を固定します。零を十の位にせず、使ったカードを一の位から除きます。",
+ even?"十の位を固定して書き出し、一の位が偶数になるものを残します。十の位は$0$にできず、同じカードも二度使えません。":"十の位を固定します。$0$を十の位にせず、使ったカードを一の位から除きます。",
  rows.map(r=>m`十の位が $${Math.floor(r[0]/10)}$ のとき $${r.join(",")}$。`).join(" ")+m`合計 $${v}$ 個です。`,v,{kind:even?"even-digits":"digits",args:ds});
 }
 export function menu(a:number,b:number,mode:"sum"|"product"|"unequal"):Q{
@@ -70,8 +70,8 @@ export function perm(n:number,r:number,all=false):Q{
 }
 export function repeat(k:number,r:number,integer=false):Q{
  const v=(integer?k-1:k)*k**(r-1);
- return q(m`数字 $0$ から $${k-1}$ を使い、${integer?m`$${r}$ 桁の整数`:m`長さ $${r}$ の暗証番号`}を作ります。同じ数字は何度使ってもよく、${integer?"先頭は零にできません":"先頭も零にできます"}。何通りですか。`,m`$${v}$ 通り。`,
- integer?"先頭だけ零を除きます。残りの各桁は、使えるすべての数字から一つ選べます。":"一度使った数字も残るので、どの桁でも選択肢は同じです。",
+ return q(m`数字 $0$ から $${k-1}$ を使い、${integer?m`$${r}$ 桁の整数`:m`長さ $${r}$ の暗証番号`}を作ります。同じ数字は何度使ってもよく、${integer?"先頭は$0$にできません":"先頭も$0$にできます"}。何通りですか。`,m`$${v}$ 通り。`,
+ integer?"先頭だけ$0$を除きます。残りの各桁は、使えるすべての数字から一つ選べます。":"一度使った数字も残るので、どの桁でも選択肢は同じです。",
  m`先頭は $${integer?k-1:k}$ 通り、残りの各桁は $${k}$ 通り。$${integer?k-1:k}\times${k}^{${r-1}}=${v}$。`,v,{kind:integer?"integer-repeat":"repeat",args:[k,r]});
 }
 export function adjacent(n:number,apart=false):Q{
@@ -120,5 +120,5 @@ export function complement(a:number,b:number,r:number):Q{
  const total=comb(a+b,r),bad=comb(b,r),v=total-bad;
  return q(m`女子 $${a}$ 人、男子 $${b}$ 人から $${r}$ 人を選びます。女子を少なくとも一人含む選び方を、理由とともに求めなさい。`,m`$${v}$ 通り。全体から女子を一人も含まない場合を引きます。`,
  "「女子を少なくとも一人含む」が成り立たないのは、全員男子の場合です。",
- m`全体は $ {}_{${a+b}}C_{${r}}=${total}$。女子が零人なら $ {}_{${b}}C_{${r}}=${bad}$。よって $${total}-${bad}=${v}$。男子も含む場合をすべて引くのではありません。`,v,{kind:"complement",args:[a,b,r]});
+ m`全体は $ {}_{${a+b}}C_{${r}}=${total}$。女子が$0$人なら $ {}_{${b}}C_{${r}}=${bad}$。よって $${total}-${bad}=${v}$。男子も含む場合をすべて引くのではありません。`,v,{kind:"complement",args:[a,b,r]});
 }

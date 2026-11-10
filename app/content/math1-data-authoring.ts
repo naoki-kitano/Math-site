@@ -37,7 +37,7 @@ export function skill(id:string,title:string,why:string,sample:Worked,items:Work
 export const fictional="このページの数値・調査例は、教材用の仮想データです。";
 export const quartileRule=m`小さい順に並べ、奇数個では全体の中央値を除いて上下に分けます。下半分・全体・上半分の中央値が、それぞれ $Q_1,Q_2,Q_3$ です。ひげは最小値・最大値まで引きます。`;
 function count(xs:number[]):Worked{return w(m`$${list(xs)}$ のデータは何個ありますか。同じ値も一つずつ数えなさい。`,m`$${xs.length}$ 個。`,"異なる値の種類ではなく、記録の個数を数えます。",m`同じ値が何度出ても、別の記録ならそれぞれ一つ。全部で $${xs.length}$ 個です。`);}
-function order(xs:number[]):Worked{return w(m`${records(xs)} を小さい順に並べなさい。`,m`${records([...xs].sort((a,b)=>a-b))}。`,"同じ値も別の記録として残します。"+(xs.some(x=>x<0)?"負の数は零や正の数より小さい数です。":""),m`記録の個数を変えずに並べると ${records([...xs].sort((a,b)=>a-b))}。`);}
+function order(xs:number[]):Worked{return w(m`${records(xs)} を小さい順に並べなさい。`,m`${records([...xs].sort((a,b)=>a-b))}。`,"同じ値も別の記録として残します。"+(xs.some(x=>x<0)?"負の数は$0$や正の数より小さい数です。":""),m`記録の個数を変えずに並べると ${records([...xs].sort((a,b)=>a-b))}。`);}
 export const countPrep=skill("data-count","値の種類とデータの個数","同じ値でも別の記録なら個数に含めます。",count([2,2,4,5]),[count([1,3,3,4,4]),count([0,0,2,2,2,5]),count([2,2,2,2])]);
 export const orderPrep=skill("data-order","小さい順に並べる","中央値を読む前に、順序をそろえます。",order([5,1,3,3]),[order([4,1,4,2,3]),order([0,-2,3,-1]),order([7,4,5,2,5,1])]);
 // Preparation has one ready item and one distinct review item; it is not a complete diagnosis.

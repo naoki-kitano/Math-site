@@ -26,7 +26,7 @@ export function addPrerequisiteScenarios(lessons:Lesson[],exercises:Exercise[]){
    {title:"分母と掛ける式を確認する",text:m`$n>0$、$${denom}>0$ なので $\sqrt{n^2+${inside}}>n$。元の分母も、掛ける和も正です。`},
    {title:"差を有理化する",text:"分子にも同じ式を掛け、和と差の積を使います。",tex:m`\frac1{\sqrt{n^2+${inside}}-n}=\frac{\sqrt{n^2+${inside}}+n}{${denom}}`},
    {title:"次数をそろえる",text:m`分子と分母を $n$ で割ります。$n>0$ なので $\sqrt{n^2}=n$ です。`,tex:m`\frac{\sqrt{${root}}+1}{${normal}}\longrightarrow ${value}`},
-   {title:"極限を確認する",text:m`$\frac1n,\frac1{n^2}$ は零へ近づくので、分子は $2$、分母は $${denominatorLimit}$ へ近づきます。分母の極限が零ではないため、商の極限を使えます。`},
+   {title:"極限を確認する",text:m`$\frac1n,\frac1{n^2}$ は$0$へ近づくので、分子は $2$、分母は $${denominatorLimit}$ へ近づきます。分母の極限が$0$ではないため、商の極限を使えます。`},
   ],
  }));
  const repair={

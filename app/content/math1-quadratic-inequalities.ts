@@ -21,8 +21,8 @@ export const quadraticInequality=topic("m1-quadratic-inequality","二次不等�
  m`二次の係数が負なら符号が逆になり、二つの境界の内側で正、外側で負です。「内側か外側か」を不等号だけで暗記せず、開く向きと軸の上下を確かめます。`,
  m`$\ge,\le$ では関数値ゼロも認めるので境界を含め、$>,<$ では除きます。外側の二つの範囲は「または」で結びます。`,
 ],"境界、開く向き、等号の有無を確かめて解の範囲を選びます。",[
- {id:"positive-leading-sign",title:"下に凸の放物線で範囲を選ぶ",why:"二つの零点の内側では負、外側では正になります。",sample:inequality(1,-1,2,"<"),items:[inequality(1,-2,3,"<"),inequality(1,1,4,"\\ge"),inequality(2,-1,2,">"),inequality(1,0,3,"\\le"),inequality(1,-3,-1,"\\ge"),inequality(2,1,3,"<"),inequality(1,-2,2,"\\le"),inequality(1,0,2,">")]},
- {id:"negative-leading-sign",title:"上に凸の放物線で範囲を選ぶ",why:"負の係数により、二つの零点の内側で正、外側で負になります。",sample:inequality(-1,-1,2,">"),items:[inequality(-1,0,3,">"),inequality(-1,-2,1,"\\le"),inequality(-2,1,4,"<"),inequality(-1,-3,2,"\\ge"),inequality(-2,-2,2,"\\ge"),inequality(-1,-1,3,"<"),inequality(-1,1,3,"\\le"),inequality(-2,0,2,">")]},
+ {id:"positive-leading-sign",title:"下に凸の放物線で範囲を選ぶ",why:"関数値が $0$ になる二点の内側では負、外側では正になります。",sample:inequality(1,-1,2,"<"),items:[inequality(1,-2,3,"<"),inequality(1,1,4,"\\ge"),inequality(2,-1,2,">"),inequality(1,0,3,"\\le"),inequality(1,-3,-1,"\\ge"),inequality(2,1,3,"<"),inequality(1,-2,2,"\\le"),inequality(1,0,2,">")]},
+ {id:"negative-leading-sign",title:"上に凸の放物線で範囲を選ぶ",why:"負の係数により、関数値が $0$ になる二点の内側で正、外側で負になります。",sample:inequality(-1,-1,2,">"),items:[inequality(-1,0,3,">"),inequality(-1,-2,1,"\\le"),inequality(-2,1,4,"<"),inequality(-1,-3,2,"\\ge"),inequality(-2,-2,2,"\\ge"),inequality(-1,-1,3,"<"),inequality(-1,1,3,"\\le"),inequality(-2,0,2,">")]},
 ],[boundaryPrep,{id:"graph-sign",title:"関数値の符号と軸の上下",why:"縦座標が正なら上、負なら下、ゼロなら軸上です。",sample:signAt(1,-1,2,0),items:[signAt(1,-1,2,3),signAt(1,-1,2,-1),signAt(-1,0,3,1)]}]);
 
 export const specialSignCases:{a:number;h:number;k:number;rel:Rel;answer:string}[]=[];
@@ -37,10 +37,10 @@ function special(a:number,h:number,k:number,rel:Rel):Worked{
 export const specialInequality=topic("m1-quadratic-inequality-boundaries","接する・交わらない場合の不等式",[
  m`実数解のない方程式と、解のない不等式は同じ意味ではありません。$x^2+1=0$ の実数解はありませんが、$x^2+1>0$ はすべての実数で成り立ちます。`,
  m`$(x-1)^2$ は $x=1$ でだけゼロ、それ以外で正です。したがって $(x-1)^2\ge0$ はすべての実数、$(x-1)^2>0$ は $x\ne1$、$(x-1)^2\le0$ は $x=1$、$(x-1)^2<0$ は解なしです。`,
- m`負の係数を掛ければ符号は逆になります。例えば $-(x-1)^2\ge0$ は $x=1$ のみ。零点だけでなく、零点以外の符号を必ず調べます。`,
+ m`負の係数を掛ければ符号は逆になります。例えば $-(x-1)^2\ge0$ は $x=1$ のみ。$0$ になる点だけでなく、$0$ になる点以外の符号を必ず調べます。`,
 ],"ゼロになる点と、それ以外の符号を分けて判断します。",[
  {id:"tangent-sign",title:"接点で等号になるかを確かめる",why:"平方がゼロになる一点と、それ以外を分ければ四種類の不等号を判断できます。",sample:special(1,1,0,">"),items:[special(1,2,0,"\\le"),special(1,-1,0,"<"),special(-1,2,0,"\\ge"),special(2,3,0,"\\ge"),special(-2,-1,0,"<"),special(-1,1,0,">"),special(1,-2,0,">"),special(-2,0,0,"\\le")]},
- {id:"no-intersection-sign",title:"零点がなくても符号は判断できる",why:"平方項の係数と定数項がともに正なら全体は常に正、ともに負なら全体は常に負です。",sample:special(1,0,1,">"),items:[special(1,1,2,"<"),special(-1,2,-1,"\\le"),special(2,-1,1,"\\ge"),special(-2,0,-3,">"),special(1,-2,3,"\\le"),special(-1,1,-2,"<"),special(2,0,1,">"),special(-1,-1,-1,"\\ge")]},
+ {id:"no-intersection-sign",title:"0になる点がなくても符号は判断できる",why:"平方項の係数と定数項がともに正なら全体は常に正、ともに負なら全体は常に負です。",sample:special(1,0,1,">"),items:[special(1,1,2,"<"),special(-1,2,-1,"\\le"),special(2,-1,1,"\\ge"),special(-2,0,-3,">"),special(1,-2,3,"\\le"),special(-1,1,-2,"<"),special(2,0,1,">"),special(-1,-1,-1,"\\ge")]},
 ],[squarePrep,boundaryPrep]);
 quadraticInequality.lesson.prerequisites=[{slug:"m1-equation-graph",label:"二次方程式とグラフ"}];
 specialInequality.lesson.prerequisites=[{slug:"m1-quadratic-inequality",label:"二次不等式とグラフの符号"}];

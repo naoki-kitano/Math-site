@@ -10,7 +10,7 @@ export function integerFigure(slug:string,index:number):GeoFigure|null{
   return {caption:"縦十八・横二十四を一辺六の正方形で分けると、縦三枚・横四枚で十二枚です。",points,edges,labels:Object.fromEntries(Object.keys(points).filter(k=>k.length>1).map(k=>[k,""]))};
  }
  if(slug==="ma-coordinates-space"){
-  return {caption:index===0?"矢印は三つの軸の正方向。$P=(3,0,-2)$ は $y=0$ なので $xz$ 平面上です。図は空間の見取図で、軸の一単位は共通です。":"$P=(2,0,0)$ は $y,z$ の成分が零なので $x$ 軸上です。",points:index===0?{O:[0,0],x:[4,0],y:[1.8,1.8],z:[0,3],P:[3,-2],X:[3,0],Z:[0,-2]}:{O:[0,0],x:[4,0],y:[1.8,1.8],z:[0,3],P:[2,0]},edges:index===0?[["O","x"],["O","y"],["O","z"],["O","Z"]]:[["O","x"],["O","y"],["O","z"]],dashed:index===0?[["X","P"],["Z","P"]]:[],labels:{O:"O",x:"x",y:"y",z:"z",P:"P",X:"3",Z:"-2"},arrows:[["O","x"],["O","y"],["O","z"]]};
+  return {caption:index===0?"矢印は三つの軸の正方向。$P=(3,0,-2)$ は $y=0$ なので $xz$ 平面上です。図は空間の見取図で、軸の一単位は共通です。":"$P=(2,0,0)$ は $y,z$ の成分が$0$なので $x$ 軸上です。",points:index===0?{O:[0,0],x:[4,0],y:[1.8,1.8],z:[0,3],P:[3,-2],X:[3,0],Z:[0,-2]}:{O:[0,0],x:[4,0],y:[1.8,1.8],z:[0,3],P:[2,0]},edges:index===0?[["O","x"],["O","y"],["O","z"],["O","Z"]]:[["O","x"],["O","y"],["O","z"]],dashed:index===0?[["X","P"],["Z","P"]]:[],labels:{O:"O",x:"x",y:"y",z:"z",P:"P",X:"3",Z:"-2"},arrows:[["O","x"],["O","y"],["O","z"]]};
  }
  return null;
 }

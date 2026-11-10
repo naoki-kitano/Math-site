@@ -3,6 +3,7 @@ import {useEffect,useState} from "react";
 import {Formula,MathText} from "./MathText";
 import ComplexRotationExplorer from "./ComplexRotationExplorer";
 import RelationExplorer from "./RelationExplorer";
+import LearningStepControls from "./LearningStepControls";
 import {relationStarts} from "../content/relation-lessons";
 import {visualLessons,type VisualSlug,type VisualKind} from "../content/visual-lessons";
 import {intervalCases,intervalExtrema,parabolaValue,combinationPairs,geometricRows} from "../lib/visual-models";
@@ -79,7 +80,7 @@ function GeometricRows({stage}:{stage:number}){
  return <div className="geometric-visual">
   <p>同じ列の数を引きます。</p><div className="geometric-row"><Formula tex="S"/>{row(false)}</div>
   <div className="geometric-row"><Formula tex={stage>0?"2S":"S"}/>{row(true)}</div>
-  {stage===2&&<p className="meta">枠の中は同じ数どうしの引き算で零になります。</p>}
+  {stage===2&&<p className="meta"><MathText text="枠の中は同じ数どうしの引き算で $0$ になります。"/></p>}
  </div>;
 }
 function SignedArea({stage}:{stage:number}){
@@ -105,32 +106,32 @@ function Drawing({kind,stage,choice}:{kind:VisualKind;stage:number;choice:number
  if(kind==="area")return <SignedArea stage={stage}/>;
  return null;
 }
-function Explorer({slug,onCompletionChange}:{slug:VisualSlug;onCompletionChange?:(complete:boolean)=>void}){
+function Explorer({slug,onCompletionChange,onContinue,onBack,onProgressChange}:{slug:VisualSlug;onCompletionChange?:(complete:boolean)=>void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}){
  const data=visualLessons[slug],last=data.steps.length-1;
  const pacedMathI=slug==="m1-linear-inequalities"||slug==="m1-interval-extrema";
  const [stage,setStage]=useState(0),[choice,setChoice]=useState(0);
  useEffect(()=>{if(pacedMathI)onCompletionChange?.(stage===last);},[pacedMathI,stage,last,onCompletionChange]);
- const go=(next:number)=>{setStage(next);if(!pacedMathI)onCompletionChange?.(next===last);};
+ const go=(next:number)=>{setStage(next);onProgressChange?.(last>0?next/last:1);if(!pacedMathI)onCompletionChange?.(next===last);};
  return <section className={`visual-lesson panel${pacedMathI?" mathi-paced-visual":""}`} data-visual={data.kind} data-stage={stage} data-progress={stage}>
   <h3>{data.title}</h3>
   {data.kind!=="cancel"&&!pacedMathI&&<div className="unit-stages" role="group" aria-label="考える段階">{data.steps.map((label,i)=><button key={label} aria-pressed={stage===i} onClick={()=>go(i)}>{i+1} {label}</button>)}</div>}
   <div className="visual-readout" aria-live="polite" aria-atomic="true">
-   <p><MathText text={data.kind==="cancel"&&stage===0?"分母が零になる値を除き、分子を掛け算の形に直します。":data.kind==="extrema"&&stage===0?"実線が、指定された区間のグラフです。この中で最も高い点・低い点を探します。":data.text[stage]}/></p>
+   <p><MathText text={data.kind==="cancel"&&stage===0?"分母が $0$ になる値を除き、分子を掛け算の形に直します。":data.kind==="extrema"&&stage===0?"実線が、指定された区間のグラフです。この中で最も高い点・低い点を探します。":data.text[stage]}/></p>
    {data.kind==="area"&&stage===2&&<><Formula tex="\int_{-1}^0(-x)\,dx=\dfrac12" display/><Formula tex="\int_0^2x\,dx=2" display/></>}
    {data.kind!=="cancel"&&<Formula tex={data.tex[stage]} display/>}
    {data.kind==="extrema"&&<p className="mathi-interval-domain"><MathText text={`定義域 $${intervalCases[choice].a}\\le x\\le${intervalCases[choice].b}$`}/></p>}
   </div>
   <Drawing kind={data.kind} stage={stage} choice={choice}/>
-  <div className={`actions unit-controls${pacedMathI?" mathi-stage-controls":""}`}>
-   {(data.kind==="cancel"||pacedMathI)&&stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
-   {stage<last&&<button className="button" aria-label="次の段階を見る" onClick={()=>go(stage+1)}>{data.kind==="cancel"||pacedMathI?"次へ":data.steps[stage+1]}</button>}
-   {data.kind!=="cancel"&&!pacedMathI&&<button className="button secondary" onClick={()=>go(0)}>初めに戻す</button>}
-  </div>
+  {data.kind==="cancel"||pacedMathI?<LearningStepControls className={`unit-controls${pacedMathI?" mathi-stage-controls":""}`} onPrevious={stage>0?()=>go(stage-1):onBack} onNext={stage<last?()=>go(stage+1):onContinue}/>:<div className="actions unit-controls">
+   {stage<last&&<button className="button" aria-label="次の段階を見る" onClick={()=>go(stage+1)}>{data.steps[stage+1]}</button>}
+   <button className="button secondary" onClick={()=>go(0)}>初めに戻す</button>
+  </div>}
   {data.kind==="extrema"&&<details className="mathi-visual-options"><summary>別の区間を比べる</summary><div className="graph-controls" role="group" aria-label="定義域を選ぶ">{intervalCases.map(({a,b},i)=><button key={i} aria-pressed={choice===i} onClick={event=>{setChoice(i);go(0);event.currentTarget.closest("details")?.removeAttribute("open");}}><MathText text={`$${a}\\le x\\le${b}$`}/></button>)}</div></details>}
  </section>;
 }
-export default function VisualLessonExplorer({slug,onCompletionChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void}){
- if(Object.hasOwn(relationStarts,slug))return <RelationExplorer slug={slug} onCompletionChange={onCompletionChange}/>;
+export default function VisualLessonExplorer({slug,onCompletionChange,onContinue,onBack,onProgressChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void}){
+ const continuation=["rational","m1-linear-inequalities","m1-interval-extrema","m1-quadratic-inequality"].includes(slug)?{onContinue,onBack,onProgressChange}:{};
+ if(Object.hasOwn(relationStarts,slug))return <RelationExplorer slug={slug} onCompletionChange={onCompletionChange} {...continuation}/>;
  if(slug==="mc-complex-rotation")return <ComplexRotationExplorer/>;
- return Object.hasOwn(visualLessons,slug)?<Explorer key={slug} slug={slug as VisualSlug} onCompletionChange={onCompletionChange}/>:null;
+ return Object.hasOwn(visualLessons,slug)?<Explorer key={slug} slug={slug as VisualSlug} onCompletionChange={onCompletionChange} {...continuation}/>:null;
 }

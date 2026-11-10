@@ -96,7 +96,7 @@ export function repeated(n:number,k:number,d:number):Q{
  const a=comb(n,k)*(d-1)**(n-k),b=d**n;
  return checked(q(m`各回の成功確率が $\frac1{${d}}$ である試行を、独立に $${n}$ 回行います。成功がちょうど $${k}$ 回となる確率を求めなさい。`,
  m`$${f(a,b)}$。`,"成功する位置の選び方と、一つの並びの確率を分けます。",
- m`成功位置は $ {}_{${n}}C_{${k}}=${comb(n,k)}$ 通り。一列の確率は $\left(\frac1{${d}}\right)^{${k}}\left(\frac{${d-1}}{${d}}\right)^{${n-k}}$。独立で各回同じ成功確率なので、積に組数を掛けて $${f(a,b)}$。零回や全回でも、位置の選び方は一通りです。`,a/b),"repeated",[n,k,d]);
+ m`成功位置は $ {}_{${n}}C_{${k}}=${comb(n,k)}$ 通り。一列の確率は $\left(\frac1{${d}}\right)^{${k}}\left(\frac{${d-1}}{${d}}\right)^{${n-k}}$。独立で各回同じ成功確率なので、積に組数を掛けて $${f(a,b)}$。$0$回や全回でも、位置の選び方は一通りです。`,a/b),"repeated",[n,k,d]);
 }
 export function repeatAllowed(r:number,b:number,replace:boolean):Q{
  return q(m`赤玉 $${r}$ 個、青玉 $${b}$ 個から、${replace?"毎回戻してよく混ぜ":"戻さず"}、各玉を等確率で二回引きます。赤がちょうど一回出る確率に、毎回同じ成功確率の反復試行の公式を使えますか。理由も答えなさい。`,
@@ -112,9 +112,9 @@ export function conditional(n:number,k:number,lower=true):Q{
 }
 export function conditionImpossible(n:number,k:number):Q{
  return q(m`番号 $1$ から $${n}$ のカードを一枚選びます。「番号が $${k}$」という条件の下で偶数になる確率を、条件付き確率の式で求められますか。`,
- "求められません。この条件の確率は零で、分母が零になるため定義されません。",
+ "求められません。この条件の確率は$0$で、分母が$0$になるため定義されません。",
  "条件に当てはまるカードが一枚でもあるか確認します。",
- m`$${k}$ のカードはないので条件事象 $A$ は空です。$P(A)=0$ だから、$\frac{P(A\cap B)}{P(A)}$ は定義できません。確率が零であるという答案とは違います。`);
+ m`$${k}$ のカードはないので条件事象 $A$ は空です。$P(A)=0$ だから、$\frac{P(A\cap B)}{P(A)}$ は定義できません。確率が$0$であるという答案とは違います。`);
 }
 export function multiplication(a:number,b:number,c:number,d:number):Q{
  return checked(q(m`$P(A)=${f(a,b)}$、$P_A(B)=${f(c,d)}$ です。$A$ と $B$ がともに起こる確率を求めなさい。`,
@@ -137,7 +137,7 @@ export function posterior(r:number,b:number,w:number,total:number):Q{
 }
 export function expectation(prize:number,a:number,b:number,cost=0):Q{
  const val=prize*a/b-cost;
- return checked(q(m`仮想のくじで、$${f(a,b)}$ の確率で $${prize}$ 円、それ以外は零円を受け取ります。${cost?m`参加費は $${cost}$ 円です。利益（受取額から参加費を引いた額）`:"受取額"}の期待値を求めなさい。${cost?"損をする確率と、期待値の額を必ず得るかも答えなさい。":""}`,
+ return checked(q(m`仮想のくじで、$${f(a,b)}$ の確率で $${prize}$ 円、それ以外は$0$円を受け取ります。${cost?m`参加費は $${cost}$ 円です。利益（受取額から参加費を引いた額）`:"受取額"}の期待値を求めなさい。${cost?"損をする確率と、期待値の額を必ず得るかも答えなさい。":""}`,
  m`$${f(prize*a-cost*b,b)}$ 円。`+(cost?m`損をする確率は $${f(b-a,b)}$。この期待利益を毎回必ず得るわけではありません。`:""),
  cost?"受取額の平均から費用を引きます。当たらないときの利益も考えます。":"受け取る額に、それが起こる確率を掛けて足します。",
  m`受取額の期待値は $${prize}\times${f(a,b)}+0\times${f(b-a,b)}=${f(prize*a,b)}$ 円。`+(cost?m`費用を引いて $${f(prize*a,b)}-${cost}=${f(prize*a-cost*b,b)}$ 円。外れると $${cost}$ 円の損です。期待値は一回の結果の保証ではありません。`:""),val),"expectation",[prize,a,b,cost]);
@@ -149,8 +149,8 @@ export function threeValues(a:number,b:number):Q{
  m`確率は $\frac12+\frac13+\frac16=1$。期待値は $0\times\frac12+${a}\times\frac13+${b}\times\frac16=${f(num,6)}$ 点。平均の値は、実際に出る得点と一致しなくても構いません。`,num/6),"three",[a,b]);
 }
 export function compare(a:number):Q{
- return q(m`仮想の二つのくじで、$A$ は必ず $${a}$ 円、$B$ は確率 $\frac12$ で零円、確率 $\frac12$ で $${2*a}$ 円を受け取ります。費用はありません。期待値を比べ、「どちらも毎回同じ額を得る」といえるか答えなさい。`,
+ return q(m`仮想の二つのくじで、$A$ は必ず $${a}$ 円、$B$ は確率 $\frac12$ で$0$円、確率 $\frac12$ で $${2*a}$ 円を受け取ります。費用はありません。期待値を比べ、「どちらも毎回同じ額を得る」といえるか答えなさい。`,
  m`期待値はどちらも $${a}$ 円。同じなのは平均で、毎回の受取額ではありません。`,
  "平均を計算した後、それぞれで実際に出る額を書きます。",
- m`$A$ は $${a}$ 円。$B$ は $0\times\frac12+${2*a}\times\frac12=${a}$ 円。一方、$B$ の実際の結果は零円か $${2*a}$ 円なので、平均の一致は結果の一致ではありません。`);
+ m`$A$ は $${a}$ 円。$B$ は $0\times\frac12+${2*a}\times\frac12=${a}$ 円。一方、$B$ の実際の結果は$0$円か $${2*a}$ 円なので、平均の一致は結果の一致ではありません。`);
 }

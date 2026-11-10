@@ -155,9 +155,9 @@ test('matrix multiplication, graph path counting and visual geometry',()=>{
  near(Math.hypot(rotation[1].at[0]-1,rotation[1].at[1]-2),Math.hypot(rotation[2].at[0]-1,rotation[2].at[1]-2));
 });
 test('non-applicability repairs remain separate from calculation in chapter checks',()=>{
- for(const [slug,family,word]of [['vector-length','existence','零'],['vector-angle','angle-condition','零'],['complex-polar','argument-condition','範囲']]){
+ for(const [slug,family,condition]of [['vector-length','existence',/対象のベクトルが \$\\vec0\$ でない/],['vector-angle','angle-condition',/内積が \$0\$ でも、角度が定まるとは限りません/],['complex-polar','argument-condition',/範囲/]]){
   const b=banks.find(b=>b.lesson.slug==='mc-'+slug),help=b.lesson.supplements.find(s=>s.id===family);
-  assert.ok(help.text.includes(word));
+  assert.match(help.text,condition);
   const c=lessons.find(l=>l.chapter===b.lesson.chapter&&l.practiceGroups);
   assert.ok(exercises.some(e=>e.lesson===c.slug&&e.family===b.lesson.slug+'-'+family&&e.stage==='practice'));
  }

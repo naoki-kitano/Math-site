@@ -588,7 +588,7 @@
           "steps": [
             {
               "title": "増減の骨組みを作る",
-              "text": "$f'(x)=3x^2$ は $x=0$ で零、$x\\ne0$ で正です。",
+              "text": "$f'(x)=3x^2$ は $x=0$ で$0$、$x\\ne0$ で正です。",
               "tex": "\\begin{array}{c|ccc}x&\\cdots&0&\\cdots\\\\\\hline f'(x)&+&0&+\\\\ f(x)&\\nearrow&0&\\nearrow\\end{array}"
             },
             {
@@ -3517,7 +3517,7 @@
       "steps": [
         {
           "title": "増減の骨組みを作る",
-          "text": "$f'(x)=3x^2$ は $x=0$ で零、$x\\ne0$ で正です。",
+          "text": "$f'(x)=3x^2$ は $x=0$ で$0$、$x\\ne0$ で正です。",
           "tex": "\\begin{array}{c|ccc}x&\\cdots&0&\\cdots\\\\\\hline f'(x)&+&0&+\\\\ f(x)&\\nearrow&1&\\nearrow\\end{array}"
         },
         {
@@ -3546,7 +3546,7 @@
       "steps": [
         {
           "title": "増減の骨組みを作る",
-          "text": "$f'(x)=-3x^2$ は $x=0$ で零、$x\\ne0$ で負です。",
+          "text": "$f'(x)=-3x^2$ は $x=0$ で$0$、$x\\ne0$ で負です。",
           "tex": "\\begin{array}{c|ccc}x&\\cdots&0&\\cdots\\\\\\hline f'(x)&-&0&-\\\\ f(x)&\\searrow&0&\\searrow\\end{array}"
         },
         {
@@ -3720,7 +3720,7 @@
       "steps": [
         {
           "title": "増減の骨組みを作る",
-          "text": "$f'(x)=3x^2$ は $x=0$ で零、$x\\ne0$ で正です。",
+          "text": "$f'(x)=3x^2$ は $x=0$ で$0$、$x\\ne0$ で正です。",
           "tex": "\\begin{array}{c|ccc}x&\\cdots&0&\\cdots\\\\\\hline f'(x)&+&0&+\\\\ f(x)&\\nearrow&2&\\nearrow\\end{array}"
         },
         {
@@ -3749,7 +3749,7 @@
       "steps": [
         {
           "title": "増減の骨組みを作る",
-          "text": "$f'(x)=-3x^2$ は $x=0$ で零、$x\\ne0$ で負です。",
+          "text": "$f'(x)=-3x^2$ は $x=0$ で$0$、$x\\ne0$ で負です。",
           "tex": "\\begin{array}{c|ccc}x&\\cdots&0&\\cdots\\\\\\hline f'(x)&-&0&-\\\\ f(x)&\\searrow&-1&\\searrow\\end{array}"
         },
         {
@@ -3836,7 +3836,7 @@
       "steps": [
         {
           "title": "増減の骨組みを作る",
-          "text": "$f'(x)=-3x^2$ は $x=0$ で零、$x\\ne0$ で負です。",
+          "text": "$f'(x)=-3x^2$ は $x=0$ で$0$、$x\\ne0$ で負です。",
           "tex": "\\begin{array}{c|ccc}x&\\cdots&0&\\cdots\\\\\\hline f'(x)&-&0&-\\\\ f(x)&\\searrow&1&\\searrow\\end{array}"
         },
         {

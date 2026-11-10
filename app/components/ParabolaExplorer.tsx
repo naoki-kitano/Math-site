@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useEffectEvent, useId, useRef, useState, useSyncExternalStore } from "react";
 import { Formula, MathText } from "./MathText";
+import LearningStepControls from "./LearningStepControls";
 
 const query = "(prefers-reduced-motion: reduce)";
 const subscribe = (callback: () => void) => {
@@ -19,7 +20,7 @@ function Label({ x, y, tex, width = 100 }: { x: number; y: number; tex: string; 
   return <foreignObject x={px(x) - width / 2} y={py(y) - 16} width={width} height="44"><div className="unit-math-label"><Formula tex={tex} /></div></foreignObject>;
 }
 
-export default function ParabolaExplorer({ onCompletionChange }: { onCompletionChange?: (complete: boolean) => void } = {}) {
+export default function ParabolaExplorer({ onCompletionChange,onContinue,onBack,onProgressChange }: { onCompletionChange?: (complete: boolean) => void;onContinue?:()=>void;onBack?:()=>void;onProgressChange?:(progress:number)=>void } = {}) {
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [manualReduced, setManualReduced] = useState(false);
@@ -33,6 +34,9 @@ export default function ParabolaExplorer({ onCompletionChange }: { onCompletionC
   const stage = progress === 0 ? 0 : progress <= 1 ? 1 : 2;
   const moving = progress !== 0 && progress !== 1 && progress !== 2;
   const complete = progress === 2 && !playing;
+  const previousStage = useRef(stage);
+  const reportProgress = useEffectEvent((value: number) => onProgressChange?.(value / 2));
+  useEffect(() => { if (previousStage.current !== stage) { previousStage.current = stage; reportProgress(stage); } }, [stage]);
   const setPosition = (p: number) => { current.current = p; setProgress(p); };
   const go = (p: number) => { setPlaying(false); setPosition(p); };
   useEffect(() => { onCompletionChange?.(complete); }, [complete, onCompletionChange]);
@@ -85,10 +89,7 @@ export default function ParabolaExplorer({ onCompletionChange }: { onCompletionC
       </g>)}
       <Label x={selected + h + .5} y={selected * selected + k + .53} tex={`(${number(selected + h)},${number(selected * selected + k)})`} width={132} />
     </svg>
-    <div className="actions unit-controls mathi-stage-controls">
-      {progress > 0 && <button className="button secondary" onClick={() => go(Math.max(0, Math.ceil(progress) - 1))}>前へ</button>}
-      {progress < 2 && <button className="button" onClick={playing ? () => setPlaying(false) : play}>{playing ? "停止" : "次へ"}</button>}
-    </div>
+    <LearningStepControls className="unit-controls mathi-stage-controls" onPrevious={progress>0?()=>go(Math.max(0,Math.ceil(progress)-1)):onBack} onNext={progress<2?(playing?()=>setPlaying(false):play):onContinue} nextLabel={playing?"停止":"次へ"}/>
     <label className="unit-reduced"><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => { setManualReduced(e.target.checked); setPlaying(false); if (e.target.checked) setPosition(Math.ceil(progress)); }} />動きを減らす{systemReduced && "（端末の設定を使用）"}</label>
     <details className="mathi-visual-options"><summary>別の点を追う</summary><div className="graph-controls" role="group" aria-label="追いかける点">{[-1, 0, 1].map(u => <button key={u} aria-pressed={selected === u} onClick={() => setSelected(u)}><MathText text={u === 0 ? "頂点 $(0,0)$" : `$(${u},1)$ の点`} /></button>)}</div></details>
     <details className="supplement mathi-visual-options"><summary>文字で確かめる</summary><p><MathText text="元の点を $(u,u^2)$ とすると、移動後は $x=u+2$、$y=u^2+1$。$u=x-2$ を代入すると $y=(x-2)^2+1$ です。これはすべての実数 $u$ について成り立ち、三つの点だけで確かめた結論ではありません。" /></p><Formula tex="(u,u^2)\longmapsto(u+2,u^2+1)" display /></details>
