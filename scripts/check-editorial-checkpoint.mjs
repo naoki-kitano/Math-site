@@ -47,7 +47,7 @@ try{
    }
    const question=page.locator('#practice .question').first();
    await question.getByRole('button',{name:'ヒント',exact:true}).click();
-   await question.getByRole('button',{name:'解答から確かめる',exact:true}).click();
+   await question.getByRole('button',{name:/^(解答から確かめる|解説を見る)$/}).click();
    await page.evaluate(async()=>{await document.fonts.load('16px KaTeX_Math','x');await document.fonts.load('16px KaTeX_Main','0');await document.fonts.ready;});
    const state=await page.evaluate(()=>{
     const raw=[],walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);

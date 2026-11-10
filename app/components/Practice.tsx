@@ -34,6 +34,7 @@ function Question({item,label,index,next,onStop,onBack,onProgressChange}:{item:Q
   const [revealed,setRevealed]=useState(false),[paperDone,setPaperDone]=useState(false);
   const [helpOpen,setHelpOpen]=useState(false),[usedHelp,setUsedHelp]=useState(false);
   const [outcome,setOutcome]=useState<Outcome|null>(null),[invalid,setInvalid]=useState("");
+  const hasAnswer=q.kind==="choice"?choice!==null:q.kind==="number"?input.trim().length>0:true;
   const heading=useRef<HTMLHeadingElement>(null),recorded=useRef(false),previewed=useRef(false);
   const attemptId=useRef<string|null>(null);
   const sessionId=()=>attemptId.current??(attemptId.current=crypto.randomUUID());
@@ -56,8 +57,9 @@ function Question({item,label,index,next,onStop,onBack,onProgressChange}:{item:Q
     previewed.current=true;
     add({id:sessionId(),exerciseId:q.id,at:Date.now(),outcome:"seen",method:q.kind==="paper"?"self":"auto",...(item.reviewOf?{reviewOf:item.reviewOf}:{})});
   };
+  const revealAnswer=()=>{setInvalid("");setRevealed(true);record("seen");};
   const check=()=>{
-    if(q.kind==="choice"&&choice===null){setInvalid("答えを一つ選んでください。");return;}
+    if(!hasAnswer){revealAnswer();return;}
     if(q.kind==="number"&&!/^[+-]?\d+(?:\.\d+)?$/.test(input.normalize("NFKC").replace(/−/g,"-").trim())){setInvalid("数を入力してください。");return;}
     setInvalid("");setRevealed(true);
     const ok=q.kind==="choice"?choice===q.correct:matchesNumber(input,q.correct!);
@@ -68,12 +70,12 @@ function Question({item,label,index,next,onStop,onBack,onProgressChange}:{item:Q
     <div hidden={helpOpen}>
     <h3 tabIndex={-1} ref={heading}><MathText text={q.prompt}/>{q.tex&&<Formula tex={q.tex} display/>}</h3>
     {q.kind==="choice"&&<div className="options" role="group" aria-label="答えを選ぶ">{q.options!.map((o,i)=><button key={i} className={"option"+(choice===i?" chosen":"")} aria-pressed={choice===i} disabled={revealed} onClick={()=>{setChoice(i);setInvalid("");}}><MathText text={o}/></button>)}</div>}
-    {q.kind==="number"&&<form onSubmit={e=>{e.preventDefault();if(!revealed)check();}}><label className="input-label" htmlFor={inputId}>答え</label><input autoComplete="off" className="numeric" id={inputId} value={input} disabled={revealed} onChange={e=>setInput(e.target.value)} aria-describedby={invalid?invalidId:undefined}/><span className="meta">負の数は「-」を付けて入力できます。</span></form>}
+    {q.kind==="number"&&<form onSubmit={e=>{e.preventDefault();if(!revealed)check();}}><label className="input-label" htmlFor={inputId}>答え</label><input autoComplete="off" className="numeric" id={inputId} value={input} disabled={revealed} onChange={e=>{setInput(e.target.value);setInvalid("");}} aria-describedby={invalid?invalidId:undefined}/><span className="meta">負の数は「-」を付けて入力できます。</span></form>}
     {q.kind==="paper"&&!revealed&&<p className="meta">紙に途中式と答えを書いてから、解答と比べてください。</p>}
     {invalid&&<p id={invalidId} className="error-text" role="alert">{invalid}</p>}
-    {!revealed&&<><LearningStepControls onPrevious={onBack} onNext={q.kind==="paper"?()=>{preview();setPaperDone(true);setRevealed(true);}:check} nextLabel="答え合わせ"/><div className="actions">
+    {!revealed&&<><LearningStepControls onPrevious={onBack} onNext={q.kind==="paper"?()=>{preview();setPaperDone(true);setRevealed(true);}:check} nextLabel={hasAnswer?"答え合わせ":"解説を見る"}/><div className="actions">
       <button className="text-link" disabled={hint>=hints.length} onClick={()=>{preview();setHint(hint+1);}}>ヒント{hint?"をもう一つ":""}</button>
-      <button className="text-link" onClick={()=>{setRevealed(true);record("seen");}}>解答から確かめる</button>
+      {hasAnswer&&<button className="text-link" onClick={revealAnswer}>解答から確かめる</button>}
     </div></>}
     {hint>0&&<div className="hint"><strong>ヒント</strong>{hints.slice(0,hint).map((h,i)=><p key={i}><MathText text={h}/></p>)}</div>}
     {revealed&&<div className="feedback" aria-live="polite">

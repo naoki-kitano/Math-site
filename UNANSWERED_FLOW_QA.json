@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-10",
+  "baseline": "c9650581e104e88f6b886aec497c11113d7b5e89",
+  "backupBranch": "backup/before-unanswered-flow-20261110",
+  "scope": [
+    "Unanswered choice and number questions reveal explanations through the primary control and record seen.",
+    "Entered answers retain grading; invalid input clears when edited or explanation is opened.",
+    "The warm palette uses a more vivid terracotta while preserving mathematical correspondence colors and layout."
+  ],
+  "sourceFiles": {
+    "app/components/Practice.tsx": "1e5538654f1d88680e28d24c12e42c0f1cadbe8de9502d0b39f9b0b8ae8526aa",
+    "app/appearance.css": "6cab06f2af21a28d676db39e53655086f9dabc9818c190eb44d4cad85340daf3"
+  },
+  "automated": {
+    "testsPassed": 172,
+    "testsFailed": 0,
+    "prerequisiteAuditErrors": 0,
+    "prerequisiteChecks": 107,
+    "prerequisiteRules": 533,
+    "devUnansweredPaths": 42,
+    "devUnansweredWidths": [
+      320,
+      1100
+    ],
+    "devDeepReviewWidths": [
+      390,
+      1100
+    ],
+    "types": true,
+    "lint": true,
+    "normalBuild": true,
+    "pagesBuild": true,
+    "pagesHTML": 477,
+    "pagesReferences": 9995
+  },
+  "independentReview": {
+    "at": "2026-11-10T10:29:16.488644+00:00",
+    "reviewer": "Independent read-only Astra content/pedagogy reviewer (/root/viewport_astra)",
+    "baseline": "c9650581e104e88f6b886aec497c11113d7b5e89",
+    "result": "approved_for_source_level_learning_progression_and_attribution",
+    "files": {
+      "app/components/Practice.tsx": "1e5538654f1d88680e28d24c12e42c0f1cadbe8de9502d0b39f9b0b8ae8526aa",
+      "app/appearance.css": "6cab06f2af21a28d676db39e53655086f9dabc9818c190eb44d4cad85340daf3"
+    },
+    "mandatoryFindings": [],
+    "scope": [
+      "Read the complete Practice.tsx and its baseline diff; only this application file differs from the stated baseline.",
+      "Read the unchanged ProgressProvider add/persist flow and progress.ts mergeAttempts/historyFor/stateFor logic to trace attribution.",
+      "Choice with no selection and number with empty or whitespace-only input use the clearly labelled explanation action, reveal the existing worked answer, and finalize an outcome of seen rather than independent, assisted or retry.",
+      "Number-form Enter invokes the same check function and hence the same empty-input explanation branch. Nonempty malformed number input still fails validation without revealing or recording a new graded result.",
+      "Input edits and explicit reveal clear validation messages; valid answered choice/number still use the existing correct/retry and hint/help-dependent independent/assisted logic.",
+      "Existing hint preview and final reveal reuse the same attemptId. recorded.current prevents repeated final records; previewed.current and recorded.current prevent repeated previews; historyFor retains reviewOf attribution and seen remains due for review.",
+      "Revealed inputs are disabled. The existing ExampleSteps continuation is enabled by the seen outcome, while the explanation remains stepwise or fully readable.",
+      "Paper-answer hasAnswer remains true, retaining both the paper-work comparison/self-assessment path and direct seen-reveal path; completion labels and self/assisted attribution remain unchanged.",
+      "Question data, formulas, solutions, conditions, hints and supplementary review destinations are not modified."
+    ],
+    "limitations": [
+      "Source-level independent review only: no browser interaction, screenshot/rendering, screen-reader, storage-failure or automated-test run was independently executed for this task. Main agent and assigned UI QA own those gates.",
+      "This review does not independently recalculate all unchanged mathematical exercises.",
+      "Approval is tied to the listed Practice.tsx SHA-256; later source edits require rechecking."
+    ],
+    "addenda": [
+      {
+        "at": "2026-11-10T10:29:16.488633+00:00",
+        "changedFiles": [
+          "app/appearance.css"
+        ],
+        "checks": [
+          "Read the complete appearance.css and current diff: changes are warm-theme color values and the warm swatch only; no selector, dimension, typography, KaTeX font, mathematical content or progression change.",
+          "Searched navy/teal CSS-variable consumers. Some existing neutral diagram/axis styling inherits navy (for example MathBDiagrams axis stroke and math1-data base color), so those neutral accents also become warmer; semantic curve/color mappings and mathematical geometry are not overridden.",
+          "Explicit graph/formula meaning colors and all question data remain unchanged. Practice.tsx retains its previously approved exact SHA-256."
+        ],
+        "mandatoryFindings": [],
+        "limitations": [
+          "Source review only; no independent color-contrast calculation or browser/rendering check. Appearance/main agents own those checks.",
+          "Approval is tied to the exact CSS hash in files; no claim that every inherited on-screen color is unchanged."
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "Unchanged mathematical exercises were not independently recalculated for this UI change.",
+    "Desktop Chromium automation and screenshot inspection; physical phones, Safari and screen readers were not tested."
+  ],
+  "finalStatic": {
+    "unansweredPaths": 42,
+    "unansweredWidths": [
+      320,
+      1100
+    ],
+    "unansweredFailures": 0,
+    "continuousPaths": 134,
+    "continuousWidths": [
+      320,
+      1100
+    ],
+    "deepReviewWidths": [
+      390,
+      1100
+    ],
+    "focusedFlowWidths": [
+      390,
+      1100
+    ],
+    "renderingStates": 20,
+    "exportedHTMLChecked": 477,
+    "rawTeX": 0,
+    "mathErrors": 0,
+    "runtimeErrors": 0,
+    "unansweredInternalScrollbars": 0,
+    "representativeScreenshotsInspected": true
+  },
+  "publication": "Verify Actions and public delivery separately after the source has been frozen.",
+  "warmPalette": {
+    "palette": {
+      "oldPrimary": "#5a3b2e",
+      "newPrimary": "#b34728",
+      "newHeader": "#9c3d25",
+      "newProgress": "#cc532a",
+      "paperUnchanged": "#fffaf2",
+      "inkUnchanged": "#322a25"
+    },
+    "colorValuesOnly": true,
+    "devWidths": [
+      320,
+      390,
+      1366
+    ],
+    "staticWidths": [
+      320,
+      390,
+      1366
+    ],
+    "contrastRatios": {
+      "body": 13.530703814870188,
+      "primary": 5.456420915528124,
+      "hero": 5.456420915528124,
+      "description": 4.975372586748552,
+      "breadcrumb": 4.61076358172048,
+      "accent": 4.679877460823581,
+      "footer": 4.866198931000567,
+      "secondary": 5.3706830073094896,
+      "progress": 3.2811904797994655
+    },
+    "geometryAndMathematicalColorsUnchanged": true,
+    "coolPaletteUnchanged": true,
+    "saveReloadAndSwitchVerifiedAtWidth": 390,
+    "representativeScreenshotsInspected": true
+  }
+}

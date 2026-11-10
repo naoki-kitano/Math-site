@@ -20,7 +20,7 @@ try{
    await page.goto(`${base}/learn/${q.lesson}${staticMode?'.html':''}?exercise=${q.id}#return-question`,{waitUntil:'networkidle'});
    const question=page.locator(`[data-question-id="${q.id}"]`);await question.waitFor();
    assert.equal(await question.locator('.feedback svg').count(),0,'No answer figure before revealing');
-   await question.getByRole('button',{name:'解答から確かめる',exact:true}).click();
+   await question.getByRole('button',{name:/^(解答から確かめる|解説を見る)$/}).click();
    await question.locator('.feedback svg').first().waitFor();await page.evaluate(()=>document.fonts.ready);
    const issues=await question.evaluate(el=>{
     const bars=[...el.querySelectorAll('*')].filter(e=>e instanceof HTMLElement&&e.clientHeight&&e.clientWidth&&((/auto|scroll/.test(getComputedStyle(e).overflowX)&&e.scrollWidth>e.clientWidth+1)||(/auto|scroll/.test(getComputedStyle(e).overflowY)&&e.scrollHeight>e.clientHeight+1))).map(e=>e.className);

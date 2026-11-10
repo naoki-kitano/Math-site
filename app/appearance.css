@@ -17,34 +17,34 @@ h1,h2{font-weight:600}
 .appearance-option input{width:16px;height:16px;margin:0;accent-color:var(--navy)}
 .appearance-swatch{width:26px;height:26px;border-radius:50%;border:1px solid #0002;flex:none}
 .appearance-swatch-cool{background:linear-gradient(135deg,#0b1f3a 50%,#00c9a7 50%)}
-.appearance-swatch-warm{background:linear-gradient(135deg,#5a3b2e 50%,#f5bf87 50%)}
+.appearance-swatch-warm{background:linear-gradient(135deg,#b34728 50%,#ffecc0 50%)}
 @media(max-width:420px){.nav-links{gap:10px;font-size:.82rem}.brand{font-size:1.1rem}.nav-inner{gap:10px}.appearance-trigger{min-width:30px}}
 
 body[data-appearance="warm"]{
- --navy:#5a3b2e;--teal:#f5bf87;--ink:#322a25;--muted:#746454;--line:#e8d9c9;--paper:#fffaf2;--soft:#f5eee4;
+ --navy:#b34728;--teal:#ffecc0;--ink:#322a25;--muted:#746454;--line:#e8d9c9;--paper:#fffaf2;--soft:#f5eee4;
 }
-body[data-appearance="warm"] .topbar{background:#50352af5;border-bottom-color:#795a47}
-body[data-appearance="warm"] .hero p{color:#f2e4d5}
-body[data-appearance="warm"] .breadcrumb{color:#eadac8}
-body[data-appearance="warm"] footer{color:#efdfcc}
+body[data-appearance="warm"] .topbar{background:#9c3d25f5;border-bottom-color:#c46b44}
+body[data-appearance="warm"] .hero p{color:#fff3e0}
+body[data-appearance="warm"] .breadcrumb{color:#ffe8d4}
+body[data-appearance="warm"] footer{color:#fff0da}
 body[data-appearance="warm"] :is(.panel,.example,.question,.supplement,.lesson-tile,.empty,.option,.numeric,.graph-controls button,.appearance-popover){background:#fffdf9;border-color:var(--line)}
-body[data-appearance="warm"] .lesson-tile{border-top-color:#b47747;box-shadow:0 8px 24px #5a3b2e06}
-body[data-appearance="warm"] .button:hover{background:#704d3b}
-body[data-appearance="warm"] .button.secondary{background:#fffdf9;border-color:#bda690}
-body[data-appearance="warm"] .button.secondary:hover{background:#f3e8da}
-body[data-appearance="warm"] .button.teal:hover{background:#ffd0a0}
-body[data-appearance="warm"] :is(.text-link,.section-label){color:#8d4a23}
-body[data-appearance="warm"] :is(.feedback,.pill){background:#f7efe5}
-body[data-appearance="warm"] :is(.note,.start-check){background:#fff2df;border-left-color:#b47747}
-body[data-appearance="warm"] .complete{background:#f4ebdd}
-body[data-appearance="warm"] .option.chosen{border-color:#9b602f;background:#f6e5d0}
+body[data-appearance="warm"] .lesson-tile{border-top-color:#d16a34;box-shadow:0 8px 24px #b3472806}
+body[data-appearance="warm"] .button:hover{background:#97391f}
+body[data-appearance="warm"] .button.secondary{background:#fffdf9;border-color:#c58b69}
+body[data-appearance="warm"] .button.secondary:hover{background:#ffeddf}
+body[data-appearance="warm"] .button.teal:hover{background:#fff0cd}
+body[data-appearance="warm"] :is(.text-link,.section-label){color:#a13e24}
+body[data-appearance="warm"] :is(.feedback,.pill){background:#fff0e3}
+body[data-appearance="warm"] :is(.note,.start-check){background:#fff2df;border-left-color:#d16a34}
+body[data-appearance="warm"] .complete{background:#fff1df}
+body[data-appearance="warm"] .option.chosen{border-color:#bd512e;background:#ffe6d3}
 body[data-appearance="warm"] .graph-controls button[aria-pressed="true"]{background:var(--navy);color:white;border-color:var(--navy)}
-body[data-appearance="warm"] .lesson-progress{background:#e9ddce}
-body[data-appearance="warm"] :is(.lesson-progress>span,.progress-fill){background:#a95b2e}
-body[data-appearance="warm"] :is(.progress-track,.step-num){background:#eee0cf}
-body[data-appearance="warm"] .step-num{color:#7f4b2c}
+body[data-appearance="warm"] .lesson-progress{background:#f2dccb}
+body[data-appearance="warm"] :is(.lesson-progress>span,.progress-fill){background:#cc532a}
+body[data-appearance="warm"] :is(.progress-track,.step-num){background:#fce6d1}
+body[data-appearance="warm"] .step-num{color:#9f3c24}
 body[data-appearance="warm"] .formula-correspondence{background:#fcf8f0;border-color:#dfcbb5}
-body[data-appearance="warm"] .hint{border-left-color:#cfb597}
-body[data-appearance="warm"] :is(a,button,input,summary,select):focus-visible{outline-color:#a55b2d}
+body[data-appearance="warm"] .hint{border-left-color:#d8956a}
+body[data-appearance="warm"] :is(a,button,input,summary,select):focus-visible{outline-color:#b34728}
 body[data-appearance="warm"] :is(.topbar a,.appearance-trigger,.hero a,footer a):focus-visible{outline-color:var(--teal)}
 @media print{.appearance-settings{display:none}}
