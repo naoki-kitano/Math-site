@@ -122,9 +122,12 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[lesson.slug,queryKey]);
   useEffect(()=>{
-    if(task===initial&&!window.location.hash)return;
+    const isOpeningTask=task===initial&&!window.location.hash;
+    if(isOpeningTask&&task!=="prepare")return;
     const frame=requestAnimationFrame(()=>{
-      const anchor=document.querySelector<HTMLElement>(".lesson-progress")??document.querySelector<HTMLElement>(".task-pane:not([hidden])");
+      const pane=document.querySelector<HTMLElement>(".task-pane:not([hidden])");
+      if(isOpeningTask&&pane&&pane.getBoundingClientRect().bottom<=window.innerHeight)return;
+      const anchor=document.querySelector<HTMLElement>(".lesson-progress")??pane;
       const topbar=document.querySelector<HTMLElement>(".topbar");
       if(anchor)window.scrollTo({top:Math.max(0,anchor.getBoundingClientRect().top+window.scrollY-(topbar?.offsetHeight??66)-12),behavior:"instant"});
     });

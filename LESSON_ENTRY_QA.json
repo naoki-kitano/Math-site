@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-10",
+  "baseline": "c6ccc7539d62e7aa792d315126257d458a6c00c1",
+  "backupBranch": "backup/before-lesson-entry-20261110",
+  "scope": "Display the first preparation question immediately instead of a closed disclosure. If the initial preparation pane extends below the viewport, align its progress bar below the header. Retain title visibility when the task already fits. No question, formula, grading, review-link, state or storage change.",
+  "verification": {
+    "unitTestsPassed": 172,
+    "unitTestsFailed": 0,
+    "typesAfterFinalSource": true,
+    "lintAfterFinalSource": true,
+    "prerequisiteAuditErrors": 0,
+    "prerequisiteChecks": 107,
+    "prerequisiteRules": 533,
+    "devEntryChecks": 13,
+    "devViewports": [
+      "320x568",
+      "390x844",
+      "1100x800"
+    ],
+    "allEntryOptionsAndActionsInViewport": true,
+    "displayOnlyDoesNotWriteLearningRecords": true,
+    "finalStatic": {
+      "entryChecks": 13,
+      "entryViewports": [
+        "320x568",
+        "390x844",
+        "1100x800"
+      ],
+      "allEntryOptionsAndActionsInViewport": true,
+      "scrollYByWidth": {
+        "320": 173,
+        "390": 0,
+        "1100": 0
+      },
+      "deepReviewWidths": [
+        390,
+        1100
+      ],
+      "focusedFlowWidths": [
+        390,
+        1100
+      ],
+      "mathRenderingStates": 20,
+      "exportedHTMLScanned": 477,
+      "rawTeX": 0,
+      "mathErrors": 0,
+      "runtimeErrors": 0,
+      "horizontalOverflow": 0,
+      "internalScrollbars": 0,
+      "representativeScreenshotsInspected": true
+    },
+    "normalBuild": true,
+    "pagesBuild": true,
+    "pagesHTML": 477,
+    "pagesReferences": 9995,
+    "unmodifiedComponents": "Continuous flow and warm palette comprehensive checks were not repeated for this limited change."
+  },
+  "limitations": [
+    "Desktop Chromium checks and representative mobile viewport screenshots; physical devices, Safari and screen readers are not tested.",
+    "Unchanged exercises are not independently recalculated for this presentation-only change."
+  ],
+  "publication": "Verify the merged source, Actions and public delivery separately after source freeze.",
+  "sourceFiles": {
+    "app/components/Preparation.tsx": "8014fd091537c7100046848a51c66bac07fe31ce662964e0196aabf1598e168c",
+    "app/components/LessonView.tsx": "feab2a6860b69f27222bbdeb954875c9cd314d689e62f298c951080a3d489099"
+  },
+  "independentReview": {
+    "at": "2026-11-10T11:48:43.305272+00:00",
+    "reviewer": "Independent read-only Astra content/pedagogy reviewer (/root/viewport_astra)",
+    "baseline": "c6ccc7539d62e7aa792d315126257d458a6c00c1",
+    "result": "approved_for_source_level_content_and_learning_progression",
+    "files": {
+      "app/components/Preparation.tsx": "8014fd091537c7100046848a51c66bac07fe31ce662964e0196aabf1598e168c",
+      "app/components/LessonView.tsx": "feab2a6860b69f27222bbdeb954875c9cd314d689e62f298c951080a3d489099"
+    },
+    "mandatoryFindings": [],
+    "scope": [
+      "Read the complete Preparation component and baseline diff, CheckCard and ReviewLessonLink implementations, and LessonView preparation-task wiring.",
+      "Only the collapsed details/summary wrapper becomes an always-visible h2 and panel. Learners encounter the first prerequisite question immediately.",
+      "Question selection, keyed CheckCard state, answer feedback, unknown-answer path, prerequisite links and origin attribution, progress callback and next-task completion callback are unchanged.",
+      "Visibility does not invoke onResult or create an answer/mastery record. Preparation and CheckCard still do not persist success merely from viewing or opening this task.",
+      "Formulas, question/answer/hint data and mathematical conditions are untouched. The focused-flow test edit now asserts immediate question/option visibility instead of opening the old disclosure."
+    ],
+    "limitations": [
+      "Independent source review only; no browser, rendering, keyboard/screen-reader or automated-test run performed by this reviewer.",
+      "Approval is tied to the exact Preparation.tsx SHA-256 listed here."
+    ],
+    "addenda": [
+      {
+        "at": "2026-11-10T11:48:43.305257+00:00",
+        "changedFiles": [
+          "app/components/LessonView.tsx"
+        ],
+        "checks": [
+          "Read the scroll-effect delta and surrounding task wiring.",
+          "Only initial/no-hash preparation now reaches the scroll effect; it returns without scrolling when the visible pane bottom fits within innerHeight. Other no-hash opening tasks still return immediately.",
+          "Existing hash/noninitial transitions retain their progress-anchor/pane fallback and topbar offset. The animation frame retains its cleanup.",
+          "No task state, ordering, mathematical content, result callback, review attribution or recording code changes. Previously approved Preparation hash is unchanged."
+        ],
+        "mandatoryFindings": [],
+        "limitations": [
+          "Source-level review only. Real viewport measurements, initial layout/font timing and final control visibility remain the main/UI QA responsibility."
+        ]
+      }
+    ]
+  }
+}

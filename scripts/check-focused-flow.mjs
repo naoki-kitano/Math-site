@@ -35,7 +35,8 @@ try{
   await page.locator('[data-task-pane="prepare"]').waitFor();assert.deepEqual(await visible(),['prepare']);
   assert.equal(await page.locator('.task-menu').count(),0);
   for(const name of ['まず図で確かめる','基本の説明','練習から'])assert.equal(await page.getByRole('link',{name,exact:true}).count(),0);
-  await page.getByText('始める前に、必要な基礎を確かめる',{exact:true}).click();
+  assert.equal(await page.locator('[data-task-pane="prepare"] .review-check').isVisible(),true);
+  assert.equal(await page.locator('[data-task-pane="prepare"] .option').first().isVisible(),true);
   await page.getByRole('button',{name:'まだ分からない',exact:true}).click();await page.getByRole('button',{name:'次の確認へ',exact:true}).click();
   await page.getByRole('button',{name:'まだ分からない',exact:true}).click();await page.locator('[data-task-pane="prepare"]').getByRole('button',{name:'次へ',exact:true}).click();
   assert.deepEqual(await visible(),['warmup']);
