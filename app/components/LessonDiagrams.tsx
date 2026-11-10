@@ -124,7 +124,7 @@ const figures:Record<string,Diagram[]>={
 };
 export default function LessonDiagrams({slug,index}:{slug:string;index:number}){
  const figure=figures[slug]?.[index];
- return figure?<CoordinateDiagram {...figure}/>:<><TrigDiagrams slug={slug} index={index}/><ExponentialDiagrams slug={slug} index={index}/><DerivativeDiagrams slug={slug} index={index}/><IntegralDiagrams slug={slug} index={index}/><Math3FunctionDiagrams slug={slug} index={index}/><Math3LimitDiagrams slug={slug} index={index}/><Math3DerivativeDiagrams slug={slug} index={index}/><Math3ApplicationDiagrams slug={slug} index={index}/><Math3IntegralDiagrams slug={slug} index={index}/><Math3DefiniteDiagrams slug={slug} index={index}/><Math3IntegralApplicationDiagrams slug={slug} index={index}/></>;
+ return figure?<CoordinateDiagram {...figure} directLabels/>:<><TrigDiagrams slug={slug} index={index}/><ExponentialDiagrams slug={slug} index={index}/><DerivativeDiagrams slug={slug} index={index}/><IntegralDiagrams slug={slug} index={index}/><Math3FunctionDiagrams slug={slug} index={index}/><Math3LimitDiagrams slug={slug} index={index}/><Math3DerivativeDiagrams slug={slug} index={index}/><Math3ApplicationDiagrams slug={slug} index={index}/><Math3IntegralDiagrams slug={slug} index={index}/><Math3DefiniteDiagrams slug={slug} index={index}/><Math3IntegralApplicationDiagrams slug={slug} index={index}/></>;
 }
 export { figures };
 import Math3FunctionDiagrams from "./Math3FunctionDiagrams";

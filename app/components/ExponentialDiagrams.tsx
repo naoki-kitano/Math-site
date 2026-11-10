@@ -1,5 +1,6 @@
 "use client";
 import CoordinateDiagram, {type CoordinateDiagramProps as Diagram} from "./CoordinateDiagram";
+import {LogPowerMatch,LogFactorCancellation} from "./Math2ExplogDiagram";
 const blue="#42648b";
 export const exponentialFigures:Record<string,Record<number,Diagram>>={
  "exponential-graph":{
@@ -31,5 +32,7 @@ export const exponentialFigures:Record<string,Record<number,Diagram>>={
  }
 };
 export default function ExponentialDiagrams({slug,index}:{slug:string;index:number}){
+ if(slug==="logarithm-laws"&&index===1)return <LogPowerMatch/>;
+ if(slug==="logarithm-base-change"&&index===1)return <LogFactorCancellation/>;
  const figure=exponentialFigures[slug]?.[index];return figure?<CoordinateDiagram {...figure}/>:null;
 }

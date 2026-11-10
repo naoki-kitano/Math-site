@@ -302,7 +302,7 @@
             },
             {
               "title": "途中式を書く",
-              "text": "$-1\\le\\sin x\\le1$ より $-1\\le2\\sin x+1\\le3$。基準点は $(0,1),(\\frac{\\pi}{2},3),(\\pi,1),(\\frac{3\\pi}{2},-1),(2\\pi,1)$。"
+              "text": "$-1\\le\\sin x\\le1$ より $-1\\le2\\sin x+1\\le3$。基準点は $(0,1)$、$(\\frac{\\pi}{2},3)$、$(\\pi,1)$、$(\\frac{3\\pi}{2},-1)$、$(2\\pi,1)$。"
             },
             {
               "title": "答えと条件を確かめる",
@@ -410,11 +410,27 @@
         },
         {
           "id": "transformed-equation",
-          "title": "角の範囲とゼロ積",
-          "text": "$u=2\\theta$ なら範囲も二倍にします。また $ab=0$ は $a=0$ または $b=0$ です。片方の因数で割るとその因数がゼロになる解を失います。",
-          "tex": "\\sin\\theta(2\\cos\\theta-1)=0",
-          "check": "この積がゼロになる条件を二つ書きなさい。",
-          "answer": "$\\sin\\theta=0$ または $\\cos \\theta=\\frac{1}{2}$。"
+          "title": "中の角の範囲と全解",
+          "text": "$0\\le\\theta<2\\pi$ で $\\cos2\\theta=\\frac12$ を考えます。$u=2\\theta$ なら $0\\le u<4\\pi$。一周目の $u=\\frac\\pi3,\\frac{5\\pi}3$ に加え、二周目の $u=\\frac{7\\pi}3,\\frac{11\\pi}3$ も取ります。最後に各値を $2$ で割ります。",
+          "tex": "\\theta=\\frac u2",
+          "check": "$0\\le\\theta<\\pi$ で $\\cos2\\theta=0$ を解きなさい。",
+          "answer": "$0\\le u<2\\pi$ で $u=\\frac\\pi2,\\frac{3\\pi}2$。したがって $\\theta=\\frac\\pi4,\\frac{3\\pi}4$。"
+        },
+        {
+          "id": "angle-range",
+          "title": "中の角と範囲を一緒に変える",
+          "text": "$u=2\\theta$ なら、範囲の各辺に正の数 $2$ を掛けます。$0\\le\\theta<\\pi$ は $0\\le2\\theta<2\\pi$ なので、$0\\le u<2\\pi$ です。",
+          "tex": "\\theta=\\frac u2",
+          "check": "$0\\le\\theta<2\\pi$、$u=2\\theta$ のとき $u$ の範囲は？",
+          "answer": "$0\\le u<4\\pi$。両端も同じ正の数 $2$ 倍にします。"
+        },
+        {
+          "id": "zero-product",
+          "title": "積がゼロになる条件に分ける",
+          "text": "$\\sin\\theta(2\\cos\\theta-1)=0$ は、一方の因数が $0$ になる条件に分けます。$0\\le\\theta<2\\pi$ では、$\\sin\\theta=0$ から $0,\\pi$、$2\\cos\\theta-1=0$ から $\\frac\\pi3,\\frac{5\\pi}3$。両方の解を合わせます。",
+          "tex": "ab=0\\iff a=0\\ \\text{または}\\ b=0",
+          "check": "$0\\le\\theta<2\\pi$ で $\\cos\\theta(2\\sin\\theta+1)=0$ を解きなさい。",
+          "answer": "$\\cos\\theta=0$ から $\\frac\\pi2,\\frac{3\\pi}2$、$\\sin\\theta=-\\frac12$ から $\\frac{7\\pi}6,\\frac{11\\pi}6$。因数で割らず、四つの解を合わせます。"
         }
       ]
     },
@@ -495,7 +511,7 @@
       "basicsTitle": "知っている二つの角の和と差にする",
       "introduction": [
         "$\\sin(\\alpha+\\beta)$ は $\\sin\\alpha+\\sin\\beta$ ではありません。例えば $\\alpha=\\beta=\\frac{\\pi}{6}$ なら、左辺は $\\frac{\\sqrt{3}}{2}$、その和は $1$ で異なります。",
-        "角を足すことは、単位円上の点をさらに回すことです。横向きに長さ $1$ の線分を $\\beta$ だけ回すと、その横・縦の差は $\\cos\\beta,\\sin\\beta$。縦向きの線分では $-\\sin\\beta,\\cos\\beta$ になります。点 $(\\cos\\alpha,\\sin\\alpha)$ までの横と縦の移動をそれぞれ回し、横の差同士、縦の差同士を足すと、加法定理が得られます。",
+        "角を足すことは、点をさらに回すことです。元の横・縦の移動を同じ角だけ回すと、回転後の縦の移動は $\\cos\\alpha\\sin\\beta$ と $\\sin\\alpha\\cos\\beta$。二つを足した高さが $\\sin(\\alpha+\\beta)$ です。横の移動を足すと余弦の公式になります。",
         "求めたい角を特別な角の和や差にします。例えば $\\frac{\\pi}{12}=\\frac{\\pi}{4}-\\frac{\\pi}{6}$。式を先に書き、値を代入してから分数を計算します。度を使う問題では最後まで度でそろえます。"
       ],
       "rule": "$\\sin(\\alpha\\pm\\beta)=\\sin\\alpha\\cos\\beta\\pm\\cos\\alpha\\sin\\beta$。$\\cos(\\alpha\\pm\\beta)=\\cos\\alpha\\cos\\beta\\mp\\sin\\alpha\\sin\\beta$。$\\tan(\\alpha\\pm\\beta)=\\dfrac{\\tan\\alpha\\pm\\tan\\beta}{1\\mp\\tan\\alpha\\tan\\beta}$ は両方の正接が定義され、右辺の分母がゼロでないときに使えます。",
@@ -507,6 +523,11 @@
             {
               "title": "注目するものを決める",
               "text": "$\\frac{5\\pi}{12}=\\frac{\\pi}{4}+\\frac{\\pi}{6}$ として、正弦の加法定理を使います。"
+            },
+            {
+              "title": "二つの積を作る",
+              "text": "一つ目は最初の角の正弦と次の角の余弦、二つ目はその逆の組です。",
+              "tex": "\\sin\\frac\\pi4\\cos\\frac\\pi6+\\cos\\frac\\pi4\\sin\\frac\\pi6"
             },
             {
               "title": "途中式を書く",
@@ -646,16 +667,21 @@
           "prompt": "$\\sqrt3\\sin\\theta+\\cos\\theta$ を $R\\sin(\\theta+\\varphi)$ の形にしなさい。ただし $R>0$、$-\\pi<\\varphi\\le\\pi$ とします。",
           "steps": [
             {
-              "title": "注目するものを決める",
-              "text": "展開後の正弦・余弦の係数を一致させます。"
+              "title": "同じ関数の係数をそろえる",
+              "text": "$R\\sin(\\theta+\\varphi)$ を展開すると、$\\sin\\theta$ の係数は $R\\cos\\varphi$、$\\cos\\theta$ の係数は $R\\sin\\varphi$。",
+              "tex": "R\\cos\\varphi=\\sqrt3,\\qquad R\\sin\\varphi=1"
             },
             {
-              "title": "途中式を書く",
-              "text": "$R=\\sqrt{3+1}=2$、$\\cos \\varphi=\\frac{\\sqrt{3}}{2}$、$\\sin \\varphi=\\frac{1}{2}$ より $\\varphi=\\frac{\\pi}{6}$。"
+              "title": "係数の平方和を使う",
+              "text": "二式を平方して足すと、$R^2(\\cos^2\\varphi+\\sin^2\\varphi)=3+1$。$R>0$ より $R=2$。"
             },
             {
-              "title": "答えと条件を確かめる",
-              "text": "$2\\sin (\\theta+\\frac{\\pi}{6})$。 展開すると $\\sqrt3\\sin\\theta+\\cos\\theta$ に戻ります。"
+              "title": "位相角を求める",
+              "text": "$\\cos\\varphi=\\frac{\\sqrt3}2$、$\\sin\\varphi=\\frac12$ なので、指定範囲では $\\varphi=\\frac\\pi6$。"
+            },
+            {
+              "title": "元の式を表す",
+              "text": "$\\sqrt3\\sin\\theta+\\cos\\theta=2\\sin(\\theta+\\frac\\pi6)$。"
             }
           ]
         },
@@ -712,6 +738,14 @@
           "tex": "\\theta=u-\\frac{\\pi}{4}",
           "check": "$u=\\frac{3\\pi}{4}$ のとき $\\theta=u-\\frac{\\pi}{4}$ は？",
           "answer": "$\\theta=\\frac{\\pi}{2}$。"
+        },
+        {
+          "id": "synthesis-equation",
+          "title": "合成した角から全解を戻す",
+          "text": "$0\\le\\theta<2\\pi$ で $\\sin\\theta+\\cos\\theta=1$ を考えます。$\\sqrt2\\sin(\\theta+\\frac\\pi4)=1$ より、$u=\\theta+\\frac\\pi4$ として $\\sin u=\\frac{\\sqrt2}2$。範囲 $\\frac\\pi4\\le u<\\frac{9\\pi}4$ にある解は $u=\\frac\\pi4,\\frac{3\\pi}4$。$\\theta=u-\\frac\\pi4$ に戻して $0,\\frac\\pi2$ を得ます。",
+          "tex": "\\theta=u-\\frac\\pi4",
+          "check": "$0\\le\\theta<2\\pi$ で $\\sin\\theta+\\cos\\theta=0$ を解きなさい。",
+          "answer": "$\\sin u=0$、$\\frac\\pi4\\le u<\\frac{9\\pi}4$ なので $u=\\pi,2\\pi$。$\\theta=u-\\frac\\pi4$ より $\\theta=\\frac{3\\pi}4,\\frac{7\\pi}4$。"
         }
       ]
     },
@@ -855,11 +889,11 @@
         },
         {
           "id": "check-transformed-equation",
-          "title": "角の範囲とゼロ積",
-          "text": "$u=2\\theta$ なら範囲も二倍にします。また $ab=0$ は $a=0$ または $b=0$ です。片方の因数で割るとその因数がゼロになる解を失います。",
-          "tex": "\\sin\\theta(2\\cos\\theta-1)=0",
-          "check": "この積がゼロになる条件を二つ書きなさい。",
-          "answer": "$\\sin\\theta=0$ または $\\cos \\theta=\\frac{1}{2}$。"
+          "title": "中の角の範囲と全解",
+          "text": "$0\\le\\theta<2\\pi$ で $\\cos2\\theta=\\frac12$ を考えます。$u=2\\theta$ なら $0\\le u<4\\pi$。一周目の $u=\\frac\\pi3,\\frac{5\\pi}3$ に加え、二周目の $u=\\frac{7\\pi}3,\\frac{11\\pi}3$ も取ります。最後に各値を $2$ で割ります。",
+          "tex": "\\theta=\\frac u2",
+          "check": "$0\\le\\theta<\\pi$ で $\\cos2\\theta=0$ を解きなさい。",
+          "answer": "$0\\le u<2\\pi$ で $u=\\frac\\pi2,\\frac{3\\pi}2$。したがって $\\theta=\\frac\\pi4,\\frac{3\\pi}4$。"
         },
         {
           "id": "check-sine-cosine-region",
@@ -915,16 +949,8 @@
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "一周の半分です。"
-        },
-        {
-          "title": "途中式を書く",
-          "text": "$2\\pi\\div2=\\pi$。"
-        },
-        {
-          "title": "答えと条件を確かめる",
-          "text": "$\\pi\\,\\mathrm{rad}$。"
+          "title": "",
+          "text": "一周 $360^\\circ$ が $2\\pi$ ラジアンなので、半周 $180^\\circ$ は $\\pi$ ラジアンです。"
         }
       ],
       "id": "trig-radians-ready-half-turn-v1",
@@ -943,16 +969,8 @@
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "弧長は半径とラジアン角の積です。"
-        },
-        {
-          "title": "途中式を書く",
-          "text": "$l=2\\cdot1=2$。"
-        },
-        {
-          "title": "答えと条件を確かめる",
-          "text": "$2\\,\\mathrm{cm}$。"
+          "title": "",
+          "text": "弧長は $l=r\\theta$。中心角はラジアンなので、$l=2\\cdot1=2\\,\\mathrm{cm}$ です。"
         }
       ],
       "id": "trig-radians-ready-arc-v1",
@@ -1163,7 +1181,7 @@
       "answer": "$\\pi\\,\\mathrm{cm}^2$。",
       "hints": [
         "まず $90^\\circ$ をラジアンに直します。",
-        "$90^\\circ=\\frac{\\pi}{2}\\,\\mathrm{rad}$、$S=\\frac{\\frac{1}{2}\\cdot4\\cdot\\pi}{2}=\\pi$。"
+        "$90^\\circ=\\frac{\\pi}{2}\\,\\mathrm{rad}$、$S=\\frac12\\cdot2^2\\cdot\\frac\\pi2=\\pi$。"
       ],
       "steps": [
         {
@@ -1172,7 +1190,7 @@
         },
         {
           "title": "途中式を書く",
-          "text": "$90^\\circ=\\frac{\\pi}{2}\\,\\mathrm{rad}$、$S=\\frac{\\frac{1}{2}\\cdot4\\cdot\\pi}{2}=\\pi$。"
+          "text": "$90^\\circ=\\frac{\\pi}{2}\\,\\mathrm{rad}$、$S=\\frac12\\cdot2^2\\cdot\\frac\\pi2=\\pi$。"
         },
         {
           "title": "答えと条件を確かめる",
@@ -1191,7 +1209,7 @@
       "answer": "$-270^\\circ$、指定範囲では $90^\\circ$。",
       "hints": [
         "まず単位を直し、その後で一周を加えます。",
-        "$\\frac{(-\\frac{3\\pi}{2})\\cdot180}{\\pi}=-270$、$-270^\\circ+360^\\circ=90^\\circ$。"
+        "$\\left(-\\frac{3\\pi}{2}\\right)\\cdot\\frac{180}{\\pi}=-270$、$-270^\\circ+360^\\circ=90^\\circ$。"
       ],
       "steps": [
         {
@@ -1200,7 +1218,7 @@
         },
         {
           "title": "途中式を書く",
-          "text": "$\\frac{(-\\frac{3\\pi}{2})\\cdot180}{\\pi}=-270$、$-270^\\circ+360^\\circ=90^\\circ$。"
+          "text": "$\\left(-\\frac{3\\pi}{2}\\right)\\cdot\\frac{180}{\\pi}=-270$、$-270^\\circ+360^\\circ=90^\\circ$。"
         },
         {
           "title": "答えと条件を確かめる",
@@ -1219,7 +1237,7 @@
       "answer": "中心角 $\\frac{\\pi}{3}$ ラジアン、面積 $\\frac{3\\pi}{2}\\,\\mathrm{cm}^2$。",
       "hints": [
         "$l=r\\theta$ から角を出します。",
-        "$\\theta=\\frac{\\pi}{3}$、$S=\\frac{\\frac{1}{2}\\cdot9\\cdot\\pi}{3}=\\frac{3\\pi}{2}$。"
+        "$\\theta=\\frac{\\pi}{3}$、$S=\\frac12\\cdot3^2\\cdot\\frac\\pi3=\\frac{3\\pi}{2}$。"
       ],
       "steps": [
         {
@@ -1228,7 +1246,7 @@
         },
         {
           "title": "途中式を書く",
-          "text": "$\\theta=\\frac{\\pi}{3}$、$S=\\frac{\\frac{1}{2}\\cdot9\\cdot\\pi}{3}=\\frac{3\\pi}{2}$。"
+          "text": "$\\theta=\\frac{\\pi}{3}$、$S=\\frac12\\cdot3^2\\cdot\\frac\\pi3=\\frac{3\\pi}{2}$。"
         },
         {
           "title": "答えと条件を確かめる",
@@ -1251,16 +1269,8 @@
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "余弦は横の座標です。"
-        },
-        {
-          "title": "途中式を書く",
-          "text": "$x=\\frac{3}{5}$。"
-        },
-        {
-          "title": "答えと条件を確かめる",
-          "text": "$\\frac{3}{5}$。"
+          "title": "",
+          "text": "余弦は横の座標なので、$\\cos\\theta=x=\\frac35$ です。"
         }
       ],
       "id": "trig-unit-circle-ready-horizontal-v1",
@@ -1279,16 +1289,8 @@
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "単位円の最上点を見ます。"
-        },
-        {
-          "title": "途中式を書く",
-          "text": "$P=(0,1)$ なので縦は $1$。"
-        },
-        {
-          "title": "答えと条件を確かめる",
-          "text": "$1$。"
+          "title": "",
+          "text": "単位円の上端は $(0,1)$。正弦は縦の座標なので、$\\sin\\frac\\pi2=1$ です。"
         }
       ],
       "id": "trig-unit-circle-ready-top-v1",
@@ -1923,16 +1925,8 @@
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "余弦そのものではなく平方を求めます。"
-        },
-        {
-          "title": "途中式を書く",
-          "text": "$\\cos^2 \\theta=1-(\\frac{1}{2})^2=\\frac{3}{4}$。"
-        },
-        {
-          "title": "答えと条件を確かめる",
-          "text": "$\\frac{3}{4}$。"
+          "title": "",
+          "text": "$\\sin^2\\theta+\\cos^2\\theta=1$ より、$\\cos^2\\theta=1-\\left(\\frac12\\right)^2=\\frac34$。平方の値なので、符号を選ぶ必要はありません。"
         }
       ],
       "id": "trig-identities-ready-square-v1",
@@ -2231,16 +2225,17 @@
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "分子を平方の差にして因数分解します。"
+          "title": "平方和の関係で分子を直す",
+          "text": "$\\sin^2\\theta+\\cos^2\\theta=1$ より、$\\sin^2\\theta=1-\\cos^2\\theta$。"
         },
         {
-          "title": "途中式を書く",
-          "text": "$\\frac{1-\\cos^2\\theta}{1+\\cos\\theta}=\\frac{(1-\\cos\\theta)(1+\\cos\\theta)}{1+\\cos\\theta}=1-\\cos\\theta$。"
+          "title": "共通する因数を作る",
+          "text": "$1-\\cos^2\\theta=(1-\\cos\\theta)(1+\\cos\\theta)$。"
         },
         {
-          "title": "答えと条件を確かめる",
-          "text": "$\\cos\\theta\\ne-1$ のもとで成立します。"
+          "title": "同じ非零因数で割る",
+          "text": "$\\cos\\theta\\ne-1$ なので $1+\\cos\\theta\\ne0$。分子と分母をこの因数で割ります。",
+          "tex": "\\frac{(1-\\cos\\theta)(1+\\cos\\theta)}{1+\\cos\\theta}=1-\\cos\\theta"
         }
       ],
       "id": "trig-identities-review-identity-v1",
@@ -2392,10 +2387,10 @@
     {
       "family": "wave",
       "prompt": "$y=-\\sin x$ の $0\\le x\\le2\\pi$ のグラフを、五つの基準点とともにかきなさい。",
-      "answer": "$(0,0),(\\frac\\pi2,-1),(\\pi,0),(\\frac{3\\pi}2,1),(2\\pi,0)$ をなめらかにつなぐ曲線。周期 $2\\pi$。",
+      "answer": "$(0,0)$、$(\\frac\\pi2,-1)$、$(\\pi,0)$、$(\\frac{3\\pi}2,1)$、$(2\\pi,0)$ をなめらかにつなぐ曲線。周期 $2\\pi$。",
       "hints": [
         "正弦のグラフを横軸について反転します。",
-        "基準点は $(0,0),(\\frac{\\pi}{2},-1),(\\pi,0),(\\frac{3\\pi}{2},1),(2\\pi,0)$。"
+        "基準点は $(0,0)$、$(\\frac{\\pi}{2},-1)$、$(\\pi,0)$、$(\\frac{3\\pi}{2},1)$、$(2\\pi,0)$。"
       ],
       "steps": [
         {
@@ -2404,11 +2399,11 @@
         },
         {
           "title": "途中式を書く",
-          "text": "基準点は $(0,0),(\\frac{\\pi}{2},-1),(\\pi,0),(\\frac{3\\pi}{2},1),(2\\pi,0)$。"
+          "text": "基準点は $(0,0)$、$(\\frac{\\pi}{2},-1)$、$(\\pi,0)$、$(\\frac{3\\pi}{2},1)$、$(2\\pi,0)$。"
         },
         {
           "title": "答えと条件を確かめる",
-          "text": "$(0,0),(\\frac\\pi2,-1),(\\pi,0),(\\frac{3\\pi}2,1),(2\\pi,0)$ をなめらかにつなぐ曲線。周期 $2\\pi$。"
+          "text": "$(0,0)$、$(\\frac\\pi2,-1)$、$(\\pi,0)$、$(\\frac{3\\pi}2,1)$、$(2\\pi,0)$ をなめらかにつなぐ曲線。周期 $2\\pi$。"
         }
       ],
       "id": "trig-graphs-practice-negative-v1",
@@ -2420,7 +2415,7 @@
     {
       "family": "wave",
       "prompt": "$y=\\cos(2x)$ の周期と $0\\le x\\le\\pi$ の五つの基準点を書いてグラフをかきなさい。",
-      "answer": "周期 $\\pi$。$(0,1),(\\frac{\\pi}{4},0),(\\frac{\\pi}{2},-1),(\\frac{3\\pi}{4},0),(\\pi,1)$ をなめらかにつなぎます。",
+      "answer": "周期 $\\pi$。$(0,1)$、$(\\frac{\\pi}{4},0)$、$(\\frac{\\pi}{2},-1)$、$(\\frac{3\\pi}{4},0)$、$(\\pi,1)$ をなめらかにつなぎます。",
       "hints": [
         "中の角を四分の一周ずつ増やします。",
         "$x=0,\\frac{\\pi}{4},\\frac{\\pi}{2},\\frac{3\\pi}{4},\\pi$ で値は $1,0,-1,0,1$。"
@@ -2436,7 +2431,7 @@
         },
         {
           "title": "答えと条件を確かめる",
-          "text": "周期 $\\pi$。$(0,1),(\\frac{\\pi}{4},0),(\\frac{\\pi}{2},-1),(\\frac{3\\pi}{4},0),(\\pi,1)$ をなめらかにつなぎます。"
+          "text": "周期 $\\pi$。$(0,1)$、$(\\frac{\\pi}{4},0)$、$(\\frac{\\pi}{2},-1)$、$(\\frac{3\\pi}{4},0)$、$(\\pi,1)$ をなめらかにつなぎます。"
         }
       ],
       "id": "trig-graphs-practice-frequency-v1",
@@ -2450,21 +2445,21 @@
       "prompt": "$y=\\sin (x-\\frac{\\pi}{2})$ は $y=\\sin x$ をどちらへどれだけ移動したグラフですか。周期と $x=0$ での値も求めなさい。",
       "answer": "右へ $\\frac{\\pi}{2}$。周期 $2\\pi$、$x=0$ で $-1$。",
       "hints": [
-        "中がゼロになる位置は $x=\\frac{\\pi}{2}$ です。",
-        "$x-\\frac{\\pi}{2}=0$ より右へ移動。$\\sin (-\\frac{\\pi}{2})=-1$。"
+        "元の角を $u$ とすると、同じ高さを取る条件は $x-\\frac\\pi2=u$ です。",
+        "$x=u+\\frac\\pi2$ なので、元の各点が右へ $\\frac\\pi2$ 移ります。$x=0$ では $\\sin(-\\frac\\pi2)=-1$。"
       ],
       "steps": [
         {
-          "title": "注目するものを決める",
-          "text": "中がゼロになる位置は $x=\\frac{\\pi}{2}$ です。"
+          "title": "同じ入力にそろえる",
+          "text": "元の角を $u$ とすると、同じ高さを取る条件は $x-\\frac\\pi2=u$ です。"
         },
         {
-          "title": "途中式を書く",
-          "text": "$x-\\frac{\\pi}{2}=0$ より右へ移動。$\\sin (-\\frac{\\pi}{2})=-1$。"
+          "title": "点の移動を読む",
+          "text": "元の点 $(u,\\sin u)$ に対応する点は $(u+\\frac\\pi2,\\sin u)$。高さを保って右へ $\\frac\\pi2$ 移るので、周期は $2\\pi$ のままです。"
         },
         {
-          "title": "答えと条件を確かめる",
-          "text": "右へ $\\frac{\\pi}{2}$。周期 $2\\pi$、$x=0$ で $-1$。"
+          "title": "値を求める",
+          "text": "$x=0$ なら $x-\\frac\\pi2=-\\frac\\pi2$。したがって値は $-1$ です。"
         }
       ],
       "id": "trig-graphs-practice-shift-v1",
@@ -2504,7 +2499,7 @@
     {
       "family": "tangent-graph",
       "prompt": "$y=\\tan x$ の $-\\frac{\\pi}{2}<x<\\frac{\\pi}{2}$ のグラフを、三点と漸近線を示してかきなさい。",
-      "answer": "三点 $(-\\frac{\\pi}{4},-1),(0,0),(\\frac{\\pi}{4},1)$ を通る右上がりの曲線。漸近線は $x=\\frac{\\pm\\pi}{2}$。",
+      "answer": "三点 $(-\\frac{\\pi}{4},-1)$、$(0,0)$、$(\\frac{\\pi}{4},1)$ を通る右上がりの曲線。漸近線は $x=\\frac{\\pm\\pi}{2}$。",
       "hints": [
         "原点と左右の特別角を使い、端では線を途切れさせます。",
         "$\\tan (-\\frac{\\pi}{4})=-1,\\ \\tan 0=0,\\ \\tan (\\frac{\\pi}{4})=1$。"
@@ -2520,7 +2515,7 @@
         },
         {
           "title": "答えと条件を確かめる",
-          "text": "三点 $(-\\frac{\\pi}{4},-1),(0,0),(\\frac{\\pi}{4},1)$ を通る右上がりの曲線。漸近線は $x=\\frac{\\pm\\pi}{2}$。 左端に近づくと値は限りなく小さく、右端に近づくと限りなく大きくなります。"
+          "text": "三点 $(-\\frac{\\pi}{4},-1)$、$(0,0)$、$(\\frac{\\pi}{4},1)$ を通る右上がりの曲線。漸近線は $x=\\frac{\\pm\\pi}{2}$。 左端に近づくと値は限りなく小さく、右端に近づくと限りなく大きくなります。"
         }
       ],
       "id": "trig-graphs-practice-tangent-branch-v1",
@@ -2614,7 +2609,7 @@
       "repair": "basic-equation"
     },
     {
-      "family": "transformed-equation",
+      "family": "angle-range",
       "prompt": "$0\\le\\theta<\\pi$、$u=2\\theta$ のとき、$u$ の範囲を求めなさい。",
       "answer": "$0\\le u<2\\pi$。",
       "hints": [
@@ -2639,7 +2634,7 @@
       "lesson": "trig-equations",
       "stage": "ready",
       "kind": "paper",
-      "repair": "transformed-equation"
+      "repair": "angle-range"
     },
     {
       "family": "basic-equation",
@@ -2838,7 +2833,7 @@
       "repair": "transformed-equation"
     },
     {
-      "family": "transformed-equation",
+      "family": "zero-product",
       "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta(2\\cos\\theta-1)=0$ を解きなさい。",
       "answer": "$\\theta=0,\\frac{\\pi}{3},\\pi,\\frac{5\\pi}{3}$。",
       "hints": [
@@ -2863,7 +2858,7 @@
       "lesson": "trig-equations",
       "stage": "practice",
       "kind": "paper",
-      "repair": "transformed-equation"
+      "repair": "zero-product"
     },
     {
       "family": "basic-equation",
@@ -2894,7 +2889,7 @@
       "repair": "basic-equation"
     },
     {
-      "family": "transformed-equation",
+      "family": "zero-product",
       "prompt": "$0\\le\\theta<2\\pi$ で $\\cos\\theta(2\\sin\\theta+1)=0$ を解きなさい。",
       "answer": "$\\theta=\\frac{\\pi}{2},\\frac{7\\pi}{6},\\frac{3\\pi}{2},\\frac{11\\pi}{6}$。",
       "hints": [
@@ -2919,7 +2914,7 @@
       "lesson": "trig-equations",
       "stage": "review",
       "kind": "paper",
-      "repair": "transformed-equation"
+      "repair": "zero-product"
     },
     {
       "family": "sine-cosine-region",
@@ -3319,12 +3314,17 @@
       "answer": "$\\dfrac{\\sqrt6+\\sqrt2}4$。",
       "hints": [
         "余弦の差では二つの積を足します。",
-        "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2+\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6+\\sqrt2}4$。"
+        "$\\cos(\\alpha-\\beta)=\\cos\\alpha\\cos\\beta+\\sin\\alpha\\sin\\beta$。$\\frac{\\sqrt2}2\\frac{\\sqrt3}2+\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6+\\sqrt2}4$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "余弦の差では二つの積を足します。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\cos(\\alpha-\\beta)=\\cos\\alpha\\cos\\beta+\\sin\\alpha\\sin\\beta"
         },
         {
           "title": "途中式を書く",
@@ -3375,12 +3375,17 @@
       "answer": "$\\dfrac{\\sqrt6-\\sqrt2}4$。",
       "hints": [
         "$\\frac{\\pi}{4}-\\frac{\\pi}{6}$ の正弦を展開します。",
-        "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
+        "$\\sin(\\alpha-\\beta)=\\sin\\alpha\\cos\\beta-\\cos\\alpha\\sin\\beta$。$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "$\\frac{\\pi}{4}-\\frac{\\pi}{6}$ の正弦を展開します。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\sin(\\alpha-\\beta)=\\sin\\alpha\\cos\\beta-\\cos\\alpha\\sin\\beta"
         },
         {
           "title": "途中式を書く",
@@ -3403,12 +3408,17 @@
       "answer": "$\\dfrac{\\sqrt6-\\sqrt2}4$。",
       "hints": [
         "$\\frac{\\pi}{4}+\\frac{\\pi}{6}$ の余弦では後ろを引きます。",
-        "$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
+        "$\\cos(\\alpha+\\beta)=\\cos\\alpha\\cos\\beta-\\sin\\alpha\\sin\\beta$。$\\frac{\\sqrt2}2\\frac{\\sqrt3}2-\\frac{\\sqrt2}2\\frac12=\\frac{\\sqrt6-\\sqrt2}4$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "$\\frac{\\pi}{4}+\\frac{\\pi}{6}$ の余弦では後ろを引きます。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\cos(\\alpha+\\beta)=\\cos\\alpha\\cos\\beta-\\sin\\alpha\\sin\\beta"
         },
         {
           "title": "途中式を書く",
@@ -3431,12 +3441,17 @@
       "answer": "$\\dfrac{\\sqrt6+\\sqrt2}4$。",
       "hints": [
         "$105^\\circ=60^\\circ+45^\\circ$ と分け、度のまま公式を使います。",
-        "$\\sin105^\\circ=\\frac{\\sqrt3}2\\frac{\\sqrt2}2+\\frac12\\frac{\\sqrt2}2$。"
+        "$\\sin(60^\\circ+45^\\circ)=\\sin60^\\circ\\cos45^\\circ+\\cos60^\\circ\\sin45^\\circ$。$\\sin105^\\circ=\\frac{\\sqrt3}2\\frac{\\sqrt2}2+\\frac12\\frac{\\sqrt2}2$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "$105^\\circ=60^\\circ+45^\\circ$ と分け、度のまま公式を使います。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\sin(60^\\circ+45^\\circ)=\\sin60^\\circ\\cos45^\\circ+\\cos60^\\circ\\sin45^\\circ"
         },
         {
           "title": "途中式を書く",
@@ -3459,12 +3474,17 @@
       "answer": "$\\frac{56}{65}$。",
       "hints": [
         "まず第一象限の符号で残りの値を出します。",
-        "$\\cos \\alpha=\\frac{4}{5}$、$\\sin \\beta=\\frac{5}{13}$。$\\sin (\\alpha+\\beta)=\\frac{3}{5}\\frac{12}{13}+\\frac{4}{5}\\frac{5}{13}=\\frac{56}{65}$。"
+        "$\\sin(\\alpha+\\beta)=\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta$。$\\cos \\alpha=\\frac{4}{5}$、$\\sin \\beta=\\frac{5}{13}$。$\\sin (\\alpha+\\beta)=\\frac{3}{5}\\frac{12}{13}+\\frac{4}{5}\\frac{5}{13}=\\frac{56}{65}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "まず第一象限の符号で残りの値を出します。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\sin(\\alpha+\\beta)=\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta"
         },
         {
           "title": "途中式を書く",
@@ -3543,12 +3563,17 @@
       "answer": "$\\dfrac{\\sqrt2-\\sqrt6}4$。",
       "hints": [
         "$60^\\circ+45^\\circ$ に分けます。第二象限なので答えは負です。",
-        "$\\cos105^\\circ=\\frac12\\frac{\\sqrt2}2-\\frac{\\sqrt3}2\\frac{\\sqrt2}2$。"
+        "$\\cos105^\\circ=\\cos60^\\circ\\cos45^\\circ-\\sin60^\\circ\\sin45^\\circ$。$\\cos105^\\circ=\\frac12\\frac{\\sqrt2}2-\\frac{\\sqrt3}2\\frac{\\sqrt2}2$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "$60^\\circ+45^\\circ$ に分けます。第二象限なので答えは負です。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\cos105^\\circ=\\cos60^\\circ\\cos45^\\circ-\\sin60^\\circ\\sin45^\\circ"
         },
         {
           "title": "途中式を書く",
@@ -4158,13 +4183,13 @@
       "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta+\\cos\\theta=0$ を解きなさい。",
       "answer": "$\\theta=\\frac{3\\pi}{4},\\frac{7\\pi}{4}$。",
       "hints": [
-        "合成して正弦のゼロを探します。",
+        "$\\sin\\theta+\\cos\\theta$ を $\\sqrt2\\sin(\\theta+\\frac\\pi4)$ と合成し、$u=\\theta+\\frac\\pi4$ と置きます。",
         "$\\sin u=0$、$\\frac{\\pi}{4}\\le u<\\frac{9\\pi}{4}$ より $u=\\pi,2\\pi$。$\\theta=u-\\frac{\\pi}{4}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
-          "text": "合成して正弦のゼロを探します。"
+          "text": "$\\sin\\theta+\\cos\\theta$ を $\\sqrt2\\sin(\\theta+\\frac\\pi4)$ と合成し、$u=\\theta+\\frac\\pi4$ と置きます。"
         },
         {
           "title": "途中式を書く",
@@ -4179,20 +4204,20 @@
       "lesson": "trig-synthesis",
       "stage": "practice",
       "kind": "paper",
-      "repair": "synthesis-expression"
+      "repair": "synthesis-equation"
     },
     {
       "family": "synthesis-equation",
       "prompt": "$0\\le\\theta<2\\pi$ で $\\sqrt3\\sin\\theta+\\cos\\theta=\\sqrt3$ を解きなさい。",
       "answer": "$\\theta=\\frac{\\pi}{6},\\frac{\\pi}{2}$。",
       "hints": [
-        "$2\\sin (\\theta+\\frac{\\pi}{6})$ に直して範囲を移します。",
+        "$\\sqrt3\\sin\\theta+\\cos\\theta$ を $2\\sin(\\theta+\\frac\\pi6)$ と合成し、$u=\\theta+\\frac\\pi6$ と置きます。",
         "$\\sin u=\\frac{\\sqrt{3}}{2}$、$\\frac{\\pi}{6}\\le u<\\frac{13\\pi}{6}$ より $u=\\frac{\\pi}{3},\\frac{2\\pi}{3}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
-          "text": "$2\\sin (\\theta+\\frac{\\pi}{6})$ に直して範囲を移します。"
+          "text": "$\\sqrt3\\sin\\theta+\\cos\\theta$ を $2\\sin(\\theta+\\frac\\pi6)$ と合成し、$u=\\theta+\\frac\\pi6$ と置きます。"
         },
         {
           "title": "途中式を書く",
@@ -4207,7 +4232,7 @@
       "lesson": "trig-synthesis",
       "stage": "practice",
       "kind": "paper",
-      "repair": "synthesis-expression"
+      "repair": "synthesis-equation"
     },
     {
       "family": "synthesis-expression",
@@ -4270,13 +4295,13 @@
       "prompt": "$0\\le\\theta<2\\pi$ で $\\sin\\theta-\\cos\\theta=1$ を解きなさい。",
       "answer": "$\\theta=\\frac{\\pi}{2},\\pi$。",
       "hints": [
-        "$\\sqrt{2}\\sin (\\theta-\\frac{\\pi}{4})$ に直します。",
+        "$\\sin\\theta-\\cos\\theta$ を $\\sqrt2\\sin(\\theta-\\frac\\pi4)$ と合成し、$u=\\theta-\\frac\\pi4$ と置きます。",
         "$\\sin u=\\frac{\\sqrt{2}}{2}$、$-\\frac{\\pi}{4}\\le u<\\frac{7\\pi}{4}$ より $u=\\frac{\\pi}{4},\\frac{3\\pi}{4}$。$\\theta=u+\\frac{\\pi}{4}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
-          "text": "$\\sqrt{2}\\sin (\\theta-\\frac{\\pi}{4})$ に直します。"
+          "text": "$\\sin\\theta-\\cos\\theta$ を $\\sqrt2\\sin(\\theta-\\frac\\pi4)$ と合成し、$u=\\theta-\\frac\\pi4$ と置きます。"
         },
         {
           "title": "途中式を書く",
@@ -4291,7 +4316,7 @@
       "lesson": "trig-synthesis",
       "stage": "review",
       "kind": "paper",
-      "repair": "synthesis-expression"
+      "repair": "synthesis-equation"
     },
     {
       "family": "conversion",
@@ -4299,7 +4324,7 @@
       "answer": "$90^\\circ$。",
       "hints": [
         "半周 $\\pi$ ラジアンを基準にします。",
-        "$\\frac{(\\frac{\\pi}{2})\\cdot180}{\\pi}=90$。"
+        "$\\frac\\pi2\\cdot\\frac{180}{\\pi}=90$。"
       ],
       "steps": [
         {
@@ -4308,7 +4333,7 @@
         },
         {
           "title": "途中式を書く",
-          "text": "$\\frac{(\\frac{\\pi}{2})\\cdot180}{\\pi}=90$。"
+          "text": "$\\frac\\pi2\\cdot\\frac{180}{\\pi}=90$。"
         },
         {
           "title": "答えと条件を確かめる",
@@ -4467,7 +4492,7 @@
       "answer": "弧長 $2\\pi\\,\\mathrm{cm}$、面積 $6\\pi\\,\\mathrm{cm}^2$。",
       "hints": [
         "中心角をラジアンに直します。",
-        "$60^\\circ=\\frac{\\pi}{3}\\,\\mathrm{rad}$。$l=\\frac{6\\pi}{3}=2\\pi$、$S=\\frac{\\frac{1}{2}\\cdot36\\cdot\\pi}{3}=6\\pi$。"
+        "$60^\\circ=\\frac{\\pi}{3}\\,\\mathrm{rad}$。$l=\\frac{6\\pi}{3}=2\\pi$、$S=\\frac12\\cdot6^2\\cdot\\frac\\pi3=6\\pi$。"
       ],
       "steps": [
         {
@@ -4476,7 +4501,7 @@
         },
         {
           "title": "途中式を書く",
-          "text": "$60^\\circ=\\frac{\\pi}{3}\\,\\mathrm{rad}$。$l=\\frac{6\\pi}{3}=2\\pi$、$S=\\frac{\\frac{1}{2}\\cdot36\\cdot\\pi}{3}=6\\pi$。"
+          "text": "$60^\\circ=\\frac{\\pi}{3}\\,\\mathrm{rad}$。$l=\\frac{6\\pi}{3}=2\\pi$、$S=\\frac12\\cdot6^2\\cdot\\frac\\pi3=6\\pi$。"
         },
         {
           "title": "答えと条件を確かめる",
@@ -4495,7 +4520,7 @@
       "answer": "弧長 $3\\pi\\,\\mathrm{cm}$、面積 $6\\pi\\,\\mathrm{cm}^2$。",
       "hints": [
         "$135^\\circ$ は $\\frac{3\\pi}{4}$ ラジアンです。",
-        "$l=\\frac{4\\cdot3\\pi}{4}=3\\pi$、$S=\\frac{\\frac{1}{2}\\cdot16\\cdot3\\pi}{4}=6\\pi$。"
+        "$l=\\frac{4\\cdot3\\pi}{4}=3\\pi$、$S=\\frac12\\cdot4^2\\cdot\\frac{3\\pi}4=6\\pi$。"
       ],
       "steps": [
         {
@@ -4504,7 +4529,7 @@
         },
         {
           "title": "途中式を書く",
-          "text": "$l=\\frac{4\\cdot3\\pi}{4}=3\\pi$、$S=\\frac{\\frac{1}{2}\\cdot16\\cdot3\\pi}{4}=6\\pi$。"
+          "text": "$l=\\frac{4\\cdot3\\pi}{4}=3\\pi$、$S=\\frac12\\cdot4^2\\cdot\\frac{3\\pi}4=6\\pi$。"
         },
         {
           "title": "答えと条件を確かめる",
@@ -4744,7 +4769,7 @@
     {
       "family": "wave",
       "prompt": "$y=2\\sin(2x)$ の周期、最大値、最小値を求め、$0\\le x\\le\\pi$ のグラフを五つの基準点とともにかきなさい。",
-      "answer": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,0),(\\frac{\\pi}{4},2),(\\frac{\\pi}{2},0),(\\frac{3\\pi}{4},-2),(\\pi,0)$ をなめらかにつなぎます。",
+      "answer": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,0)$、$(\\frac{\\pi}{4},2)$、$(\\frac{\\pi}{2},0)$、$(\\frac{3\\pi}{4},-2)$、$(\\pi,0)$ をなめらかにつなぎます。",
       "hints": [
         "中の角を四分の一周ずつ増やし、縦は二倍にします。",
         "$2T=2\\pi$。$x=0,\\frac{\\pi}{4},\\frac{\\pi}{2},\\frac{3\\pi}{4},\\pi$ で値は $0,2,0,-2,0$。"
@@ -4760,7 +4785,7 @@
         },
         {
           "title": "答えと条件を確かめる",
-          "text": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,0),(\\frac{\\pi}{4},2),(\\frac{\\pi}{2},0),(\\frac{3\\pi}{4},-2),(\\pi,0)$ をなめらかにつなぎます。"
+          "text": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,0)$、$(\\frac{\\pi}{4},2)$、$(\\frac{\\pi}{2},0)$、$(\\frac{3\\pi}{4},-2)$、$(\\pi,0)$ をなめらかにつなぎます。"
         }
       ],
       "stage": "practice",
@@ -4772,7 +4797,7 @@
     {
       "family": "wave",
       "prompt": "$y=2\\cos(2x)$ の周期、最大値、最小値を求め、$0\\le x\\le\\pi$ のグラフを五つの基準点とともにかきなさい。",
-      "answer": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,2),(\\frac{\\pi}{4},0),(\\frac{\\pi}{2},-2),(\\frac{3\\pi}{4},0),(\\pi,2)$ をなめらかにつなぎます。",
+      "answer": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,2)$、$(\\frac{\\pi}{4},0)$、$(\\frac{\\pi}{2},-2)$、$(\\frac{3\\pi}{4},0)$、$(\\pi,2)$ をなめらかにつなぎます。",
       "hints": [
         "余弦は最初に最大値を取り、二倍角で横幅が半分になります。",
         "$2T=2\\pi$。$x=0,\\frac{\\pi}{4},\\frac{\\pi}{2},\\frac{3\\pi}{4},\\pi$ で値は $2,0,-2,0,2$。"
@@ -4788,7 +4813,7 @@
         },
         {
           "title": "答えと条件を確かめる",
-          "text": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,2),(\\frac{\\pi}{4},0),(\\frac{\\pi}{2},-2),(\\frac{3\\pi}{4},0),(\\pi,2)$ をなめらかにつなぎます。"
+          "text": "周期 $\\pi$、最大値 $2$、最小値 $-2$。$(0,2)$、$(\\frac{\\pi}{4},0)$、$(\\frac{\\pi}{2},-2)$、$(\\frac{3\\pi}{4},0)$、$(\\pi,2)$ をなめらかにつなぎます。"
         }
       ],
       "stage": "review",
@@ -4942,13 +4967,13 @@
       "prompt": "$0\\le\\theta<2\\pi$ で $\\sin (2\\theta)=-\\frac{1}{2}$ を解きなさい。",
       "answer": "$\\theta=\\frac{7\\pi}{12},\\frac{11\\pi}{12},\\frac{19\\pi}{12},\\frac{23\\pi}{12}$。",
       "hints": [
-        "二倍にした範囲で正弦が負の交点を探します。",
+        "$u=2\\theta$ と置くと、範囲は $0\\le u<4\\pi$。この二周分で $\\sin u=-\\frac12$ になる角を探します。",
         "$0\\le u<4\\pi$、$u=\\frac{7\\pi}{6},\\frac{11\\pi}{6},\\frac{19\\pi}{6},\\frac{23\\pi}{6}$。$\\theta=\\frac{u}{2}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
-          "text": "二倍にした範囲で正弦が負の交点を探します。"
+          "text": "$u=2\\theta$ と置くと、範囲は $0\\le u<4\\pi$。この二周分で $\\sin u=-\\frac12$ になる角を探します。"
         },
         {
           "title": "途中式を書く",
@@ -5083,12 +5108,17 @@
       "answer": "$\\dfrac{\\sqrt2-\\sqrt6}4$。",
       "hints": [
         "$\\frac{7\\pi}{12}=\\frac{\\pi}{3}+\\frac{\\pi}{4}$。余弦の和は二つの積の差です。",
-        "$\\cos (\\frac{7\\pi}{12})=\\frac{1}{2}\\frac{\\sqrt{2}}{2}-\\frac{\\sqrt{3}}{2}\\frac{\\sqrt{2}}{2}$。"
+        "$\\cos\\frac{7\\pi}{12}=\\cos\\frac\\pi3\\cos\\frac\\pi4-\\sin\\frac\\pi3\\sin\\frac\\pi4$。$\\cos (\\frac{7\\pi}{12})=\\frac{1}{2}\\frac{\\sqrt{2}}{2}-\\frac{\\sqrt{3}}{2}\\frac{\\sqrt{2}}{2}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "$\\frac{7\\pi}{12}=\\frac{\\pi}{3}+\\frac{\\pi}{4}$。余弦の和は二つの積の差です。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\cos\\frac{7\\pi}{12}=\\cos\\frac\\pi3\\cos\\frac\\pi4-\\sin\\frac\\pi3\\sin\\frac\\pi4"
         },
         {
           "title": "途中式を書く",
@@ -5111,12 +5141,17 @@
       "answer": "$\\dfrac{\\sqrt6+\\sqrt2}4$。",
       "hints": [
         "$\\frac{\\pi}{3}+\\frac{\\pi}{4}$ の正弦を展開します。",
-        "$\\sin (\\frac{7\\pi}{12})=\\frac{\\sqrt{3}}{2}\\frac{\\sqrt{2}}{2}+\\frac{1}{2}\\frac{\\sqrt{2}}{2}$。"
+        "$\\sin\\frac{7\\pi}{12}=\\sin\\frac\\pi3\\cos\\frac\\pi4+\\cos\\frac\\pi3\\sin\\frac\\pi4$。$\\sin (\\frac{7\\pi}{12})=\\frac{\\sqrt{3}}{2}\\frac{\\sqrt{2}}{2}+\\frac{1}{2}\\frac{\\sqrt{2}}{2}$。"
       ],
       "steps": [
         {
           "title": "注目するものを決める",
           "text": "$\\frac{\\pi}{3}+\\frac{\\pi}{4}$ の正弦を展開します。"
+        },
+        {
+          "title": "各因子の位置を確かめる",
+          "text": "加法定理の各因子に、それぞれの角の正弦・余弦を入れます。",
+          "tex": "\\sin\\frac{7\\pi}{12}=\\sin\\frac\\pi3\\cos\\frac\\pi4+\\cos\\frac\\pi3\\sin\\frac\\pi4"
         },
         {
           "title": "途中式を書く",
@@ -5300,6 +5335,70 @@
       "lesson": "chapter-four-check",
       "kind": "paper",
       "repair": "check-half-angle"
+    },
+    {
+      "id": "trig-equations-review-double-v2",
+      "lesson": "trig-equations",
+      "stage": "review",
+      "family": "transformed-equation",
+      "repair": "transformed-equation",
+      "kind": "paper",
+      "prompt": "$0\\le\\theta<2\\pi$ で $\\cos2\\theta=-\\frac12$ を解きなさい。",
+      "answer": "$\\theta=\\frac\\pi3,\\frac{2\\pi}3,\\frac{4\\pi}3,\\frac{5\\pi}3$。",
+      "hints": [
+        "$u=2\\theta$ の範囲は $0\\le u<4\\pi$ です。",
+        "$u=\\frac{2\\pi}3,\\frac{4\\pi}3,\\frac{8\\pi}3,\\frac{10\\pi}3$ を、それぞれ $2$ で割ります。"
+      ],
+      "steps": [
+        {
+          "title": "二周分の全解",
+          "text": "$u=2\\theta$ と置くと、範囲は $0\\le u<4\\pi$。この範囲で $\\cos u=-\\frac12$ の解は $u=\\frac{2\\pi}3,\\frac{4\\pi}3,\\frac{8\\pi}3,\\frac{10\\pi}3$ です。"
+        },
+        {
+          "title": "元の角へ戻す",
+          "text": "$\\theta=\\frac u2$ より $\\theta=\\frac\\pi3,\\frac{2\\pi}3,\\frac{4\\pi}3,\\frac{5\\pi}3$。どれも元の指定範囲内です。"
+        }
+      ]
+    },
+    {
+      "id": "trig-equations-practice-angle-range-v2",
+      "lesson": "trig-equations",
+      "stage": "practice",
+      "family": "angle-range",
+      "repair": "angle-range",
+      "kind": "paper",
+      "prompt": "$0\\le\\theta<\\frac\\pi2$、$u=2\\theta$ のとき、$u$ の範囲を求めなさい。",
+      "answer": "$0\\le u<\\pi$。",
+      "hints": [
+        "$u=2\\theta$ に合わせ、不等式の各辺に同じ正の数 $2$ を掛けます。",
+        "各辺に正の数 $2$ を掛けると $0\\le2\\theta<\\pi$。$u=2\\theta$ なので $0\\le u<\\pi$ です。"
+      ],
+      "steps": [
+        {
+          "title": "範囲の各辺に同じ操作をする",
+          "text": "各辺に正の数 $2$ を掛けると $0\\le2\\theta<\\pi$。$u=2\\theta$ なので $0\\le u<\\pi$ です。"
+        }
+      ]
+    },
+    {
+      "id": "trig-equations-review-angle-range-v2",
+      "lesson": "trig-equations",
+      "stage": "review",
+      "family": "angle-range",
+      "repair": "angle-range",
+      "kind": "paper",
+      "prompt": "$-\\frac\\pi2\\le\\theta<\\frac\\pi2$、$u=2\\theta$ のとき、$u$ の範囲を求めなさい。",
+      "answer": "$-\\pi\\le u<\\pi$。",
+      "hints": [
+        "$u=2\\theta$ に合わせ、不等式の各辺に同じ正の数 $2$ を掛けます。",
+        "各辺に正の数 $2$ を掛けると $-\\pi\\le2\\theta<\\pi$。$u=2\\theta$ なので $-\\pi\\le u<\\pi$ です。"
+      ],
+      "steps": [
+        {
+          "title": "範囲の各辺に同じ操作をする",
+          "text": "各辺に正の数 $2$ を掛けると $-\\pi\\le2\\theta<\\pi$。$u=2\\theta$ なので $-\\pi\\le u<\\pi$ です。"
+        }
+      ]
     }
   ],
   "diagramNeeds": [
@@ -5349,7 +5448,7 @@
       "description": "同じ単位円上で元の角と半角を異なる色で描く。元の角が下半円にあっても半角は上半円にあり、余弦が負になる場合を示す。平方の公式による長さの候補と、座標符号による選択を分けて表示する。"
     },
     {
-      "slug": "trig-synthesis-check",
+      "slug": "trig-synthesis",
       "purpose": "合成後の波と指定範囲の対応を示す",
       "description": "正弦と余弦の和のグラフを、合成した正弦のグラフと重ね、振れ幅と横の移動を示す。最大・最小の図は全周期と制限区間を分け、制限区間の両端と区間内の山に印を付ける。合成方程式では元の角と移動後の角の目盛を対応させる。"
     }

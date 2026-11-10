@@ -23,7 +23,7 @@ function MathLabel({ at, tex, width = 104 }: { at: Point; tex: string; width?: n
   return <foreignObject x={px(at[0]) - width / 2} y={py(at[1]) - 18} width={width} height="48"><div className="unit-math-label"><Formula tex={tex} /></div></foreignObject>;
 }
 
-export default function UnitCircleExplorer() {
+export default function UnitCircleExplorer({onCompletionChange}:{onCompletionChange?:(complete:boolean)=>void}) {
   const [stage, setStage] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -64,28 +64,18 @@ export default function UnitCircleExplorer() {
 
   const position = (value: number) => { rotationRef.current = value; setRotation(value); };
   const chooseStage = (value: number) => {
-    setPlaying(false); setStage(value); position(value === 0 ? 0 : 180);
+    setPlaying(false); setStage(value); position(value === 0 ? 0 : 180); onCompletionChange?.(value===2);
   };
   const replay = () => {
-    setStage(1);
+    setStage(1); onCompletionChange?.(false);
     if (reduced) { position(180); setPlaying(false); return; }
     if (rotationRef.current >= 180) position(0);
     setPlaying(true);
   };
-  const reset = () => { setPlaying(false); setStage(0); position(0); };
   const status = stage === 0 ? "元の点は第三象限。正弦はこの点の縦の座標です。" : stage === 2 ? "元の点は横軸より下。長さは正でも、縦の座標は負です。" : intermediate ? "青い辺の長さは、回しても変わりません。" : rotation === 180 ? "半回転が完了。第一象限の三角形と辺が対応しました。" : "再生すると、原点を中心に時計回りに半回転します。";
-  return <section className="unit-explorer panel" aria-labelledby={`${uid}-title`}>
-    <p className="section-label">図で一問</p>
+  return <section className="unit-explorer panel" aria-labelledby={`${uid}-title`} data-stage={stage}>
     <h3 id={`${uid}-title`}><Formula tex="\sin\dfrac{4\pi}{3}" /> を求めよう</h3>
-    <p>まず「時計回りに回す」を押して、同じ辺を追ってみよう。</p>
-    <div className="unit-stages" role="group" aria-label="考える順序">
-      {["1 位置をみる", "2 長さをみる", "3 符号をつける"].map((label, i) => <button key={label} aria-pressed={stage === i} onClick={() => chooseStage(i)}>{label}</button>)}
-    </div>
-    <div className="actions unit-controls">
-      <button className="button" onClick={playing ? () => setPlaying(false) : replay}>{playing ? "停止" : reduced ? "半回転後を見る" : intermediate ? "再生を続ける" : "時計回りに回す"}</button>
-      <button className="button secondary" onClick={reset}>リセット</button>
-      <button className="button secondary" disabled={stage === 2 || rotation !== 180} onClick={() => chooseStage(2)}>元の点の符号をみる</button>
-    </div>
+
     <div className="unit-layout">
       <div>
         <svg viewBox="0 0 420 430" role="img" aria-labelledby={`${uid}-diagram-title ${uid}-diagram-desc`} className="unit-diagram" data-rotation={rotation}>
@@ -114,18 +104,23 @@ export default function UnitCircleExplorer() {
           {rotation === 180 && <><path d={arc(0, Math.PI / 3, .3)} fill="none" stroke="#c67c28" strokeWidth="2" /><MathLabel at={[.44, .26]} tex="\frac{\pi}{3}" width={45} /><MathLabel at={[.88, .49]} tex="\frac{\sqrt3}{2}" width={65} /><MathLabel at={[.3, -.2]} tex="\frac12" width={42} /><MathLabel at={[.08, .64]} tex="1" width={26} /></>}
           {stage === 2 && <><line x1={px(-.5)} y1="210" x2={px(-.5)} y2={py(original[1])} stroke="#496fa8" strokeWidth="5" /><MathLabel at={[-.94, -.48]} tex="y=-\frac{\sqrt3}{2}" width={116} /></>}
         </svg>
-        <p className="unit-legend"><span className="unit-side-key" />青い辺は、回しても同じ長さ。破線は元の三角形。</p>
+        {stage>0&&<p className="unit-legend"><span className="unit-side-key" />青い辺の長さは変わりません。破線は元の三角形。</p>}
       </div>
       <div className="unit-explanation">
-        <div aria-live="polite" aria-atomic="true"><h4>{["元の点を決める", "鋭角で長さを求める", "元の点の上下で決める"][stage]}</h4><p>{status}</p></div>
+        <div aria-live="polite" aria-atomic="true"><h4>{["元の点の位置", "同じ辺の長さ", "元の点の縦座標"][stage]}</h4><p className="sr-only">{status}</p></div>
         {stage === 0 && <><Formula tex="\frac{4\pi}{3}=\pi+\frac{\pi}{3}" display /><p><MathText text="正の横軸から反時計回りに $\pi$ を越えた、左下の点です。$\sin$ は縦の座標を読みます。" /></p></>}
         {stage === 1 && <><Formula tex="\frac{4\pi}{3}-\pi=\frac{\pi}{3}" display /><p><MathText text="三角形を原点のまわりに時計回りで $\pi$ だけ回します。半回転後は、半径 $1$、鋭角 $\frac{\pi}{3}$ の直角三角形です。" /></p>{rotation === 180 && <Formula tex="\text{青い辺の長さ}=\sin\frac{\pi}{3}=\frac{\sqrt3}{2}" display />}</>}
         {stage === 2 && <><p><MathText text="元の点 $P$ は横軸より下なので $y<0$。青い辺の長さ $\frac{\sqrt3}{2}$ に負号をつけます。" /></p><div className="unit-answer"><Formula tex="\sin\frac{4\pi}{3}=-\frac{\sqrt3}{2}" display /></div></>}
-        {stage > 0 && <div className="unit-lengths"><span>回転中も変わらない辺の長さ</span><Formula tex="\frac12,\quad\frac{\sqrt3}{2},\quad1" /></div>}
-        {stage === 1 && <p className="meta">回転の途中では辺が斜めになります。青い辺の長さと、そのときの点の縦座標は区別します。</p>}
+        {stage === 1 && intermediate && <p className="meta">回転中の青い辺は斜めです。この辺の長さを、点の縦座標とは区別します。</p>}
       </div>
     </div>
-    {!reduced && <details className="unit-manual"><summary>途中の位置を手で動かす</summary><label className="unit-scrubber">回す途中を自分で確かめる<input aria-label="時計回りの回転量" type="range" min="0" max="180" step="1" value={rotation} aria-valuetext={`時計回りに${Math.round(rotation)}度。180度で半回転。`} onChange={e => { setPlaying(false); setStage(1); position(Number(e.target.value)); }} /><span>回転前 → 半回転後</span></label></details>}
+    <div className="actions unit-controls">
+      {stage>0&&<button className="button secondary" onClick={()=>chooseStage(stage-1)}>前へ</button>}
+      {stage===0&&<button className="button" onClick={replay}>{reduced?"半回転後を見る":"時計回りに回す"}</button>}
+      {stage===1&&(rotation<180?<button className="button" onClick={playing?()=>setPlaying(false):replay}>{playing?"停止":reduced?"半回転後を見る":"再生を続ける"}</button>:<button className="button" onClick={()=>chooseStage(2)}>元の点の符号をみる</button>)}
+    </div>
+    {!reduced&&stage===1&&rotation===180&&<details className="unit-replay"><summary>もう一度回す</summary><button className="button secondary" onClick={replay}>{reduced?"半回転後を見る":"時計回りに回す"}</button></details>}
+    {!reduced && stage===1 && <details className="unit-manual"><summary>途中の位置を手で動かす</summary><label className="unit-scrubber">回す途中を自分で確かめる<input aria-label="時計回りの回転量" type="range" min="0" max="180" step="1" value={rotation} aria-valuetext={`時計回りに${Math.round(rotation)}度。180度で半回転。`} onChange={e => { setPlaying(false); setStage(1); onCompletionChange?.(false); position(Number(e.target.value)); }} /><span>回転前 → 半回転後</span></label></details>}
     <label className="unit-reduced"><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => { setReduceMotion(e.target.checked); setPlaying(false); if (e.target.checked && stage === 1) position(180); }} />動きを減らす{systemReduced && "（端末の設定を使用）"}</label>
     <details className="supplement"><summary>長さが分かる根拠・回転と対称移動の違い</summary>
       <p><MathText text="正三角形を半分にすると、辺の比は $1:\sqrt3:2$。斜辺を $1$ にそろえると、短い辺は $\frac12$、長い辺は $\frac{\sqrt3}{2}$ です。$\frac{\pi}{3}$ の向かい側が長い辺です。" /></p>

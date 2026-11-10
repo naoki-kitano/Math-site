@@ -4,7 +4,7 @@ import {Formula,MathText} from "./MathText";
 import {formulaCorrespondence} from "../content/formula-correspondence";
 
 import FormulaTransfer from "./FormulaTransfer";
-import Math3StructureDiagram from "./Math3StructureDiagram";
+import StructureDiagram from "./StructureDiagram";
 
 const m=String.raw;
 
@@ -35,14 +35,14 @@ export default function FormulaCorrespondence({slug,onCompletionChange}:{slug:st
   <h3>{data.title}</h3>
   <div className="formula-correspondence-readout" aria-live="polite" aria-atomic="true">
    <p><MathText text={current.text}/></p>
-   {current.diagram&&<Math3StructureDiagram kind={current.diagram.kind} stage={current.diagram.stage} reduce={reduce}/>}
+   {current.diagram&&<div className="structure-diagram"><StructureDiagram kind={current.diagram.kind} stage={current.diagram.stage} reduce={reduce}/></div>}
    {slug==="logarithm-base-change"?<MovingBase stage={stage} reduce={reduce}/>:current.motion?<FormulaTransfer key={stage} motion={current.motion} reduce={reduce}/>:current.formulas.length>0?<div className="formula-correspondence-lines">{current.formulas.map((tex,i)=><Formula key={i} tex={tex} display/>)}</div>:null}
   </div>
   <div className="actions formula-correspondence-controls">
    {stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
    {stage<data.steps.length-1&&<button className="button" onClick={()=>go(stage+1)}>次へ</button>}
   </div>
-  {(stage===data.steps.length-1||slug==="logarithm-laws"||slug.startsWith("m3-"))&&<p className="start-check"><MathText text={data.check}/></p>}
-  {(slug==="logarithm-base-change"||data.steps.some(step=>step.motion||step.diagram))&&<label className="formula-reduced"><input type="checkbox" checked={reduce} onChange={e=>setReduce(e.target.checked)}/>動きを減らす</label>}
+  {data.check&&<p className="start-check"><MathText text={data.check}/></p>}
+  {(slug==="logarithm-base-change"||data.steps.some(step=>step.motion||(step.diagram&&(step.diagram.animated??!step.diagram.kind.startsWith("m2-")))))&&<label className="formula-reduced"><input type="checkbox" checked={reduce} onChange={e=>setReduce(e.target.checked)}/>動きを減らす</label>}
  </section>;
 }

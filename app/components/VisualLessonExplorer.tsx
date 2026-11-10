@@ -34,12 +34,11 @@ function FractionBars({stage}:{stage:number}){
 }
 function CancelTiles({stage}:{stage:number}){
  return <div className="cancel-visual">
-  <p>分子と分母の掛け算を見比べます。</p>
-  <div className="factor-fraction">
-   <div>{stage===0?<Formula tex="x^2-1"/>:stage===1?<><span className="matching-factor"><Formula tex="(x-1)"/></span><Formula tex="\times"/><span><Formula tex="(x+1)"/></span></>:<Formula tex="x+1"/>}</div>
-   <div>{stage<2?<span className={stage===1?"matching-factor":""}><Formula tex="x-1"/></span>:<Formula tex="1"/>}</div>
-  </div>
-  <p className="meta">{stage===1?"枠で囲んだ式は、どちらも掛け算の一つの因数です。":stage===2?"同じ零でない因数で割ったので、分数全体の値は変わりません。":"引き算の項どうしを、そのまま消すことはできません。"}</p>
+  {stage===2?<Formula tex="x+1" display/>:<div className="factor-fraction">
+   <div>{stage===0?<Formula tex="x^2-1"/>:<><span className="matching-factor"><Formula tex="(x-1)"/></span><Formula tex="\times"/><span><Formula tex="(x+1)"/></span></>}</div>
+   <div><span className={stage===1?"matching-factor":""}><Formula tex="x-1"/></span></div>
+  </div>}
+  <Formula tex="x\ne1" display/>
  </div>;
 }
 function InequalityLine({stage}:{stage:number}){
@@ -106,28 +105,29 @@ function Drawing({kind,stage,choice}:{kind:VisualKind;stage:number;choice:number
  if(kind==="area")return <SignedArea stage={stage}/>;
  return null;
 }
-function Explorer({slug}:{slug:VisualSlug}){
+function Explorer({slug,onCompletionChange}:{slug:VisualSlug;onCompletionChange?:(complete:boolean)=>void}){
  const data=visualLessons[slug],last=data.steps.length-1;
  const [stage,setStage]=useState(0),[choice,setChoice]=useState(0);
- const go=(next:number)=>setStage(next);
+ const go=(next:number)=>{setStage(next);onCompletionChange?.(next===last);};
  return <section className="visual-lesson panel" data-visual={data.kind} data-stage={stage} data-progress={stage}>
   <h3>{data.title}</h3>
   {data.kind==="extrema"&&<div className="graph-controls" role="group" aria-label="定義域を選ぶ">{intervalCases.map(({a,b},i)=><button key={i} aria-pressed={choice===i} onClick={()=>{setChoice(i);go(0);}}><MathText text={`$${a}\\le x\\le${b}$`}/></button>)}</div>}
-  <div className="unit-stages" role="group" aria-label="考える段階">{data.steps.map((label,i)=><button key={label} aria-pressed={stage===i} onClick={()=>go(i)}>{i+1} {label}</button>)}</div>
+  {data.kind!=="cancel"&&<div className="unit-stages" role="group" aria-label="考える段階">{data.steps.map((label,i)=><button key={label} aria-pressed={stage===i} onClick={()=>go(i)}>{i+1} {label}</button>)}</div>}
   <div className="visual-readout" aria-live="polite" aria-atomic="true">
-   <p><MathText text={data.text[stage]}/></p>
+   <p><MathText text={data.kind==="cancel"&&stage===0?"分母が零になる値を除き、分子を掛け算の形に直します。":data.text[stage]}/></p>
    {data.kind==="area"&&stage===2&&<><Formula tex="\int_{-1}^0(-x)\,dx=\dfrac12" display/><Formula tex="\int_0^2x\,dx=2" display/></>}
-   <Formula tex={data.tex[stage]} display/>
+   {data.kind!=="cancel"&&<Formula tex={data.tex[stage]} display/>}
   </div>
   <Drawing kind={data.kind} stage={stage} choice={choice}/>
   <div className="actions unit-controls">
-   {stage<last&&<button className="button" aria-label="次の段階を見る" onClick={()=>go(stage+1)}>{data.steps[stage+1]}</button>}
-   <button className="button secondary" onClick={()=>go(0)}>初めに戻す</button>
+   {data.kind==="cancel"&&stage>0&&<button className="button secondary" onClick={()=>go(stage-1)}>前へ</button>}
+   {stage<last&&<button className="button" aria-label="次の段階を見る" onClick={()=>go(stage+1)}>{data.kind==="cancel"?"次へ":data.steps[stage+1]}</button>}
+   {data.kind!=="cancel"&&<button className="button secondary" onClick={()=>go(0)}>初めに戻す</button>}
   </div>
  </section>;
 }
-export default function VisualLessonExplorer({slug}:{slug:string}){
+export default function VisualLessonExplorer({slug,onCompletionChange}:{slug:string;onCompletionChange?:(complete:boolean)=>void}){
  if(Object.hasOwn(relationStarts,slug))return <RelationExplorer slug={slug}/>;
  if(slug==="mc-complex-rotation")return <ComplexRotationExplorer/>;
- return Object.hasOwn(visualLessons,slug)?<Explorer key={slug} slug={slug as VisualSlug}/>:null;
+ return Object.hasOwn(visualLessons,slug)?<Explorer key={slug} slug={slug as VisualSlug} onCompletionChange={onCompletionChange}/>:null;
 }

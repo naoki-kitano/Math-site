@@ -1,5 +1,7 @@
 "use client";
 import CoordinateDiagram, {type CoordinateDiagramProps as Diagram} from "./CoordinateDiagram";
+import Math2TrigDiagram,{TrigTangentRegion} from "./Math2TrigDiagram";
+import {MathText} from "./MathText";
 const pi=Math.PI,blue="#42648b";
 const unit={xRange:[-1.4,1.4] as [number,number],yRange:[-1.4,1.4] as [number,number],tick:.5,circles:[{x:0,y:0,r:1,label:"単位円 $x^2+y^2=1$"}]};
 const circlePoint=(a:number,label:string)=>({x:Math.cos(a),y:Math.sin(a),label});
@@ -80,5 +82,7 @@ const figures:Record<string,Diagram[]>={
 };
 export {figures as trigFigures};
 export default function TrigDiagrams({slug,index}:{slug:string;index:number}){
+ if(slug==="trig-synthesis"&&(index===1||index===2))return <figure className="panel math-figure"><h3>{index===1?"指定範囲と、対応する合成後の角":"交点の角を、元の角へ戻す"}</h3><p><MathText text={String.raw`$u=\theta+\frac\pi4$。上下の目盛は、同じ点の元の角 $\theta$ と合成後の角 $u$ です。`}/></p><Math2TrigDiagram kind={index===1?"m2-trig-synthesis-range":"m2-trig-synthesis-equation"} stage={0} reduce/></figure>;
+ if(slug==="trig-inequalities"&&index===1)return <figure className="panel math-figure"><h3>枝ごとに、境界より上の部分を選ぶ</h3><p><MathText text={String.raw`横軸は $\theta$、縦軸は $\tan\theta$。各枝で値が増えるので、$1$ との交点から右側を選びます。漸近線上には値がありません。`}/></p><TrigTangentRegion negative={false} inclusive={false}/></figure>;
  const figure=figures[slug]?.[index];return figure?<CoordinateDiagram {...figure}/>:null;
 }

@@ -1,6 +1,6 @@
 import type {Step} from "../content/lessons";
 // These headings repeat the function of a worked solution but name no operation.
-const emptyGuidance=new Set(["順に進める","考えて進める","まず考えること","着目する","途中式","途中式を書く","考え方","式をつなぐ","注目する","式を書いて進める","注目するものを決める","式にして進める"]);
+const emptyGuidance=new Set(["順に進める","考えて進める","まず考えること","着目する","途中式","途中式を書く","考え方","式をつなぐ","注目する","式を書いて進める","注目するものを決める","式にして進める","条件と使う方法"]);
 export const stepHeading=(title:string)=>emptyGuidance.has(title)?"":title;
 const genericAnswer=new Set(["答え","答えと確認","答えと条件を確かめる"]);
 // Preserve distinct mathematical headings, even when the body happens to match.

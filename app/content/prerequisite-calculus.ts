@@ -48,6 +48,7 @@ export const calculusPrerequisites:PrerequisitePlan[]=[
  r("trig-identities","recover identity","trig-coordinate root","二乗の関係と角による符号を分ける。"),
  r("trig-graphs","wave tangent-graph","trig-coordinate radians","一周に対応する周期と使えない角を読む。"),
  r("trig-equations","basic-equation transformed-equation","trig-coordinate radians","同じ座標になる角を範囲内ですべて求める。"),
+ r("trig-equations","zero-product","zero trig-coordinate radians","積が零なら各因数が零となる場合に分け、それぞれの角を指定範囲ですべて求める。"),
  r("trig-inequalities","sine-cosine-region tangent-region","trig-coordinate inequality-end","条件を満たす弧や区間を残す。"),
  r("trig-addition","sin-cos-addition tan-addition","trig-coordinate fraction","角の和の公式へ代入する。"),
  r("trig-double-half","double-angle half-angle","trig-identity root","二倍角の式から二乗を表し、符号を決める。"),

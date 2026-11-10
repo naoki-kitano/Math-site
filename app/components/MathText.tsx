@@ -1,13 +1,14 @@
 import katex from "katex";
 
 export function Formula({ tex, display = false }: { tex: string; display?: boolean }) {
+  const signTable=tex.includes("\\begin{array}")&&tex.includes("f'(x)");
   let html: string | undefined;
   try {
     html = katex.renderToString(tex, { displayMode: display, throwOnError: true, strict: "error", trust: false, output: "htmlAndMathml" });
   } catch { /* Keep an explicit, accessible fallback for invalid content. */ }
   return html === undefined
     ? <span role="alert" className="math-error">数式を表示できませんでした。再読み込みしてください。</span>
-    : <span className={display ? "formula display" : "formula"} data-tex={tex} dangerouslySetInnerHTML={{ __html: html }} />;
+    : <span className={(display ? "formula display" : "formula")+(signTable?" compact-sign-table":"")} data-tex={tex} dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 export function MathText({ text }: { text: string }) {

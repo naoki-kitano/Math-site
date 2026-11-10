@@ -15,14 +15,14 @@ const flat:Diagram={title:"水平でも、増加から減少には変わらな�
  xRange:[-2,2],yRange:[-3,3],curves:[{label:"$y=x^3$",value:x=>x*x*x},{label:"原点での接線 $y=0$",value:()=>0,dashed:true,color:blue}],points:[{x:0,y:0,label:"$(0,0)$ は極値をとる点ではない"}]};
 export const derivativeFigures:Record<string,Record<number,Diagram>>={
  "average-rate":{
-  0:{title:"両端を結ぶ直線の傾き",description:"曲線の途中の傾きではなく、二点を結ぶ直線の傾きです。横の差で縦の差を割ります。",xRange:[0,4],yRange:[0,10],
+  0:{title:"両端を結ぶ直線の傾き",description:"横の差 $2$、縦の差 $8$ が、平均変化率の分母と分子になります。",xRange:[0,4],yRange:[0,10],
    curves:[{label:"$y=x^2$",value:x=>x*x},{label:"二点を結ぶ直線 $y=4x-3$",value:x=>4*x-3,color:blue}],
    points:[{x:1,y:1,label:"$A(1,1)$"},{x:3,y:9,label:"$B(3,9)$"}],segments:[{from:[1,1],to:[3,1],dashed:true,label:"横の変化量 $2$"},{from:[3,1],to:[3,9],dashed:true,label:"縦の変化量 $8$、平均変化率 $\\frac{8}{2}=4$"}]},
   1:{title:"両端では高さが下がっている",description:"曲線は途中で上がり始めますが、平均変化率では両端の高さだけを比べます。",xRange:[-3,2],yRange:[0,7],
    curves:[{label:"$y=x^2+1$",value:x=>x*x+1},{label:"二点を結ぶ直線 $y=-x+3$",value:x=>-x+3,color:blue}],points:[{x:-2,y:5,label:"$(-2,5)$"},{x:1,y:2,label:"$(1,2)$"}],segments:[{from:[-2,5],to:[1,5],dashed:true,label:"横の差 $3$"},{from:[1,5],to:[1,2],dashed:true,label:"縦の差 $-3$、平均変化率 $-1$"}]}
  },
  "derivative-at-point":{
-  0:{title:"両側から接点へ近づける",description:"動かす点が左右どちらから近づいても、二点を結ぶ直線の傾きは $4$ に近づきます。幅はゼロにせず、近づけます。",xRange:[0,4],yRange:[0,10],
+  0:{title:"左右の割線と接線",description:"図は二つの有限な幅での割線です。幅 $h$ をゼロへ近づけると、傾き $4+h$ は接線の傾き $4$ に近づきます。",xRange:[0,4],yRange:[0,10],
    curves:[{label:"$y=x^2$",value:x=>x*x},{label:"$h=1$ の直線：傾き $5$",value:x=>5*x-6,dashed:true,color:blue},{label:"$h=-\\frac{1}{2}$ の直線：傾き $\\frac{7}{2}$",value:x=>3.5*x-3,dashed:true,color:blue},{label:"接線 $y=4x-4$：傾き $4$",value:x=>4*x-4,color:"#0b1f3a"}],
    points:[{x:2,y:4,label:"固定する点 $(2,4)$"},{x:3,y:9,label:"$h=1$ の点 $(3,9)$"},{x:1.5,y:2.25,label:"$h=-\\frac{1}{2}$ の点 $(\\frac{3}{2},\\frac{9}{4})$"}]},
   1:{title:"高さと傾きは別の値",description:"接点の高さは $2$ ですが、その点での傾きは $-2$ です。右へ進むと下がる向きに接線を引きます。",xRange:[-3,2],yRange:[-1,6],
@@ -35,7 +35,7 @@ export const derivativeFigures:Record<string,Record<number,Diagram>>={
    curves:[{label:"$y=x^2+2$",value:x=>x*x+2},{label:"導関数 $y=2x$",value:x=>2*x,color:blue}],points:[{x:-1,y:3,label:"$f(-1)=3$"},{x:-1,y:-2,label:"$f'(-1)=-2$"}]}
  },
  "tangent-line":{
-  0:{title:"点の高さと接線の傾きを合わせる",description:"接線は点 $(2,5)$ を通り、傾きは $4$ です。高さの $5$ を傾きに使わないようにします。",xRange:[-1,4],yRange:[-1,10],
+  0:{title:"点の高さと接線の傾きを合わせる",description:"点 $(2,5)$ と傾き $4$ が、$y-5=4(x-2)$ のそれぞれの位置に対応します。",xRange:[-1,4],yRange:[-1,10],
    curves:[{label:"$y=x^2+1$",value:x=>x*x+1},{label:"接線 $y=4x-3$",value:x=>4*x-3,color:blue}],points:[{x:2,y:5,label:"接点 $(2,5)$"}]},
   1:{title:"傾きゼロなら横の直線",description:"谷の点では接線が水平です。接点の高さもゼロなので、接線は横軸と一致します。",xRange:[-2,4],yRange:[-1,5],
    curves:[{label:"$y=(x-1)^2$",value:x=>(x-1)**2},{label:"接線 $y=0$",value:()=>0,color:blue}],points:[{x:1,y:0,label:"接点 $(1,0)$"}]}
