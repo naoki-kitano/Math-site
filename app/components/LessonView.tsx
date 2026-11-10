@@ -132,7 +132,7 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
       {!hasFormula&&<h2>{lesson.basicsTitle??(lesson.slug==="rational"?"約分できるのは、共通の因数":"点の座標を、式に入れてみる")}</h2>}
       {start?(!hasFormula&&<div className="lesson-start"><p><MathText text={start.goal}/></p>{start.steps.length>0&&<ol>{start.steps.map((step,i)=><li key={i}><MathText text={step}/></li>)}</ol>}</div>):pacedBasics?<BasicReader key={lesson.slug} slug={lesson.slug} introduction={lesson.introduction} rule={lesson.rule} onCompletionChange={setFormulaComplete}/>:lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}
       {lesson.slug==="trig-unit-circle"&&<UnitCircleCoordinates/>}{lesson.slug==="trig-angle-change"&&<UnitCircleExplorer/>}{lesson.slug==="m1-parabola-translation"&&<ParabolaExplorer/>}
-      <ConceptExplorer slug={lesson.slug}/><VisualLessonExplorer slug={lesson.slug}/><FormulaCorrespondence key={lesson.slug} slug={lesson.slug} onCompletionChange={setFormulaComplete}/>
+      <ConceptExplorer slug={lesson.slug}/>{!hasFormula&&<VisualLessonExplorer slug={lesson.slug}/>}<FormulaCorrespondence key={lesson.slug} slug={lesson.slug} onCompletionChange={setFormulaComplete}/>
       {start&&<>{!hasFormula&&<p className="start-check"><MathText text={start.check}/></p>}<details className="supplement original-explanation"><summary>定義・公式とその根拠を読む</summary>{lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}<p><MathText text={lesson.rule}/></p></details></>}
       {lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug} folded={subject==="数学III"}/><MathBSimulation slug={lesson.slug}/>{!start&&!pacedBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}
     </section>}

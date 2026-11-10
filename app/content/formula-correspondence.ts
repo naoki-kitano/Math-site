@@ -1,8 +1,13 @@
 import type {Transfer} from "../components/FormulaTransfer";
 import {math3FormulaCorrespondence} from "./math3-formula-correspondence";
+import {math3CalculusCorrespondence} from './math3-calculus-correspondence';
+import {math3IntegralCorrespondence} from './math3-integral-correspondence';
+import {math3RiemannCorrespondence} from './math3-riemann-correspondence';
+import {math3SequenceCorrespondence} from './math3-sequence-correspondence';
+import {math3GeometryCorrespondence} from './math3-geometry-correspondence';
 const m=String.raw;
 
-type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer};
+export type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer;diagram?:{kind:string;stage:number}};
 export type FormulaLesson={title:string; goal:string; check:string; steps:FormulaStep[]};
 
 // Each displayed line remains a true equation. Color identifies the particular
@@ -46,6 +51,11 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
   ],
  },
  ...math3FormulaCorrespondence,
+ ...math3CalculusCorrespondence,
+ ...math3IntegralCorrespondence,
+ ...math3RiemannCorrespondence,
+ ...math3SequenceCorrespondence,
+ ...math3GeometryCorrespondence,
 };
 formulaCorrespondence['logarithm-laws'].steps[1].motion={
  source:m`\log_a({\color{#176c82}{M}}{\color{#936114}{N}})`,target:m`=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`,

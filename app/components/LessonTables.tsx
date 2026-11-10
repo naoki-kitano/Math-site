@@ -21,7 +21,7 @@ export const lessonTables:Record<string,MathTableData[]>={
  ...math3IntegralTables,
  ...math3DefiniteTables,
  "m3-e-and-natural-log":[
-  {caption:"自然対数の底に近づく数列（小数第4位までの近似）",headers:["$n$","$1$","$10$","$100$","$1000$"],rows:[["$(1+\\frac{1}{n})^n$","$2.0000$","$2.5937$","$2.7048$","$2.7169$"]]}
+  {caption:"自然対数の底に近づく数列（小数第4位までの近似）",compact:true,headers:["$n$","$1$","$10$","$100$","$1000$"],rows:[["$(1+\\frac{1}{n})^n$","$2.0000$","$2.5937$","$2.7048$","$2.7169$"]]}
  ],
  "m3-sequence-basics":[
   {caption:"同じ添字でも、項と和は別の量",headers:["$n$","$1$","$2$","$3$","$4$"],rows:[["$a_n=2n-1$","$1$","$3$","$5$","$7$"],["$S_n$","$1$","$4$","$9$","$16$"]]}

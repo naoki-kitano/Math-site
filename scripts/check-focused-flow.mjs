@@ -93,6 +93,7 @@ try{
   await page.locator('[data-task-pane="example-1"]:visible').waitFor();assert.deepEqual(await visible(),['example-1']);
   await page.goto(url('m3-derivative-definition')+'#basics',{waitUntil:'networkidle'});
   const reader=page.locator('.basics-reader'),advance=page.locator('.focused-navigation').getByRole('button',{name:'例題 1へ',exact:true});
+  await reader.waitFor();
   assert.equal(await reader.locator('.basic-passage:visible').count(),1);assert.equal(await advance.count(),0);
   while(await reader.getByRole('button',{name:'次へ',exact:true}).count())await reader.getByRole('button',{name:'次へ',exact:true}).click();
   await advance.waitFor();assert.equal(await reader.locator('.basic-context:visible').count(),1);
