@@ -1,7 +1,7 @@
-import {quadraticTopic as topic,m,w,num,poly,value,vertexForm,signed,squarePrep,substitutionPrep,coordinatePrep,boundaryPrep} from "./math1-quadratic-authoring";
+import {quadraticTopic as topic,m,w,num,poly,value,substituted,vertexForm,signed,squarePrep,substitutionPrep,coordinatePrep,boundaryPrep} from "./math1-quadratic-authoring";
 import {addPair,type Worked} from "./math1-topic";
-const evalAt=(a:number,b:number,c:number,x:number):Worked=>w(m`$f(x)=${poly(a,b,c)}$ のとき $f(${num(x)})$ を求めなさい。`,m`$f(${num(x)})=${num(value(a,b,c,x))}$。`,m`すべての $x$ を $${num(x)}$ に置き換えます。関数名 $f$ を掛ける意味ではありません。`,m`$f(${num(x)})=${num(a)}\cdot(${num(x)})^2+(${num(b)})\cdot(${num(x)})+(${num(c)})=${num(value(a,b,c,x))}$。`);
-const combine=(a:number,b:number,c:number,u:number,v:number):Worked=>w(m`$f(x)=${poly(a,b,c)}$ のとき $f(${u})+f(${v})$ を求めなさい。`,m`$${num(value(a,b,c,u)+value(a,b,c,v))}$。`,m`$f(${u})$ と $f(${v})$ を別々に計算してから足します。`,m`$f(${u})=${num(value(a,b,c,u))}$、$f(${v})=${num(value(a,b,c,v))}$。したがって和は $${num(value(a,b,c,u)+value(a,b,c,v))}$。入力を先に足した $f(${u+v})$ を求める問題ではありません。`);
+const evalAt=(a:number,b:number,c:number,x:number):Worked=>w(m`$f(x)=${poly(a,b,c)}$ のとき $f(${num(x)})$ を求めなさい。`,m`$f(${num(x)})=${num(value(a,b,c,x))}$。`,m`すべての $x$ に同じ $${num(x)}$ を入れます。`,m`$f(${num(x)})=${substituted(a,b,c,x)}=${num(value(a,b,c,x))}$。`);
+const combine=(a:number,b:number,c:number,u:number,v:number):Worked=>w(m`$f(x)=${poly(a,b,c)}$ のとき $f(${u})+f(${v})$ を求めなさい。`,m`$${num(value(a,b,c,u)+value(a,b,c,v))}$。`,m`$f(${u})$ と $f(${v})$ を別々に計算してから足します。`,m`$f(${u})=${num(value(a,b,c,u))}$、$f(${v})=${num(value(a,b,c,v))}$。したがって和は $${num(value(a,b,c,u)+value(a,b,c,v))}$。`);
 export const functionValues=topic("m1-function-values","関数値と代入",[
  m`ある範囲の $x$ の値を一つ決めると、それに対応する $y$ の値がただ一つ決まるとき、$y$ は $x$ の関数といいます。$y=f(x)$ の $f$ は、その対応に付けた名前です。`,
  m`$f(x)=x^2-2x+3$ なら、$f(-1)$ は入力を $-1$ にしたときの値です。$f(-1)=(-1)^2-2(-1)+3=6$。$f(-1)$ は $f$ と $-1$ の掛け算ではありません。`,
@@ -16,8 +16,8 @@ addPair(functionValues,"function-uniqueness","同じ入力の出力が一つか"
  w(m`入力 $1$ に出力 $2$ と $3$ の両方を対応させる規則は、そのままで関数ですか。`,"関数ではありません。同じ入力の出力が一つに決まりません。","一つの入力だけに注目して、出力が何通りあるか見ます。",m`入力 $1$ に二つの出力があるので、関数の条件を満たしません。`),
 ]);
 
-const membership=(a:number,b:number,c:number,x:number,y:number):Worked=>w(m`点 $(${x},${y})$ が $y=${poly(a,b,c)}$ のグラフ上にあるか、式で確かめなさい。`,value(a,b,c,x)===y?"グラフ上にあります。":"グラフ上にありません。",m`横座標 $${x}$ を右辺へ入れ、縦座標 $${y}$ と一致するか比べます。`,m`右辺は $${num(a)}\cdot(${x})^2+(${num(b)})\cdot(${x})+(${num(c)})=${num(value(a,b,c,x))}$。縦座標 $${y}$ と${value(a,b,c,x)===y?"一致する":"一致しない"}ので、${value(a,b,c,x)===y?"グラフ上にあります":"グラフ上にありません"}。`);
-const ordinate=(a:number,b:number,c:number,x:number):Worked=>w(m`$y=${poly(a,b,c)}$ のグラフ上で、横座標が $${x}$ の点の座標を求めなさい。`,m`$(${x},${num(value(a,b,c,x))})$。`,"横座標を式へ代入し、得られた縦座標と組にします。",m`$x=${x}$ を代入すると $y=${num(value(a,b,c,x))}$。答えは値だけでなく点の座標です。`);
+const membership=(a:number,b:number,c:number,x:number,y:number):Worked=>w(m`点 $(${x},${y})$ が $y=${poly(a,b,c)}$ のグラフ上にあるか、式で確かめなさい。`,value(a,b,c,x)===y?"グラフ上にあります。":"グラフ上にありません。",m`横座標 $${x}$ を右辺へ入れ、縦座標 $${y}$ と一致するか比べます。`,m`右辺は $${substituted(a,b,c,x)}=${num(value(a,b,c,x))}$。縦座標 $${y}$ と${value(a,b,c,x)===y?"一致する":"一致しない"}ので、${value(a,b,c,x)===y?"グラフ上にあります":"グラフ上にありません"}。`);
+const ordinate=(a:number,b:number,c:number,x:number):Worked=>w(m`$y=${poly(a,b,c)}$ のグラフ上で、横座標が $${x}$ の点の座標を求めなさい。`,m`$(${x},${num(value(a,b,c,x))})$。`,"横座標を式へ代入し、得られた縦座標と組にします。",m`$x=${x}$ を代入すると $y=${num(value(a,b,c,x))}$。対応する点は $(x,y)=(${x},${num(value(a,b,c,x))})$ です。`);
 export const graphPoints=topic("m1-graph-points","座標とグラフ上の点",[
  m`点 $(a,b)$ は、横座標が $a$、縦座標が $b$ の点です。横に $a$、縦に $b$ の位置をとります。`,
  m`関数 $y=f(x)$ のグラフは、対応する入力と出力を組にした点 $(x,f(x))$ の集まりです。入力に許される範囲を定義域といいます。点 $(a,b)$ がグラフ上にあるかは、$a$ が定義域に入り、$b=f(a)$ かを確かめます。`,
@@ -39,7 +39,7 @@ function affineRange(a:number,b:number,l:number,r:number,closed=true):Worked{
  const p=a*l+b,q=a*r+b,min=Math.min(p,q),max=Math.max(p,q);
  const domain=m`${l}\le x${closed?"\\le":"<"}${r}`;
  const range=a>0?m`${min}\le y${closed?"\\le":"<"}${max}`:m`${min}${closed?"\\le":"<"} y\le${max}`;
- return w(m`$y=${poly(0,a,b)}$ の定義域が $${domain}$ のとき、値域を求めなさい。`,m`$${range}$。`,m`$x$ が増えると $y$ は${a>0?"増え":"減り"}ます。両端の値と、端を含むかを調べます。`,m`$x=${l}$ に対応する値は $${p}$、$x=${r}$ に対応する値は $${q}$。一次関数はその間の値をすべてとり、${closed?"両端も含む":"右の入力端は除く"}ので $${range}$。`);
+ return w(m`$y=${poly(0,a,b)}$ の定義域が $${domain}$ のとき、値域を求めなさい。`,m`$${range}$。`,m`$x$ が増えると $y$ は${a>0?"増え":"減り"}ます。両端の値と、端を含むかを調べます。`,[m`$x=${l}$ では $y=${p}$。${closed?m`$x=${r}$ では $y=${q}$。`:m`$x=${r}$ は含まないため、対応する境界の値 $${q}$ も含みません。`}`,m`一次関数は${a>0?"増加":"減少"}し、二つの端の間の値をすべてとります。小さい値から並べると $${range}$。`]);
 }
 export const domainRange=topic("m1-domain-range","定義域と値域",[
  m`入力 $x$ がとる値全体を定義域、そこから得られる出力 $y$ がとる値全体を値域といいます。式だけでなく、入力をどこまで認めるかも関数の条件です。`,
@@ -64,7 +64,7 @@ export const basicParabola=topic("m1-basic-parabola","放物線の基本形",[
 ],[squarePrep,coordinatePrep]);
 
 function shiftRule(a:number,h:number,k:number):Worked{return w(m`$y=${vertexForm(a,0,0)}$ を、$x$ 軸方向へ $${h}$、$y$ 軸方向へ $${k}$ 平行移動したグラフの式と頂点を求めなさい。`,m`$y=${vertexForm(a,h,k)}$、頂点 $(${h},${k})$。`,"移動後の横座標から移動量を引くと、移動前の横座標に戻ります。",m`移動前の点を $(u,v)$、移動後を $(x,y)$ とすると $u=x${signed(-h)},v=y${signed(-k)}$。$v=${a===1?"":a===-1?"-":num(a)}u^2$ に代入すると $y=${vertexForm(a,h,k)}$。頂点 $(0,0)$ も $(${h},${k})$ へ移ります。`);}
-const shiftPoint=(x:number,y:number,h:number,k:number):Worked=>w(m`グラフを $x$ 軸方向へ $${h}$、$y$ 軸方向へ $${k}$ 平行移動します。点 $(${x},${y})$ はどこへ移りますか。`,m`$(${x+h},${y+k})$。`,"点の座標には移動量をそのまま足します。式の中の符号とは役割が違います。",m`横座標は $${x}+(${h})=${x+h}$、縦座標は $${y}+(${k})=${y+k}$。`);
+const shiftPoint=(x:number,y:number,h:number,k:number):Worked=>w(m`グラフを $x$ 軸方向へ $${h}$、$y$ 軸方向へ $${k}$ 平行移動します。点 $(${x},${y})$ はどこへ移りますか。`,m`$(${x+h},${y+k})$。`,"横座標に横の移動量、縦座標に縦の移動量を足します。",m`横座標は $${x}+(${h})=${x+h}$、縦座標は $${y}+(${k})=${y+k}$。`);
 export const translation=topic("m1-parabola-translation","平行移動と対応する点",[
  m`点 $(u,v)$ を横に $h$、縦に $k$ 移すと $(u+h,v+k)$ になります。正の横移動は右、負なら左です。正の縦移動は上、負なら下です。`,
  m`$y=x^2$ を右に $2$、上に $1$ 移すと、頂点は $(2,1)$ です。新しい点の横座標を $x$ とすると、元の横座標は $x-2$。元の高さ $(x-2)^2$ に $1$ を足すので、式は $y=(x-2)^2+1$ です。`,
@@ -80,11 +80,11 @@ for(const bank of [functionValues,graphPoints,domainRange,basicParabola,translat
 export const functionFoundationTopics=[functionValues,graphPoints,domainRange,basicParabola,translation];
 for(const [bank,family,key]of [[domainRange,"interval-range","interval-range-2"],[basicParabola,"basic-shape","basic-shape-2"]] as const){
  const e=bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${key}-v1`)!;
- bank.lesson.supplements.find(s=>s.id===family)!.text+="\n"+[e.prompt,e.steps[0].text,e.answer].join("\n");
+ (bank.lesson.supplements.find(s=>s.id===family)!.additionalExamples??=[]).push({title:e.prompt,text:[e.steps[0].text,e.answer].join("\n")});
 }
 const domainChecks:Worked[]=[
  w(m`$y=x^2$（$0\le x\le2$）のグラフ上に点 $(2,4)$ はありますか。`,m`あります。$2$ は定義域内で、$4=2^2$ も成立します。`,"入力の範囲と式の一致を両方調べます。",m`$0\le2\le2$ かつ $4=2^2$ なので両条件を満たします。`),
  w(m`$y=x^2+1$（$-1\le x<2$）のグラフ上に点 $(1,3)$ はありますか。`,m`ありません。$1$ は定義域内ですが、$1^2+1=2\ne3$ です。`,"入力の条件だけで判断せず、縦座標も照合します。",m`$-1\le1<2$ は成立しますが、式が決める高さと点の縦座標が一致しません。`),
 ];
 domainChecks.forEach(([prompt,answer,hint,working],i)=>graphPoints.exercises.push({id:`m1-graph-points-point-domain-additional-${i+1}-v1`,lesson:graphPoints.lesson.slug,family:"point-domain",repair:"point-domain",kind:"paper",stage:i===0?"practice":"review",prompt,answer,hints:[hint],steps:[{title:"二つの条件を照合",text:working}]}));
-graphPoints.lesson.supplements.find(s=>s.id==="point-domain")!.text+="\n"+domainChecks.map(e=>[e[0],e[3],e[1]].join("\n")).join("\n");
+graphPoints.lesson.supplements.find(s=>s.id==="point-domain")!.additionalExamples=domainChecks.map(e=>({title:e[0],text:[e[3],e[1]].join("\n")}));

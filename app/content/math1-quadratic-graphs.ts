@@ -1,11 +1,18 @@
-import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,vertexForm,squarePrep,substitutionPrep,boundaryPrep} from "./math1-quadratic-authoring";
+import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,vertexForm,signed,squarePrep,substitutionPrep,boundaryPrep} from "./math1-quadratic-authoring";
 import {complete} from "./math1-completing-square";
 import {addPair,type Worked,type Skill} from "./math1-topic";
 function vertexRead(a:number,h:number,k:number):Worked{return w(m`$y=${vertexForm(a,h,k)}$ の頂点と軸を答えなさい。`,m`頂点 $(${num(h)},${num(k)})$、軸 $x=${num(h)}$。`,"平方がゼロになる横座標と、そのときの縦座標を読みます。",m`$x=${num(h)}$ のとき平方項がゼロになり $y=${num(k)}$。`);}
 export const vertexPrep:Skill={id:"vertex-form-reading",title:"平方の形と頂点",why:"頂点は点、軸はその横座標を通る縦の直線です。",sample:vertexRead(1,2,1),items:[vertexRead(1,-1,2),vertexRead(-1,2,3),vertexRead(2,0,-1)]};
+export const quadraticGraphCases:{prompt:string;a:number;h:number;k:number}[]=[];
 function graph(a:number,h:number,k:number,expanded:boolean):Worked{
  const b=-2*a*h,c=a*h*h+k,form=vertexForm(a,h,k);
- return w(m`$y=${expanded?poly(a,b,c):form}$ のグラフをかきなさい。頂点、軸、開く向きと、頂点以外の二点も示しなさい。`,m`頂点 $(${num(h)},${num(k)})$、軸 $x=${num(h)}$。${a>0?"上向き（下に凸）":"下向き（上に凸）"}に開き、$(${num(h-1)},${num(k+a)})$、$(${num(h+1)},${num(k+a)})$ を通る放物線。`,expanded?"平方完成して頂点と軸を読み、軸から左右同じ距離の二点を計算します。":"頂点の左右で横座標を一ずつ変え、対応する高さを計算します。",(expanded?complete(a,b,c)[3]:"")+m` $y=${form}$ より頂点と軸が分かります。$x=${num(h-1)},${num(h+1)}$ では平方の中が $-1,1$ なので、ともに $y=${num(k+a)}$。頂点で滑らかに折り返し、軸の両側へ対称に続く曲線をかきます。点を直線で結んだ折れ線ではありません。`);
+ const prompt=m`$y=${expanded?poly(a,b,c):form}$ のグラフをかきなさい。頂点、軸、開く向きと、頂点以外の二点も示しなさい。`;
+ quadraticGraphCases.push({prompt,a,h,k});
+ return w(prompt,m`頂点 $(${num(h)},${num(k)})$、軸 $x=${num(h)}$。${a>0?"上向き（下に凸）":"下向き（上に凸）"}に開き、$(${num(h-1)},${num(k+a)})$、$(${num(h+1)},${num(k+a)})$ を通る放物線。`,expanded?"平方完成して頂点と軸を読み、軸から等距離の二点を求めます。":"平方の部分がゼロになる入力を求め、軸の左右に同じ距離の点を取ります。",[
+ ...(expanded?[complete(a,b,c)[3]]:[]),
+ m`$y=${form}$ で平方がゼロになるのは $x=${num(h)}$。頂点は $(${num(h)},${num(k)})$、軸は $x=${num(h)}$。平方の係数が${a>0?"正":"負"}なので、${a>0?"上向き":"下向き"}に開きます。`,
+ m`軸から左右に $1$ 離れた $x=${num(h-1)},${num(h+1)}$ では、平方の中が $-1,1$。二乗が等しいので、ともに $y=${num(k+a)}$ です。頂点とこの二点を通る対称な放物線をかきます。`
+ ]);
 }
 export const quadraticGraph=topic("m1-quadratic-graph","二次関数のグラフ",[
  m`二次関数 $y=ax^2+bx+c$（$a\ne0$）を平方完成すると $y=a(x-h)^2+k$ の形になります。頂点 $(h,k)$、軸 $x=h$、係数 $a$ の符号による開く向きを順に調べます。`,
@@ -17,15 +24,27 @@ export const quadraticGraph=topic("m1-quadratic-graph","二次関数のグラフ
 ],[vertexPrep,squarePrep]);
 
 function determineVertex(h:number,k:number,x:number,a:number):Worked{
- const y=a*(x-h)**2+k;
- return w(m`頂点が $(${h},${k})$ で、点 $(${x},${y})$ を通る二次関数を求めなさい。`,m`$y=${vertexForm(a,h,k)}$。`,"頂点の条件を先に式へ入れ、残った係数を通る点から決めます。",m`$y=a(x${h<0?"+"+(-h):h>0?"-"+h:""})^2+(${k})$ と置きます。通る点から $${y}=a\cdot${(x-h)**2}+(${k})$。よって $a=\frac{${y-k}}{${(x-h)**2}}=${num(a)}\ne0$。頂点と点の条件を両方満たします。`);
+ const y=a*(x-h)**2+k,inner=h===0?"x":`(x${signed(-h)})`,constant=k===0?"":signed(k);
+ return w(m`頂点が $(${h},${k})$ で、点 $(${x},${y})$ を通る二次関数を求めなさい。`,m`$y=${vertexForm(a,h,k)}$。`,"頂点を式の位置に入れ、残る係数を通る点から求めます。",[
+ m`頂点 $(${h},${k})$ より $y=a${inner}^2${constant}$ と置きます。`,
+ m`点 $(${x},${y})$ の横座標を $x$、縦座標を $y$ に入れると、$${y}=a(${x}${h===0?"":signed(-h)})^2${constant}$。したがって $${y}=a\cdot${(x-h)**2}${constant}$。`,
+ m`$a=\frac{${y-k}}{${(x-h)**2}}=${num(a)}\ne0$。$y=${vertexForm(a,h,k)}$ は頂点と通る点の条件を満たします。`
+ ]);
 }
 function determineAxis(h:number,a:number,k:number):Worked{
- const y0=a+k,y1=4*a+k;
- return w(m`軸が $x=${h}$ で、点 $(${h+1},${y0})$、$(${h+2},${y1})$ を通る二次関数を求めなさい。`,m`$y=${vertexForm(a,h,k)}$。`,"軸から括弧の中を決め、二点を代入した二式の差を取ります。",m`$y=a(x${h<0?"+"+(-h):h>0?"-"+h:""})^2+k$ と置くと $a+k=${y0}$、$4a+k=${y1}$。$4a+k=${y1}$ から $a+k=${y0}$ を引くと、$k$ が消えて $3a=${y1-y0}$。したがって $a=${a}$。これを $a+k=${y0}$ に代入すると $k=${k}$。$a\ne0$ で、二点をともに通ります。`);
+ const y0=a+k,y1=4*a+k,inner=h===0?"x":`(x${signed(-h)})`;
+ return w(m`軸が $x=${h}$ で、点 $(${h+1},${y0})$、$(${h+2},${y1})$ を通る二次関数を求めなさい。`,m`$y=${vertexForm(a,h,k)}$。`,"軸の位置を式へ入れ、二点から作った式の差で共通の定数を消します。",[
+ m`軸が $x=${h}$ なので $y=a${inner}^2+k$ と置きます。`,
+ m`点 $(${h+1},${y0})$ から $${y0}=a(${h+1}${h===0?"":signed(-h)})^2+k$、つまり $a+k=${y0}$。点 $(${h+2},${y1})$ から $4a+k=${y1}$。`,
+ m`二式の共通の $k$ を消すため引くと、$3a=${y1-y0}$ より $a=${a}$。$a+k=${y0}$ へ戻して $k=${k}$。$a\ne0$ で、二点の条件も満たします。`
+ ]);
 }
 function determineThree(a:number,b:number,c:number):Worked{
- return w(m`三点 $(-1,${a-b+c})$、$(0,${c})$、$(1,${a+b+c})$ を通る二次関数を求めなさい。`,m`$y=${poly(a,b,c)}$。`,"頂点や軸の情報がないので、一般形に三点を代入します。まず横座標ゼロの点を使います。",m`$y=ax^2+bx+c$ と置くと、まず $c=${c}$。残る二点から $a-b=${a-b}$、$a+b=${a+b}$。足して $2a=${2*a}$ より $a=${a}\ne0$。これを $a+b=${a+b}$ に代入して $b=${b}$。三点へ代入して元の高さに戻ることを確かめます。`);
+ return w(m`三点 $(-1,${a-b+c})$、$(0,${c})$、$(1,${a+b+c})$ を通る二次関数を求めなさい。`,m`$y=${poly(a,b,c)}$。`,"頂点や軸が未知なので一般形を使い、各点から一つずつ等式を作ります。",[
+ m`$y=ax^2+bx+c$ と置きます。$(0,${c})$ を通るので $c=${c}$。`,
+ m`$(-1,${a-b+c})$ を通るので $a-b+c=${a-b+c}$、つまり $a-b=${a-b}$。$(1,${a+b+c})$ を通るので $a+b+c=${a+b+c}$、つまり $a+b=${a+b}$。`,
+ m`二式を足すと $b$ が消え、$2a=${2*a}$ より $a=${a}\ne0$。$a+b=${a+b}$ へ戻すと $b=${b}$。得られた式は三点すべてを通ります。`
+ ]);
 }
 export const determineQuadratic=topic("m1-determine-quadratic","条件から求める二次関数",[
  m`与えられた条件が式に入りやすい形を選びます。頂点 $(h,k)$ が分かるなら $y=a(x-h)^2+k$、軸だけなら $y=a(x-h)^2+k$ の $k$ も未知数とします。`,
@@ -43,7 +62,9 @@ addPair(determineQuadratic,"insufficient-condition","頂点だけでは開き方
 
 function globalExtreme(a:number,h:number,k:number,expanded=false):Worked{
  const expression=expanded?poly(a,-2*a*h,a*h*h+k):vertexForm(a,h,k);
- return w(m`定義域を実数全体とする $y=${expression}$ の最大値・最小値と、それをとる $x$ を答えなさい。`,m`$x=${num(h)}$ で${a>0?"最小値":"最大値"} $${num(k)}$。${a>0?"最大値":"最小値"}はありません。`,"平方はゼロ以上です。係数の符号で上から抑えられるか下から抑えられるかを決めます。",(expanded?complete(a,-2*a*h,a*h*h+k)[3]:"")+m` $y=${vertexForm(a,h,k)}$ で平方がゼロになるのは $x=${num(h)}$。それ以外では $y${a>0?">":"<"}${num(k)}$。また $|x-(${num(h)})|$ をいくらでも大きくでき、$y$ は${a>0?"上へ":"下へ"}際限なく変わるので、${a>0?"最大値":"最小値"}はありません。`);
+ return w(m`定義域を実数全体とする $y=${expression}$ の最大値・最小値と、それをとる $x$ を答えなさい。`,m`$x=${num(h)}$ で${a>0?"最小値":"最大値"} $${num(k)}$。${a>0?"最大値":"最小値"}はありません。`,expanded?"平方完成し、平方の非負性と係数の符号を使います。":"平方の非負性と係数の符号から、値の上限か下限を求めます。",(expanded?complete(a,-2*a*h,a*h*h+k)[3]+"\n\n":"")+m` $y=${vertexForm(a,h,k)}$ で平方がゼロになるのは $x=${num(h)}$。それ以外では $y${a>0?">":"<"}${num(k)}$。
+
+また $|x-(${num(h)})|$ をいくらでも大きくでき、$y$ は${a>0?"上へ":"下へ"}際限なく変わるので、${a>0?"最大値":"最小値"}はありません。`);
 }
 export const globalExtrema=topic("m1-parabola-extrema","放物線の最大値・最小値",[
  m`最大値・最小値は、定義域内で実際にとる $y$ の値です。その値をとる $x$ と組で答えます。頂点の座標そのものと、最大値・最小値を混同しないようにします。`,
@@ -60,7 +81,7 @@ function interval(a:number,h:number,k:number,l:number,r:number):Worked{
  const min=Math.min(...candidates.map(f)),max=Math.max(...candidates.map(f)),minAt=candidates.filter(x=>f(x)===min),maxAt=candidates.filter(x=>f(x)===max);
  intervalCases.push({a,h,k,l,r,min,max,minAt,maxAt});
  const answer=m`$x=${minAt.map(num).join(",")}$ で最小値 $${num(min)}$、$x=${maxAt.map(num).join(",")}$ で最大値 $${num(max)}$。`;
- return w(m`$y=${vertexForm(a,h,k)}$（$${l}\le x\le${r}$）の最大値・最小値と、それをとる $x$ をすべて求めなさい。`,answer,"頂点の横座標が定義域に入るかを先に調べ、両端の値と、使える場合の頂点の値を比べます。",m`頂点の横座標 $${h}$ は定義域 $${l}\le x\le${r}$ に${h>=l&&h<=r?"含まれます":"含まれません"}。$x=${l}$ では $y=${num(f(l))}$、$x=${r}$ では $y=${num(f(r))}$。${h>=l&&h<=r?m`頂点では $y=${num(k)}$。`:"区間内では軸からの距離が一方向に変わるため、両端を比べれば十分です。"}平方は軸からの距離の二乗なので、${a>0?"近いほど小さく、遠いほど大きい":"近いほど大きく、遠いほど小さい"}値になります。${answer}`);
+ return w(m`$y=${vertexForm(a,h,k)}$（$${l}\le x\le${r}$）の最大値・最小値と、それをとる $x$ をすべて求めなさい。`,answer,"頂点の横座標が定義域に入るかを先に調べ、両端の値と、使える場合の頂点の値を比べます。",m`頂点の横座標 $${h}$ は定義域 $${l}\le x\le${r}$ に${h>=l&&h<=r?"含まれます":"含まれません"}。$x=${l}$ では $y=${num(f(l))}$、$x=${r}$ では $y=${num(f(r))}$。${h>=l&&h<=r?m`頂点では $y=${num(k)}$。`:"区間内では軸からの距離が一方向に変わるため、両端を比べれば十分です。"}平方は軸からの距離の二乗なので、${a>0?"近いほど小さく、遠いほど大きい":"近いほど大きく、遠いほど小さい"}値になります。`);
 }
 export const intervalExtrema=topic("m1-interval-extrema","区間内の最大値・最小値",[
  m`定義域が指定されたら、頂点をそのまま答えにしてはいけません。頂点の横座標が区間に入っているかを最初に確認します。`,

@@ -1,13 +1,13 @@
 import {defineMathOneLesson,question} from "./math1-authoring";
 export type Worked = [prompt:string,answer:string,hint:string,working:string];
 export type Skill = {id:string;title:string;why:string;sample:Worked;items:Worked[]};
-export function addPair(bank:ReturnType<typeof topic>,id:string,title:string,why:string,pair:[Worked,Worked]) {
+export function addPair(bank:ReturnType<typeof topic>,id:string,title:string,why:string,pair:[Worked,Worked],answerInWorking=false) {
  const [a,b]=pair;
- const supplement={id,title,text:[why,a[0],a[3],a[1]].join("\n"),tex:"",check:b[0],answer:b[3]+"\n"+b[1]};
+ const supplement={id,title,text:[why,a[0],a[3],...(answerInWorking?[]:[a[1]])].join("\n"),tex:"",check:b[0],answer:[b[3],...(answerInWorking?[]:[b[1]])].join("\n")};
  const existing=bank.lesson.supplements.findIndex(s=>s.id===id);
  if(existing<0)bank.lesson.supplements.push(supplement);
  else bank.lesson.supplements[existing]=supplement;
- pair.forEach(([prompt,answer,hint,working],i)=>bank.exercises.push({id:`${bank.lesson.slug}-${id}-extra-${i+1}-v1`,lesson:bank.lesson.slug,stage:i===0?"practice":"review",family:id,repair:id,kind:"paper",prompt,answer,hints:[hint],steps:[{title:"考えて進める",text:working},{title:"答えと確認",text:answer}]}));
+ pair.forEach(([prompt,answer,hint,working],i)=>bank.exercises.push({id:`${bank.lesson.slug}-${id}-extra-${i+1}-v1`,lesson:bank.lesson.slug,stage:i===0?"practice":"review",family:id,repair:id,kind:"paper",prompt,answer,hints:[hint],steps:[{title:"考えて進める",text:working}]}));
 }
 // Each bank is authored for one mathematical decision. No hints are inherited.
 export function topic(slug:string,title:string,introduction:string[],rule:string,main:Skill[],preparation:Skill[]) {

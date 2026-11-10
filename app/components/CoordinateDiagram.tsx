@@ -1,5 +1,7 @@
 "use client";
-import { useId } from "react";
+import { useId, useSyncExternalStore } from "react";
+const narrowQuery="(max-width: 600px)";
+const subscribeViewport=(callback:()=>void)=>{const media=window.matchMedia(narrowQuery);media.addEventListener("change",callback);return()=>media.removeEventListener("change",callback);};
 import { MathText } from "./MathText";
 import Math2CoordinateDiagram from './Math2CoordinateDiagram';
 export type Curve = { label:string; value:(x:number)=>number; color?:string; dashed?:boolean; from?:number; to?:number };
@@ -14,6 +16,7 @@ export type CoordinateDiagramProps = {
  xTicks?:{value:number;label:string}[];
  axisDescription?:string;
  directLabels?:boolean;
+ responsive?:boolean;
  compact?:boolean;
  hideTickLabels?:boolean;
 };
@@ -21,15 +24,18 @@ export type CoordinateDiagramProps = {
 export default function CoordinateDiagram(props:CoordinateDiagramProps){
  return props.directLabels?<Math2CoordinateDiagram {...props}/>:<LegacyCoordinateDiagram {...props}/>;
 }
-function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
+function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],points=[],segments=[],circles=[],areas=[],arcs=[],tick=1,xTicks,responsive=false,axisDescription="横軸は $x$、縦軸は $y$。"}:CoordinateDiagramProps){
  const clip=useId().replace(/:/g,"");
- const width=640,height=440,padding=36;
+ const small=useSyncExternalStore(subscribeViewport,()=>responsive&&window.matchMedia(narrowQuery).matches,()=>false);
+ const width=small?320:640,padding=small?32:36;
+ const height=small?Math.max(260,Math.min(480,Math.round((width-2*padding)*(yRange[1]-yRange[0])/(xRange[1]-xRange[0])+2*padding))):440;
  const scale=Math.min((width-2*padding)/(xRange[1]-xRange[0]),(height-2*padding)/(yRange[1]-yRange[0]));
  const plotWidth=(xRange[1]-xRange[0])*scale,plotHeight=(yRange[1]-yRange[0])*scale;
  const left=(width-plotWidth)/2,top=(height-plotHeight)/2;
  // SVG precision must be stable across the server and browser math libraries.
  const px=(x:number)=>Number((left+(x-xRange[0])*scale).toFixed(4)),py=(y:number)=>Number((top+(yRange[1]-y)*scale).toFixed(4));
  const ticks=(range:[number,number])=>Array.from({length:Math.max(0,Math.min(60,Math.floor(range[1]/tick)-Math.ceil(range[0]/tick)+1))},(_,i)=>(Math.ceil(range[0]/tick)+i)*tick);
+ const labeledTicks=(range:[number,number])=>{const values=ticks(range),stride=small?Math.max(1,Math.ceil(values.length/7)):1;return values.filter((_,i)=>i%stride===0);};
  const path=(curve:Curve)=>{
   const from=Math.max(xRange[0],curve.from??xRange[0]),to=Math.min(xRange[1],curve.to??xRange[1]);
   let result="",previous:number|null=null;
@@ -47,10 +53,10 @@ function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],poin
   return [...xs.map(x=>[px(x),py(area.upper(x))]),...xs.reverse().map(x=>[px(x),py(area.lower(x))])]
    .map(([x,y])=>x.toFixed(2)+","+y.toFixed(2)).join(" ");
  };
- return <figure className="panel math-figure">
-  <h3>{title}</h3><p><MathText text={description}/></p>
-  <svg className="coordinate-diagram" viewBox={"0 0 "+width+" "+height} role="img" aria-label={title}>
-   <title>{title}</title><desc>{description.replace(/\$/g,"")}</desc>
+ return <figure className={`panel math-figure${responsive?" responsive-coordinate":""}`}>
+  <h3>{title}</h3><p id={`${clip}-description`}><MathText text={description}/></p>
+  <svg className="coordinate-diagram" viewBox={"0 0 "+width+" "+height} role="img" aria-label={title} aria-describedby={`${clip}-description`}>
+   <title>{title}</title>
    <defs><clipPath id={clip}><rect x={left} y={top} width={plotWidth} height={plotHeight}/></clipPath></defs>
    <g clipPath={"url(#"+clip+")"}>
     {(xTicks?.map(t=>t.value)??ticks(xRange)).map(x=><line key={"x"+x} x1={px(x)} y1={top} x2={px(x)} y2={top+plotHeight} stroke="#e3eaf2"/>)}
@@ -64,14 +70,14 @@ function LegacyCoordinateDiagram({title,description,xRange,yRange,curves=[],poin
     {segments.map((s,i)=><line key={i} x1={px(s.from[0])} y1={py(s.from[1])} x2={px(s.to[0])} y2={py(s.to[1])} stroke={s.color??"#42648b"} strokeWidth={s.width??2} strokeDasharray={s.dashed?"6 5":undefined}/>)}
     {points.map((p,i)=><circle key={i} cx={px(p.x)} cy={py(p.y)} r="4.5" fill={p.open?"white":"#0b1f3a"} stroke={p.open?"#0b1f3a":"white"} strokeWidth="1.5"/>)}
    </g>
-   {xTicks?xTicks.map(t=><foreignObject key={t.value} x={px(t.value)-28} y={Math.min(top+plotHeight+2,Math.max(top,py(0)+5))} width="56" height="32"><div style={{fontSize:13,textAlign:"center",color:"#43566b"}}><MathText text={t.label}/></div></foreignObject>):ticks(xRange).filter(x=>x!==0).map(x=><text key={x} x={px(x)} y={Math.min(top+plotHeight+18,Math.max(top+16,py(0)+19))} textAnchor="middle" fontSize="14" fill="#43566b">{Number(x.toFixed(2))}</text>)}
-   {ticks(yRange).filter(y=>y!==0).map(y=><text key={y} x={Math.min(left+plotWidth-5,Math.max(left-6,px(0)-8))} y={py(y)+5} textAnchor="end" fontSize="14" fill="#43566b">{Number(y.toFixed(2))}</text>)}
+   {xTicks?xTicks.map(t=><foreignObject key={t.value} x={px(t.value)-28} y={Math.min(top+plotHeight+2,Math.max(top,py(0)+5))} width="56" height="32"><div style={{fontSize:small?18:13,lineHeight:1.2,textAlign:"center",color:"#43566b"}}><MathText text={t.label}/></div></foreignObject>):labeledTicks(xRange).filter(x=>x!==0).map(x=><text key={x} x={px(x)} y={Math.min(top+plotHeight+18,Math.max(top+16,py(0)+19))} textAnchor="middle" fontSize={small?18:14} fill="#43566b">{Number(x.toFixed(2))}</text>)}
+   {labeledTicks(yRange).filter(y=>y!==0).map(y=><text key={y} x={Math.min(left+plotWidth-5,Math.max(left-6,px(0)-8))} y={py(y)+5} textAnchor="end" fontSize={small?18:14} fill="#43566b">{Number(y.toFixed(2))}</text>)}
   </svg>
   <figcaption><p className="meta"><MathText text={axisDescription}/></p>
    {curves.map((c,i)=><p key={"curve"+i}><span className="figure-key" style={{background:c.color??"#087c70"}}/><MathText text={c.label}/></p>)}
    {circles.map((c,i)=><p key={"circle"+i}><MathText text={c.label}/></p>)}
    {arcs.map((a,i)=><p key={"arc"+i}><MathText text={a.label}/></p>)}
-   {points.map((p,i)=><p key={"point"+i}><MathText text={p.label}/></p>)}
+   {points.filter(p=>p.label).map((p,i)=><p key={"point"+i}><MathText text={p.label}/></p>)}
    {segments.filter(s=>s.label).map((s,i)=><p key={"line"+i}><MathText text={s.label!}/></p>)}
    {areas.map((a,i)=><p key={"area"+i}><MathText text={a.label}/></p>)}
   </figcaption>

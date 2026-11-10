@@ -8,7 +8,7 @@ export const sineSideCases:SineCase[]=[
  {A:120,B:30,a:m`3\sqrt3`,b:"3"},{A:30,B:120,a:"2",b:m`2\sqrt3`},
  {A:45,B:60,a:m`2\sqrt2`,b:m`2\sqrt3`},{A:60,B:45,a:m`4\sqrt3`,b:m`4\sqrt2`},
 ];
-function sineSide(t:SineCase):Worked{return w(m`三角形 $ABC$ で $A=${t.A}^\circ,B=${t.B}^\circ,a=${t.a}$。正弦定理で $b$ を求めなさい。`,m`$b=${t.b}$。`,m`既知の対応は $a$ と $A$。求めたい $b$ と $B$ の比を等置します。`,m`$\frac{b}{\sin B}=\frac{a}{\sin A}$ より $b=\frac{${t.a}\sin${t.B}^\circ}{\sin${t.A}^\circ}=\frac{(${t.a})(${specialValues[t.B][0]})}{${specialValues[t.A][0]}}=${t.b}$。与えられた二つの角の和は $${t.A+t.B}^\circ<180^\circ$ なので、残る内角も正です。`);}
+function sineSide(t:SineCase):Worked{return w(m`三角形 $ABC$ で $A=${t.A}^\circ,B=${t.B}^\circ,a=${t.a}$。正弦定理で $b$ を求めなさい。`,m`$b=${t.b}$。`,m`既知の対応は $a$ と $A$。求めたい $b$ と $B$ の比を等置します。`,m`$\frac{b}{\sin B}=\frac{a}{\sin A}$ より $b=\frac{${t.a}\sin${t.B}^\circ}{\sin${t.A}^\circ}=\frac{(${t.a})(${specialValues[t.B][0]})}{${specialValues[t.A][0]}}=${t.b}$。`);}
 function pairing(known:"a"|"b"|"c",unknown:"a"|"b"|"c"):Worked{
  const A=known.toUpperCase(),B=unknown.toUpperCase();
  return w(m`三角形 $ABC$ で、辺 $${known}$ と角 $${A}$、角 $${B}$ が分かっています。辺 $${unknown}$ を求めるために使う正弦定理の等式を、必要な二つの比だけで書きなさい。`,m`$\frac{${known}}{\sin ${A}}=\frac{${unknown}}{\sin ${B}}$。`,"辺とその向かいの角を、同じ分数に置きます。",m`$${known}$ の対角は $${A}$、$${unknown}$ の対角は $${B}$ なので、この二組を使います。三角形の内角は $0^\circ$ と $180^\circ$ の間にあり、分母の正弦は正です。`);
@@ -35,7 +35,7 @@ export const circumcircle=topic("m1-sine-circumcircle","正弦定理と外接円
  notation,
  m`三角形の三つの頂点をすべて通る円を外接円といいます。その半径を $R$ とすると、正弦定理の共通の比は直径になり、$\frac a{\sin A}=\frac b{\sin B}=\frac c{\sin C}=2R$ です。辺は円の二点を結ぶ弦になっています。`,
  m`なぜ直径が現れるかを確かめます。円の同じ弦 $BC$ を、同じ側の円周上から見る角は等しく、反対側から見る角は和が $180^\circ$ です（円周角の定理）。どちらでも正弦は同じです。$B$ の反対側の直径端を $D$ とすると、$BD=2R$、$\angle BCD=90^\circ$。したがって $\sin\angle BDC=\frac{BC}{BD}=\frac a{2R}$。よって $a=2R\sin A$。$BC$ 自身が直径なら $A=90^\circ$ で、同じ式が成り立ちます。`,
- m`直角三角形では斜辺が外接円の直径です。「外接円」は半径の名前ではなく、三頂点を通る円の名前です。半径と直径を取り違えないよう、まず $2R$ の式を書きます。`,
+ m`直角三角形では斜辺が外接円の直径です。共通の比で直径 $2R$ を求め、半分にすると半径 $R$ になります。`,
 ],"向かいの辺と角を使い、半径と直径を区別します。",[
  {id:"circumradius",title:"共通の比は直径",why:m`まず $2R$ を求めてから半分にします。`,sample:radiusFromSide(6,30),items:[radiusFromSide(4,90),radiusFromSide(5,30),radiusFromSide(3,150),radiusFromSide(7,90),radiusFromSide(8,150),radiusFromSide(2,30)]},
  {id:"radius-to-chord",title:"円の大きさから弦へ",why:m`直径に対角の正弦を掛けると弦の長さになります。`,sample:sideFromRadius(3,60),items:[sideFromRadius(4,30),sideFromRadius(2,90),sideFromRadius(3,120),sideFromRadius(5,150),sideFromRadius(2,60),sideFromRadius(6,30)]},
@@ -50,7 +50,7 @@ export function cosineSide(t:CosineCase):Worked{
 }
 function cosineSetup(target:"a"|"b"|"c",p:number,q:number,angle:number):Worked{
  const others={a:["b","c"],b:["c","a"],c:["a","b"]}[target],A=target.toUpperCase();
- return w(m`三角形 $ABC$ で $${others[0]}=${p},${others[1]}=${q},${A}=${angle}^\circ$。余弦定理で $${target}$ を求めるための式を書きなさい。計算は不要です。`,m`$${target}^2=${p}^2+${q}^2-2\cdot${p}\cdot${q}\cos${angle}^\circ$。`,"求める辺の向かいの角が、既知の二辺にはさまれる角です。",m`$${target}^2=${others[0]}^2+${others[1]}^2-2${others[0]}${others[1]}\cos ${A}$ に条件を入れます。角を別の頂点の角へ取り替えてはいけません。`);
+ return w(m`三角形 $ABC$ で $${others[0]}=${p},${others[1]}=${q},${A}=${angle}^\circ$。余弦定理で $${target}$ を求めるための式を書きなさい。計算は不要です。`,m`$${target}^2=${p}^2+${q}^2-2\cdot${p}\cdot${q}\cos${angle}^\circ$。`,"求める辺の向かいの角が、既知の二辺にはさまれる角です。",m`$${target}^2=${others[0]}^2+${others[1]}^2-2${others[0]}${others[1]}\cos ${A}$ 。$${others[0]},${others[1]}$ の間の角が $${A}$ なので、この組に条件を入れます。`);
 }
 export const cosineLawSide=topic("m1-cosine-law-side","余弦定理で辺を求める",[
  notation,
@@ -79,4 +79,7 @@ export const cosineLawAngle=topic("m1-cosine-law-angle","三辺から角を調�
 ],[lengthPrep,anglePrep]);
 repairCases(cosineLawAngle,"cosine-angle-type",["2","3"]);
 repairCases(cosineLawAngle,"cosine-exact-angle",["1","2"]);
+circumcircle.lesson.warmupIds=["m1-sine-circumcircle-solve-ratio-1-v1"];
+cosineLawSide.lesson.warmupIds=["m1-cosine-law-side-positive-length-1-v1"];
+cosineLawAngle.lesson.warmupIds=[];
 export const triangleLawTopics=[sineLaw,circumcircle,cosineLawSide,cosineLawAngle];

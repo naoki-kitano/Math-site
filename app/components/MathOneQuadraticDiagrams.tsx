@@ -1,4 +1,6 @@
 "use client";
+import {Formula} from "./MathText";
+import Math1QuadraticDiagram from "./Math1QuadraticDiagram";
 import CoordinateDiagram,{type CoordinateDiagramProps as Diagram} from "./CoordinateDiagram";
 const blue="#42648b";
 const parabola=(h:number,k:number,a=1)=>({label:`$y=${a===1?"":a===-1?"-":a}(x${h<0?"+"+(-h):"-"+h})^2${k<0?k:"+"+k}$`,value:(x:number)=>a*(x-h)**2+k});
@@ -18,4 +20,22 @@ export const mathOneQuadraticFigures:Record<string,(Diagram|undefined)[]>={
  "m1-graph-intersections":[{title:"同じ横座標で二つの高さが一致",description:"二曲線を同時に満たす点が共有点です。",xRange:[-3,4],yRange:[-1,6],curves:[{label:"実線：$y=x^2$",value:x=>x*x},{label:"破線：$y=x+2$",value:x=>x+2,color:blue,dashed:true}],points:[{x:-1,y:1,label:"$(-1,1)$"},{x:2,y:4,label:"$(2,4)$"}]}],
  "m1-quadratic-model":[undefined,{title:"辺の長さと面積",description:"$0<x<6$ で $S=-(x-3)^2+9$。両端は長方形にならず、頂点では面積 $9$ を実際にとれます。",axisDescription:"横軸は辺の長さ $x$（センチメートル）、縦軸は面積 $S$（平方センチメートル）。",xRange:[-1,7],yRange:[-1,10],curves:[{label:"$S=-(x-3)^2+9$、$0<x<6$",value:x=>9-(x-3)**2,from:0,to:6}],points:[{x:0,y:0,open:true,label:"$x=0$ は含まない"},{x:6,y:0,open:true,label:"$x=6$ は含まない"},{x:3,y:9,label:"最大面積 $9$、一辺 $3$"}]}],
 };
-export default function MathOneQuadraticDiagrams({slug,index}:{slug:string;index:number}){const figure=mathOneQuadraticFigures[slug]?.[index];return figure?<CoordinateDiagram {...figure}/>:null;}
+export default function MathOneQuadraticDiagrams({slug,index,step,complete}:{slug:string;index:number;step?:number;complete?:boolean}){
+ const finished=complete??step===undefined;
+ if(slug==="m1-quadratic-model"&&index===0)return <Math1QuadraticDiagram kind="m1-quadratic-rectangle" stage={finished||((step??0)>=2)?1:0} reduce/>;
+ const figure=mathOneQuadraticFigures[slug]?.[index];if(!figure)return null;
+ const current:Diagram={...figure};
+ if(!finished){
+  current.description=slug==="m1-interval-extrema"?`指定された区間の部分を調べます。`:"式と図の対応を確かめます。";
+  current.points=(figure.points??[]).map(p=>({...p,label:""}));
+  current.segments=(figure.segments??[]).map(p=>({...p,label:""}));
+  if(["m1-quadratic-graph","m1-equation-graph","m1-graph-intersections","m1-parabola-extrema"].includes(slug))current.points=[];
+  if(slug==="m1-quadratic-graph"&&(step??0)===0){current.curves=[];current.segments=[];}
+  if(slug==="m1-parabola-translation"){current.points=(figure.points??[]).slice(0,1);current.segments=[];if(index===1)current.curves=(figure.curves??[]).slice(0,1);}
+ }
+ if(slug==="m1-graph-points")current.points=[{x:2,y:5,label:finished?"$(2,5)$ はグラフ上":"調べる点 $(2,5)$"}];
+ return <>{slug==="m1-quadratic-inequality"&&index===1&&<div className="m1-quadratic-signs">
+  <Formula tex={String.raw`-x^2+x+2=-(x+1)(x-2)`} display/>
+  {((step??0)>=2||finished)&&<><div><Formula tex={String.raw`-1<x<2:\quad(x+1)(x-2)<0`}/></div><div><Formula tex={String.raw`(-1)(x+1)(x-2)>0`}/></div></>}
+ </div>}<CoordinateDiagram responsive {...current}/></>;
+}

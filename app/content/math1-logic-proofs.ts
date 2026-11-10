@@ -1,5 +1,5 @@
-import {logicTopic,m,math,w} from "./math1-logic-authoring";
-import {addPair,type Worked,type Skill} from "./math1-topic";
+import {logicTopic,m,math,w,addLogicPair as addPair} from "./math1-logic-authoring";
+import {type Worked,type Skill} from "./math1-topic";
 
 const integerForms:Worked[]=[
  w(m`偶数 $a$ と奇数 $b$ を、それぞれ整数の文字を使って表しなさい。`,m`$a=2r,b=2s+1$（$r,s$ は整数）。`,"別の整数を表すので、同じ文字一つに限定しません。",m`偶数は $2$ の整数倍、奇数はその隣の整数です。独立な $a,b$ には別の文字 $r,s$ を使います。`),
@@ -17,7 +17,7 @@ const squares:Worked[]=[
 const prepSquare:Skill={id:"expand-square",title:"平方を正しく展開する",why:"二つの交差する積が中間項になります。",sample:squares[0],items:squares.slice(1)};
 const P=[prepIntegers,prepSquare];
 // Each answer is a complete proof, not just the desired conclusion.
-function proof(statement:string,hint:string,answer:string):Worked{return w(statement+" 証明しなさい。",answer,hint,hint)}
+function proof(statement:string,hint:string,answer:string):Worked{return w(statement+" 証明しなさい。",answer,hint,answer)}
 const sumProofs:Worked[]=[
  proof("偶数と奇数の和は奇数である。","偶数と奇数を別々の整数で表し、和を二の倍数に一を足した形へ直します。",m`偶数を $a=2r$、奇数を $b=2s+1$（$r,s$ は整数）とする。$a+b=2(r+s)+1$。$r+s$ は整数だから、和は奇数である。`),
  proof("二つの偶数の和は偶数である。","二つの偶数を別々に表し、共通の二をくくります。",m`$a=2r,b=2s$（$r,s$ は整数）とする。$a+b=2(r+s)$。$r+s$ は整数だから偶数である。`),
@@ -107,11 +107,3 @@ export const contradiction=logicTopic("m1-proof-contradiction","背理法によ�
 ],P);
 // Full proofs, not plan-only tasks, remain available as independent alternates.
 addPair(contradiction,"irrational-root","既約分数からの矛盾",m`分子・分母を互いに素と置く必要があります。単に両方が偶数と分かるだけでは、普通の分数には矛盾しません。`,[root2,root3]);
-for(const bank of [direct,contraProof,contradiction]){
- for(const example of bank.lesson.examples){
-  example.steps=[example.steps[0],{title:"証明",text:example.steps.at(-1)!.text}];
- }
- for(const e of bank.exercises){
-  if(!["integer-form","expand-square"].includes(e.family))e.steps=[{title:"考え方",text:e.hints[0]}];
- }
-}

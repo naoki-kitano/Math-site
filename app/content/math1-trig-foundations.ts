@@ -1,4 +1,4 @@
-import {trigTopic as topic,m,w,fraction,anglePrep,lengthPrep,ratioPrep,proportionPrep,specialValues,repairCases} from "./math1-trig-authoring";
+import {trigTopic as topic,m,w,fraction,anglePrep,lengthPrep,ratioPrep,proportionPrep,specialValues,repairCases,splitTrigOperation} from "./math1-trig-authoring";
 import {addPair,type Worked} from "./math1-topic";
 function sideRoles(vertices:string,right:number,focus:number):Worked{
  const v=vertices.split(""),hyp=v.filter((_,i)=>i!==right).join(""),opp=v.filter((_,i)=>i!==focus).join(""),adj=v[focus]+v[right];
@@ -16,8 +16,16 @@ export const rightTriangle=topic("m1-right-triangle","直角三角形と辺の�
  {id:"pythagoras",title:"斜辺の二乗を見分ける",why:"未知の辺が斜辺かどうかを先に確かめます。",sample:pythagoras(3,4,5,"leg"),items:[pythagoras(3,4,5,"hyp"),pythagoras(5,12,13,"leg"),pythagoras(6,8,10,"hyp"),pythagoras(8,15,17,"leg"),pythagoras(9,12,15,"hyp"),pythagoras(12,16,20,"leg")]},
 ],[anglePrep,lengthPrep]);
 repairCases(rightTriangle,"pythagoras",["1"]);
+splitTrigOperation(rightTriangle,"pythagoras",[
+ {id:"pythagoras-hypotenuse",title:"斜辺の二乗を求める",why:m`斜辺の二乗は、他の二辺の二乗の和です。長さは正の平方根を選びます。`,keys:[1,3,5]},
+ {id:"pythagoras-leg",title:"斜辺以外の二乗を求める",why:m`斜辺の二乗から、分かっている他の一辺の二乗を引きます。長さは正の平方根を選びます。`,keys:[2,4,6]},
+]);
 function trigRatios(o:number,a:number,h:number,focus="A"):Worked{
- return w(m`$\angle C=90^\circ$ の三角形 $ABC$ で、$${focus==="A"?"BC":"AC"}=${o},${focus==="A"?"AC":"BC"}=${a},AB=${h}$。$\sin ${focus},\cos ${focus},\tan ${focus}$ を求めなさい。`,m`$\sin ${focus}=${fraction(o,h)},\ \cos ${focus}=${fraction(a,h)},\ \tan ${focus}=${fraction(o,a)}$。`,"最初に着目する角の向かい・隣・斜辺を対応させます。",m`$\angle ${focus}$ の向かいは $${o}$、斜辺でない隣は $${a}$、斜辺は $${h}$。定義へ入れて $\sin ${focus}=\frac{${o}}{${h}}=${fraction(o,h)},\ \cos ${focus}=\frac{${a}}{${h}}=${fraction(a,h)},\ \tan ${focus}=\frac{${o}}{${a}}=${fraction(o,a)}$。`);
+ const opposite=focus==="A"?"BC":"AC",adjacent=focus==="A"?"AC":"BC";
+ const ratio=(n:number,d:number)=>m`\frac{${n}}{${d}}`===fraction(n,d)?fraction(n,d):m`\frac{${n}}{${d}}=${fraction(n,d)}`;
+ return w(m`$\angle C=90^\circ$ の三角形 $ABC$ で、$${opposite}=${o},${adjacent}=${a},AB=${h}$。$\sin ${focus},\cos ${focus},\tan ${focus}$ を求めなさい。`,m`$\sin ${focus}=${fraction(o,h)},\ \cos ${focus}=${fraction(a,h)},\ \tan ${focus}=${fraction(o,a)}$。`,m`$${focus}$ の向かいは $${opposite}$、斜辺でない隣は $${adjacent}$ です。`,m`$\sin ${focus}=\frac{${opposite}}{AB}=${ratio(o,h)}$。
+$\cos ${focus}=\frac{${adjacent}}{AB}=${ratio(a,h)}$。
+$\tan ${focus}=\frac{${opposite}}{${adjacent}}=${ratio(o,a)}$。`);
 }
 function scaledRatio(o:number,a:number,h:number,k:number):Worked{return w(m`ある鋭角 $\theta$ の向かい・隣・斜辺が $${o},${a},${h}$ の直角三角形を、辺の長さがすべて $${k}$ 倍になるよう拡大します。拡大後の $\sin\theta$ と、それが変わらない理由を答えなさい。`,m`$\sin\theta=${fraction(o,h)}$。向かいと斜辺をともに $${k}$ 倍するので、比は変わりません。`,"長さ自体と長さの比を区別します。",m`拡大後は $\sin\theta=\frac{${o*k}}{${h*k}}=\frac{${k}\cdot${o}}{${k}\cdot${h}}=${fraction(o,h)}$。相似な三角形では同じ角の三角比は等しくなります。`);}
 export const trigMeaning=topic("m1-trig-meaning","三角比の意味",[
@@ -42,7 +50,7 @@ function specialDerived(angle:30|45|60,ratio:"sin"|"cos",scale:number):Worked{
  const opp=angle===30?String(scale):angle===60?m`${scale}\sqrt3`:String(scale);
  const adj=angle===60?String(scale):angle===30?m`${scale}\sqrt3`:String(scale);
  const hyp=angle===45?m`${scale}\sqrt2`:String(2*scale);
- return w(m`$\theta=${angle}^\circ$ の直角三角形で、向かい・隣・斜辺の長さは順に $${opp},${adj},${hyp}$ です。この長さから $${"\\"+(ratio)}\theta$ を求めなさい。`,m`$${"\\"+(ratio)}\theta=${specialValues[angle][ratio==="sin"?0:1]}$。`,"角の値を暗記で答えるだけでなく、指定された辺から比を作ります。",m`$${"\\"+(ratio)}\theta=\frac{${ratio==="sin"?opp:adj}}{${hyp}}=${specialValues[angle][ratio==="sin"?0:1]}$。三角形の大きさによらず同じ比です。`);
+ return w(m`$\theta=${angle}^\circ$ の直角三角形で、向かい・隣・斜辺の長さは順に $${opp},${adj},${hyp}$ です。この長さから $${"\\"+(ratio)}\theta$ を求めなさい。`,m`$${"\\"+(ratio)}\theta=${specialValues[angle][ratio==="sin"?0:1]}$。`,ratio==="sin"?"正弦は、向かいの辺を斜辺で割った比です。":"余弦は、斜辺でない隣の辺を斜辺で割った比です。",m`$${"\\"+(ratio)}\theta=\frac{${ratio==="sin"?opp:adj}}{${hyp}}=${specialValues[angle][ratio==="sin"?0:1]}$。三角形の大きさによらず同じ比です。`);
 }
 export const specialAngles=topic("m1-special-angles","特別な角の三角比",[
  m`直角二等辺三角形で、等しい二辺を $1$ とすると斜辺は $\sqrt{1^2+1^2}=\sqrt2$。鋭角は両方 $45^\circ$ なので、$\sin45^\circ=\cos45^\circ=\frac1{\sqrt2}=\frac{\sqrt2}{2}$、$\tan45^\circ=1$ です。`,
@@ -50,7 +58,7 @@ export const specialAngles=topic("m1-special-angles","特別な角の三角比",
  m`$\sin30^\circ=\frac12,\ \cos30^\circ=\frac{\sqrt3}{2},\ \tan30^\circ=\frac{\sqrt3}{3}$。$\sin60^\circ=\frac{\sqrt3}{2},\ \cos60^\circ=\frac12,\ \tan60^\circ=\sqrt3$。表を忘れたら、二種類の直角三角形から作り直せます。`,
 ],"二種類の直角三角形から、角と辺の比を結び付けます。",[
  {id:"special-ratio",title:"角から必要な比を選ぶ",why:"直角二等辺三角形か、正三角形の半分かを選びます。",sample:special(30,2),items:[special(45,0),special(60,1),special(30,0),special(60,2),special(45,2),special(30,1),special(60,0),special(45,1)]},
- {id:"derive-special",title:"与えられた辺から確かめる",why:"向かいと斜辺、または隣と斜辺を使って定義へ戻します。",sample:specialDerived(45,"sin",2),items:[specialDerived(30,"cos",2),specialDerived(60,"sin",3),specialDerived(45,"cos",3),specialDerived(30,"sin",4),specialDerived(60,"cos",2),specialDerived(45,"sin",4)]},
+ {id:"derive-special",title:"与えられた辺から確かめる",why:"正弦は、向かいの辺を斜辺で割った比です。",sample:specialDerived(45,"sin",2),items:[specialDerived(30,"cos",2),specialDerived(60,"sin",3),specialDerived(45,"cos",3),specialDerived(30,"sin",4),specialDerived(60,"cos",2),specialDerived(45,"sin",4)]},
 ],[lengthPrep,ratioPrep]);
 repairCases(specialAngles,"special-ratio",["1","2"]);
 type SideTask={a:30|45|60;known:string;which:"hyp-to-opp"|"hyp-to-adj"|"adj-to-opp"|"opp-to-hyp";answer:string};
@@ -74,12 +82,23 @@ export const sidesAndAngles=topic("m1-trig-sides-angles","三角比から辺・�
  m`例えば $\sin30^\circ=\frac{x}{8}$ なら $x=8\sin30^\circ=4$。一方 $\sin30^\circ=\frac3x$ なら $\frac12=\frac3x$ より $x=6$。同じ正弦でも、未知数の位置が違います。`,
  m`角を求める場合は、比が表のどの角と一致するかを逆に探します。このページでは鋭角に限定します。鈍角まで広げたときに同じ比をもつ角があるかは、後で確かめます。`,
 ],"使う二辺を決めて比の式を立て、未知数の位置に合わせて解きます。",[
- {id:"side-from-angle",title:"二辺を含む比で立式",why:"斜辺を含むなら正弦か余弦、向かいと隣なら正接を使えます。",sample:sideFromAngle({a:30,known:"4",which:"opp-to-hyp",answer:"8"}),items:sideTasks.map(sideFromAngle)},
+ {id:"side-from-angle",title:"二辺を含む比で立式",why:"向かいの辺と斜辺を使うので、正弦の定義で式を立てます。",sample:sideFromAngle({a:30,known:"4",which:"opp-to-hyp",answer:"8"}),items:sideTasks.map(sideFromAngle)},
  {id:"angle-from-ratio",title:"値から鋭角を読む",why:"三角比の種類と角の範囲を固定して、表を逆向きに読みます。",sample:angleFromRatio(60,1),items:[angleFromRatio(30,0),angleFromRatio(45,2),angleFromRatio(60,0),angleFromRatio(30,1),angleFromRatio(60,2),angleFromRatio(45,1)]},
 ],[proportionPrep,anglePrep]);
 repairCases(sidesAndAngles,"side-from-angle",["1","2","3","5","6","7","8"]);
 addPair(sidesAndAngles,"trig-approximation","三角比表と近似値","角度は度数法です。電卓ではDEG（度）の設定を確認します。途中で丸め直さず、問いの指定に合わせて最後に丸めます。",[
  w(m`直角三角形で、$37^\circ$ の角に隣り合う斜辺でない辺が $12\,\mathrm{m}$ です。$\tan37^\circ\simeq0.7536$ を用い、向かいの辺を $0.1\,\mathrm{m}$ の位に四捨五入しなさい。`,m`約 $9.0\,\mathrm{m}$。`,"向かいと隣を結ぶ比を選び、百分の一の位を見て丸めます。",m`求める辺の長さを $x\,\mathrm{m}$ とします。$\frac{x}{12}=\tan37^\circ$ なので $x\simeq12\cdot0.7536=9.0432$。$0.1\,\mathrm{m}$ の位へ四捨五入して約 $9.0\,\mathrm{m}$。`),
  w(m`直角三角形で、$53^\circ$ の角の向かいの辺が $8\,\mathrm{m}$ です。$\sin53^\circ\simeq0.7986$ を用い、斜辺を $0.1\,\mathrm{m}$ の位に四捨五入しなさい。`,m`約 $10.0\,\mathrm{m}$。`,"未知の斜辺は分母に入ります。",m`求める斜辺の長さを $x\,\mathrm{m}$ とします。$\frac8x=\sin53^\circ$ なので $x\simeq\frac8{0.7986}\simeq10.0175$。指定の位に丸めて約 $10.0\,\mathrm{m}$。`),
+],true);
+splitTrigOperation(sidesAndAngles,"side-from-angle",[
+ {id:"side-from-angle-numerator",title:"分子の未知数を求める",why:m`向かい・隣・斜辺のうち使う二辺を選びます。未知数が分子なら、分母の長さを両辺に掛けます。`,keys:[1,2,3,5,6,7]},
+ {id:"side-from-angle-denominator",title:"分母の未知数を求める",why:m`未知の斜辺は分母に入ります。長さ $x>0$ を両辺に掛けてから、正の正弦の値で割ります。`,keys:[4,8]},
 ]);
+trigMeaning.lesson.warmupIds=["m1-trig-meaning-reduce-ratio-1-v1"];
+sidesAndAngles.lesson.warmupIds=["m1-trig-sides-angles-solve-ratio-1-v1"];
+for(const [bank,id,key] of [[rightTriangle,"pythagoras",2],[sidesAndAngles,"side-from-angle",4]] as const){
+ const repair=bank.lesson.supplements.find(s=>s.id===id)!;
+ const q=bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${id}-${key}-v1`)!;
+ repair.check=q.prompt;repair.answer=q.steps.map(s=>s.text).join("\n");
+}
 export const trigFoundationTopics=[rightTriangle,trigMeaning,specialAngles,sidesAndAngles];

@@ -1,5 +1,5 @@
-import {logicTopic,logicPreparation,m,math,set,w} from "./math1-logic-authoring";
-import {addPair,type Worked,type Skill} from "./math1-topic";
+import {logicTopic,logicPreparation,m,math,set,w,addLogicPair as addPair} from "./math1-logic-authoring";
+import {type Worked,type Skill} from "./math1-topic";
 const integerCheck=(tex:string,yes:boolean,why:string):Worked=>w(`${math(tex)} は整数ですか。理由も答えなさい。`,`${yes?"整数です":"整数ではありません"}。${why}`,"整数には負の整数とゼロも含みます。小数部分をもつ値と区別します。",why);
 const prepInteger:Skill={id:"integer-recognition",title:"整数の範囲",why:m`整数は $0,1,2,\ldots$ と $-1,-2,\ldots$ です。整数でない分数や小数は含みません。`,sample:integerCheck("-2",true,"負の整数も含まれます。"),items:[integerCheck("0",true,"ゼロも整数です。"),integerCheck(m`\frac12`,false,"ゼロと一の間にあり整数ではありません。"),integerCheck("-3",true,"負の整数も整数の範囲に含まれます。") ]};
 function member(a:number[],n:number):Worked {
@@ -18,7 +18,7 @@ export const sets=logicTopic("m1-sets-elements","集合と要素",[
  m`不等式だけで整数に限られるわけではありません。$\{x\mid x\text{ は実数},\ 1\le x<4\}$ には $\frac32$ なども入るので、$\{1,2,3\}$ とは異なります。`,
  m`要素を一つももたない集合を空集合 $\varnothing$ といいます。$\{0\}$ は要素 $0$ を一つもつので、空集合ではありません。`,
 ],"要素か集合かを区別し、数の範囲と境界を確かめます。",[
- {id:"membership",title:"要素が入っているか",why:"数一つと集合の関係を確かめます。",sample:member([1,3,5],3),items:[member([2,4,6],4),member([-1,0,1],0),member([1,3,5],2),member([-2,2],-2),member([0,2,4],1),member([-3,-1,1],1)]},
+ {id:"membership",title:"要素が入っているか",why:"波括弧の中に並べた数が、その集合の要素です。",sample:member([1,3,5],3),items:[member([2,4,6],4),member([-1,0,1],0),member([1,3,5],2),member([-2,2],-2),member([0,2,4],1),member([-3,-1,1],1)]},
  {id:"listing",title:"条件を満たす整数を並べる",why:"数の範囲を整数に限定し、端点を含むか確かめて列挙します。",sample:enumerate(-1,2,false),items:[enumerate(0,3,false),enumerate(-2,2,true),enumerate(1,4,false),enumerate(0,2,true),enumerate(-3,1,false),enumerate(-1,3,true)]},
 ],[logicPreparation[0],prepInteger]);
 addPair(sets,"object-kind","数と集合を区別する","波括弧は集合を表します。その中に書かれた数そのものとは区別します。",[
@@ -29,7 +29,7 @@ addPair(sets,"empty-zero","空集合とゼロを含む集合","要素がない�
  w(m`$\varnothing$ と $\{0\}$ は等しい集合ですか。要素の個数も答えなさい。`,m`等しくありません。要素はそれぞれ $0$ 個、$1$ 個です。`,"要素の値と、要素の個数を区別します。",m`空集合には要素がなく、$\{0\}$ には数 $0$ が入っています。`),
  w(m`$A=\{0,0\}$ は空集合ですか。要素の個数も答えなさい。`,m`空集合ではありません。$A=\{0\}$ で要素は $1$ 個です。`,"同じ数を重ねて書いても、要素は増えません。",m`数 $0$ が一つ入っている集合なので、要素がない $\varnothing$ とは違います。`),
 ]);
-const prepMembership:Skill={id:"member-ready",title:"要素を照合する",why:"集合の計算の前に、その要素が入っているかを確かめます。",sample:member([1,2,3],2),items:[member([0,2,4],2),member([-1,0,1],2),member([1,3,5],3)]};
+const prepMembership:Skill={id:"member-ready",title:"要素を照合する",why:"波括弧の中に並べた数が、その集合の要素です。",sample:member([1,2,3],2),items:[member([0,2,4],2),member([-1,0,1],2),member([1,3,5],3)]};
 
 type Op="intersection"|"union"|"complement";
 export const setCases=[
@@ -45,7 +45,9 @@ function operation(op:Op,c:typeof setCases[number]):Worked {
  const target=op==="intersection"?m`A\cap B`:op==="union"?m`A\cup B`:m`\overline A`;
  const result=op==="intersection"?c.a.filter(n=>c.b.includes(n)):op==="union"?[...new Set([...c.a,...c.b])].sort((a,b)=>a-b):c.u.filter(n=>!c.a.includes(n));
  const why=op==="intersection"?"両方の集合に入る数だけを残します。":op==="union"?"少なくとも一方に入る数を、重複させずに集めます。":"全体集合の中で、集合に入っていない数だけを残します。";
- return w(m`全体集合 $U=${set(c.u)}$、$A=${set(c.a)}$、$B=${set(c.b)}$ とする。${math(target)} を求めなさい。`,math(`${target}=${set(result)}`)+"。",why,`${why} ${math(target)} は ${math(set(result))} です。${op==="complement"?m`$U$ の外の数は補集合に含めません。`:result.length===0?"条件に合う要素がないので空集合です。":"一つずつ元の集合に戻して確かめます。"}`);
+ const condition=op==='intersection'?m`$A$ と $B$ の両方に入る要素`:op==='union'?m`$A$ または $B$ に入る要素`:m`$U$ に入っていて $A$ に入らない要素`;
+ const reason=result.length?`${condition}は ${math(set(result))} です。`: `${condition}はないので、空集合です。`;
+ return w(m`全体集合 $U=${set(c.u)}$、$A=${set(c.a)}$、$B=${set(c.b)}$ とする。${math(target)} を求めなさい。`,math(`${target}=${set(result)}`)+"。",why,reason);
 }
 export const operations=logicTopic("m1-set-operations","共通部分・和集合・補集合",[
  m`$A\cap B$ は両方に入る要素の集合（共通部分）、$A\cup B$ は少なくとも一方に入る要素の集合（和集合）です。「または」には両方を満たす場合も含みます。`,
@@ -55,7 +57,7 @@ export const operations=logicTopic("m1-set-operations","共通部分・和集合
 
 function subset(a:number[],b:number[]):Worked {
  const outside=a.find(x=>!b.includes(x)),yes=outside===undefined;
- return w(m`$A=${set(a)},B=${set(b)}$ のとき $A\subseteq B$ ですか。理由も述べなさい。`,yes?m`はい。$A$ のすべての要素が $B$ に含まれます。`:m`いいえ。${math(String(outside))} は $A$ に入りますが $B$ に入りません。`,m`$A$ の側から一つずつ $B$ にもあるか調べます。`,a.length===0?m`$A$ に要素がないので、「$A$ に入るのに $B$ に入らない」要素はありません。空集合はどの集合の部分集合でもあります。`:yes?m`$A=${set(a)}$ の各要素がすべて $B=${set(b)}$ にあります。等しい集合でも $\subseteq$ は成り立ちます。`:m`$${outside}\in A$ かつ $${outside}\notin B$。一つでも外に出る要素があると包含は成り立ちません。`);
+ return w(m`$A=${set(a)},B=${set(b)}$ のとき $A\subseteq B$ ですか。理由も述べなさい。`,yes?m`はい。$A$ のすべての要素が $B$ に含まれます。`:m`いいえ。${math(String(outside))} は $A$ に入りますが $B$ に入りません。`,m`$A$ の側から一つずつ $B$ にもあるか調べます。`,a.length===0?m`$A$ に要素がないので、「$A$ に入るのに $B$ に入らない」要素はありません。`:yes?m`$A=${set(a)}$ の各要素がすべて $B=${set(b)}$ にあります。`:m`$${outside}\in A$ かつ $${outside}\notin B$。この要素があるため、$A\subseteq B$ は成り立ちません。`);
 }
 function bound(a:number,b:number,closed:boolean):Worked {
  const p=m`x>${a}`,q=m`x${closed?"\\ge":">"}${b}`,yes=a>=b;

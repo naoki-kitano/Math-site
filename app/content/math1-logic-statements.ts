@@ -21,7 +21,7 @@ export const counterClaims:FalseClaim[]=[
  {domain:m`実数 $x$`,p:m`x\ge0`,q:"x>0",value:"x=0",check:m`$0\ge0$ は真、$0>0$ は偽です。`,hint:"等号を含む境界を確かめます。"},
  {domain:m`実数 $a,b$`,p:"a^2=b^2",q:"a=b",value:"a=1,b=-1",check:m`$a^2=b^2=1$ ですが、$1\ne-1$。`,hint:"絶対値が同じでも符号が異なる数を考えます。"},
 ];
-const disprove=(c:FalseClaim):Worked=>w(`${c.domain} について「${math(c.p)} ならば ${math(c.q)}」が偽であることを、反例で示しなさい。`,m`偽です。反例は ${math(c.value)}。`+c.check,c.hint,`${math(c.value)} を調べます。${c.check} 仮定を満たし結論を満たさない例が一つあるので、命題は偽です。`);
+const disprove=(c:FalseClaim):Worked=>w(`${c.domain} について「${math(c.p)} ならば ${math(c.q)}」が偽であることを、反例で示しなさい。`,m`偽です。反例は ${math(c.value)}。`+c.check,c.hint,`${c.check} 仮定を満たし結論を満たさない例が一つあるので、命題は偽です。`);
 export const truth=logicTopic("m1-statements-counterexamples","命題の真偽と反例",[
  m`真か偽かが定まる文を命題といいます。「$2+3=5$」は真、「$2+3=6$」は偽です。「この数は大きい」のように基準が決まらない文は、ここでいう命題にはなりません。`,
  m`文字を含む $x>0$ だけでは、$x$ の値によって真偽が変わるので条件と呼びます。「すべての実数 $x$ で $x^2\ge0$」のように範囲と主張を定めると命題になります。`,
@@ -49,7 +49,7 @@ const named=(c:typeof conditionCases[number]):Worked=>{
 function directions(f:boolean,b:boolean,target:"p"|"q"="p"):Worked {
  const other=target==="p"?"q":"p",sufficient=target==="p"?f:b,necessary=target==="p"?b:f;
  const answer=relationName(sufficient,necessary);
- return w(m`条件 $p,q$ について、$p\Rightarrow q$ は${f?"真":"偽"}、$q\Rightarrow p$ は${b?"真":"偽"}と分かっています。${math(target)} は ${math(other)} のどの条件ですか。`,m`${math(target)} は ${math(other)} の${answer}。`,m`${math(target)} から ${math(other)} に届けば十分、逆向きに必ず戻れれば必要です。`,m`${math(target+"\\Rightarrow "+other)} が${sufficient?"真なので十分条件":"偽なので十分条件ではありません"}。${math(other+"\\Rightarrow "+target)} が${necessary?"真なので必要条件":"偽なので必要条件ではありません"}。両方を合わせて判定します。`);
+ return w(m`条件 $p,q$ について、$p\Rightarrow q$ は${f?"真":"偽"}、$q\Rightarrow p$ は${b?"真":"偽"}と分かっています。${math(target)} は ${math(other)} のどの条件ですか。`,m`${math(target)} は ${math(other)} の${answer}。`,m`${math(target)} から ${math(other)} に届けば十分、逆向きに必ず戻れれば必要です。`,m`${math(target+"\\Rightarrow "+other)} が${sufficient?"真なので十分条件":"偽なので十分条件ではありません"}。${math(other+"\\Rightarrow "+target)} が${necessary?"真なので必要条件":"偽なので必要条件ではありません"}。`);
 }
 export const necessary=logicTopic("m1-necessary-sufficient","必要条件・十分条件",[
  m`$p\Rightarrow q$ が真なら、$p$ は $q$ の十分条件です。$p$ が分かれば、$q$ だといえるだけの情報が「十分にある」と読みます。`,

@@ -4,15 +4,19 @@ import {triangleLawTopics} from "./math1-triangle-laws";
 import {triangleChoice} from "./math1-triangle-choice";
 import {trigApplicationTopics} from "./math1-trig-applications";
 import type {Exercise,Lesson} from "./lessons";
+import {legacyReviewGroups} from "./review-family-refinement";
 export const math1Chapter4Topics=[...trigFoundationTopics,...trigExtensionTopics,...triangleLawTopics,triangleChoice,...trigApplicationTopics];
 const slug="m1-trigonometry-check",titles=["辺と角・三角比","定理の選択と計算","面積・測量・断面"];
 const groupOf=(i:number)=>i<7?0:i<12?1:2;
 // Explicit coverage keys: include boundary, sign, inverse, units and all-candidate decisions in the practice body.
 export const trigCheckSelection:Record<string,string[]>={
  "side-roles":["2","3","6"],pythagoras:["1","2"],
+ "pythagoras-hypotenuse":["@pythagoras-1","@pythagoras-3"],"pythagoras-leg":["@pythagoras-2","@pythagoras-4"],
  "trig-ratios":["2","3","4"],"similarity-ratio":["2","3"],
  "special-ratio":["2","3","4","5","6","7","8"],"derive-special":["2","3"],
  "side-from-angle":["1","2","3","4","5","6","7","8"],"angle-from-ratio":["2","3","4"],"trig-approximation":["extra-1","extra-2"],
+ "side-from-angle-numerator":["@side-from-angle-1","@side-from-angle-2","@side-from-angle-3","@side-from-angle-5","@side-from-angle-6","@side-from-angle-7"],
+ "side-from-angle-denominator":["@side-from-angle-4","@side-from-angle-8"],
  "coordinate-ratios":["1","2","4"],"endpoint-ratios":["1","2","3","5","6","7"],
  "endpoint-tangent-domain":["@endpoint-ratios-4","@endpoint-ratios-8","@endpoint-ratios-9"],
  "recover-cosine":["1","2","4"],"complement-ratio":["1","2","4"],"supplement-ratio":["1","2","3"],"identity-domain":["extra-1","extra-2"],
@@ -34,8 +38,10 @@ const supplements:Lesson["supplements"]=[],seen=new Map<string,string>();
 const groups=titles.map((title,i)=>({id:`part-${i+1}`,title,exerciseIds:[] as string[]}));
 // Review-only: two repeated prerequisites and one extra valid SSA case. The same SSA decision remains in practice.
 const reviewOnly=new Set(["m1-right-triangle-angle-sum-3-v1","m1-right-triangle-positive-length-3-v1","m1-triangle-choice-ssa-impossible-possible-2-v1"]);
+const originalFamilies:Record<string,string>={"pythagoras-hypotenuse":"pythagoras","pythagoras-leg":"pythagoras","side-from-angle-numerator":"side-from-angle","side-from-angle-denominator":"side-from-angle"};
 math1Chapter4Topics.forEach(({lesson,exercises},i)=>{
  lesson.section=titles[groupOf(i)];
+ for(const e of exercises)if(originalFamilies[e.family])legacyReviewGroups.set(e.id,lesson.slug+":"+originalFamilies[e.family]);
  for(const family of new Set(exercises.map(e=>e.family))){
   const keys=trigCheckSelection[family];if(!keys||keys.length<2)throw new Error("Uncovered trig family "+family);
   const selected=keys.map(key=>{
@@ -49,10 +55,17 @@ math1Chapter4Topics.forEach(({lesson,exercises},i)=>{
   const repair=lesson.supplements.find(s=>s.id===family)!;
   supplements.push({...repair,id:checkFamily,title:lesson.title+"："+repair.title});
   selected.forEach((e,n)=>{
-   const id=`${slug}-${checkFamily}-${n+1}-v1`,stage=reviewOnly.has(e.id)?"review":"practice";
+   const original=originalFamilies[family];
+   const oldIndex=original?trigCheckSelection[original].findIndex(key=>e.id===`${lesson.slug}-${original}-${key}-v1`):-1;
+   const id=oldIndex>=0?`${slug}-${lesson.slug}-${original}-${oldIndex+1}-v1`:`${slug}-${checkFamily}-${n+1}-v1`,stage=reviewOnly.has(e.id)?"review":"practice";
+   if(original)legacyReviewGroups.set(id,slug+":"+lesson.slug+"-"+original);
    math1TrigCheckExercises.push({...e,id,lesson:slug,stage,family:checkFamily,repair:checkFamily});
    if(stage==="practice")groups[groupOf(i)].exerciseIds.push(id);
   });
+ }
+ for(const original of new Set(Object.values(originalFamilies))){
+  const repair=lesson.supplements.find(s=>s.id===original);
+  if(repair)supplements.push({...repair,id:lesson.slug+"-"+original,title:lesson.title+"："+repair.title});
  }
 });
 function copy(e:Exercise,stage:"ready"|"guided",key:string){

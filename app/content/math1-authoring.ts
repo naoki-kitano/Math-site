@@ -16,7 +16,7 @@ export function defineMathOneLesson(lesson: LessonDraft, questions: Record<Exerc
     for (const q of questions[stage]) exercises.push({
       id: `${lesson.slug}-${q.key}-v1`, lesson: lesson.slug, stage,
       family: q.family, kind: "paper", prompt: q.prompt, answer: q.answer,
-      hints: [q.hint], steps: [{title:"考えて進める",text:q.working},{title:"答えと確認",text:q.answer}],
+      hints: [q.hint], steps: [{title:"考えて進める",text:q.working}],
       repair: q.family,
     });
   }

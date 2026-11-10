@@ -1,4 +1,5 @@
-import {workedText} from "./worked-text";
+import {logicWorking} from './math1-logic-authoring';
+import {applyLogicPresentation} from './math1-logic-presentation';
 import {sets,operations,inclusion} from "./math1-logic-sets";
 import {truth,necessary} from "./math1-logic-statements";
 import {negation,contrapositive} from "./math1-logic-negation";
@@ -8,6 +9,7 @@ import type {Exercise,Lesson} from "./lessons";
 import {applyLogicRefinements} from "./math1-logic-refinements";
 applyLogicRefinements();
 export const math1Chapter2Topics=[sets,operations,truth,inclusion,necessary,negation,contrapositive,direct,contraProof,contradiction];
+applyLogicPresentation(math1Chapter2Topics);
 rootMeaning.lesson.prerequisites=[{slug:"m1-proof-contradiction",label:"平方根の無理数性の証明（第2章）"}];
 direct.lesson.prerequisites=[{slug:"m1-distributive-expansion",label:"分配法則と展開"}];
 contraProof.lesson.prerequisites=[{slug:"m1-converse-contrapositive",label:"逆・裏・対偶"},{slug:"m1-direct-proof",label:"文字による説明と証明"}];
@@ -69,18 +71,15 @@ math1Chapter2Topics.forEach(({lesson,exercises},i)=>{
    if(choiceReason){
     item.prompt=e.prompt.replace(/対偶を用いて|背理法で/g,'')+" 方法を選んだ理由も示しなさい。";
     item.answer="方法の一例："+choiceReason+"\n"+e.answer;
-    item.steps=[{title:"方法を選ぶ",text:choiceReason},{title:"確認",text:"正しい別の証明方法でも構いません。仮定・根拠・結論がつながっているかを確かめます。"}];
+    item.steps=[{title:"方法を選ぶ",text:choiceReason},...e.steps];
+    item.answerInSteps=true;
    }
    copied.push(item);math1LogicCheckExercises.push(item);
    if(stage==="practice")groups[sectionOf(i)].exerciseIds.push(id);
   });
   const repair=lesson.supplements.find(s=>s.id===family);
   if(!repair)throw new Error(`Missing logic repair: ${family}`);
-  // The chosen proof is already printed in full above; remove only that exact
-  // source example block from the following support, preserving other examples.
-  const repeatedBlock=workedText(selected[0].prompt,...selected[0].steps.map(step=>step.text),selected[0].answer);
-  const supportingText=choiceReason?repair.text.replace(repeatedBlock,"").trim():repair.text;
-  supplements.push(choiceReason?{...repair,id:checkFamily,title:"方法を選ぶ："+repair.title,text:copied[0].prompt+"\n"+copied[0].answer+"\n正しい別解でも構いません。\n"+supportingText,check:copied[1].prompt,answer:copied[1].answer}:{...repair,id:checkFamily,title:lesson.title+"："+repair.title});
+  supplements.push(choiceReason?{...repair,id:checkFamily,title:"方法を選ぶ："+repair.title,text:logicWorking('方法の一例：'+choiceReason+' 正しい別解でも構いません。',repair.text),check:copied[1].prompt,answer:copied[1].answer}:{...repair,id:checkFamily,title:lesson.title+"："+repair.title});
  }
 });
 const copy=(e:Exercise,stage:"ready"|"guided",key:string)=>{
@@ -97,7 +96,7 @@ const examples=[truth,direct].map((d,i)=>{
 export const math1LogicCheckLesson:Lesson={
  slug,title:"集合と命題の章末確認",subject:"数学I",chapter:"集合と命題",section:"章末確認",description:"範囲・向き・否定を確かめ、根拠とともに答えよう。",basicsTitle:"仮定と結論を読み分ける",
  introduction:["集合では全体集合と要素を確かめます。条件の関係は、出発する条件を満たすすべての場合を考えます。反例は仮定を満たし、結論を満たさないことを両方示します。","必要・十分は二つの向き、否定は境界とかつ・または、すべて・あるを確認します。証明では文字の範囲と使った理由を残し、最後に何がいえたかを書きます。"],
- rule:"何を仮定し、何を示すかを先に書き分けます。",guidedAfterExamples:true,examples,supplements,practiceGroups:groups,
+ rule:"何を仮定し、何を示すかを先に書き分けます。",guidedAfterExamples:true,examples,supplements,practiceGroups:groups,warmupIds:[],
 };
 export const math1Chapter2Lessons=[...math1Chapter2Topics.map(d=>d.lesson),math1LogicCheckLesson];
 export const math1Chapter2Exercises=[...math1Chapter2Topics.flatMap(d=>d.exercises),...math1LogicCheckExercises];

@@ -1,4 +1,4 @@
-import {m,w,skill,dataTopic,addDataCases,appendData,regroupData,medianWorking,frac,list,sum,median,quartiles,quartileRule} from "./math1-data-authoring";
+import {m,w,skill,dataTopic,addDataCases,appendData,regroupData,medianWorking,frac,list,records,staged,sum,median,quartiles,quartileRule} from "./math1-data-authoring";
 import type {Worked} from "./math1-topic";
 
 function unitRecord(place:string,people:number,measure:string,unit:string):Worked{return w(m`${place}の $${people}$ 人について、一人ずつ${measure}を${unit}単位で記録しました。一つのデータが表す対象・量・単位を答えなさい。`,m`対象は一人、量は${measure}、単位は${unit}。`,"一行を誰の、何の記録として読むかを確かめます。",m`人数 $${people}$ はデータの個数です。一つの値は一人の${measure}を${unit}で表し、人数そのものではありません。`);}
@@ -15,12 +15,18 @@ const scopes=skill("survey-scope","調べた範囲と結論","調べた集団と
 export const dataReading=dataTopic("m1-data-reading","データの対象と読み方",["数値だけでなく、その数値が何を記録したものかを読みます。"],"対象・量・単位・調査範囲を確かめてから比べます。",[objects,scopes]);
 
 export const histogramData={values:[2,5,5,8,10,12,14,15,18,19,21,24],edges:[0,5,10,15,20,25],counts:[1,3,3,3,2]};
-function frequency(xs:number[],lo:number,hi:number):Worked{return w(m`一人ずつ測った $${xs.length}$ 人の所要時間（分）は $${list(xs)}$。$${lo}$ 分以上 $${hi}$ 分未満の階級の度数と相対度数を求めなさい。`,m`度数 $${xs.filter(x=>lo<=x&&x<hi).length}$、相対度数 $${frac(xs.filter(x=>lo<=x&&x<hi).length,xs.length)}$。`,"下の境界を含め、上の境界は次の階級に入れます。",m`該当する値は ${xs.filter(x=>lo<=x&&x<hi).length?`$${list(xs.filter(x=>lo<=x&&x<hi))}$`:"ありません"}。度数は $${xs.filter(x=>lo<=x&&x<hi).length}$、全体 $${xs.length}$ 個で割ると $${frac(xs.filter(x=>lo<=x&&x<hi).length,xs.length)}$ です。`);}
+function frequency(xs:number[],lo:number,hi:number):Worked{
+ const selected=xs.filter(x=>lo<=x&&x<hi),count=selected.length;
+ return staged(w(m`一人ずつ測った $${xs.length}$ 人の所要時間（分）は ${records(xs)}。$${lo}$ 分以上 $${hi}$ 分未満の階級の度数と相対度数を求めなさい。`,m`度数 $${count}$、相対度数 $${frac(count,xs.length)}$。`,"下の境界を含め、上の境界は次の階級に入れます。",m`$${lo}$ 以上 $${hi}$ 未満は ${records(selected)}。その個数は $${count}$。全体 $${xs.length}$ 個で割り、相対度数は $\frac{${count}}{${xs.length}}=${frac(count,xs.length)}$。`),[
+  {title:'階級に含まれる記録',text:m`下端 $${lo}$ を含み、上端 $${hi}$ を含まないので、該当する記録は ${records(selected)} です。`},
+  {title:'個数と全体に占める割合',text:m`度数は $${count}$。相対度数はその度数を全体 $${xs.length}$ 個で割るので、$\frac{${count}}{${xs.length}}=${frac(count,xs.length)}$ です。`}
+ ]);
+}
 const classes=skill("class-frequency","境界を確かめて数える","度数は階級に入る個数、相対度数はその個数を全体の個数で割った割合です。",frequency(histogramData.values,5,10),[
  frequency([1,4,5,5,9,10],5,10),frequency([0,3,5,7,10,14,15,19],10,15),frequency([2,4,6,8,10,12],0,5),frequency([5,5,10,10,15,15],5,10),frequency([0,4,5,9,10,14,15,19],15,20),frequency([1,2,5,7,8,10],5,10)]);
 function groupedMean(counts:number[]):Worked{
  const centers=[5,15,25],n=sum(counts),total=sum(counts.map((c,i)=>c*centers[i]));
- return w(m`時間（分）の階級 $0$ 以上 $10$ 未満、$10$ 以上 $20$ 未満、$20$ 以上 $30$ 未満の度数が順に $${list(counts)}$ です。階級値で平均を推定し、正確な平均かどうか答えなさい。`,m`推定平均 $${frac(total,n)}$ 分。一般には近似値です。`,"階級の中央の値を、その階級の個数だけ使います。",m`階級値は $5,15,25$。$\frac{5\cdot${counts[0]}+15\cdot${counts[1]}+25\cdot${counts[2]}}{${n}}=${frac(total,n)}$。各記録を階級値で置き換えたため、元の正確な平均とは限りません。`);
+ return w(m`時間（分）の階級 $0$ 以上 $10$ 未満、$10$ 以上 $20$ 未満、$20$ 以上 $30$ 未満の度数が順に $${list(counts)}$ です。階級値で平均を推定し、正確な平均かどうか答えなさい。`,m`推定平均 $${frac(total,n)}$ 分。一般には近似値です。`,"階級の中央の値を、その階級の個数だけ使います。",m`階級値は $5,15,25$ 分。推定平均は $\frac{5\cdot${counts[0]}+15\cdot${counts[1]}+25\cdot${counts[2]}}{${n}}=${frac(total,n)}$ 分です。各記録を階級値で置き換えたため、元の正確な平均とは限りません。`);
 }
 const classMeans=skill("class-mean","階級値で平均を推定する","階級値は区間の両端の平均です。各階級値にその階級の度数を掛け、積の合計を全体の個数で割ります。",groupedMean([2,4,2]),[[1,2,1],[2,3,1],[1,3,2],[4,1,1],[2,2,4],[3,2,1]].map(groupedMean));
 export const histograms=dataTopic("m1-histogram","度数分布とヒストグラム",["ばらばらの値を区間ごとに数えると、どのあたりに集まっているかを見渡せます。","ここでは等しい階級幅を使います。横軸は時間（分）、縦軸は度数（人）。隣り合う階級の柱を接して描きます。"],"階級の端を含むかを確かめ、度数の合計が全体の個数と一致するか確認します。",[classes,classMeans]);
@@ -29,20 +35,26 @@ function central(xs:number[],which:"mean"|"median"|"mode"):Worked{
  const sorted=[...xs].sort((a,b)=>a-b),counts=new Map<number,number>();xs.forEach(x=>counts.set(x,(counts.get(x)??0)+1));const max=Math.max(...counts.values()),modes=[...counts].filter(([,c])=>c===max).map(([x])=>x).sort((a,b)=>a-b);
  const ans=which==="mean"?frac(sum(xs),xs.length):which==="median"?String(median(xs)):list(modes);
  const title={mean:"平均値",median:"中央値",mode:"最頻値"}[which];
- const work=which==="mean"?m`合計は $${sum(xs)}$、個数は $${xs.length}$ なので $\frac{${sum(xs)}}{${xs.length}}=${ans}$。`:which==="median"?m`小さい順に $${list(sorted)}$。${medianWorking(xs)}`:m`各値の出現回数を数えます。最大の出現回数は $${max}$ 回で、その値は $${ans}$。最頻値は一つとは限りません。`;
- return w(m`データ $${list(xs)}$ の${title}を求めなさい。`,m`${title}は $${ans}$。`,which==="mean"?"合計を、データの個数で割ります。":which==="median"?"小さい順に並べ、個数の偶奇に応じて中央を読みます。":"出現回数が最も多い値を、すべて挙げます。",work);
+ const work=which==="mean"?m`平均は合計を個数で割った値なので、$\frac{${sum(xs)}}{${xs.length}}=${ans}$。`:which==="median"?m`小さい順に ${records(sorted)}。${medianWorking(xs)} これが中央値です。`:m`最大の出現回数は $${max}$ 回で、その値は $${ans}$。これが最頻値です。${modes.length>1?'同じ最大回数の値を全て挙げます。':''}`;
+ return w(m`データ ${records(xs)} の${title}を求めなさい。`,m`${title}は $${ans}$。`,which==="mean"?"合計を、データの個数で割ります。":which==="median"?"小さい順に並べ、個数の偶奇に応じて中央を読みます。":"出現回数が最も多い値を、すべて挙げます。",work);
 }
 const means=skill("arithmetic-mean","全部の値をならす","平均値は合計を個数で割った値です。大きく離れた値の影響も受けます。",central([2,3,4,7],"mean"),[[1,2,3,6],[0,2,2,4],[3,3,5,9],[-2,0,2,4],[1,1,2,8],[2,4,5,7]].map(a=>central(a,"mean")));
 const medians=skill("median","順序の中央を読む","偶数個では中央の二つの平均を取り、奇数個では中央の一つを取ります。",central([8,2,3,1,6],"median"),[[6,1,2,4],[9,1,3,3,5],[1,7,2,5,4,3],[0,0,3,6,9],[-3,2,0,7],[2,8,4,5,1]].map(a=>central(a,"median")));
 const modes=skill("mode","最も多く現れる値","最頻値は出現回数で決めます。同じ最大回数の値が複数なら、すべて挙げます。",central([1,2,2,3,4],"mode"),[[2,2,3,4,4],[1,1,1,2,3],[0,1,1,2,2,3],[5,4,5,6,5],[1,3,3,4,4,5],[0,0,2,3,3,3]].map(a=>central(a,"mode")));
-function pooled(n:number,a:number,k:number,b:number):Worked{return w(m`$${n}$ 人の平均は $${a}$ 分、別の $${k}$ 人の平均は $${b}$ 分です。全員の平均を求めなさい。`,m`$${frac(n*a+k*b,n+k)}$ 分。`,"それぞれの合計に戻してから、一緒にした人数で割ります。",m`合計は $${n}\cdot${a}+${k}\cdot${b}=${n*a+k*b}$。したがって平均は $\frac{${n*a+k*b}}{${n+k}}=${frac(n*a+k*b,n+k)}$。人数が違う場合、二つの平均の単純平均では一般に正しく求められません。`);}
+function pooled(n:number,a:number,k:number,b:number):Worked{return w(m`$${n}$ 人の平均は $${a}$ 分、別の $${k}$ 人の平均は $${b}$ 分です。全員の平均を求めなさい。`,m`$${frac(n*a+k*b,n+k)}$ 分。`,"それぞれの合計に戻してから、一緒にした人数で割ります。",m`合計は $${n}\cdot${a}+${k}\cdot${b}=${n*a+k*b}$ 分。したがって平均は $\frac{${n*a+k*b}}{${n+k}}=${frac(n*a+k*b,n+k)}$ 分です。人数が違う場合、二つの平均の単純平均では一般に正しく求められません。`);}
 const pooledMeans=skill("pooled-mean","人数の違う平均を合わせる","各群の平均に人数を掛けて合計を復元し、全員の平均を求めます。",pooled(2,4,6,8),[pooled(3,4,2,9),pooled(2,6,4,3),pooled(5,8,1,2),pooled(4,5,2,8),pooled(2,3,3,8),pooled(1,10,4,5)]);
 export const representatives=dataTopic("m1-representative-values","平均値・中央値・最頻値",["「中心」を表す方法は一つではありません。合計をならす、順序の中央を見る、よく現れる値を探す、という違いがあります。"],"何を表したいかに応じて、代表値の求め方と意味を区別します。",[means,medians,modes,pooledMeans]);
 
 export const boxData=[8,1,5,2,7,4,9];
 function quartile(xs:number[]):Worked{
  const a=[...xs].sort((x,y)=>x-y),q=quartiles(xs),k=Math.floor(xs.length/2);
- return w(m`$${list(xs)}$ の三つの四分位数を求めなさい。奇数個では全体の中央値を除いて上下に分けます。`,m`$Q_1=${q[1]},\ Q_2=${q[2]},\ Q_3=${q[3]}$。`,"まず小さい順に並べ、上下の組にどの値が入るかを書きます。",m`昇順は $${list(a)}$。下半分 $${list(a.slice(0,k))}$、上半分 $${list(a.slice(xs.length%2?k+1:k))}$。下半分：${medianWorking(a.slice(0,k))} 全体：${medianWorking(a)} 上半分：${medianWorking(a.slice(xs.length%2?k+1:k))} よって $Q_1=${q[1]},\ Q_2=${q[2]},\ Q_3=${q[3]}$。`);
+ const lower=a.slice(0,k),upper=a.slice(xs.length%2?k+1:k);
+ const steps=[
+  {title:'全体の中央',text:m`小さい順に ${records(a)}。${medianWorking(a)} これが $Q_2=${q[2]}$ です。`},
+  {title:'下半分の中央',text:m`${xs.length%2?'全体の中央値を除くと、':''}下半分は ${records(lower)}。${medianWorking(lower)} これが $Q_1=${q[1]}$ です。`},
+  {title:'上半分の中央',text:m`上半分は ${records(upper)}。${medianWorking(upper)} これが $Q_3=${q[3]}$ です。`}
+ ];
+ return staged(w(m`${records(xs)} の三つの四分位数を求めなさい。奇数個では全体の中央値を除いて上下に分けます。`,m`$Q_1=${q[1]},\ Q_2=${q[2]},\ Q_3=${q[3]}$。`,"各半分の中でも、中央値の定義を使います。",steps.map(s=>s.text).join('\n')),steps);
 }
 const quartileSkill=skill("quartiles","上下の組の中央値",quartileRule,quartile(boxData),[[7,1,3,5,9],[1,2,4,6,8,9],[2,2,3,4,5,7,9],[0,1,2,3,5,6,7,8],[-2,0,1,2,4],[1,3,4,5,7,8,9,11]].map(quartile));
 function spread(q:number[]):Worked{return w(m`箱ひげ図の最小値・$Q_1$・中央値・$Q_3$・最大値は順に $${list(q)}$ です。範囲と四分位範囲を求めなさい。ひげは最小値・最大値までです。`,m`範囲は $${q[4]-q[0]}$、四分位範囲は $${q[3]-q[1]}$。`,"全体の両端と、箱の両端を区別します。",m`範囲は $${q[4]}-(${q[0]})=${q[4]-q[0]}$。四分位範囲は $Q_3-Q_1=${q[3]}-(${q[1]})=${q[3]-q[1]}$。`);}
@@ -57,7 +69,7 @@ const compare=skill("compare-distributions","比較する量を選ぶ","中央�
  w(m`同じ単位の二群で、中央値は $A$ が $7$、$B$ が $9$、四分位範囲はどちらも $3$。比べなさい。`,m`中央値は $B$ が大きく、四分位範囲は同じ。`,"同じといえるものを限定して答えます。",m`$9>7$。中央部分の広がりの指標は等しいですが、分布全体が一致するとはいえません。`),
  w(m`同じ単位の二群で、範囲はどちらも $10$、四分位範囲は $A$ が $2$、$B$ が $5$。比べなさい。`,m`全体の幅は同じで、中央部分の幅は $B$ が大きい。`,"両端の距離と箱の長さを分けて考えます。",m`範囲は等しくても、$5>2$ なので中央部分の広がりは違います。`)
 ]);
-const boxLimits=skill("boxplot-limits","箱ひげ図からは決まらない量","箱ひげ図は五つの要約値を示す図です。個々の記録や区間内の細かな並び方を復元する図ではありません。",w("箱ひげ図の五つの要約値だけから平均値を求められますか。","一般には求められません。","平均値には全ての値の合計が必要です。","五つの要約値が同じでも、他の値の位置は変えられます。合計が決まらないので平均値も決まりません。"),[
+const boxLimits=skill("boxplot-limits","箱ひげ図からは決まらない量","箱ひげ図は五つの要約値を示します。平均には全ての値の合計が必要です。",w("箱ひげ図の五つの要約値だけから平均値を求められますか。","一般には求められません。","平均値には全ての値の合計が必要です。",m`${records([0,1,2,3,4,5,6])} と ${records([0,1,1,3,4,5,6])} は、五数要約がどちらも $0,1,3,5,6$。しかし合計は $21$ と $20$ なので、平均は $3$ と $\frac{20}{7}$ です。`),[
  w("箱ひげ図で右半分の箱が長いので、そこには左半分より多くのデータがある、といえますか。","いえません。長さは値の広がりであり、人数を表しません。","箱の横軸は値です。","四分位数は順位をもとに決めます。同じ値が重なる場合もあるため、箱の長さから人数の多少は断定できません。"),
  w("箱ひげ図から、最も多く現れた値を必ず読み取れますか。","読み取れません。最頻値は記録の出現回数で決まります。","五つの要約値に、出現回数が含まれるか考えます。","箱ひげ図には各値の出現回数が示されないため、最頻値は一般に決まりません。"),
  w("箱ひげ図が同じ二組は、平均値も必ず同じですか。","同じとは限りません。","箱の内部の個々の値まで固定されているかを考えます。","五つの要約値は同じでも、それ以外の値を変えれば合計や平均が変わる場合があります。"),
@@ -88,17 +100,23 @@ appendData(distributions,"outlier-population","extra",w("一つだけ長い配�
 regroupData(distributions,["outlier-treatment-3","outlier-population-extra"],"outlier-population","分析の対象に含まれるか","実際に起きた記録は、分析目的に照らして扱います。通常時のみを扱うなら対象条件を明示します。");
 appendData(distributions,"outlier-summary","extra",w("配達時間に少数のとても長い値があり、平均だけでは普段の様子を伝えにくいとき、何を追加しますか。","中央値と分布、長い配達が起きた背景を添えます。","離れた値を消さずに中心を伝える方法を考えます。","平均は大きく離れた値に引かれます。順位の中心である中央値と分布を併記し、典型的な状況と長い配達の両方を伝えます。"));
 regroupData(distributions,["outlier-treatment-4","outlier-summary-extra"],"outlier-summary","代表値を補って伝える","離れた値を消すのでなく、中央値や分布も示して、平均だけでは見えにくい状況を伝えます。");
-distributions.lesson.supplements.find(s=>s.id==="boxplot-limits")!.text+=m`
-例えば $0,1,2,3,4,5,6$ と $0,1,1,3,4,5,6$ は、五数要約がともに $0,1,3,5,6$ ですが、平均はそれぞれ $3,\frac{20}{7}$ です。箱ひげ図が同じでも平均が決まるわけではありません。`;
 appendData(distributions,"box-width-not-count","extra",w("箱ひげ図の箱が横に長い群ほど、調査人数が多いといえますか。","いえません。箱の横の長さは四分位範囲です。","横軸で測っている量を確かめます。","横軸はデータの値であって人数ではありません。調査人数は別の情報として確かめます。"),"practice");
 appendData(distributions,"outlier-treatment","extra",w("一つだけ非常に小さい記録がありました。小さすぎるから誤記だと断定してよいですか。","断定できません。元記録や測定条件を確認します。","実際に小さい値が生じた可能性を残して考えます。","他から離れていても実測値かもしれません。見かけだけで削除せず、根拠を確かめます。"),"practice");
-function histogramDrawing(counts:number[]):Worked{return w(m`所要時間（分）を $0$ 以上 $5$ 未満、$5$ 以上 $10$ 未満、$10$ 以上 $15$ 未満に分けた度数が順に $${list(counts)}$ 人です。軸と単位を記し、ヒストグラムを描きなさい。`,m`横軸は所要時間（分）、縦軸は度数（人）。幅 $5$ の柱を接して描き、高さを順に $${list(counts)}$ にします。`,"横の幅が階級、柱の高さが度数です。隣の階級との間を空けません。",m`横軸に $0,5,10,15$ と目盛りを付けます。各区間を底辺とする三つの柱を描き、高さを順に $${list(counts)}$ にします。人数の合計は $${sum(counts)}$ 人で、度数の合計と一致します。`);}
+function histogramDrawing(counts:number[]):Worked{
+ const steps=[{title:'横の幅は階級',text:m`横軸を所要時間（分）として、階級の端 $0,5,10,15$ を置きます。三つの階級は幅 $5$ で隣り合うので、柱も接して描きます。`},{title:'高さは度数',text:m`縦軸は度数（人）。各階級の人数を高さにするので、左から $${list(counts)}$ の三本の柱になります。`}];
+ return staged(w(m`所要時間（分）を $0$ 以上 $5$ 未満、$5$ 以上 $10$ 未満、$10$ 以上 $15$ 未満に分けた度数が順に $${list(counts)}$ 人です。軸と単位を記し、ヒストグラムを描きなさい。`,m`横軸は所要時間（分）、縦軸は度数（人）。幅 $5$ の柱を接して描き、高さを順に $${list(counts)}$ にします。`,"横の幅が階級、柱の高さが度数です。",steps.map(s=>s.text).join('\n')),steps);
+}
 appendData(histograms,"draw-histogram","one",histogramDrawing([2,5,3]),"practice");
 appendData(histograms,"draw-histogram","two",histogramDrawing([4,3,1]));
 regroupData(histograms,["draw-histogram-one","draw-histogram-two"],"draw-histogram","度数分布から柱を描く","等しい階級幅のヒストグラムでは、横の区間が階級、柱の高さが度数です。数値の目盛りと単位を添えます。");
 function boxDrawing(xs:number[]):Worked{
- const q=quartiles(xs);
- return w(m`$${list(xs)}$ の箱ひげ図を描きなさい。奇数個では全体の中央値を除いて上下に分け、ひげは最小値・最大値までとします。`,m`最小値 $${q[0]}$、$Q_1=${q[1]}$、中央値 $${q[2]}$、$Q_3=${q[3]}$、最大値 $${q[4]}$ を使った箱ひげ図。`,"先に五つの数値を求め、数直線上の位置を決めます。",quartile(xs)[3]+m`数直線上の $${q[1]}$ から $${q[3]}$ に箱を描き、$${q[2]}$ に中央値の線を入れます。箱から左右へひげを伸ばし、$${q[0]},${q[4]}$ で止めます。`);
+ const q=quartiles(xs),a=[...xs].sort((x,y)=>x-y),k=Math.floor(a.length/2);
+ const steps=[
+  {title:'全体の中央',text:m`小さい順に ${records(a)}。${medianWorking(a)} これが $Q_2=${q[2]}$ です。`},
+  {title:'上下の組の中央',text:m`${a.length%2?'全体の中央値を除くと':'上下に分けると'}、下半分は ${records(a.slice(0,k))}、その中央値が $Q_1=${q[1]}$。上半分は ${records(a.slice(a.length%2?k+1:k))}、その中央値が $Q_3=${q[3]}$ です。`},
+  {title:'五つの位置にする',text:m`$${q[1]}$ から $${q[3]}$ に箱を描き、$${q[2]}$ に中央値の線を入れます。ひげは最小値 $${q[0]}$、最大値 $${q[4]}$ までです。`}
+ ];
+ return staged(w(m`${records(xs)} の箱ひげ図を描きなさい。奇数個では全体の中央値を除いて上下に分け、ひげは最小値・最大値までとします。`,m`最小値 $${q[0]}$、$Q_1=${q[1]}$、中央値 $${q[2]}$、$Q_3=${q[3]}$、最大値 $${q[4]}$。`,"先に五つの数値を求め、数直線上の位置を決めます。",steps.map(s=>s.text).join('\n')),steps);
 }
 appendData(boxplots,"draw-boxplot","one",boxDrawing([1,2,3,4,6,8,9]),"practice");
 appendData(boxplots,"draw-boxplot","two",boxDrawing([2,3,5,6,7,9,10]));
@@ -107,6 +125,7 @@ const boxInformationCheck=distributions.exercises.find(e=>e.id==="m1-distributio
 const boxInformationRepair=distributions.lesson.supplements.find(s=>s.id==="boxplot-limits")!;
 boxInformationRepair.check=boxInformationCheck.prompt;
 boxInformationRepair.answer=boxInformationCheck.steps[0].text+"\n"+boxInformationCheck.answer;
+boxInformationRepair.answerExerciseId=boxInformationCheck.id;
 const boxInformationGuided=distributions.exercises.find(e=>e.id==="m1-distribution-comparison-boxplot-limits-3-v1")!;
 distributions.exercises.find(e=>e.id==="m1-distribution-comparison-boxplot-limits-1-v1")!.stage="practice";
 boxInformationGuided.stage="guided";

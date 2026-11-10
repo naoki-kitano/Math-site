@@ -1,4 +1,4 @@
-import {m,w,skill,dataTopic,addDataCases,appendData,regroupData,frac,sum} from "./math1-data-authoring";
+import {m,w,skill,dataTopic,addDataCases,appendData,regroupData,frac,sum,staged} from "./math1-data-authoring";
 import type {Worked} from "./math1-topic";
 // Reproducible computer simulation, not observed student data and not an exact probability table.
 export function simulateFairCoins(seed=20260922,trials=10000){
@@ -8,18 +8,24 @@ export function simulateFairCoins(seed=20260922,trials=10000){
 }
 export const coinSimulation={seed:20260922,trials:10000,tosses:10,counts:simulateFairCoins()};
 export const coinModel=m`各回で表の確率は $\frac12$、各回は互いに独立と仮定し、$10$ 回投げることを一試行とします。`;
-export const coinAssumption=m`「表も裏も確率 $\frac12$ で、各回の結果は互いに独立」と仮定します。これをまねた計算機実験で、$10$ 回投げる試行を $10000$ 回繰り返しました。仮想の実験であり、表はシミュレーションの結果です。同じ条件で実験をやり直しても、偶然によって度数が変わることがあります。`;
-export const coinRule=m`実験前に「表が出やすいか」を調べると決め、観測以上の表の回数を数えます。この教材では、その割合が $5\%$ 以下なら仮定を疑う、という判断基準も実験前に決めておきます。`;
+export const coinAssumption=m`表の確率 $\frac12$、各回は互いに独立と仮定し、$10$ 回投げる試行を計算機で $10000$ 回まねました。仮想実験の度数なので、やり直すと変わることがあります。`;
+export const coinRule=m`実験前に「表が出やすいか」を調べると決め、観測以上の回数を数えます。その割合が $5\%$ 以下なら仮定を疑う、という基準も事前に決めます。`;
 function upperTail(observed:number):Worked{
  const count=sum(coinSimulation.counts.slice(observed));
- return w(m`${coinModel} 表が出やすいかを調べます。$10$ 回中 $${observed}$ 回が表でした。同じ仮定でのシミュレーションで、表が $${observed}$ 回以上の試行は $${coinSimulation.counts.slice(observed).join("+")}$ 回です。「観測以上」の割合を求めなさい。試行総数は $10000$ 回です。`,m`$\frac{${count}}{10000}=${count/10000}$、$${count/100}\%$。`,"ちょうど観測回数だけでなく、それ以上の全てを足します。",m`表が $${observed}$ 回から $10$ 回までを合計すると $${count}$ 回。割合は $\frac{${count}}{10000}$。これは仮定の下で観測以上が出る割合の推定で、仮定が正しい確率ではありません。`);
+ const steps=[
+  {title:'観測以上の範囲',text:m`表が出やすいかを調べるので、表が $${observed}$ 回から $10$ 回までを数えます。該当する試行は合計 $${count}$ 回です。`},
+  {title:'全試行を分母にする',text:m`試行総数 $10000$ 回で割ると、$\frac{${count}}{10000}=${count/10000}$、つまり $${count/100}\%$。これは仮定の下で観測以上が出る割合の推定です。`}
+ ];
+ return staged(w(m`${coinModel} 表が出やすいかを調べます。$10$ 回中 $${observed}$ 回が表でした。同じ仮定でのシミュレーションで、表が $${observed}$ 回以上の試行は $${coinSimulation.counts.slice(observed).join("+")}$ 回です。「観測以上」の割合を求めなさい。試行総数は $10000$ 回です。`,m`$\frac{${count}}{10000}=${count/10000}$、$${count/100}\%$。`,"ちょうど観測回数だけでなく、それ以上の全てを足します。",steps.map(s=>s.text).join('\n')),steps);
 }
 const tails=skill("simulation-tail","同程度以上に極端な結果を数える",coinAssumption+" "+coinRule,upperTail(9),[upperTail(8),upperTail(7),upperTail(10),upperTail(6),upperTail(5),upperTail(4)]);
 type DecisionCase={rare:number;total:number};
 export const decisionCases:DecisionCase[]=[{rare:18,total:1000},{rare:120,total:1000},{rare:8,total:400},{rare:160,total:2000},{rare:12,total:1000},{rare:90,total:500}];
 function decision(c:DecisionCase):Worked{
  const reject=c.rare/c.total<=0.05;
- return w(m`${coinModel} 「表が出やすいか」を調べ、仮定の下で観測以上となる割合が $5\%$ 以下なら仮定を疑うと事前に決めました。シミュレーション $${c.total}$ 回中、観測以上は $${c.rare}$ 回。基準に照らした結論と、断言できないことを答えなさい。`,reject?"基準より珍しいので、仮定を疑う材料になります。ただし仮定が必ず誤りとは断定しません。":"この基準では仮定を疑うに足りません。ただし仮定が正しいと証明されたわけではありません。","割合を計算して事前の基準と比べ、結論を強く言い過ぎないようにします。",m`割合は $${frac(c.rare,c.total)}=${c.rare/c.total}$、$${100*c.rare/c.total}\%$。これは $5\%$ ${reject?"以下":"より大きい"}です。${reject?"仮定の下では珍しい結果なので仮定を疑いますが、偶然にも起こり得ます。":"珍しいと判断する基準には達しません。データ不足で差を見逃す可能性もあり、仮定の証明とは違います。"}`);
+ const conclusion=reject?'仮定の下では珍しい結果なので、仮定を疑う材料になります。ただし偶然にも起こり得るので、必ず誤りとは断定しません。':'この基準では仮定を疑うに足りません。データ不足で差を見逃す可能性もあり、仮定が正しいと証明されたわけではありません。';
+ const steps=[{title:'事前の基準と比べる',text:m`観測以上の割合は $${frac(c.rare,c.total)}=${c.rare/c.total}$、$${100*c.rare/c.total}\%$。事前に決めた $5\%$ ${reject?'以下':'より大きい'}です。`},{title:'仮定の下での珍しさ',text:conclusion}];
+ return staged(w(m`${coinModel} 「表が出やすいか」を調べ、仮定の下で観測以上となる割合が $5\%$ 以下なら仮定を疑うと事前に決めました。シミュレーション $${c.total}$ 回中、観測以上は $${c.rare}$ 回。基準に照らした結論と、断言できないことを答えなさい。`,reject?"基準より珍しいので、仮定を疑う材料になります。ただし仮定が必ず誤りとは断定しません。":"この基準では仮定を疑うに足りません。ただし仮定が正しいと証明されたわけではありません。","観測以上の割合を、結果を見る前に決めた基準と比べます。",steps.map(s=>s.text).join('\n')),steps);
 }
 const decisions=skill("simulation-decision","基準に照らして判断する",m`基準は結果を見る前に決めます。仮定の下での珍しさを判断しているのであって、「仮定が真である確率」を求めているのではありません。シミュレーションの割合は近似なので、基準の近くでは回数や不確かさも慎重に検討します。`,decision({rare:110,total:10000}),decisionCases.map(decision));
 decisions.why=coinModel+" "+decisions.why;

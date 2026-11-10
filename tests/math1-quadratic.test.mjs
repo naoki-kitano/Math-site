@@ -94,7 +94,12 @@ test('review fixes retain actual operations and guided full-completion requireme
  const bySlug=Object.fromEntries(topics.map(t=>[t.lesson.slug,t]));
  for(const slug of ['m1-completing-square','m1-completing-square-coefficient']){
   const t=bySlug[slug];
-  for(const e of t.exercises.filter(e=>e.stage==='guided'))assert.ok(e.prompt.includes('等式全体')&&e.answer.includes('半分')&&e.answer.includes('等式全体は $'),e.id);
+  for(const e of t.exercises.filter(e=>e.stage==='guided')){
+   assert.match(e.prompt,/平方完成/,e.id);
+   const source=e.prompt.match(/\$([^$]+)\$/)[1],working=e.steps.map(s=>s.text).join('\n');
+   assert.ok(working.includes(source+'='),e.id+' retains the full equality');
+   assert.match(working,/2p=|一次の項|中間項/,e.id+' explains the half coefficient');
+  }
   assert.ok(t.lesson.supplements.find(s=>s.id==='vertex-reading').text.includes('a\\ne0'));
  }
  const points=bySlug['m1-graph-points'].exercises.filter(e=>e.family==='point-domain');
@@ -118,7 +123,7 @@ test('chapter sections retain critical variants and choices do not name the meth
   assert.ok(s.check.includes('選んだ方法')&&s.answer.includes('方法の一例：'));
  }
  const counts=topics.find(t=>t.lesson.slug==='m1-equation-graph').exercises.filter(e=>e.family==='intercept-count');
- assert.ok(counts.every(e=>e.answer.includes('D=')&&e.answer.includes('対応')));
+ for(const e of counts){const working=e.steps.map(s=>s.text).join('\n');assert.match(working,/D=/,e.id);assert.match(working,/異なる実数解/,e.id);assert.match(working,/横座標/,e.id);assert.match(working,/縦座標/,e.id);}
  const formulas=topics.find(t=>t.lesson.slug==='m1-quadratic-formula').exercises;
  assert.equal(formulas.find(e=>e.id.endsWith('quadratic-formula-7-v1')).answer,'$x=1\\pm\\sqrt{2}$。');
  assert.equal(formulas.find(e=>e.id.endsWith('quadratic-formula-8-v1')).answer,'$x=\\frac{1\\pm\\sqrt{3}}{2}$。');

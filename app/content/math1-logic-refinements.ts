@@ -1,7 +1,7 @@
 import {truth,necessary} from "./math1-logic-statements";
 import {negation} from "./math1-logic-negation";
 import {direct,contraProof,contradiction} from "./math1-logic-proofs";
-import {m,w} from "./math1-logic-authoring";
+import {m,w,logicRepair} from "./math1-logic-authoring";
 import type {Worked} from "./math1-topic";
 import type {Exercise} from "./lessons";
 type Bank=typeof direct;
@@ -9,7 +9,7 @@ const find=(b:Bank,key:string)=>{const e=b.exercises.find(e=>e.id===`${b.lesson.
 const worked=(e:Exercise):Worked=>[e.prompt,e.answer,e.hints[0],e.steps[0].text];
 function repair(b:Bank,id:string,title:string,why:string,examples:Worked[]){
  const last=examples.at(-1)!;
- const s={id,title,text:why+"\n"+examples.map(e=>[e[0],e[3],e[1]].filter((x,i,a)=>a.indexOf(x)===i).join("\n")).join("\n"),tex:"",check:last[0],answer:last[1]};
+ const s=logicRepair(id,title,why,examples.length>1?examples.slice(0,-1):examples,last);
  const i=b.lesson.supplements.findIndex(s=>s.id===id);if(i<0)b.lesson.supplements.push(s);else b.lesson.supplements[i]=s;
 }
 function add(b:Bank,family:string,title:string,why:string,items:Worked[]){
@@ -69,7 +69,7 @@ add(truth,"counter-candidate","反例として使える候補か確かめる","�
 ]);
 add(necessary,"classify-conditions","具体的な条件を両方向に調べる","両方向を別々に調べ、真には理由、偽には反例を示してから名前を付けます。",[
  w(m`実数 $x$ について $p:x=4$、$q:x^2=16$ とする。$p$ は $q$ のどの条件か、両方向の理由も答えなさい。`,m`十分条件ですが必要条件ではありません。$x=4$ なら $x^2=16$。逆は $x=-4$ が反例で、$x^2=16$ ですが $x\ne4$。`,"二乗して $16$ になる数を、正負の両方で探します。",m`$p\Rightarrow q$ は真、$q\Rightarrow p$ は偽。したがって十分条件のみです。`),
- w(m`実数 $x$ について $p:x>5$、$q:x>2$ とする。$p$ は $q$ のどの条件か、両方向の理由も答えなさい。`,m`十分条件ですが必要条件ではありません。$x>5>2$ より順方向は真。逆は $x=3$ が反例で、$3>2$ ですが $3>5$ は偽です。`,"狭い範囲から広い範囲へ進む向きを確かめます。",m`$p\Rightarrow q$ は真、$q\Rightarrow p$ は偽。十分と必要を逆にしません。`),
+ w(m`実数 $x$ について $p:x>5$、$q:x>2$ とする。$p$ は $q$ のどの条件か、両方向の理由も答えなさい。`,m`十分条件ですが必要条件ではありません。$x>5>2$ より順方向は真。逆は $x=3$ が反例で、$3>2$ ですが $3>5$ は偽です。`,"狭い範囲から広い範囲へ進む向きを確かめます。",m`$p\Rightarrow q$ は真、$q\Rightarrow p$ は偽。`),
 ]);
 // Keep all four outcomes demonstrated in the repair after adding the sufficient-only pair.
 repair(necessary,"classify-conditions","具体的な条件を両方向に調べる","真には理由、偽には反例を示してから必要・十分を名付けます。",["classify-conditions-new-1","classify-conditions-2","classify-conditions-3","classify-conditions-4"].map(k=>worked(find(necessary,k))));

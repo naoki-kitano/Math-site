@@ -10,7 +10,7 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-12,`${a} != ${b}`);
 test('clarity revisions preserve mathematical reasons rather than generic instructions',async()=>{
  const {lessons,exercises}=await import(contentModule(new URL('../app/content/lessons.ts',import.meta.url)));
  const lesson=slug=>lessons.find(l=>l.slug===slug);
- assert.equal(lessons.length,466);assert.equal(exercises.length,11114);
+ assert.equal(lessons.length,466);assert.equal(exercises.length,11116);
  assert.match(JSON.stringify(lesson('mc-complex-rotation')),/中心.*原点/);
  assert.match(JSON.stringify(lesson('ma-space-lines-planes')),/二平面の平行と垂直/);
  assert.doesNotMatch(JSON.stringify(lesson('ma-expected-value')),/確率の大きい額ほど/);
@@ -194,7 +194,7 @@ test('new mathematical figures render actual TeX through the display components'
   const html=renderToStaticMarkup(React.createElement(Component));
   assert.doesNotMatch(html,/math-error|katex-error/);
   assert.match(html,/<math /);
-  if(name==='ParabolaExplorer')assert.match(html,/リセット/);
+  if(name==='ParabolaExplorer'){assert.match(html,/次へ/);assert.doesNotMatch(html,/リセット|rotation-stages/);}
   assert.match(html,/動きを減らす/);
   assert.doesNotMatch(html,/data-tex="\\\\/,'doubled TeX slash in rendered attributes');
   if(name==='UnitCircleExplorer'){

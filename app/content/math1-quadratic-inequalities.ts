@@ -1,4 +1,4 @@
-import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,vertexForm,signed,squarePrep,boundaryPrep} from "./math1-quadratic-authoring";
+import {addRepairExamples,quadraticTopic as topic,m,w,num,poly,vertexForm,linearFactor,squarePrep,boundaryPrep} from "./math1-quadratic-authoring";
 import {type Worked} from "./math1-topic";
 type Rel=">"|"<"|"\\ge"|"\\le";
 export const inequalityCases:{a:number;p:number;q:number;rel:Rel;inside:boolean;closed:boolean}[]=[];
@@ -6,7 +6,11 @@ function inequality(a:number,p:number,q:number,rel:Rel):Worked{
  const positive=rel===">"||rel==="\\ge",closed=rel==="\\ge"||rel==="\\le",inside=positive?a<0:a>0;
  const edge=closed?"\\le":"<",ans=inside?m`$${p}${edge} x${edge}${q}$。`:m`$x${edge}${p}$ または $${q}${edge} x$。`;
  inequalityCases.push({a,p,q,rel,inside,closed});
- return w(m`$${poly(a,-a*(p+q),a*p*q)}${rel}0$ を解きなさい。`,ans,"まずゼロになる二つの境界を求め、開く向きから $x$ 軸の上・下にある範囲を読みます。",m`左辺は $${a===1?"":num(a)}(x${signed(-p)})(x${signed(-q)})$。境界は $${p},${q}$。二因数の符号は外側で同じ、内側で逆なので、左辺は内側で${a>0?"負":"正"}、外側で${a>0?"正":"負"}です。${positive?"正":"負"}の範囲を選び、${closed?"等号があるので両境界も含めます":"等号がないので境界は除きます"}。`);
+ return w(m`$${poly(a,-a*(p+q),a*p*q)}${rel}0$ を解きなさい。`,ans,"因数がゼロになる境界を求め、区間ごとの積の符号を調べます。",[
+ m`左辺を因数分解すると $${a===1?"":a===-1?"-":num(a)}${linearFactor(p)}${linearFactor(q)}$。ゼロになる境界は $${p},${q}$ です。`,
+ m`二因子は $${p}<x<${q}$ で異符号、外側で同符号なので、その積は内側で負、外側で正です。${a<0?m`さらに外の負の係数 $${num(a)}$ が掛かるため、左辺は内側で正、外側で負になります。`:"外の係数は正なので、左辺も同じ符号です。"}`,
+ m`${positive?"正":"負"}の${inside?"内側":"外側"}を選びます。${closed?"等号があるので、左辺がゼロになる両境界も含めます。":"等号がないので、左辺がゼロになる両境界は除きます。"}`
+ ]);
 }
 const signAt=(a:number,p:number,q:number,x:number):Worked=>{
  const v=a*(x-p)*(x-q);return w(m`$y=${poly(a,-a*(p+q),a*p*q)}$ で $x=${x}$ の点は、$x$ 軸より上・下・軸上のどれですか。`,v>0?"上です。":v<0?"下です。":"軸上です。","関数値の正負が、軸の上か下かを表します。",m`$y=${v}$ なので、${v>0?"正で軸より上":v<0?"負で軸より下":"ゼロで軸上"}です。`);
@@ -26,7 +30,9 @@ function special(a:number,h:number,k:number,rel:Rel):Worked{
  const positive=rel===">"||rel==="\\ge",closed=rel==="\\ge"||rel==="\\le",same=positive===(a>0);
  const answer=k===0?(same?(closed?"すべての実数。":m`$x\ne${h}$ のすべての実数。`):(closed?m`$x=${h}$。`:"解なし。")):(same?"すべての実数。":"解なし。");
  specialSignCases.push({a,h,k,rel,answer});
- return w(m`$${vertexForm(a,h,k)}${rel}0$ を解きなさい。`,answer,"平方の非負性から左辺の符号と、ゼロになる入力があるかを調べます。",m`平方は非負なので左辺は $${a>0?"\\ge":"\\le"}${k}$。${k===0?m`ゼロになるのは $x=${h}$ だけです。`:`したがって左辺は常に${a>0?"正":"負"}で、ゼロにはなりません。`}${k===0?m`$x=${h}$ 以外では${a>0?"正":"負"}です。`:""}求める不等号と等号の有無を合わせると、${answer}`);
+ const bound=m`実数の平方は非負なので、左辺は $${a>0?"\\ge":"\\le"}${k}$。`;
+ const reason=k!==0?`左辺は常に${a>0?"正":"負"}なので、求める不等式は${same?"すべての実数で成り立ちます。":"成り立ちません。"}`:same?(closed?"したがって、すべての実数が解です。":m`厳密不等号なので、平方がゼロになる $x=${h}$ だけを除きます。`):(closed?m`求める向きと両立するのは左辺がゼロのときだけです。平方の中をゼロにすると $x=${h}$。`:`左辺が${a>0?"負":"正"}になることはないので、成り立ちません。`);
+ return w(m`$${vertexForm(a,h,k)}${rel}0$ を解きなさい。`,answer,k===0&&closed&&!same?"平方の非負性と求める不等号を両立する値は何か考えます。":"平方の非負性から、左辺が求める符号になれるか考えます。",bound+reason);
 }
 export const specialInequality=topic("m1-quadratic-inequality-boundaries","接する・交わらない場合の不等式",[
  m`実数解のない方程式と、解のない不等式は同じ意味ではありません。$x^2+1=0$ の実数解はありませんが、$x^2+1>0$ はすべての実数で成り立ちます。`,

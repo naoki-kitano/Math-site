@@ -2,9 +2,15 @@ import {quadraticTopic as topic,m,w,num,signed,poly,vertexForm} from "./math1-qu
 import {addPair,type Worked,type Skill} from "./math1-topic";
 export const completionCases:{a:number;b:number;c:number;answer:string}[]=[];
 export function complete(a:number,b:number,c:number):Worked{
- const t=b/(2*a),k=c-a*t*t;
+ const t=b/(2*a),k=c-a*t*t,original=poly(a,b,c),square=`(x${signed(t)})^2`,outside=a===1?"":a===-1?"-":num(a),constant=c===0?"":signed(c);
  completionCases.push({a,b,c,answer:vertexForm(a,-t,k)});
- return w(m`$${poly(a,b,c)}$ を平方完成しなさい。`,m`$${vertexForm(a,-t,k)}$。`,a===1?m`一次の係数 $${b}$ の半分 $${num(t)}$ を使って平方を作り、増えた平方を引きます。`:m`まず二次と一次の項から $${num(a)}$ をくくります。括弧の中で平方を作り、補正項にも外の係数を掛けます。`,a===1?m`$(x${signed(t)})^2=x^2${signed(b)}x+${num(t*t)}$ なので、$${poly(a,b,c)}=(x${signed(t)})^2-${num(t*t)}+(${num(c)})=${vertexForm(a,-t,k)}$。同じ数を足して引くため値は変わりません。`:m`$${poly(a,b,c)}=${num(a)}\{x^2${signed(b/a)}x\}+(${num(c)})=${num(a)}\{(x${signed(t)})^2-${num(t*t)}\}+(${num(c)})=${vertexForm(a,-t,k)}$。外の係数は平方の項にも補正項にも掛かります。`);
+ const steps:string[]=[];
+ if(a!==1)steps.push(m`二次と一次の項から $${num(a)}$ をくくると、$${original}=${outside}(${poly(1,b/a,0)})${constant}$。`);
+ steps.push(m`$(x+p)^2$ の一次の項は $2px$。$2p=${num(b/a)}$ なので $p=${num(t)}$ です。したがって $${square}=${poly(1,b/a,t*t)}$。`);
+ steps.push(a===1?m`平方を作るために増えた $${num(t*t)}$ を引きます。$${original}=${square}-${num(t*t)}${constant}$。`:m`括弧内で増えた $${num(t*t)}$ を引くと、$${original}=${outside}\{${square}-${num(t*t)}\}${constant}$。`);
+ if(a!==1)steps.push(m`外の $${num(a)}$ は補正にも掛かるので、$${num(a)}\cdot(-${num(t*t)})=${num(-a*t*t)}$。したがって $${original}=${outside}${square}${signed(-a*t*t)}${constant}$。`);
+ steps.push(m`定数をまとめると $${original}=${vertexForm(a,-t,k)}$。`);
+ return w(m`$${original}$ を平方完成しなさい。`,m`$${vertexForm(a,-t,k)}$。`,a===1?m`平方の中間項 $2px$ を $${num(b)}x$ に合わせます。`:m`二次と一次の項から $${num(a)}$ をくくり、括弧内の中間項を合わせます。`,steps);
 }
 const expand=(t:number):Worked=>w(m`$(x${signed(t)})^2$ を展開しなさい。`,m`$${poly(1,2*t,t*t)}$。`,"同じ括弧を二つ掛け、中間項も計算します。",m`$(x${signed(t)})(x${signed(t)})=x^2${signed(t)}x${signed(t)}x+${num(t*t)}=${poly(1,2*t,t*t)}$。`);
 const fraction=(a:number,b:number):Worked=>w(m`$${num(a)}+(${num(b)})$ を計算しなさい。`,m`$${num(a+b)}$。`,"分母をそろえてから、分子を足します。",m`$${num(a)}=\frac{${a*4}}4$、$${num(b)}=\frac{${b*4}}4$。和は $\frac{${a*4+b*4}}4=${num(a+b)}$。`);
@@ -46,12 +52,5 @@ for(const b of [squareBasic,squareLeading])b.exercises.forEach(e=>{e.steps=e.ste
 export const completingSquareTopics=[squareBasic,squareLeading];
 for(const [bank,family,key]of [[squareBasic,"fraction-sum","fraction-sum-2"],[squareLeading,"factor-leading","factor-leading-2"]] as const){
  const e=bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${key}-v1`)!;
- bank.lesson.supplements.find(s=>s.id===family)!.text+="\n"+[e.prompt,e.steps[0].text,e.answer].join("\n");
-}
-for(const [bank,key,a,b]of [[squareBasic,"integer-completion-1",1,4],[squareBasic,"fraction-completion-1",1,-3],[squareLeading,"positive-leading-1",2,4],[squareLeading,"negative-leading-1",-1,-2]] as const){
- const e=bank.exercises.find(e=>e.id===`${bank.lesson.slug}-${key}-v1`)!;
- e.prompt+=(a===1?" 一次係数の半分、平方を作るために引く数、平方完成した等式全体の順に答えなさい。":" 最初に二次と一次の項の係数をくくり、括弧内の一次係数の半分、括弧内で引く数、外の係数を掛けた補正項、平方完成した等式全体の順に答えなさい。");
- const t=b/(2*a);
- const c=key==="integer-completion-1"?1:key==="fraction-completion-1"?2:3;
- e.answer=(a===1?m`半分は $${num(t)}$、平方を作るために引く数は $${num(t*t)}$。`:m`最初の括り出しは $${poly(a,b,c)}=${num(a)}(x^2${signed(b/a)}x)+${c}$。括弧内の一次係数の半分は $${num(t)}$、括弧内で引く数は $${num(t*t)}$、外の係数を掛けた補正項は $${num(-a*t*t)}$。`)+m`等式全体は $${poly(a,b,c)}=${vertexForm(a,-t,c-a*t*t)}$。`;
+ (bank.lesson.supplements.find(s=>s.id===family)!.additionalExamples??=[]).push({title:e.prompt,text:[e.steps[0].text,e.answer].join("\n")});
 }

@@ -43,6 +43,6 @@ export default function FormulaCorrespondence({slug,onCompletionChange}:{slug:st
    {stage<data.steps.length-1&&<button className="button" onClick={()=>go(stage+1)}>次へ</button>}
   </div>
   {data.check&&<p className="start-check"><MathText text={data.check}/></p>}
-  {(slug==="logarithm-base-change"||data.steps.some(step=>step.motion||(step.diagram&&(step.diagram.animated??!step.diagram.kind.startsWith("m2-")))))&&<label className="formula-reduced"><input type="checkbox" checked={reduce} onChange={e=>setReduce(e.target.checked)}/>動きを減らす</label>}
+  {(slug==="logarithm-base-change"||data.steps.some(step=>step.motion||(step.diagram&&(step.diagram.animated??!/^m[12]-/.test(step.diagram.kind)))))&&<label className="formula-reduced"><input type="checkbox" checked={reduce} onChange={e=>setReduce(e.target.checked)}/>動きを減らす</label>}
  </section>;
 }
