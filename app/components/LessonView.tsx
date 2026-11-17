@@ -14,7 +14,7 @@ import {knownExercise,knownReviewOf} from "../content/foundation-links";
 import {diagnosticTarget} from "../content/diagnostic-paths";
 import {useQuery} from "../lib/use-query";
 import JuniorDiagrams from "./JuniorDiagrams";
-import MathBDiagrams from "./MathBDiagrams";
+import {mathBExampleVisualSteps} from "./MathBDiagrams";
 import MathBSimulation from "./MathBSimulation";
 import { Fragment, useEffect, useState } from "react";
 import Link from "./SiteLink";
@@ -56,8 +56,10 @@ function PointGraph() {
 type LessonTask={id:string;label:string;hash:string};
 export default function LessonView({lesson}:{lesson:Lesson}) {
   const subject=subjectForChapter(lesson.chapter),start=lessonStarts[lesson.slug],hasFormula=Object.hasOwn(formulaCorrespondence,lesson.slug);
+  const mathBCheckpoint=subject==="数学B"&&lesson.section==="章末確認"&&lesson.examples.length>0;
+  const basicsEntry=mathBCheckpoint?"example-0":"basics";
   const hasPacedVisual=["rational","trig-unit-circle","trig-angle-change","m1-parabola-translation","m1-linear-inequalities","m1-interval-extrema","m1-quadratic-inequality"].includes(lesson.slug);
-  const pacedBasics=["数学I","数学II","数学III","数学A"].includes(subject)&&!start;
+  const pacedBasics=["数学I","数学II","数学III","数学A","数学B"].includes(subject)&&!start;
   const [practiceGroup,setPracticeGroup]=useState(lesson.practiceGroups?.[0]?.id??"all");
   const [visitedGroups,setVisitedGroups]=useState<Set<string>>(()=>new Set([lesson.practiceGroups?.[0]?.id??"all"]));
   const [taskProgress,setTaskProgress]=useState<Record<string,number>>({});
@@ -81,7 +83,7 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
   const tasks:LessonTask[]=[];
   if(hasPrep)tasks.push({id:"prepare",label:"必要な基礎",hash:"ready"});
   if(hasWarmup)tasks.push({id:"warmup",label:"計算・用語のウォームアップ",hash:"warmup"});
-  tasks.push({id:"basics",label:"基本の説明",hash:"basics"});
+  if(!mathBCheckpoint)tasks.push({id:"basics",label:"基本の説明",hash:"basics"});
   lesson.examples.forEach((_,i)=>{
     tasks.push({id:`example-${i}`,label:lesson.examples.length>1?`例題 ${i+1}`:"例題",hash:i===0?"first-example":`example-${i+1}`});
     if(lesson.guidedAfterExamples&&guided(i).length)tasks.push({id:`guided-${i}`,label:"一緒に解く",hash:i===0?"guided":`guided-${i+1}`});
@@ -106,7 +108,8 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
     const sync=()=>{
       let hash="";try{hash=decodeURIComponent(window.location.hash.slice(1));}catch{/* Invalid fragments fall back to the first task. */}
       let id=tasks.find(t=>t.hash===hash)?.id;
-      if(hash==="ready")id=hasPrep?"prepare":hasWarmup?"warmup":"basics";
+      if(hash==="ready")id=hasPrep?"prepare":hasWarmup?"warmup":basicsEntry;
+      if(hash==="basics")id=basicsEntry;
       if(hash==="examples")id="example-0";
       if(hash==="guided")id=tasks.find(t=>t.id.startsWith("guided"))?.id;
       if(hash==="practice-extra"&&hasExtra)id="practice-extra";
@@ -140,7 +143,7 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
   const basicsFlow=flowFor("basics");
   const fraction=taskProgress[task]??(exampleIndex>=0&&distinctSteps(lesson.examples[exampleIndex]?.steps??[]).length<=1?1:0);
   const progress=index<0?0:Math.min(100,Math.round(100*(index+fraction)/Math.max(1,tasks.length-1)));
-  const afterPrep=hasWarmup?"warmup":"basics";
+  const afterPrep=hasWarmup?"warmup":basicsEntry;
   const originHref=origin?"/learn/"+origin.lesson+"?exercise="+encodeURIComponent(origin.id)+(originReview?"&reviewOf="+encodeURIComponent(originReview):"")+"#return-question":null;
   return <main id="main"><section className="hero focused-hero"><div className="breadcrumb"><Link href={subjectPath(subject)}>{subject}</Link> / {lesson.chapter}</div><h1>{lesson.title}</h1><p><MathText text={lesson.description}/></p></section>
   <div className="wrap focused-layout"><div className="lesson-body">
@@ -155,16 +158,22 @@ export default function LessonView({lesson}:{lesson:Lesson}) {
       {!hasFormula&&!hasPacedVisual&&<h2>{lesson.basicsTitle??(lesson.slug==="rational"?"約分できるのは、共通の因数":"点の座標を、式に入れてみる")}</h2>}
       {start?(!hasFormula&&!hasPacedVisual&&<div className="lesson-start"><p><MathText text={start.goal}/></p>{start.steps.length>0&&<ol>{start.steps.map((step,i)=><li key={i}><MathText text={step}/></li>)}</ol>}</div>):hasReader?<BasicReader key={lesson.slug} slug={lesson.slug} introduction={lesson.introduction} rule={lesson.rule} {...basicsFlow}/>:!hasFormula&&!hasPacedVisual&&lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}
       {lesson.slug==="trig-unit-circle"&&<UnitCircleCoordinates {...basicsFlow}/>}{lesson.slug==="trig-angle-change"&&<UnitCircleExplorer {...basicsFlow}/>}{lesson.slug==="m1-parabola-translation"&&<ParabolaExplorer {...basicsFlow}/>}
-      {!(subject==="数学A"&&hasFormula)&&<ConceptExplorer slug={lesson.slug}/>}{!hasFormula&&<VisualLessonExplorer slug={lesson.slug} {...(hasPacedVisual?basicsFlow:{})}/>}<FormulaCorrespondence key={lesson.slug} slug={lesson.slug} {...basicsFlow}/>
+      {!((subject==="数学A"||subject==="数学B")&&hasFormula)&&<ConceptExplorer slug={lesson.slug}/>}{!hasFormula&&<VisualLessonExplorer slug={lesson.slug} {...(hasPacedVisual?basicsFlow:{})}/>}{hasFormula&&<FormulaCorrespondence key={lesson.slug} slug={lesson.slug} {...basicsFlow}/>}
       {!hasFormula&&!hasPacedVisual&&!hasReader&&<LearningStepControls onPrevious={basicsFlow.onBack} onNext={basicsFlow.onContinue}/>}
-      {start&&<>{!hasFormula&&!hasPacedVisual&&<p className="start-check"><MathText text={start.check}/></p>}<details className="supplement original-explanation"><summary>定義・公式とその根拠を読む</summary>{lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}<p><MathText text={lesson.rule}/></p></details></>}
-      {lesson.slug==="points"&&<PointGraph/>}<LessonTables slug={lesson.slug} folded={["数学I","数学II","数学III","数学A"].includes(subject)}/><MathBSimulation slug={lesson.slug}/>{!start&&!pacedBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}
+      {subject==="数学B"&&hasFormula?(taskProgress.basics===1&&<details className="supplement original-explanation">
+        <summary>{lesson.slug==="mb-survey-simulation"?"硬貨を投げて確かめる":"公式と資料"}</summary>
+        <MathBSimulation slug={lesson.slug}/>
+        {lesson.introduction.map((text,i)=><p key={i}><MathText text={text}/></p>)}
+        <p><MathText text={lesson.rule}/></p>
+        <LessonTables slug={lesson.slug}/>
+      </details>):start&&<>{!hasFormula&&!hasPacedVisual&&<p className="start-check"><MathText text={start.check}/></p>}<details className="supplement original-explanation"><summary>定義・公式とその根拠を読む</summary>{lesson.introduction.map((p,i)=><p key={i}><MathText text={p}/></p>)}<p><MathText text={lesson.rule}/></p></details></>}
+      {lesson.slug==="points"&&<PointGraph/>}{subject!=="数学B"&&<LessonTables slug={lesson.slug} folded={["数学I","数学II","数学III","数学A"].includes(subject)}/>}{!start&&!pacedBasics&&<div className="note"><p><MathText text={lesson.rule}/></p></div>}
     </section>}
     {lesson.examples.map((e,i)=>{
-      const visualSteps=functionVisualSteps(lesson.slug,i);
+      const visualSteps=subject==="数学B"?mathBExampleVisualSteps(lesson.slug,i):functionVisualSteps(lesson.slug,i);
       const id=`example-${i}`,guidedId=`guided-${i}`,pair=guided(i),afterExample=tasks[tasks.findIndex(t=>t.id===id)+1];
       return <Fragment key={e.id??i}>
-        {show(id)&&<section className="block task-pane" id={i===0?"examples":`example-${i+1}`} data-task-pane={id} hidden={task!==id}><article className="example" id={i===0?"first-example":undefined}><h2>{e.title}</h2><p><MathText text={e.prompt}/></p>{e.tex&&<Formula tex={e.tex} display/>}<ExampleSteps steps={e.steps} visualSteps={visualSteps} {...flowFor(id)} onStepChange={(step,complete)=>setExampleProgress(old=>({...old,[i]:{step,complete}}))}>{!visualSteps.length&&<LessonDiagrams slug={lesson.slug} index={i}/>}<MathOneDiagrams slug={lesson.slug} index={i} step={exampleProgress[i]?.step??0} complete={exampleProgress[i]?.complete??(distinctSteps(e.steps).length<=1)}/><MathACountingDiagrams slug={lesson.slug} index={i}/><MathAProbabilityDiagrams slug={lesson.slug} index={i}/><MathAGeometryDiagrams slug={lesson.slug} index={i}/><MathASpaceDiagrams slug={lesson.slug} index={i}/><MathAIntegerDiagrams slug={lesson.slug} index={i}/><MathBDiagrams slug={lesson.slug} index={i}/><MathCDiagrams slug={lesson.slug} index={i}/><JuniorDiagrams slug={lesson.slug} index={i}/></ExampleSteps></article></section>}
+        {show(id)&&<section className="block task-pane" id={i===0?"examples":`example-${i+1}`} data-task-pane={id} hidden={task!==id}><article className="example" id={i===0?"first-example":undefined}><h2>{e.title}</h2><p><MathText text={e.prompt}/></p>{e.tex&&<Formula tex={e.tex} display/>}<ExampleSteps steps={e.steps} visualSteps={visualSteps} {...flowFor(id)} onStepChange={(step,complete)=>setExampleProgress(old=>({...old,[i]:{step,complete}}))}>{!visualSteps.length&&<LessonDiagrams slug={lesson.slug} index={i}/>}<MathOneDiagrams slug={lesson.slug} index={i} step={exampleProgress[i]?.step??0} complete={exampleProgress[i]?.complete??(distinctSteps(e.steps).length<=1)}/><MathACountingDiagrams slug={lesson.slug} index={i}/><MathAProbabilityDiagrams slug={lesson.slug} index={i}/><MathAGeometryDiagrams slug={lesson.slug} index={i}/><MathASpaceDiagrams slug={lesson.slug} index={i}/><MathAIntegerDiagrams slug={lesson.slug} index={i}/><MathCDiagrams slug={lesson.slug} index={i}/><JuniorDiagrams slug={lesson.slug} index={i}/></ExampleSteps></article></section>}
         {lesson.guidedAfterExamples&&pair.length>0&&show(guidedId)&&<section className="block task-pane" id={i===0?"guided":`guided-${i+1}`} data-task-pane={guidedId} hidden={task!==guidedId}><h2>一緒に解く</h2><Practice items={pair} label="一緒に解く" onBack={flowFor(guidedId).onBack} onProgressChange={flowFor(guidedId).onProgressChange} onComplete={afterExample&&tasks[tasks.findIndex(t=>t.id===guidedId)+1]?()=>go(tasks[tasks.findIndex(t=>t.id===guidedId)+1].id):undefined}/></section>}
       </Fragment>;
     })}

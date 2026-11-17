@@ -20,6 +20,9 @@ import {mathAProbabilityCorrespondence} from "./matha-probability-correspondence
 import {mathAGeometryCorrespondence} from "./matha-geometry-correspondence";
 import {mathASpaceCorrespondence} from "./matha-space-correspondence";
 import {mathAIntegerCorrespondence} from "./matha-integer-correspondence";
+import {mathBSequenceCorrespondence} from "./mathb-sequence-correspondence";
+import {mathBStatisticsCorrespondence} from "./mathb-statistics-correspondence";
+import {mathBSocietyCorrespondence} from "./mathb-society-correspondence";
 const m=String.raw;
 
 export type FormulaStep={label:string; text:string; formulas:string[];motion?:Transfer;diagram?:{kind:string;stage:number;animated?:boolean}};
@@ -68,6 +71,9 @@ export const formulaCorrespondence:Record<string,FormulaLesson>={
  ...mathAGeometryCorrespondence,
  ...mathASpaceCorrespondence,
  ...mathAIntegerCorrespondence,
+ ...mathBSocietyCorrespondence,
+ ...mathBStatisticsCorrespondence,
+ ...mathBSequenceCorrespondence,
 };
 formulaCorrespondence['logarithm-laws'].steps[1].motion={
  source:m`\log_a({\color{#176c82}{M}}{\color{#936114}{N}})`,target:m`=\log_a{\color{#176c82}{M}}+\log_a{\color{#936114}{N}}`,

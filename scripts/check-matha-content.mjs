@@ -4,7 +4,10 @@ import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
-const root=fileURLToPath(new URL('..',import.meta.url)).replace(/\/$/,''),out=process.env.MATHCANVAS_SCREENSHOTS??'/tmp/matha-content-check';
+const subject=process.env.MATHCANVAS_SUBJECT??'数学A';
+assert.ok(['数学A','数学B'].includes(subject),'Supported audit subjects: 数学A, 数学B');
+const exampleSlugs=subject==='数学B'?['mb-arithmetic-sum','mb-mean-interval','mb-residuals']:['ma-combination','ma-probability-tree','ma-angle-bisector'];
+const root=fileURLToPath(new URL('..',import.meta.url)).replace(/\/$/,''),out=process.env.MATHCANVAS_SCREENSHOTS??('/tmp/math'+subject.at(-1).toLowerCase()+'-content-check');
 fs.mkdirSync(out+'/html',{recursive:true});fs.mkdirSync(out+'/screenshots',{recursive:true});
 const req=createRequire(root+'/package.json');
 const React=req('react');
@@ -12,7 +15,9 @@ const {renderToStaticMarkup}=req('react-dom/server');
 const {loadDisplay}=await import(root+'/scripts/test-display-module.mjs');
 const {MathText,Formula}=await loadDisplay('MathText');
 const {lessons:allLessons,exercises:allExercises}=process.env.MATHCANVAS_CONTENT_SNAPSHOT?JSON.parse(fs.readFileSync(process.env.MATHCANVAS_CONTENT_SNAPSHOT,'utf8')):globalThis.__mathcanvasDiagnosticTestContent;
-const lessons=allLessons.filter(l=>l.subject==='数学A');
+const selectedSlugs=process.env.MATHCANVAS_SLUGS?.split(',');
+const lessons=allLessons.filter(l=>l.subject===subject&&(!selectedSlugs||selectedSlugs.includes(l.slug)));
+assert.ok(lessons.length,'No lessons match the requested content audit');
 const slugs=new Set(lessons.map(l=>l.slug));
 const exercises=allExercises.filter(e=>slugs.has(e.lesson));
 const {chromium}=createRequire(process.env.MATHCANVAS_PLAYWRIGHT_PACKAGE??import.meta.url)('playwright');
@@ -54,7 +59,7 @@ for(const lesson of lessons){
  text(s.title,`${slug}.supplements.${s.id}.title`,'h3'),text(s.text,`${slug}.supplements.${s.id}.text`,'p',{className:'math-paragraph'}),tex(s.tex,`${slug}.supplements.${s.id}.tex`),
  h('div',{className:'repair-exercise'},text(s.check,`${slug}.supplements.${s.id}.check`),h('details',{open:true},h('summary',null,'答えと途中式を確かめる'),text(s.answer,`${slug}.supplements.${s.id}.answer`,'p',{className:'math-paragraph'}))),
  ...(s.additionalExamples??[]).map((e,i)=>h('details',{className:'supplement',open:true,key:i},text(e.title,`${slug}.supplements.${s.id}.additionalExamples.${i}.title`,'summary'),text(e.text,`${slug}.supplements.${s.id}.additionalExamples.${i}.text`,'p',{className:'math-paragraph'}),tex(e.tex,`${slug}.supplements.${s.id}.additionalExamples.${i}.tex`))))));
- const body=h('main',{id:'main'},h('section',{className:'hero focused-hero'},h('div',{className:'breadcrumb'},'数学A / '+lesson.chapter),text(lesson.title,slug+'.title','h1'),text(lesson.description,slug+'.description')),h('div',{className:'wrap focused-layout'},h('div',{className:'lesson-body'},basic,...examples,...questions,h('section',{className:'block'},...supplements))));
+ const body=h('main',{id:'main'},h('section',{className:'hero focused-hero'},h('div',{className:'breadcrumb'},subject+' / '+lesson.chapter),text(lesson.title,slug+'.title','h1'),text(lesson.description,slug+'.description')),h('div',{className:'wrap focused-layout'},h('div',{className:'lesson-body'},basic,...examples,...questions,h('section',{className:'block'},...supplements))));
  const html='<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+styles.map(s=>'<link rel="stylesheet" href="'+escape(s)+'">').join('')+'<title>表示検査 '+escape(lesson.title)+'</title></head><body>'+renderToStaticMarkup(body)+'</body></html>';
  pages.set(slug,html);fs.writeFileSync(out+'/html/'+slug+'.html',html);
 }
@@ -97,7 +102,8 @@ for(const width of auditWidths){
   if([320,1100].includes(width))for(const field of targetFields[lesson.slug]??[]){const locator=page.locator('[data-qa-field='+JSON.stringify(field)+']');await locator.scrollIntoViewIfNeeded();const file=out+'/screenshots/field-'+field+'-'+width+'.png';await locator.screenshot({path:file});fieldScreens.push({field,slug:lesson.slug,width,file});}
   if(index%20===0)console.log(JSON.stringify({width,finished:index+1,total:lessons.length,overflowPages:results.filter(r=>r.pageOverflow).length,mathErrors:results.reduce((n,r)=>n+r.mathErrors.length,0)}));
  }
- for(const slug of ['ma-combination','ma-probability-tree','ma-angle-bisector']){
+ fs.writeFileSync(out+'/fields-'+width+'.json',JSON.stringify(results.filter(r=>r.width===width)));
+ for(const slug of exampleSlugs.filter(slug=>slugs.has(slug))){
   failures=[];await page.goto(origin+'/learn/'+slug+suffix+'#examples',{waitUntil:'networkidle'});
   await page.waitForSelector('.task-pane[data-task-pane="example-0"]:not([hidden])',{timeout:20000});
   const summary=page.locator('.task-pane[data-task-pane="example-0"] summary').filter({hasText:'解説をまとめて読む'}).first();
@@ -109,7 +115,7 @@ for(const width of auditWidths){
  await context.close();
 }
 await browser.close();
-const report={scope:'数学A 全教材本文の共有 MathText/Formula + 実サイトCSS/fontによる静的描画。全問題の操作テストではない。',date:new Date().toISOString(),counts:{lessons:lessons.length,exercises:exercises.length,displayFields:snippets.length,viewports:auditWidths,renderedAuditPages:results.length},styles,cssHashes,sourceIssues:malformedSource,summary:{mathErrors:results.reduce((n,r)=>n+r.mathErrors.length,0),rawTextIssues:results.reduce((n,r)=>n+r.unprocessedText.length,0),pageOverflowPages:results.filter(r=>r.pageOverflow).map(r=>({slug:r.slug,width:r.width,pageWidth:r.pageWidth})),leakFields:results.flatMap(r=>r.leaks.map(l=>({slug:r.slug,viewport:r.width,...l}))),containedFormulaScrollCount:results.reduce((n,r)=>n+r.containedFormulaScrolls.length,0),verticalScrollers:results.flatMap(r=>r.verticalScrollers.map(f=>({slug:r.slug,width:r.width,...f}))),fieldOverflows:results.flatMap(r=>r.fieldOverflows.map(f=>({slug:r.slug,width:r.width,...f}))),fontFailures:results.filter(r=>r.fonts.used.some(f=>!r.fonts.loaded.includes(f))).map(r=>({slug:r.slug,width:r.width,fonts:r.fonts})),networkFailures:results.flatMap(r=>r.networkFailures)},results,actualScreens,fieldScreens,limitations:['例題と設問解説は実UIのまとめ読み details 入れ子・showNumbers=false、補足は linked-repair/repair-exercise 入れ子まで再現。本文の静的全件描画であり全問の解答操作・学習履歴・分岐・アニメーションを全件操作した検査ではない。','実ページの例題表示を3ページ×指定画面幅で保存。スクリーンショットの目視確認は別途実施。','DOM上の数式エラー・生TeX・字幅・横漏れを検査。全数式の全ピクセルを目視した検査ではない。']};
+const report={scope:subject+' 全教材本文の共有 MathText/Formula + 実サイトCSS/fontによる静的描画。全問題の操作テストではない。',date:new Date().toISOString(),counts:{lessons:lessons.length,exercises:exercises.length,displayFields:snippets.length,viewports:auditWidths,renderedAuditPages:results.length},styles,cssHashes,sourceIssues:malformedSource,summary:{mathErrors:results.reduce((n,r)=>n+r.mathErrors.length,0),rawTextIssues:results.reduce((n,r)=>n+r.unprocessedText.length,0),pageOverflowPages:results.filter(r=>r.pageOverflow).map(r=>({slug:r.slug,width:r.width,pageWidth:r.pageWidth})),leakFields:results.flatMap(r=>r.leaks.map(l=>({slug:r.slug,viewport:r.width,...l}))),containedFormulaScrollCount:results.reduce((n,r)=>n+r.containedFormulaScrolls.length,0),verticalScrollers:results.flatMap(r=>r.verticalScrollers.map(f=>({slug:r.slug,width:r.width,...f}))),fieldOverflows:results.flatMap(r=>r.fieldOverflows.map(f=>({slug:r.slug,width:r.width,...f}))),fontFailures:results.filter(r=>r.fonts.used.some(f=>!r.fonts.loaded.includes(f))).map(r=>({slug:r.slug,width:r.width,fonts:r.fonts})),networkFailures:results.flatMap(r=>r.networkFailures)},results,actualScreens,fieldScreens,limitations:['例題と設問解説は実UIのまとめ読み details 入れ子・showNumbers=false、補足は linked-repair/repair-exercise 入れ子まで再現。本文の静的全件描画であり全問の解答操作・学習履歴・分岐・アニメーションを全件操作した検査ではない。','実ページの例題表示を3ページ×指定画面幅で保存。スクリーンショットの目視確認は別途実施。','DOM上の数式エラー・生TeX・字幅・横漏れを検査。全数式の全ピクセルを目視した検査ではない。']};
 fs.writeFileSync(out+'/results.json',JSON.stringify(report,null,2));
 console.log(JSON.stringify({report:out+'/results.json',...report.counts,mathErrors:report.summary.mathErrors,rawTextIssues:report.summary.rawTextIssues,pageOverflowPages:report.summary.pageOverflowPages,leakFields:report.summary.leakFields.length,fieldOverflows:report.summary.fieldOverflows.length,containedFormulaScrollCount:report.summary.containedFormulaScrollCount,verticalScrollers:report.summary.verticalScrollers.length,fontFailures:report.summary.fontFailures.length,networkFailures:report.summary.networkFailures.length},null,2));
 

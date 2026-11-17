@@ -7,6 +7,11 @@ export const mathBBanks=[...sequenceBanks,...recurrenceBanks,...distributionBank
 const all=[sequenceChapter,recurrenceChapter,distributionChapter,inferenceChapter,societyChapter];
 export const mathBLessons=all.flatMap(c=>c.lessons);
 export const mathBExercises=all.flatMap(c=>c.exercises);
+// Some chapters refine or copy exercises after authoring. Check the final walkthrough
+// before suppressing the separate answer so its conclusion is always available.
+for(const question of mathBExercises){
+ if(question.steps.at(-1)?.text===question.answer)question.answerInSteps=true;
+}
 const prerequisites:Record<string,{slug:string;label:string}[]>={
  "mb-partial-fractions":[{slug:"rational",label:"分数式の約分"}],
  "mb-telescoping":[{slug:"mb-partial-fractions",label:"部分分数分解"}],

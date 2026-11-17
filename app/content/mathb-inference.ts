@@ -13,12 +13,12 @@ const sampling=words([
  ["無作為に選んだ生徒のうち、半数が未回答でした。抽出が無作為なら偏りはありませんか。","いいえ。未回答と調査内容が関係する可能性があります。回答者と未回答者の違いを確認します。","抽出後にも偏りが生じ得ます。"],
  ["学年別に人数に比例して無作為抽出しました。全校を調べる方法として考えられますか。","はい。学年を層とする層化抽出です。各層で無作為に選び、人数比を保って集計します。","層ごとの選び方と集計の重みを確かめます。"]
 ]);
-const population=nums.map(n=>q(m`ある学校の全生徒 $${n*100}$ 人の睡眠時間を知るため、無作為に選んだ $${n*10}$ 人に尋ねました。母集団と標本を答えなさい。`,m`母集団は全生徒 $${n*100}$ 人、標本は選ばれた $${n*10}$ 人。`,"知りたい対象全体と、実際に調べた一部を分けます。",m`推測したい対象が母集団です。調査した人数 $${n*10}$ を母集団の大きさと取り違えません。`));
+const population=nums.map(n=>q(m`ある学校の全生徒 $${n*100}$ 人の睡眠時間を知るため、無作為に選んだ $${n*10}$ 人に尋ねました。母集団と標本を答えなさい。`,m`母集団は全生徒 $${n*100}$ 人、標本は選ばれた $${n*10}$ 人。`,"知りたい対象全体と、実際に調べた一部を分けます。",m`睡眠時間を知りたいのは全校生徒。そこから抽出した $${n*10}$ 人が標本です。`));
 const meanDist=(n:number,variance=false)=>{
  const count=n*n,v=variance?36/count:6/n;
  return checked(variance?"sample-var":"sample-sd",[count,36],v,m`母平均 $50$、母分散 $36$ の母集団から、独立に同じ分布に従う標本を $${count}$ 個取ります。標本平均の${variance?"期待値と分散":"標準偏差（標準誤差）"}を求めなさい。`,
  variance?m`期待値 $50$、分散 $\frac{36}{${count}}$。`:m`$\frac6{${n}}$。`,
- "個々の値の散らばりと、平均の散らばりを区別します。",
+ variance?"独立な和では分散を足し、平均にするときは標本数の二乗で割ります。":"平均の分散を求め、その平方根を取ります。",
  m`$\overline X=\frac{X_1+\cdots+X_{${count}}}{${count}}$。独立なので $V(\overline X)=\frac{${count}\times36}{${count}^2}=\frac{36}{${count}}$。`+(variance?m`$E(\overline X)=50$。`:m`標準誤差は $\sqrt{\frac{36}{${count}}}=\frac6{${n}}$。`));
 };
 const normalApprox=(n:number,correction=false)=>{
@@ -26,31 +26,40 @@ const normalApprox=(n:number,correction=false)=>{
  if(correction)return q(m`$X\sim B(${trials},\frac12)$ の $P(X\ge${mu+sd})$ を正規近似します。連続補正後の正規変数の境界と標準化した境界を書きなさい。`,
  m`境界は $${mu+sd} -\frac12$、標準化すると $1-\frac1{${2*sd}}$。`,
  "整数一個分を幅一の区間に対応させ、下端を半分下げます。",
- m`$Y\sim N(${mu},${trials/4})$ として $P(X\ge${mu+sd})\approx P(Y\ge${mu+sd}-\frac12)$。$Z=\frac{Y-${mu}}{${sd}}$ より下端は $1-\frac1{${2*sd}}$。近似であり等式ではありません。`);
- return checked("normal-approx",[trials],.1587,m`$X\sim B(${trials},\frac12)$ です。連続補正をしない正規近似で $P(X\ge${mu+sd})$ を求めなさい。$P(0\le Z\le1)\approx0.3413$ を使います。`,m`約 $0.1587$。`,"二項分布の平均と分散から、近似する正規分布を決めます。",m`$np=${mu},n(1-p)=${mu}$ は十分大きい値です。平均 $${mu}$、標準偏差 $${sd}$。${n===nums[0]?m`境界を標準化すると $Z=\frac{${mu+sd}-${mu}}{${sd}}=1$。`:m`標準化した境界は $Z=1$。`}$\frac12-0.3413=0.1587$。`);
+ m`$Y\sim N(${mu},${trials/4})$ として $P(X\ge${mu+sd})\approx P(Y\ge${mu+sd}-\frac12)$。$Z=\frac{Y-${mu}}{${sd}}$ より下端は $1-\frac1{${2*sd}}$。`);
+ return checked("normal-approx",[trials],.1587,m`$X\sim B(${trials},\frac12)$ です。連続補正をしない正規近似で $P(X\ge${mu+sd})$ を求めなさい。$P(0\le Z\le1)\approx0.3413$ を使います。`,m`約 $0.1587$。`,"二項分布の平均と分散から、近似する正規分布を決めます。",m`$np=${mu},n(1-p)=${mu}$ は十分大きい値です。平均 $${mu}$、標準偏差 $${sd}$。境界は平均より標準偏差一個分上です。$\frac12-0.3413=0.1587$。`);
 };
-const meanCI=(n:number,unknown=false)=>{
- const mean=40+n,sd=unknown?8:10,margin=1.96*sd/10;
- return checked(unknown?"ci-unknown":"ci-known",[mean,sd,100],margin,m`${unknown?"有限な分散をもち、大標本の正規近似が妥当とする母集団":"正規母集団"}から独立に $100$ 個を無作為抽出しました。標本平均は $${mean}$、${unknown?"標本から求めた標準偏差":"既知の母標準偏差"}は $${sd}$ です。母平均の${unknown?"近似的な":""} $95\%$ 信頼区間を求めなさい。$1.96$ を使います。`,
- m`約 $[${decimal(mean-margin)},${decimal(mean+margin)}]$。`,
- "平均の標準誤差を使います。観測値そのものの標準偏差ではありません。",
- m`標準誤差${unknown?"の推定値":""}は $\frac{${sd}}{\sqrt{100}}=${sd/10}$。幅の片側は $1.96\times${sd/10}=${decimal(margin)}$。${n===nums[0]?m`両端は $${mean}-${decimal(margin)}=${decimal(mean-margin)}$、$${mean}+${decimal(margin)}=${decimal(mean+margin)}$ です。`:"標本平均からこれを引き、足します。"}`+(unknown?"母標準偏差を標本の値で置き換えた大標本近似です。小標本でそのまま使える公式ではありません。":"正規母集団で母標準偏差既知の方法です。"));
-};
+function meanCI(n: number, unknown = false): Q {
+ const mean = 40+n, sd = unknown ? 8 : 10, se = sd/10, margin = 1.96*se;
+ const sample = unknown ? '有限な分散をもち、大標本の正規近似が妥当な母集団' : '正規母集団';
+ const deviation = unknown ? '標本から求めた標準偏差' : '既知の母標準偏差';
+ const prompt = m`${sample}から独立に $100$ 個を無作為抽出しました。標本平均は $${mean}$、${deviation}は $${sd}$ です。母平均の${unknown?'近似的な':''} $95\%$ 信頼区間を求めなさい。$1.96$ を使います。`;
+ const answer = m`約 $[${decimal(mean-margin)},${decimal(mean+margin)}]$。`;
+ const error = m`平均の標準誤差${unknown?'の推定値':''}は $\frac{${sd}}{\sqrt{100}}=${se}$。`;
+ const width = m`標本平均 $${mean}$ から左右に $1.96\times${se}=${decimal(margin)}$ ずつ取ります。`;
+ const hint = unknown ? '母標準偏差の代わりに標本の標準偏差を使います。' : '既知の母標準偏差を、標本数の平方根で割ります。';
+ const working = `${error}${width}${answer}`;
+ return {...checked(unknown?'ci-unknown':'ci-known',[mean,sd,100],margin,prompt,answer,hint,working),
+  steps: [{title:'平均のばらつき',text:error}, {title:'区間の両端',text:`${width}${answer}`}], answerInSteps:true};
+}
 const propCI=(n:number,width=false)=>{
  const p=n/10,success=40*n,failure=400-success,margin=1.96*Math.sqrt(p*(1-p)/400);
  if(width)return checked("sample-size-width",[n*n*100],.5,m`この正規近似による区間で、近似条件を満たすとします。同じ信頼係数、同じ標本比率で、標本数を $${n*n*100}$ から $${n*n*400}$ にすると、母比率の信頼区間の幅は何倍ですか。`,m`$\frac12$ 倍。`,"幅は標本数の平方根に反比例します。",m`標本数が $4$ 倍なので、標準誤差は $\frac1{\sqrt4}=\frac12$ 倍です。信頼区間の幅も同じ倍率です。`);
- return checked("ci-proportion",[p,400],margin,m`独立な無作為標本 $400$ 人のうち $${success}$ 人が賛成しました。母比率の近似的な $95\%$ 信頼区間を、小数第 $3$ 位まで求めなさい。$1.96$ を使います。`,
- m`$\widehat p=${p}$、約 $[${(p-margin).toFixed(3)},${(p+margin).toFixed(3)}]$。`,
- "人数を標本数で割り、割合の標準誤差を求めます。",
- m`$\widehat p=\dfrac{${success}}{400}=${p}$。成功・失敗がそれぞれ $${success},${failure}$ 件あり、正規近似を用います。標準誤差の推定値は $\sqrt{\dfrac{${p}(1-${p})}{400}}\approx${Math.sqrt(p*(1-p)/400).toFixed(5)}$。片側の幅は $1.96\sqrt{\dfrac{${p}(1-${p})}{400}}\approx${margin.toFixed(5)}$ なので、区間は約 $[${(p-margin).toFixed(3)},${(p+margin).toFixed(3)}]$ です。途中では丸めず、最後に小数第 $3$ 位まで丸めます。`);
+ const estimate = m`$\widehat p=\frac{${success}}{400}=${p}$。成功 $${success}$ 件、失敗 $${failure}$ 件と、どちらも十分多いので正規近似を使います。`;
+ const se = m`$\widehat{\mathrm{SE}}=\sqrt{\frac{${p}(1-${p})}{400}}\approx${Math.sqrt(p*(1-p)/400).toFixed(5)}$。`;
+ const answer = m`約 $[${(p-margin).toFixed(3)},${(p+margin).toFixed(3)}]$。`;
+ const interval = m`標本比率 $${p}$ の左右に、標準誤差の推定値の $1.96$ 倍を取ります。${answer}`;
+ const prompt = m`独立な無作為標本 $400$ 人のうち $${success}$ 人が賛成しました。母比率の近似的な $95\%$ 信頼区間を、小数第 $3$ 位まで求めなさい。$1.96$ を使います。`;
+ return {...checked('ci-proportion',[p,400],margin,prompt,answer,'賛成の割合から、標準誤差を見積もります。',estimate+se+interval),
+  steps:[{title:'標本比率',text:estimate},{title:'比率の標準誤差',text:se},{title:'区間の両端',text:interval}],answerInSteps:true};
 };
 const zs=[2.4,.8,-1.2,-2.4,1.5,2,-.5,-2];
 export function testMean(i:number,side:0|1|-1=0){
  const z=zs[i],value=100+z,reject=side===0?Math.abs(z)>1.96:side===1?z>1.645:z< -1.645;
  return checked("hypothesis",[z,side],+reject,m`正規母集団で既知の母標準偏差は $10$。独立な無作為標本 $100$ 個の平均が $${value}$ でした。$H_0:\mu=100$ に対し $H_1:\mu${side===0?"\\ne":side===1?">":"<"}100$ を有意水準 $5\%$ で検定しなさい。${side===0?m`両側の境界は $\pm1.96$。`:m`片側の境界は $${side===1?"":"-"}1.645$。`}`,
  reject?"帰無仮説を棄却します。指定した対立仮説を支持する統計的な証拠があります。":"帰無仮説を棄却しません。指定した対立仮説を支持する証拠は十分ではありません。",
- "帰無仮説の平均を引いて標準誤差で割り、指定された側の棄却域と比べます。",
- m`$z=\frac{${value}-100}{\frac{10}{\sqrt{100}}}=${z}$。${side===0?m`$|z|=${Math.abs(z)}$ を $1.96$ と比べます。`:side===1?m`上側なので $z>1.645$ か調べます。`:m`下側なので $z<-1.645$ か調べます。`}`+(reject?"棄却域に入ります。":"棄却域に入りません。")+"検定の方向はデータを見る前に目的に合わせて決めます。");
+ "観測した平均は、仮説の平均から標準誤差何個分ずれていますか。",
+ m`$z=\frac{${value}-100}{\frac{10}{\sqrt{100}}}=${z}$。${side===0?m`$|z|=${Math.abs(z)}$ を $1.96$ と比べます。`:side===1?m`上側なので $z>1.645$ か調べます。`:m`下側なので $z<-1.645$ か調べます。`}`+(reject?"棄却域に入ります。":"棄却域に入りません。"));
 }
 const propTest=(n:number)=>{
  const count=400,success=200+(n-5)*10,z=(success/count-.5)/.025,reject=Math.abs(z)>1.96;
