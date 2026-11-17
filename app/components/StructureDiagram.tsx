@@ -1,3 +1,6 @@
+import MathBSequenceStructure from "./MathBSequenceStructure";
+import MathBStatisticsStructure from "./MathBStatisticsStructure";
+import MathBSocietyStructure from "./MathBSocietyStructure";
 import MathACountingStructure from "./MathACountingStructure";
 import MathAProbabilityStructure from "./MathAProbabilityStructure";
 import MathAGeometryStructure from "./MathAGeometryStructure";
@@ -17,6 +20,9 @@ import Math2CalculusDiagram from "./Math2CalculusDiagram";
 
 export default function StructureDiagram(props:{kind:string;stage:number;reduce:boolean}){
  const {kind}=props;
+ if(kind.startsWith("mb-sequence-"))return <MathBSequenceStructure {...props}/>;
+ if(kind.startsWith("mb-statistics-"))return <MathBStatisticsStructure {...props}/>;
+ if(kind.startsWith("mb-society-"))return <MathBSocietyStructure {...props}/>;
  if(kind.startsWith("ma-counting-"))return <MathACountingStructure {...props}/>;
  if(kind.startsWith("ma-probability-"))return <MathAProbabilityStructure {...props}/>;
  if(kind.startsWith("ma-geometry-"))return <MathAGeometryStructure {...props}/>;

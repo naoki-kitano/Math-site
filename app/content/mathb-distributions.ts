@@ -7,7 +7,7 @@ const chapter="確率分布",sec=["値と確率","平均と散らばり","代表
 const dist=(a:number)=>m`確率変数 $X$ は $0,${a},${2*a}$ の値を取り、その確率は順に $\frac14,\frac12,\frac14$ です。`;
 const rv=(n:number,cumulative=false)=>{
  const v=cumulative?3/4:1/4;
- return checked(cumulative?"dist-cumulative":"dist-point",[n],v,dist(n)+(cumulative?m`$P(X\le ${n})$ を求めなさい。`:m`$P(X=${2*n})$ を求めなさい。`),m`$${f(cumulative?3:1,4)}$。`,cumulative?"条件を満たす値を先に選び、それらの確率を足します。":"求めたい値に対応する確率を読みます。",cumulative?m`条件を満たす値は $0,${n}$。互いに同時には取らないので $\frac14+\frac12=\frac34$。`:m`値 $${2*n}$ と対応する確率は $\frac14$。値そのものを確率と取り違えません。`);
+ return checked(cumulative?"dist-cumulative":"dist-point",[n],v,dist(n)+(cumulative?m`$P(X\le ${n})$ を求めなさい。`:m`$P(X=${2*n})$ を求めなさい。`),m`$${f(cumulative?3:1,4)}$。`,cumulative?"条件を満たす値を先に選び、それらの確率を足します。":"求めたい値に対応する確率を読みます。",cumulative?m`条件を満たす値は $0,${n}$。互いに同時には取らないので $\frac14+\frac12=\frac34$。`:m`値 $${2*n}$ と対応する確率は $\frac14$。`);
 };
 const expected=(n:number,square=false)=>{
  const v=square?1.5*n*n:n;
@@ -15,23 +15,23 @@ const expected=(n:number,square=false)=>{
 };
 const variance=(n:number,sd=false)=>{
  const v=sd?n/Math.sqrt(2):n*n/2;
- return checked(sd?"sd":"variance",[n],v,dist(n)+(sd?"標準偏差を求めなさい。":"分散を求めなさい。"),sd?m`$\frac{${n}\sqrt2}{2}$。`:m`$${f(n*n,2)}$。`,"まず期待値と二乗の期待値を求めます。標準偏差なら最後に非負の平方根を取ります。",m`$E(X)=${n},E(X^2)=${f(3*n*n,2)}$。$V(X)=E(X^2)-\{E(X)\}^2=${f(3*n*n,2)}-${n}^2=${f(n*n,2)}$。`+(sd?m`標準偏差は $\sqrt{${f(n*n,2)}}=\frac{${n}\sqrt2}{2}$。`:""));
+ return checked(sd?"sd":"variance",[n],v,dist(n)+(sd?"標準偏差を求めなさい。":"分散を求めなさい。"),sd?m`$\frac{${n}\sqrt2}{2}$。`:m`$${f(n*n,2)}$。`,sd?"分散の非負の平方根が、元の単位で測った散らばりです。":"二乗の期待値から、期待値の二乗を引きます。",m`$E(X)=${n},E(X^2)=${f(3*n*n,2)}$。$V(X)=E(X^2)-\{E(X)\}^2=${f(3*n*n,2)}-${n}^2=${f(n*n,2)}$。`+(sd?m`標準偏差は $\sqrt{${f(n*n,2)}}=\frac{${n}\sqrt2}{2}$。`:""));
 };
 const transform=(n:number,spread=false)=>{
  const a=n%2?-2:3,b=n,v=spread?a*a*4:a*5+b;
  return checked(spread?"transform-var":"transform-mean",[a,b,5,4],v,m`$E(X)=5,V(X)=4$。$Y=${a}X+${b}$ の${spread?"分散と標準偏差":"期待値"}を求めなさい。`,
  spread?m`分散 $${v}$、標準偏差 $${Math.abs(a)*2}$。`:m`$${v}$。`,
  spread?"平行移動では散らばりは変わりません。倍率を二乗して分散に掛けます。":"期待値にも同じ一次変換をします。",
- spread?m`$Y-E(Y)=${a}\{X-E(X)\}$ より、二乗して平均すると $V(Y)=(${a})^2V(X)=${v}$。標準偏差は $|${a}|\times2=${Math.abs(a)*2}$。`:m`$E(Y)=${a}E(X)+${b}=${a}\times5+${b}=${v}$。期待値の線形性に独立性は不要です。`);
+ spread?m`$Y-E(Y)=${a}\{X-E(X)\}$ より、二乗して平均すると $V(Y)=(${a})^2V(X)=${v}$。標準偏差は $|${a}|\times2=${Math.abs(a)*2}$。`:m`$E(Y)=${a}E(X)+${b}=${a}\times5+${b}=${v}$。`);
 };
 const independent=(n:number,difference=false)=>{
  const v=n+4;
  return checked("independent-var",[n,4],v,m`$X,Y$ は独立で、$E(X)=${n},E(Y)=2,V(X)=${n},V(Y)=4$ です。$X${difference?"-":"+"}Y$ の期待値と分散を求めなさい。`,m`期待値 $${difference?n-2:n+2}$、分散 $${v}$。`,
- "平均は加減します。独立な変数の差でも、分散は足します。",
- m`$E(X${difference?"-":"+"}Y)=${n}${difference?"-":"+"}2=${difference?n-2:n+2}$。独立なので共分散は$0$、$V(X${difference?"-":"+"}Y)=V(X)+V(Y)=${n}+4=${v}$。分散を引いてはいけません。`);
+ difference?"差を取るのは平均です。符号を反転しても分散は変わりません。":"独立なら二つのずれの積の期待値は0です。",
+ m`$E(X${difference?"-":"+"}Y)=${n}${difference?"-":"+"}2=${difference?n-2:n+2}$。独立なので共分散は $0$。$V(X${difference?"-":"+"}Y)=V(X)+V(Y)=${n}+4=${v}$。`);
 };
 const dependent=(n:number)=>{
- return q(m`$V(X)=${n},Y=X$ とします。$V(X+Y)=V(X)+V(Y)$ としてよいですか。実際の分散も求めなさい。`,m`できません。$V(X+Y)=4V(X)=${4*n}$。`,"二つの変数が別の文字でも、独立とは限りません。",m`$X+Y=2X$ なので $V(X+Y)=4V(X)=${4*n}$。単純に足すと $${2*n}$ になり一致しません。$V(X)>0$ で同じ変数を見ているため、独立ではありません。`);
+ return q(m`$V(X)=${n},Y=X$ とします。$V(X+Y)=V(X)+V(Y)$ としてよいですか。実際の分散も求めなさい。`,m`できません。$V(X+Y)=4V(X)=${4*n}$。`,"同じ値を二度足すと、平均との差も二倍になります。",m`$X+Y=2X$ なので $V(X+Y)=4V(X)=${4*n}$。単純に足すと $${2*n}$ になり一致しません。$V(X)>0$ で同じ変数を見ているため、独立ではありません。`);
 };
 const binomial=(n:number,tail=false)=>{
  const k=2,p=1/2,v=tail?1-(1-p)**n:comb(n,k)*p**n;
@@ -41,17 +41,17 @@ const binomial=(n:number,tail=false)=>{
 };
 const binomialMoment=(n:number)=>{
  const trials=n*4;
- return checked("binomial-moments",[trials,1/4],3*n/4,m`$X$ は二項分布 $B(${trials},\frac14)$ に従います。期待値と分散を求めなさい。`,m`$E(X)=${n},V(X)=${f(3*n,4)}$。`,"回数は、各試行の成功なら一・失敗なら$0$の和です。",m`各試行の指標の平均は $\frac14$、分散は $\frac14(1-\frac14)$。独立な $${trials}$ 個を足すので $E(X)=${trials}\times\frac14=${n}$、$V(X)=${trials}\times\frac14\times\frac34=${f(3*n,4)}$。`);
+ return checked("binomial-moments",[trials,1/4],3*n/4,m`$X$ は二項分布 $B(${trials},\frac14)$ に従います。期待値と分散を求めなさい。`,m`$E(X)=${n},V(X)=${f(3*n,4)}$。`,"成功を $1$、失敗を $0$ と書くと、その和が成功回数です。",m`各試行の指標の平均は $\frac14$、分散は $\frac14(1-\frac14)$。独立な $${trials}$ 個を足すので $E(X)=${trials}\times\frac14=${n}$、$V(X)=${trials}\times\frac14\times\frac34=${f(3*n,4)}$。`);
 };
 const uniform=(n:number,point=false)=>{
  const v=point?0:1/n;
  return checked(point?"continuous-point":"uniform",[n],v,m`$X$ の確率密度は区間 $0\le x\le ${n}$ で高さ $\frac1{${n}}$、その外で$0$です。${point?m`$P(X=1)$`:m`$P(0\le X\le1)$`}を求めなさい。`,m`$${point?"0":f(1,n)}$。`,
  "連続分布の確率は高さではなく、区間の上の面積です。",
- point?m`一点の幅は$0$なので面積も$0$です。密度の高さ $\frac1{${n}}$ が一点の確率ではありません。`:m`$P(0\le X\le1)=1\times\frac1{${n}}=${f(1,n)}$。全区間の面積は $${n}\times\frac1{${n}}=1$。`);
+ point?m`一点の幅は$0$なので面積も$0$です。`:m`$P(0\le X\le1)=1\times\frac1{${n}}=${f(1,n)}$。全区間の面積は $${n}\times\frac1{${n}}=1$。`);
 };
 export function normalQuestion(n:number,tail=false):Q{
  const mu=50+n,sigma=4,z=[0.5,1,1.5,2][n%4],a=normalArea[String(z)],v=tail?.5-a:2*a;
- return checked(tail?"normal-tail":"normal-middle",[mu,sigma,z],v,m`$X$ は正規分布 $N(${mu},16)$ に従います。${tail?m`$P(X\ge${mu+sigma*z})$`:m`$P(${mu-sigma*z}\le X\le${mu+sigma*z})$`}を求めなさい。標準正規変数 $Z$ について $P(0\le Z\le${z})\approx${a}$ を使ってください。`,m`約 $${decimal(v)}$。`,"括弧の二番目は分散です。標準偏差で割って標準化します。",m`標準偏差は $4$。$Z=\frac{X-${mu}}4$ とします。`+(n===nums[0]?(tail?m`境界は $\frac{${mu+sigma*z}-${mu}}4=${z}$。`:m`両端は $\frac{${mu-sigma*z}-${mu}}4=-${z}$、$\frac{${mu+sigma*z}-${mu}}4=${z}$ です。`):"")+(tail?m`$P(Z\ge${z})=\frac12-P(0\le Z\le${z})\approx${decimal(v)}$。`:m`$P(-${z}\le Z\le${z})=2P(0\le Z\le${z})\approx${decimal(v)}$。左右対称を使いました。`));
+ return checked(tail?"normal-tail":"normal-middle",[mu,sigma,z],v,m`$X$ は正規分布 $N(${mu},16)$ に従います。${tail?m`$P(X\ge${mu+sigma*z})$`:m`$P(${mu-sigma*z}\le X\le${mu+sigma*z})$`}を求めなさい。標準正規変数 $Z$ について $P(0\le Z\le${z})\approx${a}$ を使ってください。`,m`約 $${decimal(v)}$。`,"括弧の二番目は分散です。標準偏差で割って標準化します。",m`標準偏差は $4$。`+(tail?m`右側の区間の下端は $\frac{${mu+sigma*z}-${mu}}4=${z}$。`:m`両端は $\frac{${mu-sigma*z}-${mu}}4=-${z}$ と $\frac{${mu+sigma*z}-${mu}}4=${z}$。`)+(tail?m`$P(Z\ge${z})=\frac12-P(0\le Z\le${z})\approx${decimal(v)}$。`:m`$P(-${z}\le Z\le${z})=2P(0\le Z\le${z})\approx${decimal(v)}$。左右の面積が等しいためです。`));
 }
 function normalBetween(n:number){
  const mu=50+n,lo=n%2?-1.5:.5,hi=n%2?-.5:1.5;

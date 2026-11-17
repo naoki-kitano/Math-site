@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import {useLayoutEffect,useRef,useState} from "react";
 import {Formula,MathText} from "./MathText";
 import {formulaCorrespondence} from "../content/formula-correspondence";
 
@@ -28,11 +28,27 @@ function MovingBase({stage,reduce}:{stage:number;reduce:boolean}){
 
 export default function FormulaCorrespondence({slug,onCompletionChange,onProgressChange,onContinue,onBack}:{slug:string;onCompletionChange?:(complete:boolean)=>void;onProgressChange?:(progress:number)=>void;onContinue?:()=>void;onBack?:()=>void}){
  const [stage,setStage]=useState(0),[reduce,setReduce]=useState(false);
+ const panel=useRef<HTMLElement>(null);
+ useLayoutEffect(()=>{
+  if(!slug.startsWith("mb-"))return;
+  const frame=requestAnimationFrame(()=>{
+   const root=panel.current;
+   if(!root?.getClientRects().length)return;
+   const readout=root.querySelector(".formula-correspondence-readout");
+   const controls=root.querySelector(".learning-step-controls");
+   if(!readout||!controls)return;
+   const overlap=readout.getBoundingClientRect().bottom+8-controls.getBoundingClientRect().top;
+   const topbar=document.querySelector(".topbar")?.getBoundingClientRect().bottom??0;
+   const available=root.getBoundingClientRect().top-topbar-8;
+   if(overlap>0&&available>0)window.scrollBy({top:Math.min(overlap,available),behavior:"instant"});
+  });
+  return ()=>cancelAnimationFrame(frame);
+ },[slug,stage]);
  const data=formulaCorrespondence[slug];
  if(!data)return null;
  const current=data.steps[stage];
  const go=(next:number)=>{setStage(next);onCompletionChange?.(next===data.steps.length-1);onProgressChange?.(next/Math.max(1,data.steps.length-1));};
- return <section className="panel formula-correspondence" data-formula-lesson={slug} data-stage={stage}>
+ return <section ref={panel} className="panel formula-correspondence" data-formula-lesson={slug} data-stage={stage}>
   <h3>{data.title}</h3>
   <div className="formula-correspondence-readout" aria-live="polite" aria-atomic="true">
    <p><MathText text={current.text}/></p>

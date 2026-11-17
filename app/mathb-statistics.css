@@ -1,0 +1,8 @@
+.mb-stat-plot { width: min(100%, 25rem); margin: .35rem auto; }
+.mb-stat-plot svg { display: block; width: 100%; height: auto; }
+.mb-stat-label { color: #193d55; text-align: center; font-size: 17px; line-height: 1.55; white-space: nowrap; }
+.mb-stat-slide { transition: transform 750ms ease-in-out, opacity 750ms ease-in-out; }
+.mb-stat-unfold { animation: mb-stat-unfold 750ms ease-in-out both; }
+@keyframes mb-stat-unfold { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.mb-stat-plot[data-reduce="true"] * { animation: none; transition: none; }
+@media (prefers-reduced-motion: reduce) { .mb-stat-plot * { animation: none; transition: none; } }

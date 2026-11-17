@@ -3,18 +3,18 @@ import {mkdir} from 'node:fs/promises';
 import {readdirSync,readFileSync} from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-const require=createRequire('C:/Users/naoch/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
+const require=createRequire(process.env.MATHCANVAS_PLAYWRIGHT_PACKAGE??'C:/Users/naoch/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
 const {chromium}=require('playwright');
 const base=process.env.MATHCANVAS_CHECK_URL??'http://localhost:3000';
 const staticMode=process.env.MATHCANVAS_STATIC==='1';
-const browser=await chromium.launch({channel:'msedge',headless:true});
+const browser=await chromium.launch({...(process.env.MATHCANVAS_CHROMIUM?{executablePath:process.env.MATHCANVAS_CHROMIUM,args:['--no-sandbox','--disable-dev-shm-usage']}:{channel:'msedge'}),headless:true});
 try{
  await mkdir('outputs/math-rendering',{recursive:true});
  const page=await browser.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  for(const width of [1100,390]){
   await page.setViewportSize({width,height:900});
-  for(const route of ['/math-one','/math-two','/math-three','/learn/m1-data-variance','/learn/m1-variance-calculation','/learn/m1-data-transformation']){
+  for(const route of ['/math-one','/math-two','/math-three','/math-a','/math-b','/math-c','/junior','/learn/m1-data-variance','/learn/m1-variance-calculation','/learn/m1-data-transformation']){
    const response=await page.goto(base+route+(staticMode?'.html':''),{waitUntil:'networkidle'});
    assert.equal(response.status(),200,route);
    await page.evaluate(()=>document.fonts.ready);

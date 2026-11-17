@@ -1,0 +1,13 @@
+.mb-model-scene { max-width: 350px; margin: 0 auto; width: 100%; }
+.mb-model-picture { display: block; width: 100%; }
+.mb-model-label { color: #213950; font-size: 17px; line-height: 26px; text-align: center; white-space: nowrap; }
+.mb-model-key { margin: 4px 0; text-align: center; font-size: 15px; }
+.mb-model-move { transition: transform 720ms ease-in-out, opacity 400ms ease; }
+.mb-model-draw { animation: mb-model-draw 750ms ease-in-out both; }
+@keyframes mb-model-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.mb-model-scene[data-reduce="true"] .mb-model-move { transition: none; }
+.mb-model-scene[data-reduce="true"] .mb-model-draw { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .mb-model-move { transition: none; }
+  .mb-model-draw { animation: none; }
+}

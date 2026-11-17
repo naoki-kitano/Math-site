@@ -7,7 +7,7 @@ export type LessonStart = { goal: string; steps: string[]; check: string };
 export const lessonStarts: Record<string, LessonStart> = {
   ...relationStarts,
   ...Object.fromEntries(Object.entries(formulaCorrespondence).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
-  ...Object.fromEntries(Object.entries(visualLessons).filter(([slug])=>!slug.startsWith("ma-")||!formulaCorrespondence[slug]).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
+  ...Object.fromEntries(Object.entries(visualLessons).filter(([slug])=>!/^m[ab]-/.test(slug)||!formulaCorrespondence[slug]).map(([slug,lesson])=>[slug,{goal:lesson.goal,steps:[],check:lesson.check}])),
   "jr-linear-equation": {
     goal: "まず、文字のない項を消します。移項の符号を覚える前に、両辺へ同じ操作をしてみよう。",
     steps: [],
@@ -32,11 +32,6 @@ export const lessonStarts: Record<string, LessonStart> = {
     goal: "まず、二点を結ぶ直線の傾きを求めます。一方の点を近づけると、傾きはどう変わるでしょう。",
     steps: [],
     check: "最初から$0$で割ることはできません。微分係数は、平均変化率の極限が有限の値として存在するときに定義します。",
-  },
-  "mb-arithmetic-sum": {
-    goal: "まず、和をもう一度、逆順に書きます。上下の対応する項を足すと何がそろうでしょう。",
-    steps: [],
-    check: "項数は5、末項は11です。項の値と、項の個数を区別します。",
   },
   "mc-vector-sum": {
     goal: "まず、二つ目の矢印を一つ目の先につなぎます。向きと長さは変えずに動かそう。",

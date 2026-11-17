@@ -3,11 +3,11 @@
 .focused-layout .math-a-figure>svg{width:100%;max-width:340px;height:auto}
 .focused-layout .math-a-figure figcaption{margin-top:8px;line-height:1.65}
 .focused-layout .math-a-figure p:last-child{margin-bottom:0}
-.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-readout,
-.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-lines{min-height:0}
-.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-lines{padding:4px 8px}
-.formula-correspondence[data-formula-lesson^="ma-"] .formula-correspondence-lines .katex-display{margin:4px 0}
-.formula-correspondence[data-formula-lesson^="ma-"] .start-check{margin:12px 0 0;padding:8px 10px}
+.formula-correspondence:is([data-formula-lesson^="ma-"],[data-formula-lesson^="mb-"]) .formula-correspondence-readout,
+.formula-correspondence:is([data-formula-lesson^="ma-"],[data-formula-lesson^="mb-"]) .formula-correspondence-lines{min-height:0}
+.formula-correspondence:is([data-formula-lesson^="ma-"],[data-formula-lesson^="mb-"]) .formula-correspondence-lines{padding:4px 8px}
+.formula-correspondence:is([data-formula-lesson^="ma-"],[data-formula-lesson^="mb-"]) .formula-correspondence-lines .katex-display{margin:4px 0}
+.formula-correspondence:is([data-formula-lesson^="ma-"],[data-formula-lesson^="mb-"]) .start-check{margin:12px 0 0;padding:8px 10px}
 @media(max-width:600px){
  .focused-layout .math-a-space-figure>svg{max-width:260px}
 }

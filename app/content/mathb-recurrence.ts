@@ -1,44 +1,77 @@
 import {B,S,m,q,nums,checked,finish} from "./mathb-authoring";
+import {worked} from "./mathb-worked";
 const chapter="漸化式と数学的帰納法",sec=["隣の項から次の項へ","和と項の関係","すべての自然数への証明"];
-const update=(a:number,multiply=false)=>{
- const r=multiply?2:1,d=multiply?1:3,values=[a];
- for(let i=0;i<3;i++)values.push(r*values.at(-1)!+d);
- return checked("recurrence-values",[a,r,d],values[3],m`$a_1=${a},\ a_{n+1}=${multiply?"2":""}a_n+${d}\ (n\ge1)$ から、第 $4$ 項まで書きなさい。`,m`$${values.join(",")}$。`,"直前の項を求めてから、それを次の式に入れます。",values.slice(1).map((v,i)=>m`$a_{${i+2}}=${r}\times${values[i]}+${d}=${v}$。`).join(" "));
-};
-const accumulated=(a:number,odd=false)=>q(m`$a_1=${a},\ a_{n+1}=a_n+${odd?"2n+1":"n"}\ (n\ge1)$ の一般項を求めなさい。`,
- odd?m`$a_n=${a}+n^2-1\ (n\ge1)$。`:m`$a_n=${a}+\frac{n(n-1)}2\ (n\ge1)$。`,
- "隣との差を、初項から足し戻します。初項にも式が合うか確かめます。",
- m`$n\ge2$ では $a_n-a_1=\sum_{k=1}^{n-1}(${odd?"2k+1":"k"})=${odd?m`2\cdot\frac{n(n-1)}2+(n-1)=n^2-1`:m`\frac{n(n-1)}2`}$。初項を足して $a_n=${a}+${odd?"n^2-1":m`\frac{n(n-1)}2`}$。$n=1$ にも代入して $a_1=${a}$ となるので全範囲で使えます。`);
-const affine=(a:number,negative=false)=>{
- const p=negative?-2:2,c=negative?3:1,L=negative?1:-1;
- const shift=negative?"-1":"+1",coefficient=a-L;
- const result=negative?m`${coefficient===1?"":coefficient}(-2)^{n-1}+1`:m`${coefficient}\cdot2^{n-1}-1`;
- return q(m`$a_1=${a},\ a_{n+1}=${p}a_n+${c}\ (n\ge1)$ の一般項を求めなさい。`,
- m`$a_n=${result}\ (n\ge1)$。`,
- "次の項になっても変わらない数を探し、それとの差を新しい数列にします。",
- m`$L=${p}L+${c}$ を解くと $L=${L}$。したがって $a_{n+1}${shift}=${p}(a_n${shift})$。$b_n=a_n${shift}$ は初項 $${coefficient}$、公比 $${p}$ の等比数列です。したがって $b_n=${coefficient}(${p})^{n-1}$。$a_n=b_n+(${L})$ へ戻すと $a_n=${result}$。$n=1$ で $a_1=${a}$。また $${p}\{${result}\}+${c}=${coefficient}(${p})^n+(${L})=a_{n+1}$ なので、元の漸化式も満たします。`);
-};
-const fromSum=(c:number,linear=false)=>{
+
+function update(a:number, multiply=false) {
+ const r=multiply?2:1, d=multiply?1:3, values=[a];
+ for(let i=0;i<3;i++) values.push(r*values[i]+d);
+ const working=values.slice(1).map((v,i)=>m`$a_{${i+2}}=${multiply?m`2\times`:""}${values[i]}+${d}=${v}$。`).join(" ");
+ return worked(checked("recurrence-values",[a,r,d],values[3],
+  m`$a_1=${a},\ a_{n+1}=${multiply?"2":""}a_n+${d}\ (n\ge1)$ から、第 $4$ 項まで書きなさい。`,
+  m`$${values.join(",")}$。`, "求めた値が、次の回の入力です。",working),
+  working, m`初項から並べると $${values.join(",")}$。`);
+}
+
+function accumulated(a:number, odd=false) {
+ const delta=odd?"2k+1":"k", increase=odd?"n^2-1":m`\frac{n(n-1)}2`;
+ const result=odd?m`n^2+${a-1}`:m`${a}+\frac{n(n-1)}2`;
+ const prompt=m`$a_1=${a},\ a_{n+1}=a_n+${odd?"2n+1":"n"}\ (n\ge1)$ の一般項を求めなさい。`;
+ const answer=m`$a_n=${result}\ (n\ge1)$。`;
+ return worked(q(prompt,answer,"初項から目的の項までに通る差を足します。",""),
+  m`第 $n$ 項へは $n-1$ 回進むので、$n\ge2$ では $a_n-a_1=\sum_{k=1}^{n-1}(${delta})$。`,
+  m`差の和は $${odd?m`2\cdot\frac{n(n-1)}2+(n-1)=`:""}${increase}$。初項 $${a}$ を戻すと $a_n=${result}$。$n=1$ でも $${a}$ となります。`);
+}
+
+function affine(a:number, negative=false) {
+ const p=negative?-2:2, c=negative?3:1, L=negative?1:-1;
+ const shift=negative?"-1":"+1", factor=a-L;
+ const result=negative?m`${factor===1?"":factor}(-2)^{n-1}+1`:m`${factor}\cdot2^{n-1}-1`;
+ const prompt=m`$a_1=${a},\ a_{n+1}=${p}a_n+${c}\ (n\ge1)$ の一般項を求めなさい。`;
+ const answer=m`$a_n=${result}\ (n\ge1)$。`;
+ return worked(q(prompt,answer,"更新しても変わらない値を、両辺から引きます。",""),
+  m`$L=${p}L+${c}$ を解くと $L=${L}$。この等式を漸化式から引けば、$a_{n+1}${shift}=${p}(a_n${shift})$。`,
+  m`$b_n=a_n${shift}$ は初項 $${factor}$、公比 $${p}$ の等比数列。$b_n=${factor}(${p})^{n-1}$ なので、$a_n=b_n${negative?"+1":"-1"}=${result}\ (n\ge1)$。`);
+}
+
+function fromSum(c:number, linear=false) {
  const expr=linear?`${c}n+1`:`n^2+${c}n`;
- return q(m`$S_n=a_1+\cdots+a_n=${expr}\ (n\ge1)$ のとき一般項を求めなさい。`,
- linear?m`$a_1=${c+1}$、$n\ge2$ では $a_n=${c}$。`:m`$a_n=2n+${c-1}\ (n\ge1)$。`,
- m`初項は $S_1$ です。二項目以降は隣り合う和の差を取ります。`,
- m`$a_1=S_1=${linear?c+1:c+1}$。$n\ge2$ では $a_n=S_n-S_{n-1}=${linear?m`(${c}n+1)-\{${c}(n-1)+1\}=${c}`:m`n^2+${c}n-\{(n-1)^2+${c}(n-1)\}=2n+${c-1}`}$。`+(linear?"この式を初項に使うと合わないので分けます。":"この式は初項にも合うのでまとめられます。"));
-};
-const inductionSum=(d:number,geo=false)=>{
+ const prompt=m`$S_n=a_1+\cdots+a_n=${expr}\ (n\ge1)$ のとき一般項を求めなさい。`;
+ const answer=linear?m`$a_1=${c+1}$、$n\ge2$ では $a_n=${c}$。`:m`$a_n=2n+${c-1}\ (n\ge1)$。`;
+ const difference=linear?m`(${c}n+1)-\{${c}(n-1)+1\}=${c}`:m`n^2+${c}n-\{(n-1)^2+${c}(n-1)\}=2n+${c-1}`;
+ return worked(q(prompt,answer,"初項は最初の和、二項目以降は隣の和の差です。",""),
+  m`$a_1=S_1=${c+1}$。$n\ge2$ では、初めの $n-1$ 項が消えて $a_n=S_n-S_{n-1}$。`,
+  m`$a_n=${difference}$。`+(linear?m`初項 $${c+1}$ と異なるので、この一定値は $n\ge2$ で使います。`:m`$n=1$ でも $${c+1}$ になるので、$n\ge1$ にまとめられます。`));
+}
+
+function proof(prompt:string,hint:string,base:string,induction:string,conclusion:string) {
+ const passages=[base,induction,conclusion];
+ return worked(q(prompt, passages.join(" "), hint, ""), ...passages);
+}
+
+function inductionSum(d:number,geo=false) {
  const prompt=geo?m`すべての正の整数 $n$ について $1+${d}+\cdots+${d}^{n-1}=\frac{${d}^n-1}{${d-1}}$ を数学的帰納法で証明しなさい。`:m`すべての正の整数 $n$ について $\sum_{j=1}^n(${d}j)=\frac{${d}n(n+1)}2$ を数学的帰納法で証明しなさい。`;
- const goal=geo?m`\frac{${d}^{k+1}-1}{${d-1}}`:m`\frac{${d}(k+1)(k+2)}2`;
- const proof=m`$n=1$ では両辺 $${geo?1:d}$。任意の正の整数 $k$ で $n=k$ の成立を仮定します。目標は、$n=k+1$ の左辺が $${goal}$ に等しいことです。`+(geo?m`仮定した和に次の項を足すと $\frac{${d}^k-1}{${d-1}}+${d}^k=\frac{${d}^k-1+(${d-1})${d}^k}{${d-1}}=${goal}$。`:m`仮定した和に次の項を足すと $\frac{${d}k(k+1)}2+${d}(k+1)=${goal}$。`)+m`よって $n=k+1$ でも成立します。数学的帰納法により、すべての正の整数 $n$ で成立します。`;
- return q(prompt,proof,m`まず $n=1$ で両辺を計算します。次に任意の正の整数 $k$ での成立を仮定し、左辺に次の一項を加えて目標の右辺へ変形します。`,proof);
-};
-const divisibility=(a:number)=>{
- const proof=m`$n=1$ では $${a}-1=${a-1}$ なので成立します。任意の正の整数 $k$ で $${a}^k-1=(${a-1})t$（$t$ は整数）と仮定します。目標は $${a}^{k+1}-1$ も $${a-1}$ の倍数であることです。$${a}^{k+1}-1=${a}(${a}^k-1)+(${a-1})=(${a-1})(${a}t+1)$。$${a}t+1$ も整数なので、次も成立します。数学的帰納法により、すべての正の整数 $n$ で成立します。`;
- return q(m`正の整数 $n$ について $${a}^n-1$ が $${a-1}$ の倍数であることを、数学的帰納法で示しなさい。`,proof,m`まず $n=1$ を確かめます。次に $${a}^{k+1}-1$ の中に、仮定した $${a}^k-1$ の定数倍を作ります。`,proof);
-};
-const bernoulli=(a:number)=>{
- const proof=m`$n=1$ では両辺 $${a+1}$。任意の正の整数 $k$ で $${a+1}^k\ge1+${a}k$ と仮定します。目標は $${a+1}^{k+1}\ge1+${a}(k+1)$ です。正の $${a+1}$ を掛けると $${a+1}^{k+1}\ge(${a+1})(1+${a}k)=1+${a}(k+1)+${a*a}k\ge1+${a}(k+1)$。$k\ge1$ より最後の余分な項は非負です。よって次も成立し、数学的帰納法によりすべての正の整数 $n$ で成立します。`;
- return q(m`正の整数 $n$ について $${a+1}^n\ge1+${a}n$ を数学的帰納法で証明しなさい。`,proof,m`まず $n=1$ を確かめます。次に仮定した不等式へ正の $${a+1}$ を掛け、目標の右辺との差の符号を調べます。`,proof);
-};
+ const substitution=geo?m`$\frac{${d}^k-1}{${d-1}}+${d}^k=\frac{${d}^{k+1}-1}{${d-1}}$`:m`$\frac{${d}k(k+1)}2+${d}(k+1)=\frac{${d}(k+1)(k+2)}2$`;
+ return proof(prompt,m`$k+1$ 項の和を、仮定した $k$ 項の和と最後の一項に分けます。`,
+  m`$n=1$ では両辺とも $${geo?1:d}$。`,
+  m`任意の正の整数 $k$ で等式を仮定します。その両辺に次の項 $${geo?m`${d}^k`:m`${d}(k+1)`}$ を足すと、左辺は $k+1$ 項の和、右辺は ${substitution}。`,
+  m`これは $n=k+1$ の等式です。数学的帰納法により、すべての正の整数 $n$ で成立します。`);
+}
+
+function divisibility(a:number) {
+ return proof(m`正の整数 $n$ について $${a}^n-1$ が $${a-1}$ の倍数であることを、数学的帰納法で示しなさい。`,
+  m`次の式の中に、仮定の $${a}^k-1$ を作ります。`,
+  m`$n=1$ では $${a}-1=${a-1}$ で成立。`,
+  m`任意の正の整数 $k$ で $${a}^k-1=${a-1}t$（$t$ は整数）と仮定します。$${a}^{k+1}-1=${a}(${a}^k-1)+${a-1}=${a-1}(${a}t+1)$。`,
+  m`$${a}t+1$ も整数なので、次も $${a-1}$ の倍数です。数学的帰納法により、すべての正の整数で成立します。`);
+}
+
+function bernoulli(a:number) {
+ return proof(m`正の整数 $n$ について $${a+1}^n\ge1+${a}n$ を数学的帰納法で証明しなさい。`,
+  m`仮定した不等式に正の $${a+1}$ を掛け、右辺と次の目標との差を調べます。`,
+  m`$n=1$ では両辺とも $${a+1}$。`,
+  m`任意の正の整数 $k$ で $${a+1}^k\ge1+${a}k$ と仮定します。正の $${a+1}$ を掛けると $${a+1}^{k+1}\ge(${a+1})(1+${a}k)=1+${a}(k+1)+${a*a}k$。`,
+  m`$${a*a}k\ge0$ なので、$${a+1}^{k+1}\ge1+${a}(k+1)$。数学的帰納法により、すべての正の整数で成立します。`);
+}
 export const recurrenceBanks=[
  B(chapter,"recurrence","漸化式と初項","次の項を作る規則を、一段ずつ使います。",[m`漸化式は、前後の項の関係を表す式です。$a_{n+1}=a_n+3$ だけでは初めの値は決まりません。`,m`初項も与えれば $a_1$ から $a_2,a_3,\ldots$ と順に求められます。$a_{n+1}$ を求める式の右辺には、まだ求めていない次の項ではなく $a_n$ を入れます。`],"初項と、規則を使える添字の範囲を確認します。",[S("add","一定の差で更新する","直前の項に差を加えます。",nums.map(n=>update(n))),S("multiply-add","掛けてから足す更新","操作の順序を保って次の項を作ります。",nums.map(n=>update(n,true)))],sec[0]),
  B(chapter,"recurrence-difference","差を足して解く漸化式","増える量が変わるときも、隣との差から考えます。",[m`$a_{n+1}=a_n+n$ なら、増える量は $1,2,3,\ldots$ です。元の数列を等差数列と取り違えないようにします。`,m`$n\ge2$ では $a_n=a_1+\sum_{k=1}^{n-1}(a_{k+1}-a_k)$ へ直せば、既に学んだ和が使えます。初項は別に確かめます。`],"和で求めた式を、初項と漸化式の両方で確かめます。",[S("linear","自然数の差を足す",m`差を $n-1$ 個足します。`,nums.map(n=>accumulated(n))),S("odd","奇数の差を足す","添字をそろえて和にします。",nums.map(n=>accumulated(n,true)))],sec[0]),

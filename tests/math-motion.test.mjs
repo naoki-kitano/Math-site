@@ -176,6 +176,19 @@ test('formula correspondence keeps every stage typeset and retains its lesson co
      const outcomes=Array.from({length:faces.length/trials},(_,i)=>faces.slice(i*trials,(i+1)*trials).join(''));
      assert.equal(new Set(outcomes).size,outcomes.length,slug+' no duplicated outcomes');
      assert.deepEqual(outcomes.sort(),shownExpected.sort(),slug+' outcomes agree with the current mathematical step');
+    }else if(kind==='mb-statistics-coins'&&stage===0){
+     const faces=['表','裏'];
+     const allPairs=faces.flatMap(first=>faces.map(second=>first+second));
+     const shown=[...html.matchAll(/<span>([表裏]{2})<\/span>/g)].map(m=>m[1]);
+     assert.deepEqual(shown.sort(),allPairs.sort(),'one outcome per ordered pair of tosses');
+    }else if(kind==='mb-sequence-shell'){
+     const blocks=html.split('class="mb-seq-block"').slice(1);
+     const visible=blocks.filter(block=>block.split('>')[0].includes('opacity:1'));
+     // On each of the three visible faces, two interior lines split a length of three into units.
+     const gridLines=visible.map(block=>(block.match(/<polyline\b/g)??[]).length).sort((a,b)=>a-b);
+     assert.deepEqual(gridLines,stage===0?[12]:[0,4,4,4,8,8,8,12],
+      'core alone, then the core, three plates, three rods and one unit cube');
+     if(stage>0)assert.match(html,/<math /,'shell pieces and identity have typeset labels');
     }else assert.match(html,/<math /,`${slug}: diagram must contain its mathematical labels`);
     assert.doesNotMatch(html,/math-error|katex-error/,slug);
    }
